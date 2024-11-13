@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile | Parlimate</title>
-    <link rel="stylesheet" href="../../sidebar1.css" />
+    <link rel="stylesheet" href="../../index/sidebar1.css" />
     <link rel="stylesheet" href="../../header.css" />
     <link rel="stylesheet" href="../../index.css" />
     <link rel="stylesheet" href="../profile.css" />
@@ -27,124 +27,8 @@
     />
 </head>
 <body>
-<div class="sidebar pd-1">
-    <div class="searchBar">
-        <input
-                type="search"
-                name="sideBarSearch"
-                id="sideBarSearch"
-                placeholder="Search..."
-        />
-        <label for="sideBarSearch">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-    </div>
-    <div class="navs">
-        <ul>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-Home"
-                        value="../../index.html"
-                />
-                <label for="nav-Home"
-                ><i class="fa-solid fa-house"></i>Home</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-announcements"
-                        value="../../Announcements/announcements.html"
-                />
-                <label for="nav-announcements"
-                ><i class="fa-solid fa-bullhorn"></i
-                >Announcements</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-fundraise"
-                        value="../../Fundraising/fundraising.html"
-                />
-                <label for="nav-fundraise"
-                ><i class="fa-solid fa-coins"></i>Fundraises</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-noti"
-                        value="../../notifications.html"
-                />
-                <label for="nav-noti">
-                    <i class="fa-solid fa-bell"></i>Notifications
-                </label>
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-survey"
-                        value="../../Surveys/surveys.html"
-                />
-                <label for="nav-survey"
-                ><i class="fa-solid fa-clipboard"></i>Surveys</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-discusRoom"
-                        value="../../DiscussionRoom/discussion-room.html"
-                />
-                <label for="nav-discusRoom"
-                ><i class="fa-solid fa-people-group"></i>Discussion
-                    Room</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-help"
-                        value="help.html"
-                />
-                <label for="nav-help"
-                ><i class="fa-solid fa-headset"></i
-                >Help/Support</label
-                >
-            </li>
-            <li>
-                <input
-                        type="radio"
-                        name="nav"
-                        id="nav-settings"
-                        value="settings.html"
-                />
-                <label for="nav-settings"
-                ><i class="fa-solid fa-gear"></i>Settings</label
-                >
-            </li>
-        </ul>
-    </div>
+<%@ include file="../..//index/sidebar.jsp" %>
 
-    <div class="logoutBtn capitalize">
-        <div class="cont">
-            <input type="checkbox" name="logoutBtn" id="logoutBtn" />
-            <label for="logoutBtn">
-                <i class="fa-solid fa-sign-out"></i>
-                <span>logout</span>
-            </label>
-        </div>
-    </div>
-</div>
 <div class="header pd-2">
     <div class="start row">
         <div class="sidebar-toggle-btn sideMenuBtn btn">

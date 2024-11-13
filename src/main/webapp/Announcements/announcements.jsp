@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
     <link rel="stylesheet" href="./announcement.css" />
+    <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
 /> -->
@@ -194,6 +195,61 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 </div>
 
 <div class="container col">
+    <div class="popup-modal">
+        <div class="popup">
+            <div class="title">
+                New Announcement
+                <div class="close-btn btn" id="popup-close-btn">
+                    <i class="fa-solid fa-times"></i>
+                </div>
+                <div class="breakLine"></div>
+            </div>
+            <div class="content">
+                <div class="account row">
+                    <div class="user-profile">
+                        <div class="prof-img"></div>
+                        <div class="user-name">Manuja Ransara</div>
+                    </div>
+                    <div class="switch-btn capitalize">
+                        <a href="#"
+                        >switch account
+                            <i class="fa-regular fa-chevron-down"></i
+                            ></a>
+                    </div>
+                </div>
+                <div class="discussion-title col">
+                    <div class="title capitalize">title</div>
+                    <input
+                            autocomplete="off"
+                            type="text"
+                            name="add-post-title"
+                            id="add-post-title"
+                            placeholder="Enter the title of the announcement"
+                    />
+                </div>
+                <div class="caption-box col content-pd">
+                    <div class="title capitalize">content</div>
+                    <textarea
+                            autocomplete="off"
+                            name="add-post-caption"
+                            id="add-post-caption"
+                            placeholder="Enter the content of the announcement"
+                    ></textarea>
+                </div>
+
+                <div class="popbtns capitalize">
+                    <div class="clear-btn" id="popup-clear-btn">
+                        Clear
+                        <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                    </div>
+                    <div class="post-btn" id="popup-post-btn">
+                        post announcement
+                        <i class="fa-duotone fa-solid fa-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="pageTitles">
         <h2 class="title">Announcements</h2>
         <div class="subTitle">
@@ -202,6 +258,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </div>
     <div class="row">
         <div class="announcements col">
+            <button class="add-announcement">
+                <i class="fa-solid fa-plus"></i>
+                <span> add announcement </span>
+            </button>
             <!-- Announcement Card 1 -->
             <div class="post announcement-card">
                 <div class="post-head">

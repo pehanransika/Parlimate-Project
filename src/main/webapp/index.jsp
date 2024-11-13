@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="popup.css" />
     <link rel="stylesheet" href="comment.css" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="edit.css" />
 
     <!-- icons -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"

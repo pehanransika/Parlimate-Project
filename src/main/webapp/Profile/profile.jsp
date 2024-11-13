@@ -266,7 +266,7 @@
                 </div>
             </div>
         </div>
-        <a href="./editProfile/index.html" class="edit-btn btn row capitalize">
+        <a href="./editProfile/edit.jsp" class="edit-btn btn row capitalize">
             <i class="fa-solid fa-pen-to-square"></i>
             edit profile
         </a>
