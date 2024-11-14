@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
-    <link rel="stylesheet" href="./announcement.css" />
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -250,6 +249,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
     </div>
+
+    <div class="popup-modal" id="editPopup">
+        <div class="popup">
+            <div class="title">
+                <span>Edit Announcement</span>
+                <button id="popup-close-btn" onclick="closeEditPopup()">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                <div class="breakLine"></div>
+            </div>
+            <div class="content">
+                <div class="formSection">
+                    <label for="editTitle">Title</label>
+                    <input
+                            type="text"
+                            id="editTitle"
+                            placeholder="Edit title here..."
+                    />
+                </div>
+
+                <div class="formSection">
+                    <label for="editContent">Content</label>
+                    <textarea
+                            id="editContent"
+                            placeholder="Edit content here..."
+                    ></textarea>
+                </div>
+
+                <div class="popbtns">
+                    <div class="post-btn" onclick="saveEdit()">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-modal" id="deletePopup">
+        <div class="popup">
+            <div class="title">
+                <span>Confirm Deletion</span>
+                <button id="popup-close-btn" onclick="closeDeletePopup()">X</button>
+                <div class="breakLine"></div>
+            </div>
+            <div class="content">
+                <p>Are you sure you want to delete this announcement?</p>
+                <div class="popbtns">
+                    <div class="post-btn" onclick="confirmDelete()">Yes, Delete</div>
+                    <div onclick="closeDeletePopup()">Cancel</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="pageTitles">
         <h2 class="title">Announcements</h2>
         <div class="subTitle">
@@ -262,6 +312,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <i class="fa-solid fa-plus"></i>
                 <span> add announcement </span>
             </button>
+
             <!-- Announcement Card 1 -->
             <div class="post announcement-card">
                 <div class="post-head">
@@ -287,6 +338,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </p>
                     <div class="location">
                         <span>Location: Conference Room 2</span>
+                    </div>
+                    <div class="ann-btns rown">
+                        <button
+                                class="edit-btn"
+                                onclick="openEditPopup(this)"
+                        >
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
+
                     </div>
                 </div>
             </div>
@@ -317,6 +378,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </p>
                     <div class="location">
                         <span>Location: HR Office</span>
+                    </div>
+                    <div class="ann-btns rown">
+                        <button
+                                class="edit-btn"
+                                onclick="openEditPopup(this)"
+                        >
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
+
                     </div>
                 </div>
             </div>
@@ -358,6 +429,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </p>
                     <div class="location">
                         <span>Location: HR Office</span>
+                    </div>
+                    <div class="ann-btns rown">
+                        <button
+                                class="edit-btn"
+                                onclick="openEditPopup(this)"
+                        >
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
+
                     </div>
                 </div>
             </div>
@@ -404,6 +485,88 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </div>
 </div>
 
+<script>
+    const addAnnBtn = document.querySelector("button.add-announcement");
+    const popCloseBtn = document.querySelector("#popup-close-btn");
+
+
+    closeEditPopup();
+    closeDeletePopup();
+
+
+    addAnnBtn.addEventListener("click", () => {
+        if (!body.classList.contains("popup-active")) {
+            body.classList.add("popup-active");
+        }
+    });
+    popCloseBtn.addEventListener("click", () => {
+        if (body.classList.contains("popup-active")) {
+            body.classList.remove("popup-active");
+        }
+    });
+
+    function openEditPopup(button) {
+        const card = button.closest(".announcement-card");
+        const title = card.querySelector(".post-title").innerText;
+        const content = card.querySelector(".content p").innerText;
+
+        document.getElementById("editTitle").value = title;
+        document.getElementById("editContent").value = content;
+
+        document.body.classList.add("popup-active-edit");
+        document.getElementById("editPopup").style.display = "block";
+
+        // Store reference to the card being edited
+        document.getElementById("editPopup").dataset.currentCard = card;
+    }
+
+    function closeEditPopup() {
+        document.body.classList.remove("popup-active-edit");
+        document.getElementById("editPopup").style.display = "none";
+    }
+
+    function saveEdit() {
+        const card =
+            document.getElementById("editPopup").dataset.currentCard;
+        const title = document.getElementById("editTitle").value;
+        const content = document.getElementById("editContent").value;
+
+        // Update the card with new values
+        card.querySelector(".post-title").innerText = title;
+        card.querySelector(".content p").innerText = content;
+
+        // Close the popup
+        closeEditPopup();
+    }
+
+
+    // delete announcement
+    function openDeletePopup(button) {
+        const card = button.closest('.announcement-card');
+
+        // Store reference to the card being deleted
+        document.getElementById('deletePopup').dataset.currentCard = card;
+
+        document.body.classList.add('popup-active-delete');
+        document.getElementById('deletePopup').style.display = 'block';
+    }
+
+    function closeDeletePopup() {
+        document.body.classList.remove('popup-active-delete');
+        document.getElementById('deletePopup').style.display = 'none';
+    }
+
+    function confirmDelete() {
+        const card = document.getElementById('deletePopup').dataset.currentCard;
+
+        // Remove the card from the DOM
+        card.remove();
+
+        // Close the popup
+        closeDeletePopup();
+    }
+
+</script>
 <script src="../script.js"></script>
 </body>
 </html>
