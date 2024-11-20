@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/sidebar1.css">
+
 <div class="sidebar pd-1">
     <div class="navs">
         <ul>

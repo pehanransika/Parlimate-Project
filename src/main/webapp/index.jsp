@@ -1,100 +1,108 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Parlimate</title>
-    <link rel="stylesheet" href="index/sidebar1.css" />
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="container.css" />
-    <link rel="stylesheet" href="popup.css" />
-    <link rel="stylesheet" href="comment.css" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="edit.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home | Parlimate</title>
+        <link rel="stylesheet" href="index/sidebar1.css" />
+        <link rel="stylesheet" href="header.css" />
+        <link rel="stylesheet" href="container.css" />
+        <link rel="stylesheet" href="popup.css" />
+        <link rel="stylesheet" href="comment.css" />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="edit.css" />
 
-    <!-- icons -->
-    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-          href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d" />
+        <!-- icons -->
+        <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
+              href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css" />
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css" />
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css" />
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css" />
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css" />
 
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css" />
-</head>
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css" />
+    </head>
 
-<body class="">
-<div class="notification-msg capitalize"></div>
-<div class="popup-modal">
-    <div class="popup">
-        <div class="title">
-            New Post
-            <div class="close-btn btn" id="popup-close-btn">
-                <i class="fa-solid fa-times"></i>
-            </div>
-            <div class="breakLine"></div>
-        </div>
-        <div class="content">
-            <div class="account row">
-                <div class="user-profile">
-                    <div class="prof-img"></div>
-                    <div class="user-name">Naleeka Kumarasinghe</div>
+    <body class="">
+
+    <div class="notification-msg capitalize"></div>
+    <div class="popup-modal">
+        <div class="popup">
+            <div class="title">
+                New Post
+                <div class="close-btn btn" id="popup-close-btn">
+                    <i class="fa-solid fa-times"></i>
                 </div>
-                <div class="switch-btn capitalize">
-                    <a href="#">switch account
-                        <i class="fa-regular fa-chevron-down"></i></a>
-                </div>
-            </div>
-            <div class="discussion-title col">
-                <div class="title capitalize">title</div>
-                <input autocomplete="off" type="text" name="add-post-title" id="add-post-title"
-                       placeholder="Enter the title of the discussion" />
-            </div>
-            <div class="caption-box col content-pd">
-                <div class="title capitalize">caption</div>
-                <textarea autocomplete="off" name="add-post-caption" id="add-post-caption"
-                          placeholder="Enter the caption of the discussion"></textarea>
+                <div class="breakLine"></div>
             </div>
 
-            <div class="tags-box col content-pd">
-                <div class="title capitalize">tags</div>
-                <input type="text" name="hashtags" id="addost-hashtags" />
-                <div class="recomended-tags">
-                    Try :
-                    <span>
-							<input type="checkbox" name="hashtags" id="hashtag-1" />
-							<label for="hashtag-1">GoHomeGota</label>
-						</span>
-                    <span>
-							<input type="checkbox" name="hashtags" id="hashtag-2" />
-							<label for="hashtag-2">PresidentialElection2024</label>
-						</span>
-                    <span>
-							<input type="checkbox" name="hashtags" id="hashtag-3" />
-							<label for="hashtag-3">PoliticalNews</label>
-						</span>
+            <div class="content">
+                <div class="account row">
+                    <div class="user-profile">
+                        <div class="prof-img"></div>
+                        <div class="user-name">Naleeka Kumarasinghe</div>
+                    </div>
+                    <div class="switch-btn capitalize">
+                        <a href="#">switch account
+                            <i class="fa-regular fa-chevron-down"></i></a>
+                    </div>
+                </div>
+                <div class="discussion-title col">
+                    <div class="title capitalize">title</div>
+                    <input autocomplete="off" type="text" name="add-post-title" id="add-post-title"
+                           placeholder="Enter the title of the discussion" />
+                </div>
+                <div class="caption-box col content-pd">
+                    <div class="title capitalize">caption</div>
+                    <textarea autocomplete="off" name="add-post-caption" id="add-post-caption"
+                              placeholder="Enter the caption of the discussion"></textarea>
+                </div>
+
+                <div class="tags-box col content-pd">
+                    <div class="title capitalize">tags</div>
+                    <input type="text" name="hashtags" id="addost-hashtags" />
+                    <div class="recomended-tags">
+                        Try :
+                        <span>
+                                <input type="checkbox" name="hashtags" id="hashtag-1" />
+                                <label for="hashtag-1">GoHomeGota</label>
+                            </span>
+                        <span>
+                                <input type="checkbox" name="hashtags" id="hashtag-2" />
+                                <label for="hashtag-2">PresidentialElection2024</label>
+                            </span>
+                        <span>
+                                <input type="checkbox" name="hashtags" id="hashtag-3" />
+                                <label for="hashtag-3">PoliticalNews</label>
+                            </span>
+                    </div>
+                </div>
+                <div class="popbtns capitalize">
+                    <div class="clear-btn" id="popup-clear-btn">
+                        Clear
+                        <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                    </div>
+                    <div class="post-btn" id="popup-post-btn">
+                        post discussion
+                        <i class="fa-duotone fa-solid fa-check"></i>
+                    </div>
                 </div>
             </div>
-            <div class="popbtns capitalize">
-                <div class="clear-btn" id="popup-clear-btn">
-                    Clear
-                    <i class="fa-sharp fa-solid fa-rotate-left"></i>
-                </div>
-                <div class="post-btn" id="popup-post-btn">
-                    post discussion
-                    <i class="fa-duotone fa-solid fa-check"></i>
-                </div>
-            </div>
+
         </div>
     </div>
-</div>
+
 <div class="comment-popup">
     <div class="comment-container col-u">
         <div class="drop-cmnt"></div>
@@ -170,102 +178,36 @@
                 </button>
             </div>
         </div>
-        <div class="cmnt-section col-u">
-            <div class="prev-cmnts col-u">
-                <div class="prev-cmnt row">
-                    <div class="prof-img"></div>
-                    <div class="cmnt upvoted">
-                        <div class="name">Pehan Ransika</div>
-                        <span>
-								You nailed it! It’s like we’re living in a
-								real-life political satire where the plot
-								never gets boring—just more absurd. And the
-								best part? We don’t even need a subscription
-								to watch this comedy unfold. Maybe we should
-								start offering free tours for political
-								science students from around the world—who
-								wouldn’t want a front-row seat to this
-								never-ending drama?
-							</span>
-                        <div class="upvote row">
-                            <i class="fa-solid fa-up"></i>
-                            <span>900</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="prev-cmnt row">
-                    <div class="prof-img"></div>
-                    <div class="cmnt upvoted">
-                        <div class="name">Manuja Ransara</div>
-                        <span>
-								Couldn’t agree more! At this point, I think
-								we should start charging for the
-								entertainment value alone. The politicians
-								might not be able to balance a budget, but
-								they sure know how to keep us on the edge of
-								our seats. If only they could put that same
-								energy into actually running the country!
-							</span>
-                        <div class="upvote row">
-                            <i class="fa-solid fa-up"></i>
-                            <span>459</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="prev-cmnt row">
-                    <div class="prof-img"></div>
-                    <div class="cmnt">
-                        <div class="name">Dehan Anuranda</div>
-                        <span>
-								You’ve hit the nail on the head with this
-								one. Sri Lankan politics truly feels like a
-								never-ending loop of chaos, where the only
-								constant is the sheer absurdity of it all.
-								It’s like our leaders are playing a game of
-								“who can mess up the most” while the rest of
-								us are left to pick up the pieces. What’s
-								even more frustrating is the way they manage
-								to turn every opportunity for progress into
-								yet another fiasco. From half-baked policies
-								to outright corruption, it’s a masterclass
-								in how to squander potential. As a student,
-								it’s hard not to feel disillusioned when you
-								see the same patterns of failure repeated
-								over and over again with no end in sight.
-								But at the same time, you can’t help but
-								marvel at the sheer audacity of it all.
-								Watching our politicians navigate the murky
-								waters of incompetence with such confidence
-								almost feels like a twisted form of
-								entertainment. The irony, of course, is that
-								while they continue to play their games, the
-								country’s future hangs in the balance. It’s
-								a harsh reminder that while we may laugh at
-								the absurdity, the consequences are all too
-								real. If only our leaders put as much effort
-								into actual governance as they do into their
-								political theatrics, maybe we wouldn’t be
-								stuck in this endless cycle of despair. But
-								until that day comes, we’re left to watch
-								the spectacle unfold, hoping that someday,
-								the script will finally change.
-							</span>
-                        <div class="upvote row">
-                            <i class="fa-light fa-up"></i>
-                            <span>10</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="add-cmnt row">
                 <div class="curr-user row">
                     <div class="prof-img"></div>
+                    <div class="button-container">
+                        <!-- Button styled link, now it triggers the ViewCommentServlet -->
+                        <a href="ViewCommentListServlet" class="see-comments-button">
+                            <button class="see-comments-button">
+                                <i class="fa-solid fa-comment"></i>
+                                <span>See Comments</span>
+                            </button>
+                        </a>
+                    </div>
                 </div>
-                <textarea name="add comment" id="add-cmnt" placeholder="Comment here"></textarea>
-                <button class="post-btn row btn capitalize">
-                    post
-                    <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
-                </button>
+
+
+                <form action="PublishNewCommentServlet" method="POST">
+                    <textarea name="content" id="add-cmnt" placeholder="Comment here" required></textarea>
+                    <button type="submit" class="post-btn row btn capitalize">
+                        Post
+                        <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
+                    </button>
+                </form>
+                <a href="ViewCommentServlet" class="see-my-comments-button">
+                    <button class="see-my-comments-button">
+                        <i class="fa-solid fa-comment"></i>
+                        <span>See my Comments</span>
+                    </button>
+                </a>
+
             </div>
         </div>
     </div>
