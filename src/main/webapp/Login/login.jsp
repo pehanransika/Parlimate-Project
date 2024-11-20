@@ -100,7 +100,7 @@
             <button class="btn login-btn">Login</button>
             <div class="signup-section col">
                 <div class="divider"></div>
-                <span> Not a member? <a href="#">Signup now</a> </span>
+                <span> Not a member? <a href="../Register/register.jsp">Signup now</a> </span>
             </div>
         </div>
     </div>

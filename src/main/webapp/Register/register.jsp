@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Parlimate | Register</title>
-    <link rel="stylesheet" href="../uLogin/login.css" />
+    <link rel="stylesheet" href="../Login/loginu.css" />
     <link rel="stylesheet" href="../container.css" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./signup.css" />
@@ -270,7 +270,7 @@
             <div class="signup-section col">
                 <div class="divider"></div>
                 <span>
-							Already have an account? <a href="#">Login</a>
+							Already have an account? <a href="../Login/login.jsp">Login</a>
 						</span>
             </div>
         </div>
