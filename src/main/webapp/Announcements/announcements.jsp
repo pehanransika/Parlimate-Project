@@ -196,57 +196,55 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <div class="container col">
     <div class="popup-modal">
         <div class="popup">
-            <div class="title">
-                New Announcement
-                <div class="close-btn btn" id="popup-close-btn">
-                    <i class="fa-solid fa-times"></i>
-                </div>
-                <div class="breakLine"></div>
-            </div>
-            <div class="content">
-                <div class="account row">
-                    <div class="user-profile">
-                        <div class="prof-img"></div>
-                        <div class="user-name">Manuja Ransara</div>
+            <!-- Announcement Form -->
+            <form action="PublishAnnouncementServlet" method="post">
+                <div class="title">
+                    New Announcement
+                    <div class="close-btn btn" id="popup-close-btn">
+                        <i class="fa-solid fa-times"></i>
                     </div>
-                    <div class="switch-btn capitalize">
-                        <a href="#"
-                        >switch account
-                            <i class="fa-regular fa-chevron-down"></i
-                            ></a>
-                    </div>
+                    <div class="breakLine"></div>
                 </div>
-                <div class="discussion-title col">
-                    <div class="title capitalize">title</div>
-                    <input
-                            autocomplete="off"
-                            type="text"
-                            name="add-post-title"
-                            id="add-post-title"
-                            placeholder="Enter the title of the announcement"
-                    />
-                </div>
-                <div class="caption-box col content-pd">
-                    <div class="title capitalize">content</div>
-                    <textarea
-                            autocomplete="off"
-                            name="add-post-caption"
-                            id="add-post-caption"
-                            placeholder="Enter the content of the announcement"
-                    ></textarea>
-                </div>
+                <div class="content">
+                    <!-- Politician ID (hidden field) -->
+                    <input type="hidden" name="politicianid" id="politicianid" value="1" />
 
-                <div class="popbtns capitalize">
-                    <div class="clear-btn" id="popup-clear-btn">
-                        Clear
-                        <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                    <!-- Announcement Title -->
+                    <div class="discussion-title col">
+                        <label for="add-post-title">Title</label>
+                        <input
+                                autocomplete="off"
+                                type="text"
+                                name="title"
+                                id="add-post-title"
+                                placeholder="Enter the title of the announcement"
+                                required
+                        />
                     </div>
-                    <div class="post-btn" id="popup-post-btn">
-                        post announcement
-                        <i class="fa-duotone fa-solid fa-check"></i>
+
+                    <!-- Announcement Content -->
+                    <div class="caption-box col content-pd">
+                        <label for="add-post-caption">Content</label>
+                        <textarea
+                                autocomplete="off"
+                                name="content"
+                                id="add-post-caption"
+                                placeholder="Enter the content of the announcement"
+                                required
+                        ></textarea>
+                    </div>
+
+                    <!-- Form Buttons -->
+                    <div class="popbtns capitalize">
+                        <button type="reset" class="clear-btn" id="popup-clear-btn">
+                            Clear <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button type="submit" class="post-btn" id="popup-post-btn">
+                            Post Announcement <i class="fa-solid fa-check"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -283,6 +281,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+
+    <div class="popup-modal" id="editPopup">
+        <div class="popup">
+            <div class="title">
+                <span>Edit Announcement</span>
+                <button id="popup-close-btn" onclick="closeEditPopup()">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                <div class="breakLine"></div>
+            </div>
+            <div class="content">
+                <div class="formSection">
+                    <label for="editTitle">Title</label>
+                    <input
+                            type="text"
+                            id="editTitle"
+                            placeholder="Edit title here..."
+                    />
+                </div>
+
+                <div class="formSection">
+                    <label for="editContent">Content</label>
+                    <textarea
+                            id="editContent"
+                            placeholder="Edit content here..."
+                    ></textarea>
+                </div>
+
+                <div class="popbtns">
+                    <div class="post-btn" onclick="saveEdit()">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+=======
+>>>>>>> 7d55344bbc424c9e52aa8a5d4a490a4849246e46
     <div class="popup-modal" id="deletePopup">
         <div class="popup">
             <div class="title">
@@ -312,6 +347,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <i class="fa-solid fa-plus"></i>
                 <span> add announcement </span>
             </button>
+<<<<<<< HEAD
+=======
+            <a href="GetAllServlet?announcementId=123">
+                <button class="view-my-announcement">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>View My Announcements</span>
+                </button>
+            </a>
+
+            <a href="GetListServlet?announcementId=123">
+                <button class="more_announcements">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>More announcements</span>
+                </button>
+            </a>
+
+
+>>>>>>> 7d55344bbc424c9e52aa8a5d4a490a4849246e46
 
             <!-- Announcement Card 1 -->
             <div class="post announcement-card">
@@ -321,9 +374,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <div class="user-details col">
                             <div class="name">Himasha Chinthani</div>
                             <div class="posted-date row">
-										<span class="date"
-                                        >August 10, 2024</span
-                                        >
+                                <span class="date">August 10, 2024</span>
                                 <span class="time">10:00 AM</span>
                             </div>
                         </div>
@@ -340,6 +391,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <span>Location: Conference Room 2</span>
                     </div>
                     <div class="ann-btns rown">
+<<<<<<< HEAD
                         <button
                                 class="edit-btn"
                                 onclick="openEditPopup(this)"
@@ -348,6 +400,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         </button>
                         <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
 
+=======
+                        <button class="edit-btn" onclick="openEditPopup(this)">
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">
+                            Delete
+                        </button>
+>>>>>>> 7d55344bbc424c9e52aa8a5d4a490a4849246e46
                     </div>
                 </div>
             </div>
@@ -391,6 +451,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </div>
                 </div>
             </div>
+
 
             <!-- Add more cards as needed -->
             <div class="post announcement-card">
@@ -485,6 +546,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </div>
 </div>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7d55344bbc424c9e52aa8a5d4a490a4849246e46
 <script>
     const addAnnBtn = document.querySelector("button.add-announcement");
     const popCloseBtn = document.querySelector("#popup-close-btn");

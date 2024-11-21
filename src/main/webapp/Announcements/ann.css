@@ -1,6 +1,7 @@
 body.sidebar-deactive .sidebar {
     transform: translateX(-100%);
 }
+
 .container .pageTitles{
     align-self: start;
     margin-bottom: 2rem;
@@ -124,7 +125,7 @@ body {
     color: #555;
 }
 
-.add-announcement{
+.add-announcement {
     cursor: pointer !important;
     width: 16rem;
     min-height: 10rem;
@@ -141,10 +142,69 @@ body {
     text-transform: capitalize;
     font-weight: 600;
 }
+
 .add-announcement i {
     font-size: 3rem;
 }
 
+
+/* Styling for the View My Announcement button */
+.view-my-announcement {
+    cursor: pointer !important;
+    width: 16rem;
+    min-height: 10rem;
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid #b9d1ff;
+    background: #5490FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  margin-left: auto ;
+    margin-top: -11rem;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.view-my-announcement i {
+    font-size: 3rem;
+}
+.more_announcements {
+    cursor: pointer !important;
+    width: 16rem;
+    min-height: 8rem;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #b9d1ff;
+    background: #4a8fe5;  /* Set a blue background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 600;
+    border: none;  /* Remove the default button border */
+}
+
+/* Icon inside the button */
+.more_announcements i {
+    font-size: 2.5rem;  /* Icon size */
+}
+
+/* Text inside the button */
+.more_announcements span {
+    font-size: 1rem;  /* Text size */
+}
+
+/* Hover effect for the link */
+a:hover .more_announcements {
+    transform: scale(1.05);  /* Slightly enlarge the button on hover */
+    transition: transform 0.3s ease;  /* Smooth transition effect */
+}
 /* change this later */
 .popup-modal{
     position: fixed;

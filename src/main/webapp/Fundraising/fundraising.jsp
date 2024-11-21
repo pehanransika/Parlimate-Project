@@ -299,7 +299,7 @@
                 body.classList.add("sidebar-deactive");
             }
         });
-    });
+    })
 
     navRadios.forEach(radio => {
         radio.addEventListener('change', (event) => {

@@ -1,7 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
 
-<web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <!-- Servlet for PublishAnnouncementServlet -->
+  <servlet>
+    <servlet-name>PublishAnnouncementServlet</servlet-name>
+    <servlet-class>com.ann.PublishAnnouncementServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishAnnouncementServlet</servlet-name>
+    <url-pattern>/Announcements/PublishAnnouncementServlet</url-pattern>
+  </servlet-mapping>
+
+  <!-- Servlet for GetAllServlet -->
+  <servlet>
+    <servlet-name>GetAllServlet</servlet-name>
+    <servlet-class>com.ann.GetAllServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAllServlet</servlet-name>
+    <url-pattern>/Announcements/GetAllServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetListServlet</servlet-name>
+    <servlet-class>com.ann.GetListServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetListServlet</servlet-name>
+    <url-pattern>/Announcements/GetListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.ann.UpdateServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/Announcements/UpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>com.ann.DeleteServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/Announcements/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PublishCommentServlet</servlet-name>
+    <servlet-class>comment.PublishCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishCommentServlet</servlet-name>
+    <url-pattern>/PublishCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewCommentServlet</servlet-name>
+    <servlet-class>comment.ViewCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewCommentServlet</servlet-name>
+    <url-pattern>/ViewCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewCommentListServlet</servlet-name>
+    <servlet-class>comment.ViewCommentListServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewCommentListServlet</servlet-name>
+    <url-pattern>/ViewCommentListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateCommentServlet</servlet-name>
+    <servlet-class>comment.UpdateCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateCommentServlet</servlet-name>
+    <url-pattern>/UpdateCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteCommentServlet</servlet-name>
+    <servlet-class>comment.DeleteCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteCommentServlet</servlet-name>
+    <url-pattern>/DeleteCommentServlet</url-pattern>
+  </servlet-mapping>
+
+
+
 </web-app>
+
