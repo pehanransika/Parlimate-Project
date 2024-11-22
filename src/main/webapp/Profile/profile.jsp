@@ -270,6 +270,14 @@
             <i class="fa-solid fa-pen-to-square"></i>
             edit profile
         </a>
+        <a href="/Parlimate/GetPostAllServlet?postId=${post.postId}">
+            <button class="view-my-post">
+                <i class="fa-solid fa-eye"></i>
+                <span>View My Post</span>
+            </button>
+        </a>
+
+
     </div>
 </div>
 </body>

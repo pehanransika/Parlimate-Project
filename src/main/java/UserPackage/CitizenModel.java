@@ -1,0 +1,48 @@
+package UserPackage;
+
+import java.security.Timestamp;
+
+public class CitizenModel  {
+    private int citizenId;
+    private int userId;
+    private String address;
+    private String phoneNumber;
+    private String name;
+    private String profile;
+    private String imageUrl;
+
+    public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name, String profile, String imageUrl) {
+
+        this.citizenId = citizenId;
+        this.userId = userId;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.profile = profile;
+        this.imageUrl = imageUrl;
+    }
+
+
+
+    // Getters and Setters
+    public int getCitizenId() { return citizenId; }
+    public void setCitizenId(int citizenId) { this.citizenId = citizenId; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getProfile() { return profile; }
+    public void setProfile(String profile) { this.profile = profile; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
+}

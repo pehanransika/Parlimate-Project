@@ -6,6 +6,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home | Parlimate</title>
@@ -36,6 +37,7 @@
 
     <body class="">
 
+
     <div class="notification-msg capitalize"></div>
     <div class="popup-modal">
         <div class="popup">
@@ -46,59 +48,14 @@
                 </div>
                 <div class="breakLine"></div>
             </div>
+            <form method="POST" action="PublishPostServlet">
+                <label for="content">Content:</label>
+                <textarea id="content" name="content"></textarea>
+                <button type="submit">Publish</button>
+            </form>
 
-            <div class="content">
-                <div class="account row">
-                    <div class="user-profile">
-                        <div class="prof-img"></div>
-                        <div class="user-name">Naleeka Kumarasinghe</div>
-                    </div>
-                    <div class="switch-btn capitalize">
-                        <a href="#">switch account
-                            <i class="fa-regular fa-chevron-down"></i></a>
-                    </div>
-                </div>
-                <div class="discussion-title col">
-                    <div class="title capitalize">title</div>
-                    <input autocomplete="off" type="text" name="add-post-title" id="add-post-title"
-                           placeholder="Enter the title of the discussion" />
-                </div>
-                <div class="caption-box col content-pd">
-                    <div class="title capitalize">caption</div>
-                    <textarea autocomplete="off" name="add-post-caption" id="add-post-caption"
-                              placeholder="Enter the caption of the discussion"></textarea>
-                </div>
 
-                <div class="tags-box col content-pd">
-                    <div class="title capitalize">tags</div>
-                    <input type="text" name="hashtags" id="addost-hashtags" />
-                    <div class="recomended-tags">
-                        Try :
-                        <span>
-                                <input type="checkbox" name="hashtags" id="hashtag-1" />
-                                <label for="hashtag-1">GoHomeGota</label>
-                            </span>
-                        <span>
-                                <input type="checkbox" name="hashtags" id="hashtag-2" />
-                                <label for="hashtag-2">PresidentialElection2024</label>
-                            </span>
-                        <span>
-                                <input type="checkbox" name="hashtags" id="hashtag-3" />
-                                <label for="hashtag-3">PoliticalNews</label>
-                            </span>
-                    </div>
-                </div>
-                <div class="popbtns capitalize">
-                    <div class="clear-btn" id="popup-clear-btn">
-                        Clear
-                        <i class="fa-sharp fa-solid fa-rotate-left"></i>
-                    </div>
-                    <div class="post-btn" id="popup-post-btn">
-                        post discussion
-                        <i class="fa-duotone fa-solid fa-check"></i>
-                    </div>
-                </div>
-            </div>
+        </div>
 
         </div>
     </div>
@@ -162,7 +119,29 @@
                     <span>#SriLankaRealityShow </span>
                 </div>
             </div>
-            <div class="reactions">
+            <div class="add-cmnt row">
+                <div class="curr-user row">
+                    <div class="prof-img"></div>
+                    <div class="button-container">
+
+                        <form action="PublishNewCommentServlet" method="POST">
+                            <textarea name="content" id="add-cmnt" placeholder="Comment here" required></textarea>
+                            <button type="submit" class="post-btn row btn capitalize">
+                                Post
+                                <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
+                            </button>
+                        </form>
+                        <!-- Button styled link, now it triggers the ViewCommentServlet -->
+                        <a href="ViewCommentListServlet" class="see-comments-button">
+                            <button class="see-comments-button">
+                                <i class="fa-solid fa-comment"></i>
+                                <span>See Comments</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reactions">
                 <button class="like btn">
 						<span class="reactIcon">
 							<i class="fa-solid fa-thumbs-up"></i>
@@ -178,37 +157,10 @@
                 </button>
             </div>
         </div>
-
-            <div class="add-cmnt row">
-                <div class="curr-user row">
-                    <div class="prof-img"></div>
-                    <div class="button-container">
-                        <!-- Button styled link, now it triggers the ViewCommentServlet -->
-                        <a href="ViewCommentListServlet" class="see-comments-button">
-                            <button class="see-comments-button">
-                                <i class="fa-solid fa-comment"></i>
-                                <span>See Comments</span>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <form action="PublishNewCommentServlet" method="POST">
-                    <textarea name="content" id="add-cmnt" placeholder="Comment here" required></textarea>
-                    <button type="submit" class="post-btn row btn capitalize">
-                        Post
-                        <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
-                    </button>
-                </form>
-                <a href="ViewCommentServlet" class="see-my-comments-button">
-                    <button class="see-my-comments-button">
-                        <i class="fa-solid fa-comment"></i>
-                        <span>See my Comments</span>
-                    </button>
-                </a>
-
-            </div>
+        </div>
+    </div>
+</div>
+    </div>
         </div>
     </div>
 </div>
@@ -362,6 +314,12 @@
         </div>
     </div>
 </div>
+    <a href="/Parlimate/GetPostListServlet?postId=${post.postId}">
+        <button class="view-list-post">
+            <i class="fa-solid fa-eye"></i>
+            <span>View  Post</span>
+        </button>
+    </a>
 <div class="container">
     <div class="pageTitles">
         <h2 class="title">Home</h2>
@@ -383,6 +341,7 @@
                     start a fundraise
                 </div>
             </div>
+
         </div>
         <div class="weeklySurvey post votelist reactable">
             <div class="post-head small-title">
@@ -514,6 +473,23 @@
     </div>
 </div>
 </body>
+<script>
+    function openPopup() {
+        document.getElementById('comment-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('comment-popup').style.display = 'none';
+    }
+    document.querySelector('.see-comments-button').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent link navigation if using `<a>` tags
+        const commentPopup = document.getElementById('comment-popup'); // Ensure you have an ID for the popup
+        if (commentPopup) {
+            commentPopup.style.display = commentPopup.style.display === 'block' ? 'none' : 'block';
+        }
+    });
+
+</script>
 <script src="script.js"></script>
 <script src="home.js"></script>
 
