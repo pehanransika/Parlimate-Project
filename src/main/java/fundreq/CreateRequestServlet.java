@@ -1,30 +1,28 @@
 package fundreq;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import fundreq.RequestController;
+
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.Part;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import javax.servlet.RequestDispatcher;
+import java.io.File;
 
 @WebServlet("/CreateNewRequestServlet")
+@MultipartConfig
 public class CreateRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Default user ID to use when no user ID is provided
             int defaultUserId = 2;
-
-            // Retrieve user ID from the form
-            String userIdStr = request.getParameter("userid");
-            int userId = (userIdStr != null && !userIdStr.isEmpty())
-                    ? Integer.parseInt(userIdStr)
-                    : defaultUserId;
 
             // Retrieve form data
             String title = request.getParameter("title");
@@ -32,59 +30,80 @@ public class CreateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountStr = request.getParameter("targetamount");
             String currency = request.getParameter("currency");
+            String datetimeStr = request.getParameter("datetime");
 
-            // Validate input
+            // Handle file upload using getPart
+            Part attachmentPart = request.getPart("attachmentUrl");  // Corresponds to the file input name
+            String attachmentUrl = null;
+
+            if (attachmentPart != null && attachmentPart.getSize() > 0) {
+                String fileName = getFileNameFromPart(attachmentPart);
+                // Get the real path of the 'uploads' folder in the deployed application
+                String uploadDirPath = getServletContext().getRealPath("/") + "uploads";
+                File uploadDir = new File(uploadDirPath);
+
+                // Ensure the directory exists
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();  // Create the directory if it doesn't exist
+                }
+
+                // Save the file
+                String savePath = uploadDirPath + File.separator + fileName;
+                System.out.println("Upload path: " + savePath);  // Debugging log
+                attachmentPart.write(savePath);
+                attachmentUrl = "uploads/" + fileName;  // Save relative path to the DB
+            }
+
+            // Validate required fields
             if (title == null || title.trim().isEmpty() ||
                     description == null || description.trim().isEmpty() ||
                     category == null || category.trim().isEmpty() ||
                     targetAmountStr == null || targetAmountStr.trim().isEmpty() ||
-                    currency == null || currency.trim().isEmpty()) {
-                throw new IllegalArgumentException("All fields are required.");
+                    currency == null || currency.trim().isEmpty() ||
+                    datetimeStr == null || datetimeStr.trim().isEmpty()) {
+                throw new IllegalArgumentException("All fields are required except Attachment URL.");
             }
 
-            BigDecimal targetAmount;
-            try {
-                targetAmount = new BigDecimal(targetAmountStr);
-                if (targetAmount.compareTo(BigDecimal.ZERO) <= 0) {
-                    throw new IllegalArgumentException("Target amount must be greater than zero.");
-                }
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Invalid target amount format.");
+            // Parse and validate target amount
+            BigDecimal targetAmount = new BigDecimal(targetAmountStr);
+            if (targetAmount.compareTo(BigDecimal.ZERO) <= 0) {
+                throw new IllegalArgumentException("Target amount must be greater than zero.");
             }
 
-            // Call the FundraisingRequestController to create the request
+            // Parse datetime
+            Timestamp datetime = Timestamp.valueOf(datetimeStr.replace("T", " ") + ":00");
+
+            // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
-                    userId, title, description, category, targetAmount, currency);
+                    defaultUserId, title, description, category, targetAmount, currency, attachmentUrl);
 
+            // Response
             if (isCreated) {
-                // If successful, redirect with a success message
-                String alertMessage = "Request Published Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetAllRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Request Published Successfully'); window.location.href='GetAllRequestServlet';</script>");
             } else {
-                // If not successful, forward to the error page
-                String alertMessage = "Failed to create fundraising request.";
-                request.setAttribute("error", alertMessage);
+                request.setAttribute("error", "Failed to create fundraising request.");
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
                 dis.forward(request, response);
             }
-        } catch (NumberFormatException e) {
-            // Handle invalid numeric input
-            e.printStackTrace();
-            request.setAttribute("error", "Invalid numeric input. Please enter valid numbers.");
-            RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
-            dis.forward(request, response);
-        } catch (IllegalArgumentException e) {
-            // Handle invalid input or validation errors
+        } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", e.getMessage());
             RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
             dis.forward(request, response);
-        } catch (SQLException e) {
-            // Handle SQL exceptions
-            e.printStackTrace();
-            request.setAttribute("error", "Database error occurred. Please try again.");
-            RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
-            dis.forward(request, response);
         }
+    }
+
+    private String getFileNameFromPart(Part part) {
+        String contentDisposition = part.getHeader("Content-Disposition");
+        String fileName = null;
+        if (contentDisposition != null) {
+            String[] elements = contentDisposition.split(";");
+            for (String element : elements) {
+                if (element.trim().startsWith("filename")) {
+                    fileName = element.split("=")[1].trim().replace("\"", "");
+                }
+            }
+        }
+        return fileName;
     }
 }

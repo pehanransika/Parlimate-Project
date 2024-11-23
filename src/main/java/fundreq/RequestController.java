@@ -26,13 +26,13 @@ public class RequestController {
 
     // Method to create a new fundraising request
     public static boolean createFundraisingRequest(int userId, String title, String description, String category,
-                                                   BigDecimal targetAmount, String currency) throws SQLException {
+                                                   BigDecimal targetAmount, String currency,String  attachment_url) throws SQLException {
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
 
-        String query = "INSERT INTO FundraisingRequests (userid, title, description, category, targetamount, currency, datetime) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO FundraisingRequests (userid, title, description, category, targetamount, currency, datetime, attachment_url) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -43,6 +43,7 @@ public class RequestController {
             stmt.setBigDecimal(5, targetAmount);
             stmt.setString(6, currency);
             stmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setString(8, attachment_url );
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -54,7 +55,7 @@ public class RequestController {
     // Method to retrieve all fundraising requests
     public static List<RequestModel> getAllFundraisingRequests() throws SQLException {
         List<RequestModel> requests = new ArrayList<>();
-        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime FROM FundraisingRequests";
+        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url FROM FundraisingRequests";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -69,18 +70,20 @@ public class RequestController {
                 BigDecimal targetAmount = rs.getBigDecimal("targetamount");
                 String currency = rs.getString("currency");
                 Timestamp datetime = rs.getTimestamp("datetime");
+                String attachment_url = rs.getString("attachment_url");  // Fixed space issue
 
                 RequestModel request = new RequestModel(requestId, userId, title, description,
-                        category, targetAmount, currency, datetime);
+                        category, targetAmount, currency, datetime, attachment_url);
                 requests.add(request);
             }
         }
         return requests;
     }
 
+
     // Method to retrieve a single fundraising request by ID
     public static RequestModel getFundraisingRequestById(int requestId) throws SQLException {
-        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime " +
+        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url " +
                 "FROM FundraisingRequests WHERE requestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -97,28 +100,35 @@ public class RequestController {
                     BigDecimal targetAmount = rs.getBigDecimal("targetamount");
                     String currency = rs.getString("currency");
                     Timestamp datetime = rs.getTimestamp("datetime");
+                    String  attachment_url=rs.getString(" attachment_url");
 
-                    return new RequestModel(requestId, userId, title, description, category, targetAmount, currency, datetime);
+                    return new RequestModel(requestId, userId, title, description, category, targetAmount, currency, datetime, attachment_url);
                 }
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving fundraising request: " + e.getMessage());
+            throw e;  // Rethrow the exception after logging it
         }
         return null;
     }
 
+
     // Method to update a fundraising request
-    public static boolean updateFundraisingRequest(int requestId, String title, String description, String category, BigDecimal targetAmount, String currency, LocalDateTime datetime) throws SQLException {
-        String query = "UPDATE FundraisingRequests SET title = ?, description = ?, category = ?, targetamount = ?, currency = ?, datetime = ? " +
-                "WHERE requestid = ?";
+    public static boolean updateFundraisingRequest(int requestId, String title, String description, String category,
+                                                   BigDecimal targetAmount, String currency, LocalDateTime datetime, String attachment_url) throws SQLException {
+        String query = "UPDATE FundraisingRequests SET title = ?, description = ?, category = ?, targetAmount = ?, currency = ?, datetime = ?, attachment_url = ? WHERE requestId = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
+            // Set parameters in the correct order
             stmt.setString(1, title);
             stmt.setString(2, description);
             stmt.setString(3, category);
             stmt.setBigDecimal(4, targetAmount);
             stmt.setString(5, currency);
-            stmt.setTimestamp(6, Timestamp.valueOf(datetime));
-            stmt.setInt(7, requestId);
+            stmt.setTimestamp(6, Timestamp.valueOf(datetime));  // Convert LocalDateTime to Timestamp
+            stmt.setString(7, attachment_url); // Correct position of attachment_url
+            stmt.setInt(8, requestId);  // Ensure requestId is the last parameter
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -127,6 +137,7 @@ public class RequestController {
         }
     }
 
+
     // Method to delete a fundraising request
     public static boolean deleteFundraisingRequest(int requestId) throws SQLException {
         String query = "DELETE FROM FundraisingRequests WHERE requestid = ?";
@@ -134,10 +145,11 @@ public class RequestController {
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, requestId);
-            return stmt.executeUpdate() > 0;
+            return stmt.executeUpdate() > 0; // Will return true if a row is deleted
         } catch (SQLException e) {
             System.err.println("Error deleting fundraising request: " + e.getMessage());
             throw e;
         }
     }
+
 }

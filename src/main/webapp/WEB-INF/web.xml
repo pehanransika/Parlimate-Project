@@ -195,6 +195,43 @@
     <servlet-name>profileServlet</servlet-name>
     <url-pattern>/profileServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateRequestServlet</servlet-name>
+    <servlet-class>fundreq.CreateRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CreateRequestServlet</servlet-name>
+    <url-pattern>/CreateRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllRequestsServlet</servlet-name>
+    <servlet-class>fundreq.GetAllRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAllRequestsServlet</servlet-name>
+    <url-pattern>/GetAllRequestsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateRequestServlet</servlet-name>
+    <servlet-class>fundreq.UpdateRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateRequestServlet</servlet-name>
+    <url-pattern>/UpdateRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteRequestServlet</servlet-name>
+    <url-pattern>/DeleteRequestServlet</url-pattern>
+  </servlet-mapping>
+
 
 
 

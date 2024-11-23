@@ -23,7 +23,7 @@ public class GetAllRequestServlet extends HttpServlet {
             request.setAttribute("allRequests", allRequests);
 
             // Forward to requestsDetail.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("requestsDetail.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("requestDetail.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             // Log the exception for debugging

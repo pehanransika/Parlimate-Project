@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/DeleteRequestServlet")
+@WebServlet("/DeleteNewRequestServlet")
 public class DeleteRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Retrieve the request ID from the request parameter ('requestid')
-            String requestIdParam = request.getParameter("requestid");
-            System.out.println("Received requestid: " + requestIdParam);
+            // Retrieve the request ID from the request parameter
+            String requestIdParam = request.getParameter("requestId"); // Use requestId to match form
 
-            // Validate parameter
+            System.out.println("Received requestId: " + requestIdParam);
+
+            // Validate the request ID
             if (requestIdParam == null || requestIdParam.trim().isEmpty()) {
                 throw new NumberFormatException("Request ID is missing or invalid.");
             }
@@ -36,29 +37,19 @@ public class DeleteRequestServlet extends HttpServlet {
                 response.setContentType("text/html");
                 response.getWriter().println("<script>alert('Request Deleted Successfully'); window.location.href='GetAllRequestsServlet';</script>");
             } else {
-                // Fetch details and forward to error page
-                List<RequestModel> requestDetails = (List<RequestModel>) RequestController.getFundraisingRequestById(requestId);
-
-                if (requestDetails == null || requestDetails.isEmpty()) {
-                    response.setContentType("text/html");
-                    response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='GetAllRequestsServlet';</script>");
-                } else {
-                    request.setAttribute("requestDetails", requestDetails);
-
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("wrong.jsp");
-                    dispatcher.forward(request, response);
-                }
+                // If the request is not found
+                response.setContentType("text/html");
+                response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='GetAllRequestsServlet';</script>");
             }
         } catch (NumberFormatException e) {
             System.err.println("Invalid Request ID: " + e.getMessage());
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('Invalid request ID.'); window.location.href='GetAllRequestsServlet';</script>");
+            response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='GetAllRequestsServlet';</script>");
         } catch (Exception e) {
             System.err.println("Error during request deletion: " + e.getMessage());
             e.printStackTrace();
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('An error occurred. Please try again.'); window.location.href='GetAllRequestsServlet';</script>");
+            response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='GetAllRequestsServlet';</script>");
         }
     }
 }
-
