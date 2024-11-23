@@ -81,26 +81,32 @@ public class CitizenController {
     }
 
     public static boolean deleteCitizen(int userId) {
-        boolean isSuccess = false;
-        String sql = "DELETE FROM citizen WHERE user_id = ?"; // SQL query to delete user by user ID
-
-        // Try-with-resources to ensure connection and statement are closed
-        try (Connection conn = DBConnection.getConnection();
+        String sql = "DELETE FROM citizen WHERE user_id = ?"; // Ensure table and column names match the database schema
+        try (Connection conn = DBConnection.getConnection(); // Auto-close resources
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Set the user ID parameter for the prepared statement
+            // Set the parameter for user_id
             pstmt.setInt(1, userId);
 
-            // Execute the delete operation
-            int rowsDeleted = pstmt.executeUpdate();
-            isSuccess = rowsDeleted > 0;  // Return true if deletion was successful
+            // Execute the query and get rows affected
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Log and return the result
+            if (rowsAffected > 0) {
+                System.out.println("Citizen with user_id " + userId + " deleted successfully.");
+                return true; // Deletion was successful
+            } else {
+                System.out.println("No citizen found with user_id " + userId + ".");
+                return false; // No matching record found
+            }
 
         } catch (SQLException e) {
-            System.err.println("Error deleting user from users table: " + e.getMessage());
+            // Log the exception with more context
+            System.err.println("Error deleting citizen with user_id " + userId + ": " + e.getMessage());
         }
 
-        return isSuccess;
+        return false; // Default return if something goes wrong
     }
 
-}
 
+}

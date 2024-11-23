@@ -108,49 +108,68 @@ public class UserController {
     }
 
     public static boolean updateUser(int userId, String email, String password) {
-
         boolean isSuccess = false;
-        // Database connection and SQL query
+
+        // SQL query to update the user
         String sql = "UPDATE users SET email = ?, password = ? WHERE user_id = ?";
 
-        // Code for executing the query would go here, e.g., using a PreparedStatement
-        // Example:
+        // Debugging log: Show parameters before executing
+        System.out.println("Attempting to update user: userId=" + userId + ", email=" + email);
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, email);
-            pstmt.setString(2, password);
-            pstmt.setInt(4, userId);
+            // Validate parameters before updating
+            if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+                System.err.println("Validation failed: email or password is empty.");
+                return false;
+            }
 
+            // Set parameters for the PreparedStatement
+            pstmt.setString(1, email);   // Email
+            pstmt.setString(2, password); // Password
+            pstmt.setInt(3, userId);    // User ID
+
+            // Execute the update query
             int rowsUpdated = pstmt.executeUpdate();
-             isSuccess= rowsUpdated > 0;
+            isSuccess = rowsUpdated > 0;
+
+            // Log success or failure
+            if (isSuccess) {
+                System.out.println("User with userId=" + userId + " updated successfully.");
+            } else {
+                System.err.println("Update failed: No rows affected for userId=" + userId);
+            }
 
         } catch (SQLException e) {
-            System.err.println("Error inserting data into users table: " + e.getMessage());
+            // Log detailed SQL error
+            System.err.println("SQL error while updating user: " + e.getMessage());
         }
 
         return isSuccess;
     }
-    public static boolean deleteUser(int userId) {
-        boolean isSuccess = false;
-        String sql = "DELETE FROM users WHERE user_id = ?"; // SQL query to delete user by user ID
 
-        // Try-with-resources to ensure connection and statement are closed
+
+    public static boolean deleteUser(int userId) {
+        String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Set the user ID parameter for the prepared statement
-            pstmt.setInt(1, userId);
-
-            // Execute the delete operation
+            pstmt.setInt(1, userId); // Bind the user ID
             int rowsDeleted = pstmt.executeUpdate();
-            isSuccess = rowsDeleted > 0;  // Return true if deletion was successful
+
+            if (rowsDeleted > 0) {
+                System.out.println("User with user_id " + userId + " deleted successfully.");
+                return true; // Return true if the deletion was successful
+            } else {
+                System.out.println("No user found with user_id " + userId + ".");
+                return false; // Return false if no rows were deleted
+            }
 
         } catch (SQLException e) {
             System.err.println("Error deleting user from users table: " + e.getMessage());
+            return false;
         }
-
-        return isSuccess;
     }
 
 

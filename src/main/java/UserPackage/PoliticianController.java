@@ -93,25 +93,17 @@ public class PoliticianController {
     }
 
     public static boolean deletePolitician(int userId) {
-        boolean isSuccess = false;
-        String sql = "DELETE FROM politician WHERE user_id = ?"; // SQL query to delete user by user ID
-
-        // Try-with-resources to ensure connection and statement are closed
+        String sql = "DELETE FROM politician WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Set the user ID parameter for the prepared statement
             pstmt.setInt(1, userId);
-
-            // Execute the delete operation
             int rowsDeleted = pstmt.executeUpdate();
-            isSuccess = rowsDeleted > 0;  // Return true if deletion was successful
-
+            return rowsDeleted > 0; // Returns true if at least one row was deleted
         } catch (SQLException e) {
-            System.err.println("Error deleting user from users table: " + e.getMessage());
+            System.err.println("Error deleting politician: " + e.getMessage());
         }
-
-        return isSuccess;
+        return false;
     }
 
 }

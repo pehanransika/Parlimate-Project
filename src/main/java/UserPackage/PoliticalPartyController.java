@@ -84,7 +84,7 @@ public class PoliticalPartyController {
 
     public static boolean deletePoliticalParty(int userId) {
         boolean isSuccess = false;
-        String sql = "DELETE FROM politicalparty WHERE user_id = ?"; // SQL query to delete user by user ID
+        String sql = "DELETE FROM politicalparty WHERE user_id = ?"; // Ensure column and table names are correct
 
         // Try-with-resources to ensure connection and statement are closed
         try (Connection conn = DBConnection.getConnection();
@@ -95,12 +95,22 @@ public class PoliticalPartyController {
 
             // Execute the delete operation
             int rowsDeleted = pstmt.executeUpdate();
-            isSuccess = rowsDeleted > 0;  // Return true if deletion was successful
+
+            // Check if deletion was successful
+            if (rowsDeleted > 0) {
+                System.out.println("Political Party with user_id " + userId + " deleted successfully.");
+                isSuccess = true;  // Deletion was successful
+            } else {
+                System.out.println("No Political Party found with user_id " + userId + ".");
+                isSuccess = false; // No matching record found
+            }
 
         } catch (SQLException e) {
-            System.err.println("Error deleting user from users table: " + e.getMessage());
+            // Log the error with the exception message and userId for debugging
+            System.err.println("Error deleting Political Party with user_id " + userId + ": " + e.getMessage());
         }
 
         return isSuccess;
     }
+
 }

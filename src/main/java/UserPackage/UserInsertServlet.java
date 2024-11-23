@@ -15,8 +15,11 @@ public class UserInsertServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
          String email = req.getParameter("email");
-         String password = req.getParameter("password");
+        System.out.println("hii");
+         String password = req.getParameter("Password");
+
          String userType = req.getParameter("userType");
          int userid ;
          boolean isType = false;
@@ -32,6 +35,7 @@ public class UserInsertServlet extends HttpServlet {
              String img_url = req.getParameter("img_url");
 
               isType = CitizenController.insertCitizen(userid,name,address,phoneNumber,profile,img_url);
+
 
            }else if(userType.equals("Politician")) {
              String name = req.getParameter("name");
@@ -56,9 +60,15 @@ public class UserInsertServlet extends HttpServlet {
         }
 
         if(isType  ) {
-             String alertMessage = "Registered Successfully";
-             resp.getWriter().println("<script>alert('"+alertMessage+"');</script>;window.location.href='login.jsp';</script>");
-         }else{
+            String alertMessage = "Registered Successfully";
+            resp.getWriter().println("<script>");
+            resp.getWriter().println("alert('" + alertMessage + "');");
+            resp.getWriter().println("window.location.href='login.jsp';");
+            resp.getWriter().println("</script>");
+
+
+
+        }else{
              RequestDispatcher dis2 = req.getRequestDispatcher("wrong.jsp");
              dis2.forward(req, resp);
          }

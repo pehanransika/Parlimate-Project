@@ -17,15 +17,17 @@
        <h2>Password: ${user.password}</h2>
        <h2>UserType: ${user.userType}</h2>
        <h2>name: ${citizen.name}</h2>
+       <a href="updateprofile.jsp?id=${user.userId}&email=${user.email}&password=${user.password}&userType=${user.userType}&name=${citizen.name}">
+           <button>Update</button>
+       </a>
+       <form action="DeleteUserServlet" method="post">
+           <input type="hidden" name="id" value="${user.userId}" />
+           <input type="hidden" name="userType" value="${user.userType}" />
+           <button type="submit">Delete</button>
+       </form>
 
-<%--      <a href="updateprofile.jsp?id=${user.id}&email=${user.email}&password=${user.password}&userType=${user.userType}&name=${citizen.name}">--%>
-<%--        <button>Update</button>--%>
-<%--      </a>--%>
 
-     <form action="DeleteUserServlet" method="post">
-         <input type="hidden" name="id" value="${user.userId}"/>
-         <button>Delete</button>
-     </form>
+
 
 </body>
 </html>
