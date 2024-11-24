@@ -74,7 +74,12 @@
     </style>
 </head>
 <body>
-
+<a href="ViewCommentServlet" class="see-my-comments-button">
+    <button class="see-my-comments-button">
+        <i class="fa-solid fa-comment"></i>
+        <span>See my Comments</span>
+    </button>
+</a>
 <div class="comments-section">
     <h2>Comments</h2>
 

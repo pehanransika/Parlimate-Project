@@ -4,11 +4,11 @@
     <div class="navs">
         <ul>
             <li>
-                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate" checked/>
+                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate/politicianHome.jsp" checked/>
                 <label for="nav-Home" onclick="navigate(this)"><i class="fa-solid fa-house"></i>Home</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-announcements" value="http://localhost:8080/Parlimate/Announcements/announcements.jsp" />
+                <input type="radio" name="nav" id="nav-announcements" value="http://localhost:8080/Parlimate/Announcements/GetListServlet?announcementId=123" />
                 <label for="nav-announcements" onclick="navigate(this)"><i class="fa-solid fa-bullhorn"></i>Announcements</label>
             </li>
             <li>

@@ -15,6 +15,7 @@
             margin: 20px;
             padding: 20px;
         }
+
         body.sidebar-deactive .sidebar {
             transform: translateX(-100%);
         }
@@ -68,25 +69,23 @@
         .announcement-list {
             list-style-type: none;
             padding: 0;
-            margin-left: 300px;
-            margin-right: 20px;
             gap: 1.5rem;
-            margin-top: 150px;
         }
 
 
         .announcement-item {
             background-color: #ffffff;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
             padding: 20px;
             position: relative;
             display: flex;
             cursor: pointer;
             flex-direction: column;
-            gap: 15px;
+            transition: 0.25s ease;
+            border-left: 0.75rem solid #e0e0e0;
         }
+
         .announcement-item:hover {
             outline: 1px solid rgb(185, 185, 185);
             border-left: 0.75rem solid #5490FF;
@@ -112,9 +111,9 @@
         }
 
         .announcement-content {
-            margin-top: 10px;
-            font-size: 16px;
+            font-size: 0.98rem;
             color: #555;
+            margin-left: 3.5rem;
         }
 
         /* Button Styles */
@@ -207,7 +206,6 @@
         }
 
         .post-btn {
-            padding: 10px 20px;
             background-color: #6a5acd;
             color: white;
             border: none;
@@ -218,15 +216,16 @@
         .post-btn:hover {
             background-color: #5b4ab5;
         }
+
         .back-button {
             position: fixed; /* Fix the button in place */
-            top: 20px;       /* Distance from the top of the page */
-            right: 20px;     /* Distance from the right edge of the page */
+            top: 20px; /* Distance from the top of the page */
+            right: 20px; /* Distance from the right edge of the page */
             padding: 0.8rem 1.5rem; /* Add some padding inside the button */
             background-color: #4a8fe5; /* Background color */
-            color: white;    /* Text color */
+            color: white; /* Text color */
             font-size: 1rem; /* Font size */
-            border: none;    /* Remove default button border */
+            border: none; /* Remove default button border */
             border-radius: 1rem; /* Rounded corners */
             cursor: pointer; /* Pointer cursor on hover */
             font-weight: bold; /* Make text bold */
@@ -244,14 +243,76 @@
         .back-button:focus {
             outline: none; /* Remove focus outline */
         }
+
+        .ann-btns-2 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            align-items: center !important;
+            height: fit-content;
+        }
+
+        .pol-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #2e2e2e;
+        }
+
+        .postedby {
+            color: #878787;
+        }
+
+        p.ann-date {
+            color: #656565;
+            font-size: 0.85rem;
+        }
+
+        .ann-title {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+
+        h2.title {
+            text-align: left;
+            margin-bottom: 0.25rem;
+        }
+
+        #popup-close-btn {
+            top: 1rem;
+            transform: translate(50%, -50%);
+        }
+
+        .popup {
+            height: fit-content;
+        }
+
+        .clear-btn {
+            background: #ffffff;
+            border-radius: 0.5rem;
+            border: 1px solid #c5c5c5;
+        }
+        .pImage{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: #9f9f9f;
+        }
+        .author{
+            align-items: start;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+        }
+        .logo-img{
+            height: 1.3rem;
+        }
     </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Announcements | Parlimate</title>
-    <link rel="stylesheet" href="../index.css" />
-    <link rel="stylesheet" href="../index/sidebar1.css" />
-    <link rel="stylesheet" href="../header.css" />
-    <link rel="stylesheet" href="../container.css" />
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="../index/sidebar1.css"/>
+    <link rel="stylesheet" href="../header.css"/>
+    <link rel="stylesheet" href="../container.css"/>
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -308,21 +369,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
 
         <div class="logo">
-            <a href="./index.html">
-                PARLIMATE
+            <a href="./index.jsp">
+                <img src="../logo%202.png" class="logo-img" alt="">
             </a>
         </div>
     </div>
     <div class="headerSearchBar row">
         <input type="search" name="mainSearch" id="headerSearchBar"
-               placeholder="Search politicians, Political parties...." />
+               placeholder="Search politicians, Political parties...."/>
         <label for="headerSearchBar">
             <i class="fa-solid fa-magnifying-glass"></i>
         </label>
     </div>
     <div class="headerBtns">
         <div class="headerBtn">
-            <input type="checkbox" name="notifi" id="notificationBtn" />
+            <input type="checkbox" name="notifi" id="notificationBtn"/>
             <label for="notificationBtn" class="btn">
                 <i class="fa-solid fa-bell"></i>
             </label>
@@ -375,7 +436,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
         <div class="headerBtn">
-            <input type="checkbox" name="profile" id="profileBtn" />
+            <input type="checkbox" name="profile" id="profileBtn"/>
             <label for="profileBtn" class="btn">
                 <i class="fa-solid fa-user"></i>
             </label>
@@ -425,7 +486,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     <li>
                         <div class="logoutBtn capitalize">
                             <div class="cont">
-                                <input type="checkbox" name="logoutBtn" id="logoutBtn" />
+                                <input type="checkbox" name="logoutBtn" id="logoutBtn"/>
                                 <label for="logoutBtn">
                                     <i class="fa-solid fa-sign-out"></i>
                                     <span>logout</span>
@@ -439,32 +500,116 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </div>
 </div>
 
-<a href="announcements.jsp">
-    <button class="back-button">
-        BACK
-    </button>
-</a>
+<%--<a href="announcements.jsp">--%>
+<%--    <button class="back-button">--%>
+<%--        BACK--%>
+<%--    </button>--%>
+<%--</a>--%>
 
+<div class="popup-modal">
+    <div class="popup">
+        <!-- Announcement Form -->
+        <form action="PublishAnnouncementServlet" method="post">
+            <div class="title">
+                New Announcement
+                <div class="close-btn btn" id="popup-close-btn">
+                    <i class="fa-solid fa-times"></i>
+                </div>
+                <div class="breakLine"></div>
+            </div>
+            <div class="content">
+                <!-- Politician ID (hidden field) -->
+                <input type="hidden" name="politicianid" id="politicianid" value="1"/>
 
-<ul class="announcement-list">
-    <c:forEach var="announcement" items="${allannouncements}">
-        <li class="announcement-item">
+                <!-- Announcement Title -->
+                <div class="discussion-title col">
+                    <label for="add-post-title">Title</label>
+                    <input
+                            autocomplete="off"
+                            type="text"
+                            name="title"
+                            id="add-post-title"
+                            placeholder="Enter the title of the announcement"
+                            required
+                    />
+                </div>
 
-            <div class="announcement-header">
-                <div class="announcement-info">
-                    <h3>By: ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}</h3>
-                    <h3>${announcement.title}</h3>
-                    <p>${announcement.datetime}</p>
+                <!-- Announcement Content -->
+                <div class="caption-box col content-pd">
+                    <label for="add-post-caption">Content</label>
+                    <textarea
+                            autocomplete="off"
+                            name="content"
+                            id="add-post-caption"
+                            placeholder="Enter the content of the announcement"
+                            required
+                    ></textarea>
+                </div>
 
+                <!-- Form Buttons -->
+                <div class="popbtns capitalize">
+                    <button type="reset" class="clear-btn" id="popup-clear-btn">
+                        Clear <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button type="submit" class="post-btn" id="popup-post-btn">
+                        Post Announcement <i class="fa-solid fa-check"></i>
+                    </button>
                 </div>
             </div>
-            <div class="announcement-content">
-                    ${announcement.content}
-            </div>
+        </form>
+    </div>
+</div>
 
-        </li>
-    </c:forEach>
-</ul>
+<div class="container">
+    <div class="pageTitles">
+        <h2 class="title">Announcements</h2>
+        <div class="subTitle">
+            Politicians and political parties announcements
+        </div>
+    </div>
+    <div class="ann-btns-2 row">
+        <button class="add-announcement" id="add-announcement">
+            <i class="fa-solid fa-plus"></i>
+            <span> add announcement </span>
+        </button>
+
+        <a href="GetAllServlet?announcementId=123">
+            <button class="add-announcement">
+                <i class="fa-solid fa-eye"></i>
+                <span>View My Announcements</span>
+            </button>
+        </a>
+
+    </div>
+    <ul class="announcement-list">
+
+        <c:forEach var="announcement" items="${allannouncements}">
+            <li class="announcement-item">
+
+                <div class="announcement-header">
+                    <div class="announcement-info">
+                        <div class="author row">
+                            <div class="pImage"></div>
+                            <div class="details">
+                                <span class="postedby">By <span
+                                        class="pol-name">${announcement.politicianName != null ? announcement.politicianName : "Unknown"} </span> </span>
+                                <p class="ann-date">${announcement.datetime}</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="announcement-content col">
+                        <span class="ann-title">${announcement.title}</span>
+                        ${announcement.content}
+                </div>
+
+            </li>
+        </c:forEach>
+    </ul>
+
+</div>
 
 <!-- Update Announcement Popup Modal -->
 
@@ -484,6 +629,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     });
 
+    const addAnnBtn = document.getElementById("add-announcement");
+    const popCloseBtn = document.querySelector("#popup-close-btn");
+
+    addAnnBtn.addEventListener("click", () => {
+        if (!body.classList.contains("popup-active")) {
+            body.classList.add("popup-active");
+        }
+        console.log("clicked")
+    });
+    popCloseBtn.addEventListener("click", () => {
+        if (body.classList.contains("popup-active")) {
+            body.classList.remove("popup-active");
+        }
+    });
 
 </script>
 <script src="../script.js"></script>

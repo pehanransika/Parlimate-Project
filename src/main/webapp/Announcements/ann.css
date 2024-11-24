@@ -452,3 +452,8 @@ body.popup-active-edit #editPopup{
 body.popup-active-delete #editPopup{
     display: initial;
 }
+.ann-btns-2{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}

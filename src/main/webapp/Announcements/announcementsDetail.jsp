@@ -217,6 +217,9 @@
         .post-btn:hover {
             background-color: #5b4ab5;
         }
+        .logo-img{
+            height: 1.3rem;
+        }
     </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -281,8 +284,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
 
         <div class="logo">
-            <a href="./index.html">
-                PARLIMATE
+            <a href="./index.jsp">
+                <img src="../logo%202.png" class="logo-img" alt="">
             </a>
         </div>
     </div>
@@ -415,7 +418,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <div class="top-bar">
 
-    <a href="announcements.jsp" class="button-home">Go to Announcements</a>
+    <a href="GetListServlet?announcementId=123" class="button-home">Go to Announcements</a>
 </div>
 
 <h2>My Announcements</h2>

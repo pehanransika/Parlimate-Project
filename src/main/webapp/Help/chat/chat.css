@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column; /* Align the content vertically */
+}
+
+/* Chat Container */
+.chat-container {
+    text-align: center;
+    animation: slideIn 1s ease-out; /* Animation for the chat prompt */
+}
+
+/* Prompt Message */
+.prompt-message {
+    background-color: #ff6b6b;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 280px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Prompt Message Text */
+.prompt-message p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Chat Button */
+.chat-start-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff3f3f);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.chat-start-btn:hover {
+    background: linear-gradient(135deg, #ff3f3f, #ff6b6b);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for Sliding In Prompt */
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Chat Popup */
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 300px;
+    max-width: 90%;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+/* Popup Header */
+.chat-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #f44336;
+}
+
+/* Chat Messages */
+.chat-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* Chat Input */
+#chatForm {
+    display: flex;
+    justify-content: space-between;
+}
+
+#chatInput {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.send-btn {
+    background-color: rgba(106, 57, 185, 0.897);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-btn:hover {
+    background-color: purple;
+}
