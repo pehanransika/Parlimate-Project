@@ -1,0 +1,109 @@
+body{
+    padding: 3rem;
+}
+.signup-slider{
+    justify-content: center;
+    text-transform: capitalize;
+    font-weight: 600;
+    gap: 1rem;
+    background: rgb(239, 239, 239);
+    width: fit-content;
+    margin: auto;
+    border-radius: 1.5rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+.signup-slider > div{
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.25s ease-in-out 0.25s;
+    user-select: none;
+}
+.signup-slider > div.active {
+    color: white;
+}
+.slider{
+    position: absolute;
+    border-radius: 1.5rem;
+    height: 100%;
+    background: black;
+    left: 0;
+    width: 6rem;
+    transition: all 0.5s ease-in-out;
+}
+.row-fields{
+    gap: 1rem;
+}
+.row-fields input{
+    flex: 1;
+    width: 100%;
+}
+.inp-field{
+    padding: 1rem;
+    background: #FAFAFA;
+    border-radius : 0.5rem;
+    border: 1px solid #DCDCDC;
+}
+.signup-content{
+    row-gap: 1rem;
+}
+select{
+    font-family: inherit;
+    cursor: pointer;
+    text-transform: capitalize;
+    padding: 1rem;
+    background: #FAFAFA;
+    border-radius : 0.5rem;
+    border: 1px solid #DCDCDC;
+}
+select:not(:valid){
+    color: #DCDCDC;
+}
+.img-view {
+    flex: 1;
+    height: 100%;
+    border-radius: 1rem;
+    border: 2px dashed #93a8ff;
+    padding: 1rem;
+    background: #F1FCFF;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+.img-view i {
+    font-size: 2rem;
+}
+.nic-field{
+    display: flex;
+}
+.nic-field > label{
+    flex: 1;
+}
+
+.politician-inputs{
+    display: none;
+}
+.politician-inputs.pol-active{
+    display: inherit;
+}
+.hide{
+    display: none;
+}
+.polParty input,
+input.polParty,
+.polParty{
+    display: none;
+}
+.polParty input.party-active,
+input.polParty.party-active,
+.polParty.party-active{
+    display: flex;
+}
+.general-user.inactive {
+    display: none !important;
+}
+.party-imgs {
+    gap: 1rem;
+}
