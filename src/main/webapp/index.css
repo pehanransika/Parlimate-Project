@@ -1,0 +1,246 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* add all primary properties to use here guys */
+:root {
+    --black-1: #121212;
+    --black-2: #4b4b4b;
+    --black-3: #323232;
+    --grey-1: #f2f2f2;
+    --grey-5: #e2e2e2;
+    --grey-2: #fbfbfb;
+    --grey-3: #8e8e8e;
+    --tip-color: #5a5a5a;
+    --grey-4: #dddddd;
+    --main-color: #ffffff;
+    --main-color-1: #f5f5f5;
+    --bg: #ebedf5;
+    --disable-icon-color: #bebebe;
+    --primary-color: rgb(104, 104, 224);
+    --link-color-text: rgb(63, 63, 218);
+    --link-color-bg: rgb(233, 233, 255);
+    --link-color-bg-dark: rgb(220, 220, 255);
+}
+html{
+    font-size: 13px;
+}
+button{
+    transition: transform 0.25s ease;
+}
+button:active{
+    transform: scale(0.95);
+}
+.pd-1 {
+    padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+}
+.pd-2 {
+    padding: 1rem 1.75rem;
+}
+.bold {
+    font-weight: 600;
+    color: var(--black-2);
+}
+.btn {
+    cursor: pointer;
+    padding: 0.75rem 0.75rem;
+    background: var(--grey-2);
+    border-radius: 0.75rem;
+    width: fit-content;
+    transition: background 0.3s ease, scale 0.25s ease;
+}
+.btn:active{
+    scale: 0.9;
+}
+.btn-2 {
+    cursor: pointer;
+    background: var(--grey-2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+.btn-2:hover {
+    background: var(--grey-1);
+}
+.btn:hover {
+    background: var(--grey-1);
+}
+.header .btn {
+    padding: 0.5rem 0.75rem;
+}
+label {
+    cursor: pointer;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+textarea {
+    font-family: inherit;
+    outline: 0;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+}
+input {
+    font-family: inherit;
+    font-size: 0.875rem !important;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+div:has(> span.tip) {
+    position: relative;
+}
+div:has(> span.tip):hover span.tip {
+    opacity: 1;
+}
+div:has(> span.tip) input[type="checkbox"]:checked ~ span.tip {
+    opacity: 0;
+    transition-delay: 0s;
+}
+span.tip {
+    --bg-color: var(--tip-color);
+    position: absolute;
+    right: 0.15rem;
+    text-transform: capitalize;
+    bottom: -3.5rem;
+    transform: translateY(-50%);
+    background: var(--bg-color);
+    padding: 0.25rem 1rem;
+    font-size: 0.75rem;
+    user-select: none;
+    border-radius: 0.5rem;
+    opacity: 0;
+    color: var(--main-color);
+    transition: opacity 0.3s ease 0.25s;
+}
+span.tip::before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 0.5rem;
+    height: 1rem;
+    top: -0.25rem;
+    right: 0.75rem;
+    background: var(--bg-color);
+    transform: rotate(45deg);
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--black-1);
+    position: relative;
+    overflow: auto;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 7rem 2rem 6rem 21rem;
+    transition: margin-left 0.35s ease;
+}
+.cap{
+    text-transform: capitalize;
+}
+h2.title {
+    font-weight: 600;
+}
+.subTitle {
+    color: var(--grey-3);
+    font-size: 0.865rem;
+    font-weight: 500;
+}
+.subTitle::first-letter{
+    text-transform: capitalize;
+}
+.small-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.medium-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.small-text {
+    font-size: 0.75rem;
+}
+.medium-text {
+    font-size: 0.85rem;
+}
+.btn.round {
+    border-radius: 50%;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.65rem;
+    background: var(--grey-1);
+    margin-left: 0.5rem;
+}
+.btn.round:hover {
+    background: var(--black-2);
+    color: var(--main-color);
+}
+.capitalize {
+    text-transform: capitalize;
+}
+.sidebar-deactive .sidebar {
+    left: -18.55rem;
+    transition-delay: 0s !important;
+}
+.sidebar-deactive .container {
+    margin-left: 2.5rem;
+}
+.sidebar-toggle-btn {
+    transition: opacity 0.35s ease-in-out, left 0.35s ease-in-out;
+}
+.prof-img {
+    width: 4rem;
+    height: 4rem;
+    background: white;
+    border-radius: 50%;
+}
+button{
+    cursor: pointer;
+    padding: 0.25rem 1.75rem;
+    font-family: inherit;
+}
+/* notification message that appears on the bottom of screen */
+.notification-msg {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -3rem;
+    background: var(--black-3);
+    font-weight: 500;
+    color: var(--main-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.75rem;
+    opacity: 0;
+    transition: bottom 0.75s cubic-bezier(0.075, 0.82, 0.165, 1),
+    opacity 0.75s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+}
+body.noti-active .notification-msg {
+    z-index: 1002;
+    opacity: 1;
+    bottom: 2rem;
+    transition: bottom 0.75s cubic-bezier(0.075, 0.82, 0.165, 1),
+    opacity 0.75s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+}
+.col-u{
+    display: flex;
+    flex-direction: column;
+}
+p{
+    font-size: 0.9rem;
+}
+@media screen and (max-width: 1349px) {
+    .col {
+        flex-direction: row;
+    }
+}
