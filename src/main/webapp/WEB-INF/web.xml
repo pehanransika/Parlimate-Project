@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!-- Servlet for PublishAnnouncementServlet -->
+  <servlet>
+    <servlet-name>PublishAnnouncementServlet</servlet-name>
+    <servlet-class>com.ann.PublishAnnouncementServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishAnnouncementServlet</servlet-name>
+    <url-pattern>/Announcements/PublishAnnouncementServlet</url-pattern>
+  </servlet-mapping>
+
+  <!-- Servlet for GetAllServlet -->
+  <servlet>
+    <servlet-name>GetAllServlet</servlet-name>
+    <servlet-class>com.ann.GetAllServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAllServlet</servlet-name>
+    <url-pattern>/Announcements/GetAllServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetListServlet</servlet-name>
+    <servlet-class>com.ann.GetListServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetListServlet</servlet-name>
+    <url-pattern>/Announcements/GetListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.ann.UpdateServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/Announcements/UpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>com.ann.DeleteServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/Announcements/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PublishCommentServlet</servlet-name>
+    <servlet-class>comment.PublishCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishCommentServlet</servlet-name>
+    <url-pattern>/PublishCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewCommentServlet</servlet-name>
+    <servlet-class>comment.ViewCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewCommentServlet</servlet-name>
+    <url-pattern>/ViewCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewCommentListServlet</servlet-name>
+    <servlet-class>comment.ViewCommentListServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewCommentListServlet</servlet-name>
+    <url-pattern>/ViewCommentListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateCommentServlet</servlet-name>
+    <servlet-class>comment.UpdateCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateCommentServlet</servlet-name>
+    <url-pattern>/UpdateCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteCommentServlet</servlet-name>
+    <servlet-class>comment.DeleteCommentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteCommentServlet</servlet-name>
+    <url-pattern>/DeleteCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PublishPostServlet</servlet-name>
+    <servlet-class>post.PublishPostServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishPostServlet</servlet-name>
+    <url-pattern>/PublishPostServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetPostAllServlet</servlet-name>
+    <servlet-class>post.GetPostAllServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetPostAllServlet</servlet-name>
+    <url-pattern>/GetPostAllServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdatePostServlet</servlet-name>
+    <servlet-class>post.UpdatePostServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdatePostServlet</servlet-name>
+    <url-pattern>/UpdatePostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeletePostServlet</servlet-name>
+    <servlet-class>post.DeletePostServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeletePostServlet</servlet-name>
+    <url-pattern>/DeletePostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetPostListServlet</servlet-name>
+    <servlet-class>post.GetPostListServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetPostListServlet</servlet-name>
+    <url-pattern>/GetPostListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>UserPackage.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UserInsertServlet</servlet-name>
+    <servlet-class>UserPackage.UserInsertServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UserInsertServlet</servlet-name>
+    <url-pattern>/UserInsertServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateUserServlet</servlet-name>
+    <servlet-class>UserPackage.UpdateUserServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateUserServlet</servlet-name>
+    <url-pattern>/UpdateUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteUserServlet</servlet-name>
+    <servlet-class>UserPackage.DeleteUserServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteUserServlet</servlet-name>
+    <url-pattern>/DeleteUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>profileServlet</servlet-name>
+    <servlet-class>UserPackage.profileServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>profileServlet</servlet-name>
+    <url-pattern>/profileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateRequestServlet</servlet-name>
+    <servlet-class>fundreq.CreateRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CreateRequestServlet</servlet-name>
+    <url-pattern>/CreateRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllRequestsServlet</servlet-name>
+    <servlet-class>fundreq.GetAllRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAllRequestsServlet</servlet-name>
+    <url-pattern>/GetAllRequestsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateRequestServlet</servlet-name>
+    <servlet-class>fundreq.UpdateRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateRequestServlet</servlet-name>
+    <url-pattern>/UpdateRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteRequestServlet</servlet-name>
+    <url-pattern>/DeleteRequestServlet</url-pattern>
+  </servlet-mapping>
+
+
+
+
+</web-app>
+

@@ -1,0 +1,176 @@
+.container {
+    --cir-width: 10rem;
+}
+
+.pro-imgs {
+    position: relative;
+}
+
+.cover-bg {
+    width: 100%;
+    height: 25rem;
+    background: #2a2a2a;
+    border-radius: 1rem;
+}
+
+.user-ac {
+    align-items: center;
+}
+
+.profile-pic {
+    position: absolute;
+    bottom: 0;
+    left: 18rem;
+    transform: translate(-50%, 50%);
+    width: var(--cir-width);
+    height: var(--cir-width);
+    border-radius: 50%;
+    background: #fefefe;
+}
+
+.profile-container {
+    --gap-1: 0.5rem;
+    --gap-2: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: calc(var(--cir-width) / 2);
+    width: 100%;
+    padding-inline: 10rem;
+}
+
+.profile-container .profile-details {
+    background: #fefefe;
+    min-height: 15rem;
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    gap: 1.25rem;
+}
+
+.content-1 {
+    gap: 0.25rem;
+}
+
+.content-1 .row {
+    color: #5f5f5f;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.content-1 .row > div:not(:first-child) {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-1);
+}
+
+.content-1 .row > div:not(:first-child)::before {
+    content: "•";
+}
+
+.jc-sb {
+    justify-content: space-between;
+}
+
+.content-1 .name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.content-1 .name .verified {
+    background: #d4e3ff;
+    line-height: 0.85rem;
+    padding: 0.2rem 0.5rem 0.15rem;
+    border-radius: 0.25rem;
+    color: #366ccf;
+    font-size: 0.725rem;
+    letter-spacing: 0.25px;
+}
+
+.content-2{
+    gap: 1rem;
+}
+
+.content-2 .message {
+    padding: 0.35rem 1rem;
+    border-radius: 0.5rem;
+    background: #366ccf;
+    color: white;
+    gap: 0.5rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    user-select: none;
+}
+
+.options{
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #ededed;
+    border: 1px solid #d5d5d5;
+}
+.profession {
+    gap: var(--gap-1);
+    font-weight: 500;
+    align-items: bottom;
+}
+
+.profile-container .title{
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.profile-container .title ~ span{
+    font-weight: normal;
+    font-size: 0.95rem;
+}
+
+.pol-interest .tags{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: var(--gap-2);
+}
+
+.pol-interest .tags a {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.pol-interest .tags a span::before{
+    content: "\40";
+    font-family: FontAwesome;
+}
+
+.pol-interest .tags a span{
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    text-transform: none;
+    font-weight: 500;
+    color: #366ccf;
+}
+
+.edit-btn{
+    align-self: flex-end;
+    gap: var(--gap-1);
+    margin-top: 2rem;
+    background: #222222;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background 0.25s ease;
+}
+
+.edit-btn:hover{
+    background: #4a4a4a;
+}
