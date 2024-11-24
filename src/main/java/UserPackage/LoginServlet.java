@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
             List<UserModel> userlogin = UserController.loginValidate(email,password);
             if(userlogin != null && !userlogin.isEmpty()){
                 req.getSession().setAttribute("user", userlogin.get(0));
-                resp.sendRedirect("profile.jsp");
+                resp.sendRedirect("politicianHome.jsp");
             }else{
                 String alertMessage = "Login failed,please try again";
                 resp.getWriter().println("<script>alert('"+alertMessage+"');window.location.href='login.jsp'</script>");

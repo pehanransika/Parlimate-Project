@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
-    <link rel="stylesheet" href="../help.css" />
-    <!-- <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
-/> -->
+    <link rel="stylesheet" href="./help1.css" />
+
 
     <!-- icons -->
     <link
@@ -192,23 +190,73 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
     </div>
 </div>
+<body>
+<!-- Chatbot Popup -->
+<div id="chatbot-popup" class="chatbot-popup">
+    <h2>Need Help?</h2>
+    <p>Hi there! How can I assist you today?</p>
+    <button onclick="opennewChat()">Start Chat</button>
+    <button onclick="closeChat()">Close</button>
+</div>
 
-<div class="container col">
-    <div class="pageTitles">
-        <h2 class="title">Help and Support</h2>
-        <div class="subTitle">
-            Getting help from parlimate
+<div class="container">
+    <header>
+        <h1>Welcome to Parlimate Support</h1>
+        <p>Your go-to place for assistance and guidance.</p>
+    </header>
+
+    <section class="search-section">
+        <input type="text" id="searchInput" placeholder="Search for help topics...">
+        <button onclick="searchHelp()">🔍</button>
+    </section>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-card" onclick="toggleFaq(0)">
+            <h3>How do I create a fundraiser?</h3>
+            <p class="faq-answer">To start a fundraiser, navigate to the "Fundraisers" section and click "Start A Fundraise". Follow the steps provided to set up your fundraiser.</p>
         </div>
-    </div>
-    <div class="row">
-        <div class="announcements col">
-
-            <!-- this is the where content have to be for help and support -->
-
-
+        <div class="faq-card" onclick="toggleFaq(1)">
+            <h3>How do I reset my password?</h3>
+            <p class="faq-answer">To reset your password, click on "Forgot Password" on the login screen and follow the instructions sent to your registered email.</p>
         </div>
-    </div>
+        <div class="faq-card" onclick="toggleFaq(2)">
+            <h3>How do I contact customer support?</h3>
+            <p class="faq-answer">You can reach us via email at <a href="mailto:support@parlimate.com">support@parlimate.com</a> or use the chat feature to get in touch with a support agent.</p>
+        </div>
+    </section>
 
-    <script src="../script.js"></script>
+    <section class="contact-section">
+        <h2>Still Need Help?</h2>
+        <p>If you couldn't find the answer you're looking for, feel free to start a chat with our support team.</p>
+        <button onclick="openChat()">Contact Support</button>
+    </section>
+</div>
+
+<script src="help.js"></script>
+<script>
+    let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
+    const body = document.querySelector("body");
+    const navRadios = document.querySelectorAll('input[name="nav"]');
+
+    sideMenuBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (body.classList.contains("sidebar-deactive")) {
+                body.classList.remove("sidebar-deactive");
+            } else {
+                body.classList.add("sidebar-deactive");
+            }
+        });
+    });
+
+    navRadios.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            if (selectedValue) {
+                window.location.href = selectedValue; // Redirect to the selected page
+            }
+        });
+    });
+</script>
 </body>
 </html>

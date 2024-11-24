@@ -152,7 +152,7 @@
                         <div class="divider"></div>
                         <span>
 								Not a member?
-								<button id="signup-btn">Signup now</button>
+								<button type="button" id="signup-btn">Signup now</button>
 							</span>
                     </div>
                 </div>
