@@ -40,91 +40,88 @@
         <div class="cta row">
             <div class="primary btn">Create account</div>
             <div class="secondary btn row">
-                <a href="politicianHome.jsp" style="text-decoration: none; color: inherit;">
-                    Read more
-                </a>
+                Read more
                 <img src="./lucide_move-right.svg" alt="" />
             </div>
-
         </div>
     </div>
 </div>
 <div class="bg-popup"></div>
 <div class="popup login-on col">
-    <div class="login-cont col">
-        <div class="btn close-btn">
-            <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                        d="M1.90039 2.00043L13.9004 14.0004"
-                        stroke="#1E1E1E"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                />
-                <path
-                        d="M13.9004 2.00043L1.90039 14.0004"
-                        stroke="#1E1E1E"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                />
-            </svg>
-        </div>
-        <form action="LoginServlet" method="post">
+    <form action="LoginServlet" method="post">
+        <div class="login-cont col">
+            <div class="btn close-btn">
+                <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                            d="M1.90039 2.00043L13.9004 14.0004"
+                            stroke="#1E1E1E"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                    />
+                    <path
+                            d="M13.9004 2.00043L1.90039 14.0004"
+                            stroke="#1E1E1E"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                    />
+                </svg>
+            </div>
             <div class="head col">
                 <h2 class="title">Welcome to Parlimate</h2>
                 <p>Please sign in or signup below</p>
             </div>
             <div class="content col">
                 <!-- <button class="google-login btn row">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0px"
-                        y="0px"
-                        width="100"
-                        height="100"
-                        viewBox="0 0 48 48"
-                    >
-                        <path
-                            fill="#FFC107"
-                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                        ></path>
-                        <path
-                            fill="#FF3D00"
-                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                        ></path>
-                        <path
-                            fill="#4CAF50"
-                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                        ></path>
-                        <path
-                            fill="#1976D2"
-                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                        ></path>
-                    </svg>
-                    Sign in with Google
-                </button> -->
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="100"
+                    height="100"
+                    viewBox="0 0 48 48"
+                >
+                    <path
+                        fill="#FFC107"
+                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                    ></path>
+                    <path
+                        fill="#FF3D00"
+                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                    ></path>
+                    <path
+                        fill="#4CAF50"
+                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                    ></path>
+                    <path
+                        fill="#1976D2"
+                        d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                    ></path>
+                </svg>
+                Sign in with Google
+            </button> -->
                 <div class="email-section col">
                     <!-- <div class="seperator row">
-                        <div class="line"></div>
-                        <span>or use email</span>
-                        <div class="line"></div>
-                    </div> -->
+                    <div class="line"></div>
+                    <span>or use email</span>
+                    <div class="line"></div>
+                </div> -->
                     <div class="input-fields col">
                         <input
                                 type="email"
-                                name="email"
+                                name="login-email"
                                 id="login-email"
                                 placeholder="Email address"
                         />
                         <div class="pswrd">
                             <input
                                     type="password"
-                                    name="password"
+                                    name="login-pswd"
                                     id="login-pswd"
                                     placeholder="Password"
                             />
@@ -151,128 +148,142 @@
                     <div class="signup-section col">
                         <div class="divider"></div>
                         <span>
-								Not a member?
-								<button type="button" id="signup-btn">Signup now</button>
-							</span>
+									Not a member?
+									<button type="button" id="signup-btn">Signup now</button>
+								</span>
                     </div>
                 </div>
             </div>
-    </div>
-    <div class="signup-cont col">
-        <div class="login-container col">
-            <div class="btn close-btn">
-                <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                            d="M1.90039 2.00043L13.9004 14.0004"
-                            stroke="#1E1E1E"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                    />
-                    <path
-                            d="M13.9004 2.00043L1.90039 14.0004"
-                            stroke="#1E1E1E"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                    />
-                </svg>
-            </div>
-            <div class="head col">
-                <h2 class="title">Welcome to Parlimate</h2>
-                <p>Create your parlimate account</p>
-            </div>
+        </div>
+    </form>
+    <form action="UserInsertServlet" method="post">
+        <div class="signup-cont col">
+            <div class="login-container col">
+                <div class="btn close-btn">
+                    <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                                d="M1.90039 2.00043L13.9004 14.0004"
+                                stroke="#1E1E1E"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                        />
+                        <path
+                                d="M13.9004 2.00043L1.90039 14.0004"
+                                stroke="#1E1E1E"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                        />
+                    </svg>
+                </div>
 
-            </form>
-            <form action="UserInsertServlet" method="post">
+                <div class="head col">
+                    <h2 class="title">Welcome to Parlimate</h2>
+                    <p>Create your parlimate account</p>
+                </div>
                 <div class="content col">
                     <!-- <button class="google-login btn row">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            x="0px"
-                            y="0px"
-                            width="100"
-                            height="100"
-                            viewBox="0 0 48 48"
-                        >
-                            <path
-                                fill="#FFC107"
-                                d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                            ></path>
-                            <path
-                                fill="#FF3D00"
-                                d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                            ></path>
-                            <path
-                                fill="#4CAF50"
-                                d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                            ></path>
-                            <path
-                                fill="#1976D2"
-                                d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                            ></path>
-                        </svg>
-                        Sign up with Google
-                    </button> -->
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        width="100"
+                        height="100"
+                        viewBox="0 0 48 48"
+                    >
+                        <path
+                            fill="#FFC107"
+                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                        ></path>
+                        <path
+                            fill="#FF3D00"
+                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                        ></path>
+                        <path
+                            fill="#4CAF50"
+                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                        ></path>
+                        <path
+                            fill="#1976D2"
+                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                        ></path>
+                    </svg>
+                    Sign up with Google
+                </button> -->
                     <div class="email-section col">
                         <!-- <div class="seperator row">
-                            <div class="line"></div>
-                            <span>or use email</span>
-                            <div class="line"></div>
-                        </div> -->
+                        <div class="line"></div>
+                        <span>or use email</span>
+                        <div class="line"></div>
+                    </div> -->
+                        <input
+                                type="radio"
+                                name="userType-select"
+                                id="userType-select-cit"
+                                value="Citizen"
+                                checked
+                                hidden
+                        />
+                        <input
+                                type="radio"
+                                name="userType-select"
+                                id="userType-select-pol"
+                                value="politician"
+                                hidden
+                        />
+                        <input
+                                type="radio"
+                                name="userType-select"
+                                id="userType-select-part"
+                                value="political party"
+                                hidden
+                        />
                         <div class="signup-slider row">
-                            <span class="slider"></span>
-                            <div
+                            <label
                                     id="citizen-set"
                                     class="active tab"
                                     data-target="citizen"
+                                    for="userType-select-cit"
                             >
                                 citizen
-                            </div>
-                            <div
+                            </label>
+                            <label
                                     id="politician-set"
                                     class="tab"
                                     data-target="politician"
+                                    for="userType-select-pol"
                             >
                                 politician
-                            </div>
-                            <div
+                            </label>
+                            <label
                                     class="tab"
                                     id="politicalParty-set"
                                     data-target="politicalParty"
+                                    for="userType-select-part"
                             >
                                 political party
-                            </div>
+                            </label>
+                            <span class="slider"></span>
                         </div>
-
-                        <label class="signup-content col">
-
+                        <div class="signup-content col">
                             <div class="row-fields general-user row">
                                 <input
                                         type="text"
                                         class="inp-field"
                                         placeholder="Full name"
-                                        name="name"
                                 />
-
                             </div>
                             <input
                                     type="email"
-                                    name="email"
+                                    name="singup-email"
                                     id="singup-email"
                                     class="inp-field general-user"
                                     placeholder="Email address"
-                            />
-                            <input
-                                    type="text"
-                                    name="address"
-                                    id="address"
-                                    class="inp-field general-user"
-                                    placeholder="Address"
                             />
                             <div class="general-user row-fields row">
                                 <div class="pswrd">
@@ -281,22 +292,49 @@
                                             class="inp-field"
                                             placeholder="Password"
                                             id="password"
-                                            name="Password"
                                     />
                                     <i
                                             class="fa-solid fa-eye toggle-password"
                                             data-target="password"
                                     ></i>
                                 </div>
-
+                                <div class="tel">
+                                    <input
+                                            type="tel"
+                                            class="general-user inp-field"
+                                            placeholder="Contact number"
+                                            name="telNumber-signup"
+                                            id="telNumber-signup"
+                                    />
+                                </div>
                             </div>
                             <input
-                                    type="tel"
-                                    class="general-user inp-field"
-                                    placeholder="+94 12 3456 789"
-                                    name="phoneNumber"
-                                    id="telNumber-signup"
+                                    type="text"
+                                    name="singup-address"
+                                    id="singup-address"
+                                    class="inp-field general-user"
+                                    placeholder="Address"
                             />
+                            <select
+                                    name="district"
+                                    class="general-user"
+                                    id="district"
+                                    required
+                            >
+                                <option
+                                        value="invalid"
+                                        disabled="disabled"
+                                        selected
+                                >
+                                    District
+                                </option>
+                                <option value="kandy">kandy</option>
+                                <option value="colombo">colombo</option>
+                                <option value="mathara">mathara</option>
+                                <option value="horana">horana</option>
+                                <option value="jaffna">jaffna</option>
+                                <option value="galle">galle</option>
+                            </select>
                             <input
                                     type="text"
                                     class="general-user inp-field"
@@ -304,187 +342,150 @@
                                     name="image_url"
                                     id="imageUrl-input"
                             />
-                            <label for="userType-select">Select User Type:</label>
-                            <select name="userType" id="userType-select" class="general-user inp-field">
-                                <option value="" disabled selected>Select user type</option>
-                                <option value="Citizen">Citizen</option>
-                                <option value="politician">Politician</option>
-                                <option value="political party">Political Party</option>
-                            </select>
-                        </label>
-
-                        <!-- Placeholder for displaying the image -->
-                        <div id="image-container">
-                            <img id="displayed-image" src="" alt="Image Preview" style="max-width: 200px; display: none;" />
-                        </div>
-                        <select
-                                name="district"
-                                class="general-user"
-                                id="district"
-                                required="true"
-                        >
-                            <option
-                                    value="invalid"
-                                    disabled="disabled"
-                                    selected
-                            >
-                                District
-                            </option>
-                            <option value="kandy">kandy</option>
-                            <option value="colombo">colombo</option>
-                            <option value="mathara">mathara</option>
-                            <option value="horana">horana</option>
-                            <option value="jaffna">jaffna</option>
-                            <option value="galle">galle</option>
-                        </select>
-                        <div
-                                class="nic-field row-fields general-user politician-inputs"
-                        >
-                            <label for="nic-front">
-                                <input
-                                        type="file"
-                                        class="image-upload-inp"
-                                        name="nic-front"
-                                        id="nic-front"
-                                        hidden
-                                        accept="image/png, image/jpg, image/jpeg"
-                                />
-                                <div class="img-view row">
-                                    <i
-                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                            style="
-													--fa-secondary-color: #a2aec3;
-												"
-                                    ></i>
-                                    <span id="nic-front-label">
-												NIC front
-											</span>
-                                </div>
-                            </label>
-                            <label for="nic-back">
-                                <input
-                                        type="file"
-                                        class="image-upload-inp"
-                                        name="nic-back"
-                                        id="nic-back"
-                                        accept="image/png, image/jpg, image/jpeg"
-                                        hidden
-                                />
-                                <div class="img-view row">
-                                    <i
-                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                            style="
-													--fa-secondary-color: #a2aec3;
-												"
-                                    ></i>
-                                    <span id="nic-back-label">
-												NIC back
-											</span>
-                                </div>
-                            </label>
-                        </div>
-                        <input
-                                type="text"
-                                name="name"
-                                class="inp-field polParty"
-                                placeholder="National People's Power"
-                                id="partyName-signup"
-                        />
-
-
-                    </div>
-                    <input
-                            type="text"
-                            class="inp-field polParty"
-                            name="phoneNumber"
-                            placeholder="Phone number"
-                            id="partyLeader-signup"
-                    />
-
-                    <input
-                            type="text"
-                            class="inp-field polParty"
-                            name="address"
-                            placeholder="Enter Address"
-                            id="addressn"
-                            required
-                    />
-                    <input
-                            type="number"
-                            class="inp-field polParty"
-                            name="noOfMembers"
-                            placeholder="Enter number of members"
-                            id="no_of_members"
-                            min="1"
-                            required
-                    />
-
-
-
-
-                    <div class="party-imgs col row-fields">
-                        <label for="party-logo">
-                            <input
-                                    type="file"
-                                    class="image-upload-inp"
-                                    accept="image/png, image/jpg, image/jpeg"
-                                    name="logoImg"
-                                    id="party-logo"
-                                    hidden
-                            />
                             <div
-                                    class="img-view row polParty"
-                                    id="party-logo-bg"
+                                    class="nic-field row-fields general-user politician-inputs"
                             >
-                                <i
-                                        class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                        style="
-													--fa-secondary-color: #a2aec3;
-												"
-                                >
-                                </i>
-                                <span id="party-logo-name polParty"
-                                >Party Logo
-											</span>
+                                <label for="nic-front">
+                                    <input
+                                            type="file"
+                                            class="image-upload-inp"
+                                            name="nic-front"
+                                            id="nic-front"
+                                            hidden
+                                            accept="image/png, image/jpg, image/jpeg"
+                                    />
+                                    <div class="img-view row">
+                                        <i
+                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                                style="
+														--fa-secondary-color: #a2aec3;
+													"
+                                        ></i>
+                                        <span id="nic-front-label">
+													NIC front
+												</span>
+                                    </div>
+                                </label>
+                                <label for="nic-back">
+                                    <input
+                                            type="file"
+                                            class="image-upload-inp"
+                                            name="nic-back"
+                                            id="nic-back"
+                                            accept="image/png, image/jpg, image/jpeg"
+                                            hidden
+                                    />
+                                    <div class="img-view row">
+                                        <i
+                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                                style="
+														--fa-secondary-color: #a2aec3;
+													"
+                                        ></i>
+                                        <span id="nic-back-label">
+													NIC back
+												</span>
+                                    </div>
+                                </label>
                             </div>
-                        </label>
-
+                            <input
+                                    type="text"
+                                    class="inp-field polParty"
+                                    placeholder="Party Name"
+                                    id="partyName-signup"
+                            />
+                            <input
+                                    type="text"
+                                    class="inp-field polParty"
+                                    placeholder="Party Leader's Name"
+                                    id="partyLeaderName-signup"
+                            />
+                            <div class="row-fields row">
+                                <input
+                                        type="text"
+                                        class="inp-field polParty"
+                                        name="phoneNumber"
+                                        placeholder="Contact number"
+                                        id="partyLeader-signup"
+                                />
+                                <input
+                                        type="number"
+                                        class="inp-field polParty"
+                                        name="noOfMembers"
+                                        placeholder="Number of members"
+                                        id="no_of_members"
+                                        min="1"
+                                        required
+                                />
+                            </div>
+                            <input
+                                    type="text"
+                                    class="inp-field polParty"
+                                    name="address"
+                                    placeholder="Address"
+                                    id="addressn"
+                                    required
+                            />
+                            <div class="party-imgs col row-fields">
+                                <label for="party-logo">
+                                    <input
+                                            type="file"
+                                            class="image-upload-inp"
+                                            accept="image/png, image/jpg, image/jpeg"
+                                            name="party-logo"
+                                            id="party-logo"
+                                            hidden
+                                    />
+                                    <div
+                                            class="img-view row polParty"
+                                            id="party-logo-bg"
+                                    >
+                                        <i
+                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                                style="
+														--fa-secondary-color: #a2aec3;
+													"
+                                        >
+                                        </i>
+                                        <span
+                                                id="party-logo-name polParty"
+                                        >Party Logo
+												</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="remember row">
+                            <input
+                                    type="checkbox"
+                                    name="agreement-signup"
+                                    id="agreement-signup"
+                            />
+                            <label for="agreement-signup"
+                            >I hereby agree to the policies of
+                                Parlimate</label
+                            >
+                        </div>
+                        <button
+                                class="btn login-btn"
+                                id="signup-submit-btn"
+                        >
+                            Create account
+                        </button>
+                        <div class="signup-section col">
+                            <div class="divider"></div>
+                            <span>
+										Already have an account?
+										<button id="login-link" href="#">
+											Login
+										</button>
+									</span>
+                        </div>
                     </div>
-                    </label>
                 </div>
+            </div>
         </div>
-
-        <div class="remember row">
-            <input
-                    type="checkbox"
-                    name="agreement-signup"
-                    id="agreement-signup"
-            />
-            <label for="agreement-signup"
-            >I hereby agree to the policies of
-                Parlimate</label
-            >
-        </div>
-        <button
-                class="btn login-btn"
-                id="signup-submit-btn"
-        >
-            Create account
-        </button>
-        <div class="signup-section col">
-            <div class="divider"></div>
-            <span>
-									Already have an account?
-									<button id="login-link" href="#">
-										Login
-									</button>
-								</span>
-        </div>
-    </div>
-</div>
-</form>
-</div>
-</div>
+    </form>
 </div>
 <ul class="items row">
     <li class="item row">
@@ -549,19 +550,19 @@
     const popup = document.querySelector(".popup");
 
     loginBtn.addEventListener("click", () => {
-        if(!popup.classList.contains("login-on")){
+        if (!popup.classList.contains("login-on")) {
             popup.classList.add("login-on");
         }
         body.classList.toggle("popup-active");
     });
     regBtn.addEventListener("click", () => {
-        if(popup.classList.contains("login-on")){
+        if (popup.classList.contains("login-on")) {
             popup.classList.remove("login-on");
         }
         body.classList.toggle("popup-active");
     });
     CTAReg.addEventListener("click", () => {
-        if(popup.classList.contains("login-on")){
+        if (popup.classList.contains("login-on")) {
             popup.classList.remove("login-on");
         }
         body.classList.toggle("popup-active");
