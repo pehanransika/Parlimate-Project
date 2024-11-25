@@ -223,7 +223,7 @@
     <title>Announcements | Parlimate</title>
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="index/sidebar1.css" />
-    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="index/header/header.css" />
     <link rel="stylesheet" href="container.css" />
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""

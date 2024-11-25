@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile | Parlimate</title>
     <link rel="stylesheet" href="../../index/sidebar1.css" />
-    <link rel="stylesheet" href="../../header.css" />
+    <link rel="stylesheet" href="../../index/header/header.css" />
     <link rel="stylesheet" href="../../index.css" />
     <link rel="stylesheet" href="../profile.css" />
     <link rel="stylesheet" href="./edit.css" />
