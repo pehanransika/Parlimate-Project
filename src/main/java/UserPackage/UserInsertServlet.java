@@ -31,7 +31,7 @@ public class UserInsertServlet extends HttpServlet {
              String name = req.getParameter("name");
              String address = req.getParameter("address");
              String phoneNumber = req.getParameter("phoneNumber");
-             String profile = req.getParameter("profile");
+             String profile = req.getParameter("district");
              String img_url = req.getParameter("img_url");
 
               isType = CitizenController.insertCitizen(userid,name,address,phoneNumber,profile,img_url);
@@ -41,7 +41,7 @@ public class UserInsertServlet extends HttpServlet {
              String name = req.getParameter("name");
              String address = req.getParameter("address");
              String phoneNumber = req.getParameter("phoneNumber");
-             String profileImgUrl = req.getParameter("profile");
+             String profileImgUrl = req.getParameter("img_url");
 
              isType = PoliticianController.insertPolitician(userid,name,address,phoneNumber,profileImgUrl);
 
@@ -63,7 +63,7 @@ public class UserInsertServlet extends HttpServlet {
             String alertMessage = "Registered Successfully";
             resp.getWriter().println("<script>");
             resp.getWriter().println("alert('" + alertMessage + "');");
-            resp.getWriter().println("window.location.href='login.jsp';");
+            resp.getWriter().println("window.location.href='politicianHome.jsp';");
             resp.getWriter().println("</script>");
 
 

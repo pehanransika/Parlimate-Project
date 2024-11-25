@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Parlimate</title>
-    <link rel="stylesheet" href="welcome.css" />
+    <link rel="stylesheet" href="welcome.css"/>
 </head>
 <body class="">
 <div class="bg">
-    <img src="./BG line.png" alt="background" />
+    <img src="./BG line.png" alt="background"/>
 </div>
 <div class="bg-hand">
-    <img src="./view-3d-hand 1.png" />
+    <img src="./view-3d-hand 1.png"/>
 </div>
 <div class="container col">
     <div class="header row">
         <div class="logo">
-            <img src="logo 2.png" alt="Parlimate" />
+            <img src="logo 2.png" alt="Parlimate"/>
         </div>
         <div class="navs">
             <ul class="row">
@@ -39,10 +39,10 @@
         </p>
         <div class="cta row">
             <div class="primary btn">Create account</div>
-            <div class="secondary btn row">
-                Read more
-                <img src="./lucide_move-right.svg" alt="" />
-            </div>
+            <a class="secondary btn row" href="./politicianHome.jsp">
+                Sneak View
+                <img src="./lucide_move-right.svg" alt=""/>
+            </a>
         </div>
     </div>
 </div>
@@ -114,14 +114,14 @@
                     <div class="input-fields col">
                         <input
                                 type="email"
-                                name="login-email"
+                                name="email"
                                 id="login-email"
                                 placeholder="Email address"
                         />
                         <div class="pswrd">
                             <input
                                     type="password"
-                                    name="login-pswd"
+                                    name="password"
                                     id="login-pswd"
                                     placeholder="Password"
                             />
@@ -187,300 +187,266 @@
                     <p>Create your parlimate account</p>
                 </div>
                 <div class="content col">
-                    <!-- <button class="google-login btn row">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0px"
-                        y="0px"
-                        width="100"
-                        height="100"
-                        viewBox="0 0 48 48"
-                    >
-                        <path
-                            fill="#FFC107"
-                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                        ></path>
-                        <path
-                            fill="#FF3D00"
-                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                        ></path>
-                        <path
-                            fill="#4CAF50"
-                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                        ></path>
-                        <path
-                            fill="#1976D2"
-                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                        ></path>
-                    </svg>
-                    Sign up with Google
-                </button> -->
-                    <div class="email-section col">
-                        <!-- <div class="seperator row">
-                        <div class="line"></div>
-                        <span>or use email</span>
-                        <div class="line"></div>
-                    </div> -->
-                        <input
-                                type="radio"
-                                name="userType-select"
-                                id="userType-select-cit"
-                                value="Citizen"
-                                checked
-                                hidden
-                        />
-                        <input
-                                type="radio"
-                                name="userType-select"
-                                id="userType-select-pol"
-                                value="politician"
-                                hidden
-                        />
-                        <input
-                                type="radio"
-                                name="userType-select"
-                                id="userType-select-part"
-                                value="political party"
-                                hidden
-                        />
-                        <div class="signup-slider row">
-                            <label
-                                    id="citizen-set"
-                                    class="active tab"
-                                    data-target="citizen"
-                                    for="userType-select-cit"
-                            >
-                                citizen
-                            </label>
-                            <label
-                                    id="politician-set"
-                                    class="tab"
-                                    data-target="politician"
-                                    for="userType-select-pol"
-                            >
-                                politician
-                            </label>
-                            <label
-                                    class="tab"
-                                    id="politicalParty-set"
-                                    data-target="politicalParty"
-                                    for="userType-select-part"
-                            >
-                                political party
-                            </label>
-                            <span class="slider"></span>
+
+                    <input
+                            type="radio"
+                            name="userType"
+                            id="userType-select-cit"
+                            value="Citizen"
+                            checked
+                            hidden
+                    />
+                    <input
+                            type="radio"
+                            name="userType"
+                            id="userType-select-pol"
+                            value="Politician"
+                            hidden
+                    />
+                    <input
+                            type="radio"
+                            name="userType"
+                            id="userType-select-part"
+                            value="Political Party"
+                            hidden
+                    />
+                    <div class="signup-slider row">
+                        <label
+                                id="citizen-set"
+                                class="active tab"
+                                data-target="citizen"
+                                for="userType-select-cit"
+                        >
+                            citizen
+                        </label>
+                        <label
+                                id="politician-set"
+                                class="tab"
+                                data-target="politician"
+                                for="userType-select-pol"
+                        >
+                            politician
+                        </label>
+                        <label
+                                class="tab"
+                                id="politicalParty-set"
+                                data-target="politicalParty"
+                                for="userType-select-part"
+                        >
+                            political party
+                        </label>
+                        <span class="slider"></span>
+                    </div>
+                    <div class="signup-content col">
+                        <div class="row-fields general-user row">
+                            <input
+                                    type="text"
+                                    class="inp-field"
+                                    placeholder="Full name"
+                                    name="name"
+                            />
                         </div>
-                        <div class="signup-content col">
-                            <div class="row-fields general-user row">
+                        <input
+                                type="email"
+                                name="email"
+                                id="singup-email"
+                                class="inp-field general-user"
+                                placeholder="Email address"
+                        />
+                        <div class="general-user row-fields row">
+                            <div class="pswrd">
                                 <input
-                                        type="text"
+                                        type="password"
                                         class="inp-field"
-                                        placeholder="Full name"
+                                        placeholder="Password"
+                                        id="password"
+                                        name="Password"
+                                />
+                                <i
+                                        class="fa-solid fa-eye toggle-password"
+                                        data-target="password"
+                                ></i>
+                            </div>
+                            <div class="tel">
+                                <input
+                                        type="tel"
+                                        class="general-user inp-field"
+                                        placeholder="Contact number"
+                                        name="phoneNumber"
+                                        id="telNumber-signup"
                                 />
                             </div>
-                            <input
-                                    type="email"
-                                    name="singup-email"
-                                    id="singup-email"
-                                    class="inp-field general-user"
-                                    placeholder="Email address"
-                            />
-                            <div class="general-user row-fields row">
-                                <div class="pswrd">
-                                    <input
-                                            type="password"
-                                            class="inp-field"
-                                            placeholder="Password"
-                                            id="password"
-                                    />
+                        </div>
+                        <input
+                                type="text"
+                                name="address"
+                                id="singup-address"
+                                class="inp-field general-user"
+                                placeholder="Address"
+                        />
+                        <select
+                                name="district"
+                                class="general-user"
+                                id="district"
+                        >
+                            <option
+                                    value="invalid"
+                                    disabled="disabled"
+                                    selected
+                            >
+                                District
+                            </option>
+                            <option value="kandy">kandy</option>
+                            <option value="colombo">colombo</option>
+                            <option value="mathara">mathara</option>
+                            <option value="horana">horana</option>
+                            <option value="jaffna">jaffna</option>
+                            <option value="galle">galle</option>
+                        </select>
+                        <input
+                                type="text"
+                                class="general-user inp-field"
+                                placeholder="Enter Image URL"
+                                name="img_url"
+                                id="imageUrl-input"
+                        />
+                        <div
+                                class="nic-field row-fields general-user politician-inputs"
+                        >
+                            <label for="nic-front">
+                                <input
+                                        type="file"
+                                        class="image-upload-inp"
+                                        name="img_url"
+                                        id="nic-front"
+                                        hidden
+                                        accept="image/png, image/jpg, image/jpeg"
+                                />
+                                <div class="img-view row">
                                     <i
-                                            class="fa-solid fa-eye toggle-password"
-                                            data-target="password"
-                                    ></i>
-                                </div>
-                                <div class="tel">
-                                    <input
-                                            type="tel"
-                                            class="general-user inp-field"
-                                            placeholder="Contact number"
-                                            name="telNumber-signup"
-                                            id="telNumber-signup"
-                                    />
-                                </div>
-                            </div>
-                            <input
-                                    type="text"
-                                    name="singup-address"
-                                    id="singup-address"
-                                    class="inp-field general-user"
-                                    placeholder="Address"
-                            />
-                            <select
-                                    name="district"
-                                    class="general-user"
-                                    id="district"
-                                    required
-                            >
-                                <option
-                                        value="invalid"
-                                        disabled="disabled"
-                                        selected
-                                >
-                                    District
-                                </option>
-                                <option value="kandy">kandy</option>
-                                <option value="colombo">colombo</option>
-                                <option value="mathara">mathara</option>
-                                <option value="horana">horana</option>
-                                <option value="jaffna">jaffna</option>
-                                <option value="galle">galle</option>
-                            </select>
-                            <input
-                                    type="text"
-                                    class="general-user inp-field"
-                                    placeholder="Enter Image URL"
-                                    name="image_url"
-                                    id="imageUrl-input"
-                            />
-                            <div
-                                    class="nic-field row-fields general-user politician-inputs"
-                            >
-                                <label for="nic-front">
-                                    <input
-                                            type="file"
-                                            class="image-upload-inp"
-                                            name="nic-front"
-                                            id="nic-front"
-                                            hidden
-                                            accept="image/png, image/jpg, image/jpeg"
-                                    />
-                                    <div class="img-view row">
-                                        <i
-                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                                style="
+                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                            style="
 														--fa-secondary-color: #a2aec3;
 													"
-                                        ></i>
-                                        <span id="nic-front-label">
+                                    ></i>
+                                    <span id="nic-front-label">
 													NIC front
 												</span>
-                                    </div>
-                                </label>
-                                <label for="nic-back">
-                                    <input
-                                            type="file"
-                                            class="image-upload-inp"
-                                            name="nic-back"
-                                            id="nic-back"
-                                            accept="image/png, image/jpg, image/jpeg"
-                                            hidden
-                                    />
-                                    <div class="img-view row">
-                                        <i
-                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                                style="
+                                </div>
+                            </label>
+                            <label for="nic-back">
+                                <input
+                                        type="file"
+                                        class="image-upload-inp"
+                                        name="nic-back"
+                                        id="nic-back"
+                                        accept="image/png, image/jpg, image/jpeg"
+                                        hidden
+                                />
+                                <div class="img-view row">
+                                    <i
+                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                            style="
 														--fa-secondary-color: #a2aec3;
 													"
-                                        ></i>
-                                        <span id="nic-back-label">
+                                    ></i>
+                                    <span id="nic-back-label">
 													NIC back
 												</span>
-                                    </div>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
+                        </div>
+                        <input
+                                type="text"
+                                class="inp-field polParty"
+                                placeholder="Party Name"
+                                id="partyName-signup"
+                                name="name"
+                        />
+                        <input
+                                type="text"
+                                class="inp-field polParty"
+                                placeholder="Party Leader's Name"
+                                id="partyLeaderName-signup"
+                        />
+                        <div class="row-fields row">
                             <input
                                     type="text"
                                     class="inp-field polParty"
-                                    placeholder="Party Name"
-                                    id="partyName-signup"
+                                    name="phoneNumber"
+                                    placeholder="Contact number"
+                                    id="partyLeader-signup"
                             />
                             <input
-                                    type="text"
+                                    type="number"
                                     class="inp-field polParty"
-                                    placeholder="Party Leader's Name"
-                                    id="partyLeaderName-signup"
+                                    name="noOfMembers"
+                                    placeholder="Number of members"
+                                    id="no_of_members"
+                                    min="1"
                             />
-                            <div class="row-fields row">
+                        </div>
+                        <input
+                                type="text"
+                                class="inp-field polParty"
+                                name="address"
+                                placeholder="Address"
+                                id="addressn"
+                        />
+                        <div class="party-imgs col row-fields">
+                            <label for="party-logo">
                                 <input
-                                        type="text"
-                                        class="inp-field polParty"
-                                        name="phoneNumber"
-                                        placeholder="Contact number"
-                                        id="partyLeader-signup"
+                                        type="file"
+                                        class="image-upload-inp"
+                                        accept="image/png, image/jpg, image/jpeg"
+                                        name="logoImg"
+                                        id="party-logo"
+                                        hidden
                                 />
-                                <input
-                                        type="number"
-                                        class="inp-field polParty"
-                                        name="noOfMembers"
-                                        placeholder="Number of members"
-                                        id="no_of_members"
-                                        min="1"
-                                        required
-                                />
-                            </div>
-                            <input
-                                    type="text"
-                                    class="inp-field polParty"
-                                    name="address"
-                                    placeholder="Address"
-                                    id="addressn"
-                                    required
-                            />
-                            <div class="party-imgs col row-fields">
-                                <label for="party-logo">
-                                    <input
-                                            type="file"
-                                            class="image-upload-inp"
-                                            accept="image/png, image/jpg, image/jpeg"
-                                            name="party-logo"
-                                            id="party-logo"
-                                            hidden
-                                    />
-                                    <div
-                                            class="img-view row polParty"
-                                            id="party-logo-bg"
-                                    >
-                                        <i
-                                                class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                                style="
+                                <div
+                                        class="img-view row polParty"
+                                        id="party-logo-bg"
+                                >
+                                    <i
+                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
+                                            style="
 														--fa-secondary-color: #a2aec3;
 													"
-                                        >
-                                        </i>
-                                        <span
-                                                id="party-logo-name polParty"
-                                        >Party Logo
+                                    >
+                                    </i>
+                                    <span
+                                            id="party-logo-name polParty"
+                                    >Party Logo
 												</span>
-                                    </div>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                         </div>
-                        <div class="remember row">
-                            <input
-                                    type="checkbox"
-                                    name="agreement-signup"
-                                    id="agreement-signup"
-                            />
-                            <label for="agreement-signup"
-                            >I hereby agree to the policies of
-                                Parlimate</label
-                            >
-                        </div>
-                        <button
-                                class="btn login-btn"
-                                id="signup-submit-btn"
+                    </div>
+                    <div class="remember row">
+                        <input
+                                type="checkbox"
+                                name="agreement-signup"
+                                id="agreement-signup"
+                        />
+                        <label for="agreement-signup"
+                        >I hereby agree to the policies of
+                            Parlimate</label
                         >
-                            Create account
-                        </button>
-                        <div class="signup-section col">
-                            <div class="divider"></div>
-                            <span>
+                    </div>
+                    <button
+                            class="btn login-btn"
+                            id="signup-submit-btn"
+                    >
+                        Create account
+                    </button>
+                    <div class="signup-section col">
+                        <div class="divider"></div>
+                        <span>
 										Already have an account?
-										<button id="login-link" href="#">
+										<button id="login-link" type="button">
 											Login
 										</button>
 									</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -540,207 +506,7 @@
         Raise Awareness
     </li>
 </ul>
-</body>
-<script>
-    const loginBtn = document.querySelector(".header-btns .primary");
-    const regBtn = document.querySelector(".header-btns .secondary");
-    const CTAReg = document.querySelector(".cta .primary");
-    const body = document.querySelector("body");
-    const closeBtns = document.querySelectorAll(".close-btn");
-    const popup = document.querySelector(".popup");
-
-    loginBtn.addEventListener("click", () => {
-        if (!popup.classList.contains("login-on")) {
-            popup.classList.add("login-on");
-        }
-        body.classList.toggle("popup-active");
-    });
-    regBtn.addEventListener("click", () => {
-        if (popup.classList.contains("login-on")) {
-            popup.classList.remove("login-on");
-        }
-        body.classList.toggle("popup-active");
-    });
-    CTAReg.addEventListener("click", () => {
-        if (popup.classList.contains("login-on")) {
-            popup.classList.remove("login-on");
-        }
-        body.classList.toggle("popup-active");
-    });
-
-    closeBtns.forEach((closeBtn) => {
-        closeBtn.addEventListener("click", () => {
-            console.log("clicked");
-            body.classList.remove("popup-active");
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const togglePassword = document.querySelector("#toggle-password");
-        const passwordField = document.querySelector("#login-pswd");
-
-        togglePassword.addEventListener("click", () => {
-            const type =
-                passwordField.getAttribute("type") === "password"
-                    ? "text"
-                    : "password";
-            passwordField.setAttribute("type", type);
-            togglePassword.classList.toggle("fa-eye");
-            togglePassword.classList.toggle("fa-eye-slash");
-        });
-    });
-    // login toggle
-    const signupBtn = document.querySelector("#signup-btn");
-
-    signupBtn.addEventListener("click", () => {
-        popup.classList.toggle("login-on");
-    });
-
-    const loginLink = document.querySelector("#login-link");
-    loginLink.addEventListener("click", () => {
-        popup.classList.toggle("login-on");
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const slider = document.querySelector(".signup-slider .slider");
-        const tabs = document.querySelectorAll(".signup-slider .tab");
-        const politicianInps =
-            document.querySelectorAll(".politician-inputs");
-        const partyFields = document.querySelectorAll(".polParty");
-        const generalUser = document.querySelectorAll(".general-user");
-        const signupBtn = document.getElementById("signup-submit-btn");
-
-        tabs.forEach((tab) => {
-            tab.addEventListener("click", () => {
-                clearAllFields();
-                // Remove active class from all tabs
-                tabs.forEach((t) => t.classList.remove("active"));
-                // Add active class to the clicked tab
-                tab.classList.add("active");
-
-                // Update slider position and width
-                const tabRect = tab.getBoundingClientRect();
-                const sliderRect =
-                    slider.parentElement.getBoundingClientRect();
-                slider.style.width = `${tabRect.width}px`;
-                slider.style.left = `${tabRect.left - sliderRect.left}px`;
-
-                // politician inputs - show or hide
-                const targetId = tab.getAttribute("data-target");
-
-                if (targetId === "politician") {
-                    addGeneralFields();
-                    politicianInps.forEach((inp) =>
-                        inp.classList.add("pol-active")
-                    );
-                    signupBtn.textContent = "Create account";
-                } else if (targetId === "politicalParty") {
-                    clearGeneralFields();
-                    partyFields.forEach((inp) => {
-                        inp.required = true;
-                        inp.classList.add("party-active");
-                    });
-                    signupBtn.textContent = "Request Party Account";
-                } else {
-                    addGeneralFields();
-                    signupBtn.textContent = "Create account";
-                }
-            });
-        });
-
-        function clearAllFields() {
-            politicianInps.forEach((inp) =>
-                inp.classList.remove("pol-active")
-            );
-            partyFields.forEach((inp) => {
-                inp.required = false;
-                inp.classList.remove("party-active");
-            });
-        }
-
-        function clearGeneralFields() {
-            generalUser.forEach((inp) => {
-                inp.classList.add("inactive");
-            });
-        }
-
-        function addGeneralFields() {
-            generalUser.forEach((inp) => {
-                inp.classList.remove("inactive");
-            });
-        }
-
-        // Initialize slider position and width based on the active tab
-        const activeTab = document.querySelector(".signup-slider .active");
-        if (activeTab) {
-            const tabRect = activeTab.getBoundingClientRect();
-            const sliderRect = slider.parentElement.getBoundingClientRect();
-            slider.style.width = `${tabRect.width}px`;
-            slider.style.left = `${tabRect.left - sliderRect.left}px`;
-        } else {
-            // Set initial width to 6rem if no active tab is found
-            slider.style.width = "6rem";
-        }
-
-        const togglePasswordIcons =
-            document.querySelectorAll(".toggle-password");
-
-        togglePasswordIcons.forEach((icon) => {
-            icon.addEventListener("click", () => {
-                const targetId = icon.getAttribute("data-target");
-                const passwordField = document.getElementById(targetId);
-
-                // Toggle the type attribute
-                const type =
-                    passwordField.getAttribute("type") === "password"
-                        ? "text"
-                        : "password";
-                passwordField.setAttribute("type", type);
-
-                // Toggle the eye icon
-                icon.classList.toggle("fa-eye");
-                icon.classList.toggle("fa-eye-slash");
-            });
-        });
-
-        const fileInput = document.getElementById("nic-front");
-        const fileLabel = document.getElementById("nic-front-label");
-
-        fileInput.addEventListener("change", (event) => {
-            const fileName = event.target.files[0]
-                ? event.target.files[0].name
-                : "NIC front";
-            fileLabel.textContent = fileName;
-        });
-
-        const fileInput_back = document.getElementById("nic-back");
-        const fileLabel_back = document.getElementById("nic-back-label");
-
-        fileInput_back.addEventListener("change", (event) => {
-            const fileName = event.target.files[0]
-                ? event.target.files[0].name
-                : "NIC back";
-            fileLabel_back.textContent = fileName;
-        });
-
-        const fileInputs = document.querySelectorAll(".image-upload-inp");
-        fileInputs.forEach((fileInput) => {
-            fileInput.addEventListener("change", (event) => {
-                const fileName = event.target.files[0]
-                    ? event.target.files[0].name
-                    : "No file chosen";
-                const labelId = `${fileInput.id}-name`;
-                const fileLabel = document.getElementById(labelId);
-                fileLabel.textContent = fileName;
-            });
-        });
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-        const sliderElement = document.querySelector("span.slider");
-        if (sliderElement) {
-            sliderElement.style.width = "";
-            sliderElement.style.left = "";
-        }
-    });
+<script src="./welcome.js">
 </script>
+</body>
 </html>
