@@ -13,8 +13,8 @@
         </div>
 
         <div class="logo">
-            <a href="./index.html">
-                <img src="<c:url value='/assets/images/logo.png' />" alt="">
+            <a href="<c:url value='./Home.jsp' />">
+                <img src="<c:url value='/assets/images/logo.png' />" alt="ParlimateLogo">
             </a>
         </div>
     </div>

@@ -23,9 +23,7 @@
             display: flex;
             justify-content: flex-end;
             margin-top: 80px;
-
         }
-
         .button-home {
             background-color: #007bff;
             color: white;
