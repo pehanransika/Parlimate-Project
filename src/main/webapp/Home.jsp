@@ -1,7 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-
+<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
+if (session1 == null || session.getAttribute("user") == null) {
+// User is not logged in, redirect to login page
+response.sendRedirect("index.jsp");
+return;
+}%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +46,7 @@
 </head>
 
 <body class="">
+
 <form action="CreateRequestServlet" method="post" class="popup-f" enctype="multipart/form-data">
   <div class="bg"></div>
   <div class="fund-popup col">
@@ -170,6 +175,7 @@
           <a href="#" class="img"></a>
           <div class="details">
             <a href="#" class="name">Himasha Chinthani</a>
+
             <div class="posted-date">
               <i class="fa-light fa-clock"></i>
               <div class="time">
