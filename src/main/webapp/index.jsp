@@ -106,11 +106,6 @@
                 Sign in with Google
             </button> -->
                 <div class="email-section col">
-                    <!-- <div class="seperator row">
-                    <div class="line"></div>
-                    <span>or use email</span>
-                    <div class="line"></div>
-                </div> -->
                     <div class="input-fields col">
                         <input
                                 type="email"
@@ -207,7 +202,7 @@
                             type="radio"
                             name="userType"
                             id="userType-select-part"
-                            value="Political Party"
+                            value="Political-Party"
                             hidden
                     />
                     <div class="signup-slider row">
@@ -361,7 +356,7 @@
                                 class="inp-field polParty"
                                 placeholder="Party Name"
                                 id="partyName-signup"
-                                name="name"
+                                name="partyName"
                         />
                         <input
                                 type="text"
@@ -373,7 +368,7 @@
                             <input
                                     type="text"
                                     class="inp-field polParty"
-                                    name="phoneNumber"
+                                    name="partyPhoneNumber"
                                     placeholder="Contact number"
                                     id="partyLeader-signup"
                             />
@@ -389,7 +384,7 @@
                         <input
                                 type="text"
                                 class="inp-field polParty"
-                                name="address"
+                                name="partyAddress"
                                 placeholder="Address"
                                 id="addressn"
                         />

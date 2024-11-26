@@ -45,10 +45,10 @@ public class UserInsertServlet extends HttpServlet {
 
              isType = PoliticianController.insertPolitician(userid,name,address,phoneNumber,profileImgUrl);
 
-           }else if(userType.equals("Political Party")) {
-             String name = req.getParameter("name");
-             String address = req.getParameter("address");
-             String phoneNumber = req.getParameter("phoneNumber");
+           }else if(userType.equals("Political-Party")) {
+             String name = req.getParameter("partyName");
+             String address = req.getParameter("partyAddress");
+             String phoneNumber = req.getParameter("partyPhoneNumber");
              String logoImg = req.getParameter("logoImg");
              int noOfMembers = Integer.parseInt(req.getParameter("noOfMembers"));
 

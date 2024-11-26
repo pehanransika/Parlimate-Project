@@ -131,7 +131,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<div class=\"container col\">\r\n");
       out.write("    <div class=\"header row\">\r\n");
       out.write("        <div class=\"logo\">\r\n");
-      out.write("            <img src=\"logo 2.png\" alt=\"Parlimate\"/>\r\n");
+      out.write("            <img src=\"logo.png\" alt=\"Parlimate\"/>\r\n");
       out.write("        </div>\r\n");
       out.write("        <div class=\"navs\">\r\n");
       out.write("            <ul class=\"row\">\r\n");
