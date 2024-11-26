@@ -37,34 +37,38 @@ public class PoliticianController {
     }
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
-        String sql = "SELECT * FROM politician WHERE user_id = '" + id + "'";
+        String sql = "SELECT * FROM politician WHERE user_id = ?";
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            // Use PreparedStatement to safely set the user_id parameter
+            stmt.setInt(1, id);
 
             // Execute the query and process the ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    int citizenid = rs.getInt("politician_id");
-                    int userid = rs.getInt("user_id");
+                    int politicianId = rs.getInt("politician_id");
+                    int userId = rs.getInt("user_id");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
-                    String ProfileImageUrl = rs.getString("profile_image_url");
+                    String profileImageUrl = rs.getString("profile_img_url");
 
-                    PoliticianModel politician = new PoliticianModel(citizenid, userid, name, address, phoneNumber, politicalPartyId, ProfileImageUrl);
+                    // Create a PoliticianModel object and add it to the list
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, profileImageUrl);
                     politicians.add(politician);
                 }
             }
 
         } catch (SQLException e) {
-            System.err.println("Error retrieving data from users table: " + e.getMessage());
+            System.err.println("Error retrieving data from politician table: " + e.getMessage());
         }
 
         return politicians;
-
     }
+
 
     public static boolean updatePolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
         // SQL query to update politician record

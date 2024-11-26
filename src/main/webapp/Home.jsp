@@ -10,7 +10,7 @@ return;
 
 <!DOCTYPE html>
 <html lang="en">
-
+<h2>name: ${userProfile.name}</h2>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -315,7 +315,7 @@ return;
         <div class="prof-img"></div>
         <div class="content">
           <div class="greeting">
-            Hello <span class="userName">Naleeka</span>
+            Hello <span class="userName">${userProfile.name}</span>
           </div>
           <div>Got something to share?</div>
         </div>

@@ -63,13 +63,13 @@ public class UserInsertServlet extends HttpServlet {
             String alertMessage = "Registered Successfully";
             resp.getWriter().println("<script>");
             resp.getWriter().println("alert('" + alertMessage + "');");
-            resp.getWriter().println("window.location.href='politicianHome.jsp';");
+            resp.getWriter().println("window.location.href='Home.jsp';");
             resp.getWriter().println("</script>");
 
 
 
         }else{
-             RequestDispatcher dis2 = req.getRequestDispatcher("wrong.jsp");
+             RequestDispatcher dis2 = req.getRequestDispatcher("index.jsp");
              dis2.forward(req, resp);
          }
     }

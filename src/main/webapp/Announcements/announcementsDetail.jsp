@@ -2,7 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
+    if (session1 == null || session.getAttribute("user") == null) {
+// User is not logged in, redirect to login page
+        response.sendRedirect("../index.jsp");
+        return;
+    }%>
 <html>
 <head>
     <title>Announcements</title>

@@ -1,3 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
+    if (session1 == null || session.getAttribute("user") == null) {
+// User is not logged in, redirect to login page
+        response.sendRedirect("../index.jsp");
+        return;
+    }%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +51,7 @@
             <div class="user-ac row jc-sb">
                 <div class="content-1 col">
                     <div class="name capitalize">
-                        Naleeka Kumarasinghe
+                        ${userProfile.name}
                         <span class="verified">verified</span>
                     </div>
                     <div class="row">

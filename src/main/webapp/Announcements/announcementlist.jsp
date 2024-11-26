@@ -2,7 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
+    if (session1 == null || session.getAttribute("user") == null) {
+// User is not logged in, redirect to login page
+        response.sendRedirect("../index.jsp");
+        return;
+    }%>
 <html>
 <head>
     <title>Announcements</title>
@@ -430,6 +435,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             Politicians and political parties announcements
         </div>
     </div>
+    <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
     <div class="ann-btns-2 row">
         <button class="add-announcement" id="add-announcement">
             <i class="fa-solid fa-plus"></i>
@@ -444,6 +450,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </a>
 
     </div>
+    </c:if>
     <ul class="announcement-list">
 
         <c:forEach var="announcement" items="${allannouncements}">

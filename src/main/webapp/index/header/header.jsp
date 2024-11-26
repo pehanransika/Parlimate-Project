@@ -16,7 +16,7 @@
         </div>
 
         <div class="logo">
-            <a href="<c:url value='./Home.jsp' />">
+            <a href="<c:url value='../Home.jsp' />">
                 <img src="<c:url value='/assets/images/logo.png' />" alt="ParlimateLogo">
             </a>
         </div>
@@ -90,14 +90,14 @@
             <span class="tip">profile</span>
             <div class="dropDownMenu">
                 <div class="profile">
-                    <a href="../Profile/profile.html">
+                    <a href="./Profile/profile.jsp">
                         <div class="img"></div>
                         <div class="details">
                             <div class="name medium-text bold">
-                                Naleeka Kumarasinghe
+                                ${userProfile.name}
                             </div>
                             <div class="email small-text">
-                                knaleeka845@gmail.com
+                                ${user.email}
                             </div>
                         </div>
                     </a>
