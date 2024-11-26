@@ -50,11 +50,12 @@ public class profileServlet extends HttpServlet {
               }else {
 
               }
-              req.getRequestDispatcher("profile.jsp").forward(req,resp);
+              req.getRequestDispatcher("Home.jsp").forward(req,resp);
+
 
           }else{
               //Handle case where user id is not log in
-              resp.sendRedirect("login.jsp");
+              resp.sendRedirect("index.jsp");
           }
     }
 }
