@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./discussion-room.css" />
+    <link rel="stylesheet" href="./reqPop.css" />
+
     <!-- icons -->
     <link
             rel="stylesheet"
@@ -24,8 +26,116 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
     />
+    <style>
+        .logo-img{
+            height: 1.3rem;
+        }
+    </style>
 </head>
 <body class="">
+
+<div class="reqPop">
+    <div class="bg"></div>
+    <form action="CreateMeetingRequestServlet" method="post">
+        <input type="hidden" name="politicianid" value="123">
+
+
+        <div class="head">
+            <div id="meetClsBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="..." stroke="#292929" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <div class="title">Request Discussion</div>
+            <div class="separator"></div>
+        </div>
+        <div class="body">
+            <div id="progress" class="progress row">
+                <div class="item item-active" data-title="DebDetails">Debate Details</div>
+                <div class="item" data-title="OppDetails">Opponents Info</div>
+                <div class="item" data-title="AddDetails">Additional Information</div>
+                <div class="separator"></div>
+            </div>
+            <div class="input-container">
+                <!-- Debate Details -->
+                <div class="input-group form-active">
+                    <div class="field">
+                        <label class="title" for="disc-title">Proposed Title</label>
+                        <input type="text" name="topic" id="disc-title" required placeholder="Education reform policies" />
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-desc">Purpose of the debate</label>
+                        <textarea name="purposeofmeeting" id="disc-desc" required placeholder="To discuss proposed funding strategies"></textarea>
+                    </div>
+                    <div class="multi-fields">
+                        <div class="field">
+                            <label class="title" for="disc-date">Proposed Date</label>
+                            <input type="date" name="proposaldate" id="disc-date" required />
+                        </div>
+                        <div class="field">
+                            <label class="title" for="disc-time">Time</label>
+                            <input type="time" name="proposaltime" id="disc-time" required />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-dur">Estimated Duration</label>
+                        <div class="drop-type">
+                            <select name="time_unit" id="time-unit">
+                                <option value="hour">hour</option>
+                                <option value="minute">minute</option>
+                            </select>
+                            <input type="number" name="estimatedduration" id="disc-dur" placeholder="2" required />
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="cancel-btn btn">Cancel</button>
+                        <button type="button" class="next-btn btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <!-- Opponents Info -->
+                <div class="input-group">
+                    <div class="field">
+                        <label class="title" for="disc-opNames">Opponents names</label>
+                        <input type="text" name="opponentname" id="disc-opNames" required placeholder="Sajith Premadasa" />
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-party-aff">Party Affiliation(s)</label>
+                        <input type="text" name="partyaffiliation" required placeholder="Samagi Jana Balawegaya" id="disc-party-aff" />
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="prev-btn btn">Back</button>
+                        <button type="button" class="next-btn btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <!-- Additional Information -->
+                <div class="input-group">
+                    <div class="field">
+                        <label class="title" for="disc-pref">Preferred Discussion Format</label>
+                        <select name="discussionformat" id="disc-pref">
+                            <option value="Open-debate">Open debate</option>
+                            <option value="Moderated-discussion">Moderated Discussion</option>
+                            <option value="QA">Q&A</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-party-aff">Preferred Host <span>(Optional)</span></label>
+                        <input type="text" name="preferredhost" placeholder="Chathura Senarathne" id="disc-party-aff" />
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="prev-btn btn">Back</button>
+                        <button type="submit" class="next-btn btn">Request <i class="fa-solid fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
 <div class="notification-msg"></div>
 
 <<%@ include file="../index/sidebar.jsp" %>
@@ -37,8 +147,8 @@
         </div>
 
         <div class="logo">
-            <a href="./index.html">
-                PARLIMATE
+            <a href="./index.jsp">
+                <img src="../logo%202.png" class="logo-img" alt="">
             </a>
         </div>
     </div>
@@ -200,6 +310,10 @@
                     <span class="sort-type">newest first</span>
                 </div>
             </div> -->
+            <div class="newmeeting row">
+						<span> request meeting </span
+                        ><i class="fa-solid fa-pencil"></i>
+            </div>
             <div class="items col">
                 <div
                         class="item live row"
@@ -594,6 +708,7 @@
 </body>
 <script src="../script.js"></script>
 <script src="./discussin.js"></script>
+<script src="reqPop.js"></script>
 <script>
     const navBtns = document.querySelectorAll(".nav-btn button");
 

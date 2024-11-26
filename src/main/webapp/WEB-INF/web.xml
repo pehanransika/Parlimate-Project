@@ -231,6 +231,54 @@
     <servlet-name>DeleteRequestServlet</servlet-name>
     <url-pattern>/DeleteRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateMeetingRequestServlet</servlet-name>
+    <servlet-class>meetingreq.CreateMeetingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMeetingRequestServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/CreateMeetingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllMeetingRequestServlet</servlet-name>
+    <servlet-class>meetingreq.GetAllMeetingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllMeetingRequestServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetAllMeetingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateMeetingRequestServlet</servlet-name>
+    <servlet-class>meetingreq.UpdateMeetingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateMeetingRequestServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/UpdateMeetingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteMeetingRequestServlet</servlet-name>
+    <servlet-class>meetingreq.DeleteMeetingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteMeetingRequestServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AdminInsertServlet</servlet-name>
+    <servlet-class>admin.AdminInsertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminInsertServlet</servlet-name>
+    <url-pattern>/AdminsRegister/AdminInsertServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AdminLoginServlet</servlet-name>
+    <servlet-class>admin.AdminLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminLoginServlet</servlet-name>
+    <url-pattern>/AdminLogin/AdminLoginServlet</url-pattern>
+  </servlet-mapping>
 
 
 

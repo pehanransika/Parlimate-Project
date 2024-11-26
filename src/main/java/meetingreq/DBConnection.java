@@ -1,5 +1,5 @@
 
-package UserPackage;
+package meetingreq;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
