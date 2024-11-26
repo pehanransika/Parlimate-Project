@@ -6,11 +6,8 @@ if (session1 == null || session.getAttribute("user") == null) {
 response.sendRedirect("index.jsp");
 return;
 }%>
-<h2>ID: ${user.userId}</h2>
-<h2>Gmail: ${user.email}</h2>
-<h2>Password: ${user.password}</h2>
-<h2>UserType: ${user.userType}</h2>
-<h2>name: ${citizen.name}</h2>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -26,30 +26,23 @@ public class profileServlet extends HttpServlet {
               req.setAttribute("user", user);
               String usertype = user.getUserType();
               int userid = user.getUserId();
-              if(usertype.equals("Citizen")) {
+              Object userProfile = null;
 
-                  List<CitizenModel> Citizens = CitizenController.CitizenProfile(userid);
-                  req.getSession().setAttribute("citizen", Citizens.get(0));
-                  CitizenModel citizen = (CitizenModel)  req.getSession().getAttribute("citizen");
-                  req.setAttribute("citizen", citizen);
-
-              }else if(usertype.equals("Politician")) {
-
-                  List<PoliticianModel> Politicians = PoliticianController.PoliticianProfile(userid);
-                  req.getSession().setAttribute("politician", Politicians.get(0));
-                  PoliticianModel politician = (PoliticianModel)  req.getSession().getAttribute("politician");
-                  req.setAttribute("politician", politician);
-
-              }else if(usertype.equals("Political Party")) {
-
-                  List<PoliticalPartyModel> PoliticalPartys = PoliticalPartyController.PoliticalPartyProfile(userid);
-                  req.getSession().setAttribute("political party", PoliticalPartys.get(0));
-                  PoliticalPartyModel politicalParty = (PoliticalPartyModel)  req.getSession().getAttribute("political party");
-                  req.setAttribute("political party", politicalParty);
-
-              }else {
-
+              if (usertype.equals("Citizen")) {
+                  List<CitizenModel> citizens = CitizenController.CitizenProfile(userid);
+                  userProfile = citizens.get(0);
+              } else if (usertype.equals("Politician")) {
+                  List<PoliticianModel> politicians = PoliticianController.PoliticianProfile(userid);
+                  userProfile = politicians.get(0);
+              } else if (usertype.equals("Political Party")) {
+                  List<PoliticalPartyModel> politicalParties = PoliticalPartyController.PoliticalPartyProfile(userid);
+                  userProfile = politicalParties.get(0);
               }
+
+// Store the user profile in session and request under a single attribute
+              req.getSession().setAttribute("userProfile", userProfile);
+              req.setAttribute("userProfile", userProfile);
+
               req.getRequestDispatcher("Home.jsp").forward(req,resp);
 
 
