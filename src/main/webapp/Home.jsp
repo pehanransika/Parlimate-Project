@@ -10,7 +10,6 @@ return;
 
 <!DOCTYPE html>
 <html lang="en">
-<h2>name: ${userProfile.name}</h2>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

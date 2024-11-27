@@ -39,7 +39,7 @@
         </p>
         <div class="cta row">
             <div class="primary btn">Create account</div>
-            <a class="secondary btn row" href="./politicianHome.jsp">
+            <a class="secondary btn row" href="./Home.jsp">
                 Sneak View
                 <img src="./lucide_move-right.svg" alt=""/>
             </a>
