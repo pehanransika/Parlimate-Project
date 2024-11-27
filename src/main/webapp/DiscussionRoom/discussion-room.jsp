@@ -243,7 +243,7 @@
 <div class="notification-msg"></div>
 <div class="container col">
     <div class="pageTitles">
-        <h2 class="title">Discussion room</h2>
+        <h2 class="title">Meeting room</h2>
         <div class="subTitle">
             engage with ongoing live video discussions
         </div>
@@ -279,11 +279,11 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/ranil.jpg" alt="" />
+                                <img src="../assets/images/ranil.jpg" alt="" />
                             </div>
                             <div class="prof-img">
                                 <img
-                                        src="../assets/images.jpeg"
+                                        src="../assets/images/images.jpeg"
                                         alt=""
                                 />
                             </div>
@@ -334,11 +334,11 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/AKD.jpg" alt="" />
+                                <img src="../assets/images/AKD.jpg" alt="" />
                             </div>
                             <div class="prof-img">
                                 <img
-                                        src="../assets/images.jpeg"
+                                        src="../assets/images/images.jpeg"
                                         alt=""
                                 />
                             </div>
@@ -383,16 +383,16 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/AKD.jpg" alt="" />
+                                <img src="../assets/images/AKD.jpg" alt="" />
                             </div>
                             <div class="prof-img">
                                 <img
-                                        src="../assets/images.jpeg"
+                                        src="../assets/images/images.jpeg"
                                         alt=""
                                 />
                             </div>
                             <div class="prof-img">
-                                <img src="../assets/ranil.jpg" alt="" />
+                                <img src="../assets/images/ranil.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -437,7 +437,7 @@
                         <div class="pImgs row">
                             <div class="prof-img">
                                 <img
-                                        src="../assets/images.jpeg"
+                                        src="../assets/images/images.jpeg"
                                         alt=""
                                 />
                             </div>
@@ -483,7 +483,7 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/AKD.jpg" alt="" />
+                                <img src="../assets/images/AKD.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/ranil.jpg" alt="" />
+                                <img src="../assets/images/ranil.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -569,11 +569,11 @@
                     <div class="panelists">
                         <div class="pImgs row">
                             <div class="prof-img">
-                                <img src="../assets/ranil.jpg" alt="" />
+                                <img src="../assets/images/ranil.jpg" alt="" />
                             </div>
                             <div class="prof-img">
                                 <img
-                                        src="../assets/images.jpeg"
+                                        src="../assets/images/images.jpeg"
                                         alt=""
                                 />
                             </div>

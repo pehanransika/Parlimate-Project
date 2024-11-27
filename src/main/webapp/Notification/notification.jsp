@@ -61,9 +61,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <div class="container col">
     <div class="pageTitles">
-        <h2 class="title">Notifications</h2>
+        <h2 class="title">Search & Compare</h2>
         <div class="subTitle">
-            Reactions to your posts
+            Compare politicians
         </div>
     </div>
     <div class="row">

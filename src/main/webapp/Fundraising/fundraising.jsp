@@ -5,6 +5,8 @@
         return;
     }%>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,108 +59,360 @@
     />
 
 </head>
-<body>
 <body class="">
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
 
-
 <div class="container">
-        <div class="fundraisers-container">
-            <div id="fundraisers" class="section">
-                <div class="pageTitles">
-                    <h2 class="title">Fundraisers</h2>
-                    <div class="subTitle">
-                        engage with ongoing live video discussions
+    <div class="fundraisers-container">
+        <div id="fundraisers" class="section">
+            <div class="pageTitles">
+                <h2 class="title">Fundraisers</h2>
+                <div class="subTitle">
+                    Fueling Change Through Collective Action
+                </div>
+            </div>
+            <div class="funds-container row">
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Bringing Clean Water to Morawewa</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                Trincomalee
+                            </div>
+                        </div>
+                        <div class="organizer">Organized by <span>John Silva</span></div>
+                        <div class="category">Social</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Millions of people in rural Sri Lanka lack access to clean drinking water, leading to serious health issues. This fundraiser aims to install a sustainable water purification system in morawewa benefiting over 500 families. The funds will cover the cost of equipment, installation, and initial maintenance for one year.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                152,876
+                            </div>
+                            <div class="target">
+                                200,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
+                                </div>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        76%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 76%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="text row">
+                                    <span>764</span> people have contributed
+                                </div>
+                            </div>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
                     </div>
                 </div>
-                <table class="fundraisers-table">
-                    <tr>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Ms. Saint-Martin Doranyia Pascal's Contribution to Political Platform</h3>
-                                <p>Ms. Saint-Martin Doranyia Pascal is reported to have made a real donation to a political platform...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.182.49</p>
-                                </div>
-                                <button class="view-more">View More</button>
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Rebuild Hope: Homes for Flood-Affected Families in Ratnapura</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                Ratnapura
                             </div>
-                        </td>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Another Donor's Contribution</h3>
-                                <p>This donor has contributed significantly to a political cause...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.250.00</p>
-                                </div>
-                                <button class="view-more">View More</button>
+                        </div>
+                        <div class="organizer">Organized by <span>Siri Sena</span></div>
+                        <div class="category">Community</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Recent floods in the Ratnapura District have left hundreds of families homeless. This fundraiser aims to provide immediate shelter and rebuild homes for 10 affected families. The funds will cover construction materials, labor, and basic household essentials.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                502,661
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Third Donor's Contribution</h3>
-                                <p>Another significant contribution to the political platform...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.300.00</p>
-                                </div>
-                                <button class="view-more">View More</button>
+                            <div class="target">
+                                3,000,000
                             </div>
-                        </td>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Fourth Donor's Contribution</h3>
-                                <p>This donor is also making a difference with their contribution...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.500.00</p>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
                                 </div>
-                                <button class="view-more">View More</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Fifth Donor's Contribution</h3>
-                                <p>An important contribution that supports our cause...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.350.00</p>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        16%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 16%;"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="view-more">View More</button>
                             </div>
-                        </td>
-                        <td>
-                            <div class="fundraiser-card">
-                                <img src="images/tree.jpg" alt="Donation Image">
-                                <h3>Sixth Donor's Contribution</h3>
-                                <p>Another valuable contribution helping the platform...</p>
-                                <div class="donation-amount">
-                                    <p>LKR.450.00</p>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
                                 </div>
-                                <button class="view-more">View More</button>
+                                <div class="text row">
+                                    <span>224</span> people have contributed
+                                </div>
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Lighting Up Lives: Solar Power for Rural Schools in Monaragala</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                Monaragala
+                            </div>
+                        </div>
+                        <div class="organizer">Organized by <span>Sudewa rathnapala</span></div>
+                        <div class="category">Social</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Many rural schools in Monaragala lack consistent electricity, affecting the quality of education. This project will install solar panels in 5 schools, ensuring students have access to electricity for learning.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                600,000
+                            </div>
+                            <div class="target">
+                                1,500,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
+                                </div>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        40%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 40%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="text row">
+                                    <span>398</span> people have contributed
+                                </div>
+                            </div>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Healing Together: Mental Health Support for War-Affected Communities in Jaffna</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                jaffna
+                            </div>
+                        </div>
+                        <div class="organizer">Organized by <span>Ruvin Udesh</span></div>
+                        <div class="category">Social</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Decades after the civil war, many communities in Jaffna still struggle with trauma. This fundraiser supports mental health initiatives, including counseling sessions, workshops, and training local mental health professionals.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                322,876
+                            </div>
+                            <div class="target">
+                                2,000,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
+                                </div>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        12%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 12%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="text row">
+                                    <span>300</span> people have contributed
+                                </div>
+                            </div>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Bringing Clean Water to Morawewa</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                Trincomalee
+                            </div>
+                        </div>
+                        <div class="organizer">Organized by <span>John Silva</span></div>
+                        <div class="category">Social</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Millions of people in rural Sri Lanka lack access to clean drinking water, leading to serious health issues. This fundraiser aims to install a sustainable water purification system in morawewa benefiting over 500 families. The funds will cover the cost of equipment, installation, and initial maintenance for one year.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                152,876
+                            </div>
+                            <div class="target">
+                                200,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
+                                </div>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        76%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 76%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="text row">
+                                    <span>569</span> people have contributed
+                                </div>
+                            </div>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="more-donations-container">
-                <button class="more-donations"><i class="bx bx-plus"></i> More Donations</button>
-            </div>
-            <div class="fundraiser-actions">
-                <button class="donate">Donate</button>
-                <button class="report">Report</button>
-            </div>
-
         </div>
+        <div class="more-donations-container">
+            <button class="more-donations"><i class="bx bx-plus"></i> More Donations</button>
+        </div>
+        <div class="fundraiser-actions">
+            <button class="donate">Donate</button>
+            <button class="report">Report</button>
+        </div>
+
+    </div>
 </div>
 </body>
+<script src="../loadSidebar.js"></script>
 <script>
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
@@ -172,7 +426,7 @@
                 body.classList.add("sidebar-deactive");
             }
         });
-    })
+    });
 
     navRadios.forEach(radio => {
         radio.addEventListener('change', (event) => {
