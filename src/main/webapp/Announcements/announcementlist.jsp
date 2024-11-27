@@ -9,6 +9,7 @@
         return;
     }%>
 <html>
+<h2>name: ${userProfile.politicianId}</h2>
 <head>
     <title>Announcements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -387,7 +388,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
             <div class="content">
                 <!-- Politician ID (hidden field) -->
-                <input type="hidden" name="politicianid" id="politicianid" value="1"/>
+                <input type="hidden" name="politicianid" id="politicianid" value="${userProfile.politicianId}" />
 
                 <!-- Announcement Title -->
                 <div class="discussion-title col">
@@ -485,6 +486,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 
 <script>
+    console.log(document.getElementById("politicianid").value, typeof(document.getElementById("politicianid").value))
+
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');

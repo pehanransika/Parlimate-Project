@@ -157,6 +157,58 @@ public class AnnouncementController {
         return announcements;
     }
 
+    public static List<AnnouncementModel> getMyAnnouncements(int politicianId) {
+        ArrayList<AnnouncementModel> announcements = new ArrayList<>();
+
+        // SQL query to fetch all announcements with politician name
+        String query = "SELECT a.announcementid, a.politicianid, a.title, a.content, a.datetime, p.name AS politicianName "
+                + "FROM announcement a "
+                + "JOIN politician p ON a.politicianid = p.politician_id "
+                + "WHERE a.politicianid = " + politicianId + " "
+                + "ORDER BY a.datetime DESC"
+                ; // Sort announcements by datetime in descending order
+
+        // Database connection and PreparedStatement
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Execute the query and retrieve the result
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Retrieve data from the result set
+                    int announcementid = rs.getInt("announcementid");
+                    int politicianid = rs.getInt("politicianid");
+                    String title = rs.getString("title");
+                    String content = rs.getString("content");
+                    LocalDateTime datetime = rs.getTimestamp("datetime").toLocalDateTime();
+                    String politicianName = rs.getString("politicianName");
+
+                    // Log retrieved data for debugging
+                    System.out.println("Retrieved: " + title + " by " + politicianName);
+                    System.out.println("Politician Name (from getById): " + politicianName);
+
+                    // Create an AnnouncementModel object and add it to the list
+                    // Ensure no null value for politicianName
+                    if (politicianName == null) {
+                        politicianName = "Unknown";  // Default value if null
+                    }
+
+                    AnnouncementModel announcement = new AnnouncementModel(announcementid, politicianid, title, content, datetime, politicianName);
+                    announcements.add(announcement);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Log the number of retrieved announcements
+        System.out.println("Total announcements: " + announcements.size());
+
+        // Return the list of announcements (could be empty if no result)
+        return announcements;
+    }
+
 
 
     //Update Data
