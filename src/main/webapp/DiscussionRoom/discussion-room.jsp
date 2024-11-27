@@ -4,18 +4,22 @@
         response.sendRedirect("../index.jsp");
         return;
     }%>
-
+<% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="../index/sidebar1.css" rel="stylesheet" />
+    <link href="../index/header/header.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Discussion Room | Parlimate</title>
-    <link rel="stylesheet" href="../index/sidebar1.css" />
-    <link rel="stylesheet" href="../index/header/header.css" />
+    <title>Meeting room | Parlimate</title>
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./discussion-room.css" />
+    <link rel="stylesheet" href="./reqPop.css" />
     <!-- icons -->
     <link
             rel="stylesheet"
@@ -34,12 +38,209 @@
     />
 </head>
 <body class="">
-<div class="notification-msg"></div>
 
-<<%@ include file="../index/sidebar.jsp" %>
-
-
+<%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
+<div class="reqPop">
+    <div class="bg"></div>
+    <form action="" method="post">
+        <div class="head">
+            <div id="meetClsBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="icon">
+                <!-- <i class="fa-regular fa-comment-middle"></i> -->
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                >
+                    <path
+                            d="M12 21C13.78 21 15.5201 20.4722 17.0001 19.4832C18.4802 18.4943 19.6337 17.0887 20.3149 15.4442C20.9961 13.7996 21.1743 11.99 20.8271 10.2442C20.4798 8.49836 19.6226 6.89472 18.364 5.63604C17.1053 4.37737 15.5016 3.5202 13.7558 3.17294C12.01 2.82567 10.2004 3.0039 8.55585 3.68509C6.91131 4.36628 5.50571 5.51983 4.51677 6.99987C3.52784 8.47991 3 10.22 3 12C3 13.44 3.338 14.8 3.94 16.007C4.393 16.918 3.763 18.147 3.523 19.044C3.46983 19.2424 3.46982 19.4513 3.52297 19.6497C3.57613 19.8481 3.68057 20.029 3.8258 20.1742C3.97103 20.3194 4.15194 20.4239 4.35033 20.477C4.54872 20.5302 4.75761 20.5302 4.956 20.477C5.853 20.237 7.082 19.607 7.993 20.061C9.23821 20.6793 10.6097 21.0007 12 21Z"
+                            stroke="#292929"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            <div class="title">Request Discussion</div>
+            <div class="separator"></div>
+        </div>
+        <div class="body">
+            <div id="progress" class="progress row">
+                <div class="item item-active" data-title="DebDetails">
+                    Debate Details
+                </div>
+                <div class="item" data-title="OppDetails">
+                    Opponents Info
+                </div>
+                <div class="item" data-title="AddDetails">
+                    Additional Information
+                </div>
+                <div class="separator"></div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-group form-active">
+                    <div class="field">
+                        <label class="title" for="disc-title"
+                        >proposed Title</label
+                        >
+                        <input
+                                type="text"
+                                name="disc-title"
+                                id="disc-title"
+                                required
+                                placeholder="Education reform policies"
+                        />
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-desc"
+                        >Purpose of the debate</label
+                        >
+                        <textarea
+                                name="disc-desc"
+                                id="disc-desc"
+                                required
+                                placeholder="To discuss proposed funding strategies"
+                                aria-required="true"
+                        ></textarea>
+                    </div>
+                    <div class="multi-fields">
+                        <div class="field">
+                            <label class="title" for="disc-date"
+                            >Proposed Date</label
+                            >
+                            <input
+                                    type="date"
+                                    name="disc-date"
+                                    id="disc-date"
+                                    required
+                            />
+                        </div>
+                        <div class="field">
+                            <label class="title" for="disc-time"
+                            >time</label
+                            >
+                            <input
+                                    type="time"
+                                    name="disc-time"
+                                    id="disc-time"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-dur"
+                        >Estimated duration</label
+                        >
+                        <div class="drop-type">
+                            <select name="time-unit" id="time-unit">
+                                <option value="hour">hour</option>
+                                <option value="minute">minute</option>
+                            </select>
+                            <input
+                                    type="number"
+                                    name="disc-dur"
+                                    id="disc-dur"
+                                    placeholder="2"
+                                    required
+                            />
+                        </div>
+                        <div class="separator"></div>
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="cancel-btn btn">
+                            Cancel
+                        </button>
+                        <button type="button" class="next-btn btn">
+                            Next
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="field">
+                        <label class="title" for="disc-opNames"
+                        >Opponents names</label
+                        >
+                        <input
+                                type="text"
+                                name="disc-opNames"
+                                id="disc-opNames"
+                                required
+                                placeholder="Sajith Premadasa"
+                        />
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-party-aff"
+                        >Party Affiliation(s)</label
+                        >
+                        <input
+                                type="text"
+                                required
+                                placeholder="Samagi Jana Balawegaya"
+                                id="disc-party-aff"
+                        />
+                        <div class="separator"></div>
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="prev-btn btn">
+                            back
+                        </button>
+                        <button type="button" class="next-btn btn">
+                            Next
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="field">
+                        <label class="title" for="disc-pref"
+                        >Preferred Discussion Format</label
+                        >
+                        <select name="disc-pref" id="disc-pref">
+                            <option value="Open-debate">
+                                Open debate
+                            </option>
+                            <option value="Moderated-discussion">
+                                Moderated Discussion
+                            </option>
+                            <option value="QA">Q&A</option>
+                            <option value="Other">other</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="title" for="disc-party-aff"
+                        >preffered host
+                            <span>(Optional)</span></label
+                        >
+                        <input
+                                type="text"
+                                placeholder="Chathura senarathne"
+                                id="disc-party-host"
+                        />
+                        <div class="separator"></div>
+                    </div>
+                    <div class="bottom">
+                        <button type="button" class="prev-btn btn">
+                            back
+                        </button>
+                        <button type="submit" class="next-btn btn">
+                            request
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="notification-msg"></div>
 <div class="container col">
     <div class="pageTitles">
         <h2 class="title">Discussion room</h2>
@@ -66,12 +267,10 @@
             </div>
         </div>
         <div class="nav-body col">
-            <!-- <div class="body-top row">
-                <div class="sort-btn row capitalize">
-                    <i class="fa-regular fa-bars-filter"></i>
-                    <span class="sort-type">newest first</span>
-                </div>
-            </div> -->
+            <div class="newmeeting row">
+						<span> request meeting </span
+                        ><i class="fa-solid fa-pencil"></i>
+            </div>
             <div class="items col">
                 <div
                         class="item live row"
@@ -465,7 +664,9 @@
 </div>
 </body>
 <script src="../script.js"></script>
+<script src="../loadSidebar.js"></script>
 <script src="./discussin.js"></script>
+<script src="./reqPop.js"></script>
 <script>
     const navBtns = document.querySelectorAll(".nav-btn button");
 
