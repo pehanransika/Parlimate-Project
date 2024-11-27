@@ -44,7 +44,7 @@
 
 <div class="reqPop">
     <div class="bg"></div>
-    <form action="" method="post">
+    <form action="CreateMeetingRequestServlet" method="post">
         <div class="head">
             <div id="meetClsBtn">
                 <i class="fa-solid fa-xmark"></i>
