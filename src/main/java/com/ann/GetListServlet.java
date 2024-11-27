@@ -20,18 +20,13 @@ public class GetListServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
-        HttpSession session = request.getSession(false);
-        PoliticianModel announcement = ( PoliticianModel) session.getAttribute("userProfile");
-        int politicianId = announcement.getPoliticianId();
-
-        List<AnnouncementModel> allannouncements = AnnouncementController.getMyAnnouncements(politicianId);
+        List<AnnouncementModel> allannouncements = AnnouncementController.getAllAnnouncements();
         request.setAttribute("allannouncements",allannouncements);
-// Forward to announcements.jsp
-        RequestDispatcher dispatcher1 = request.getRequestDispatcher("announcementlist.jsp");
-        dispatcher1.include(request, response);
+
 
 // Then forward to announcementsDetail.jsp
+        RequestDispatcher dispatcher2 = request.getRequestDispatcher("announcementlist.jsp");
+        dispatcher2.include(request, response);
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{

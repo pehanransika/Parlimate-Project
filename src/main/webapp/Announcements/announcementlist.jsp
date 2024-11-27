@@ -9,7 +9,6 @@
         return;
     }%>
 <html>
-<h2>name: ${userProfile.politicianId}</h2>
 <head>
     <title>Announcements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -374,7 +373,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <%--        BACK--%>
 <%--    </button>--%>
 <%--</a>--%>
-
+<c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
 <div class="popup-modal">
     <div class="popup">
         <!-- Announcement Form -->
@@ -428,7 +427,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </form>
     </div>
 </div>
-
+</c:if>
 <div class="container">
     <div class="pageTitles">
         <h2 class="title">Announcements</h2>
