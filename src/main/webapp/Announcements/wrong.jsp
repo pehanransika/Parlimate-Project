@@ -6,13 +6,14 @@
   <title>Wrong Page</title>
   <script type="text/javascript">
     setTimeout(function(){
-      window.location.href = "announcements.jsp";
+      window.location.href = "announcementlist.jsp";
     }, 2000); // Redirect after 2 seconds
   </script>
 </head>
 <body>
 <h1>Oops! Something went wrong.</h1>
-<p>The page you were looking for could not be found. You will be redirected to the announcements page shortly.</p>
-<p>If you want to go there immediately, <a href="announcements.jsp">click here</a>.</p>
+<p>f you want to go there immediately, <a href="announcements.jsp">click here</a>.</p>
 </body>
 </html>
+The page you were looking for could not be found. You will be redirected to the announcements page shortly.</p>
+<p>I
