@@ -65,10 +65,14 @@
 
 
 <div class="container">
-    <main>
         <div class="fundraisers-container">
             <div id="fundraisers" class="section">
-                <h2>Fundraisers</h2>
+                <div class="pageTitles">
+                    <h2 class="title">Fundraisers</h2>
+                    <div class="subTitle">
+                        engage with ongoing live video discussions
+                    </div>
+                </div>
                 <table class="fundraisers-table">
                     <tr>
                         <td>
@@ -153,7 +157,6 @@
             </div>
 
         </div>
-    </main>
 </div>
 </body>
 <script>
