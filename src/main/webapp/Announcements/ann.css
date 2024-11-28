@@ -496,14 +496,13 @@ body.popup-active-delete #editPopup{
         margin-top: 1rem;
         font-size: 1.1rem;
         font-weight: 500;
+        margin-bottom: 0.5rem;
     }
     && .announcement-content{
         color: #5e5e5e;
         margin-top: -0.5rem;
         font-style: italic;
         width: 100%;
-        text-wrap: wrap;
-        display: inline;
         height: max-content;
     }
 
@@ -557,7 +556,6 @@ body.popup-active-delete #editPopup{
 #searchInput{
     padding: 1rem 1rem 1rem 3rem;
     border-radius: 0.75rem;
-    font-style: 1.2rem;
     border: 1px solid #DDDDDD;
     width: 100%;
 }
@@ -572,4 +570,10 @@ body.popup-active-delete #editPopup{
         transform: translateY(-50%);
         color: #777777;
     }
+}
+.popbtns{
+    && button[type="submit"]{}
+}
+.cont{
+    margin-left: 3.5rem;
 }

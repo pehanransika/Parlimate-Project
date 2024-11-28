@@ -5,153 +5,18 @@
 
 <html>
 <head>
-    <title>Posts</title>
+    <title>My fundraises</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements | Parlimate</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../index/sidebar1.css" />
+    <link rel="stylesheet" href="../index/header/header.css" />
+    <link rel="stylesheet" href="../container.css" />
+    <link rel="stylesheet" href="./details.css">
+
     <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f7fb;
-            margin: 20px;
-            padding: 20px;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 80px;
-        }
-
-        .button-home {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .button-home:hover {
-            background-color: #0056b3;
-        }
-
-        h2 {
-            color: #3a3a3a;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        /* Search Input Styles */
-        #searchInput {
-            width: 100%;
-            max-width: 200px;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-            margin-left: 250px;
-        }
-
-        #searchInput:focus {
-            border-color: #007bff;
-        }
-
-        /* Fundraising Request List Styles */
-        .request-list {
-            list-style-type: none;
-            padding: 0;
-            margin-left: 300px;
-            margin-right: 20px;
-            gap: 1.5rem;
-        }
-
-        .request-item {
-            background-color: #ffffff;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            position: relative;
-            display: flex;
-            cursor: pointer;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .request-item:hover {
-            outline: 1px solid rgb(185, 185, 185);
-            border-left: 0.75rem solid #5490FF;
-        }
-
-        .request-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .request-info h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .request-info p {
-            margin: 0;
-            font-size: 14px;
-            color: #888;
-        }
-
-        .request-content {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        /* Button Styles */
-        .request-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        .button {
-            border: none;
-            padding: 10px 0; /* Adjusted padding for consistent height */
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            width: 100px; /* Ensures both buttons have the same width */
-            height: 40px; /* Ensures both buttons have the same height */
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .button-update {
-            background-color: #6a5acd; /* Light purple */
-            color: white;
-        }
-
-        .button-update:hover {
-            background-color: #5b4ab5;
-        }
-
-        .button-delete {
-            background-color: #f44336; /* Red */
-            color: white;
-        }
-
-        .button-delete:hover {
-            background-color: #e53935;
-        }
-
-        /* Popup Modal Styles */
         .popup-modal {
             display: none;
             position: fixed;
@@ -213,90 +78,72 @@
             background-color: #5b4ab5;
         }
     </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Announcements | Parlimate</title>
-    <link rel="stylesheet" href="../index.css" />
-    <link rel="stylesheet" href="../index/sidebar1.css" />
-    <link rel="stylesheet" href="../header.css" />
-    <link rel="stylesheet" href="../container.css" />
-    <link rel="stylesheet" href="./ann.css">
 </head>
 
 <body class="">
 
 <%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
 
-<div class="header pd-2">
-    <div class="start row">
-        <div class="sidebar-toggle-btn sideMenuBtn btn">
-            <i class="fa-sharp fa-solid fa-bars"></i>
-        </div>
-
-        <div class="logo">
-            <a href="./index.jsp">
-                PARLIMATE
-            </a>
+<div class="container">
+    <div class="pageTitles">
+        <h2 class="title">My Fundraisers</h2>
+        <div class="subTitle">
+            Fueling Change Through Collective Action
         </div>
     </div>
-    <div class="headerSearchBar row">
-        <input type="search" name="mainSearch" id="headerSearchBar"
-               placeholder="Search politicians, Political parties...." />
-        <label for="headerSearchBar">
+
+    <div class="search">
+        <label for="searchInput" class="icon">
             <i class="fa-solid fa-magnifying-glass"></i>
         </label>
+        <input type="text" id="searchInput" placeholder="Search requests..." onkeyup="filterRequests()">
     </div>
+    <ul class="request-list">
+        <c:forEach var="request" items="${allRequests}">
+            <li class="request-item col">
+                <div class="request-header">
+                    <span class="title">${request.title}</span>
+                    <p class="date">${request.datetime}</p>
+                </div>
+                <div class="request-content col">
+                    <p>Description: <span> ${request.description}</span></p>
+                    <p>Category: <span> ${request.category}</span></p>
+                    <p>Target Amount: <span class="cap"> ${request.currency} ${request.targetAmount}</span></p>
+                    <p>Attachment: <span> <a href="${request.attachmentUrl}" target="_blank">View Attachment</a> </span></p>
+                <div class="seperator"></div>
+                </div>
+                <div class="request-actions row">
+                    <button
+                            class="button button-update"
+                            onclick="openEditPopup(
+                                    '${request.requestId}',
+                                    '${request.title}',
+                                    '${fn:escapeXml(request.description)}',
+                                    '${request.category}',
+                                    '${request.targetAmount}',
+                                    '${request.currency}',
+                                    '${request.datetime}',
+                                    '${request.attachmentUrl}')">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Edit
+                    </button>
+
+                    <!-- Delete Button -->
+                    <form action="DeleteRequestServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');" style="display:inline;">
+                        <input type="hidden" name="requestId" value="${request.requestId}" />
+                        <button type="submit" class="button button-delete">
+                            <i class="fa-classic fa-solid fa-trash fa-fw"></i>
+                            Delete</button>
+                    </form>
+                </div>
+            </li>
+        </c:forEach>
+    </ul>
+
 </div>
-
-<div class="top-bar">
-    <a href="index.jsp" class="button-home">Go to Home</a>
-</div>
-
-<h2>My Fundraising Requests</h2>
-
 <!-- Search Bar -->
-<input type="text" id="searchInput" placeholder="Search requests..." onkeyup="filterRequests()">
 
-<ul class="request-list">
-    <c:forEach var="request" items="${allRequests}">
-        <li class="request-item">
-            <div class="request-header">
-                <!-- Display Request Title and Timestamp -->
-                <h3>${request.title}</h3>
-                <p>${request.datetime}</p>
-            </div>
-            <div class="request-content">
-                <!-- Display Request Details -->
-                <p><strong>Description:</strong> ${request.description}</p>
-                <p><strong>Category:</strong> ${request.category}</p>
-                <p><strong>Target Amount:</strong> ${request.targetAmount} ${request.currency}</p>
-                <p><strong>Attachment:</strong> <a href="${request.attachmentUrl}" target="_blank">View Attachment</a></p>
-            </div>
-            <div class="request-actions">
-                <!-- Update Button triggers the popup modal with request data -->
-                <button
-                        class="button button-update"
-                        onclick="openEditPopup(
-                                '${request.requestId}',
-                                '${request.title}',
-                                '${fn:escapeXml(request.description)}',
-                                '${request.category}',
-                                '${request.targetAmount}',
-                                '${request.currency}',
-                                '${request.datetime}',
-                                '${request.attachmentUrl}')">
-                    Update
-                </button>
-
-                <!-- Delete Button -->
-                <form action="DeleteRequestServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');" style="display:inline;">
-                    <input type="hidden" name="requestId" value="${request.requestId}" />
-                    <button type="submit" class="button button-delete">Delete</button>
-                </form>
-            </div>
-        </li>
-    </c:forEach>
-</ul>
 
 <!-- Update Request Popup Modal -->
 <div class="popup-modal" id="editPopup">
@@ -396,4 +243,29 @@
 </script>
 
 </body>
+<script src="../loadSidebar.js"></script>
+<script>
+    let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
+    const body = document.querySelector("body");
+    const navRadios = document.querySelectorAll('input[name="nav"]');
+
+    sideMenuBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (body.classList.contains("sidebar-deactive")) {
+                body.classList.remove("sidebar-deactive");
+            } else {
+                body.classList.add("sidebar-deactive");
+            }
+        })
+    });
+
+    navRadios.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            if (selectedValue) {
+                window.location.href = selectedValue; // Redirect to the selected page
+            }
+        })
+    });
+</script>
 </html>

@@ -82,7 +82,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         <label for="searchInput" class="search-icon">
             <i class="fa-classic fa-solid fa-magnifying-glass fa-fw"></i>
         </label>
-    <input type="text" id="searchInput" placeholder="Search announcements..." onkeyup="filterAnnouncements()">
+        <input type="text" id="searchInput" placeholder="Search announcements..." onkeyup="filterAnnouncements()">
     </div>
 
     <ul class="announcement-list">
@@ -100,11 +100,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                                     ${announcement.datetime}</p>
                         </div>
                     </div>
-                            <div class="ann-title">${announcement.title}</div>
                 </div>
-                <p class="announcement-content">
-                        ${announcement.content}
-                </p>
+                <div class="cont col">
+                    <p class="ann-title">${announcement.title}</p>
+                    <p class="announcement-content">
+                            ${announcement.content}
+                    </p>
+
+                </div>
                 <div class="announcement-actions">
                     <!-- Update Button triggers the popup modal with announcement data -->
                     <button class="button button-update"
@@ -153,10 +156,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <textarea id="editContent" name="content" placeholder="Edit content here..." required></textarea>
             </div>
 
-            <!-- Date and Time Section -->
 
-
-            <!-- Save Button -->
             <div class="popbtns">
                 <button type="submit" class="post-btn">Save Changes</button>
             </div>
