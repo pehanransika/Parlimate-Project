@@ -73,6 +73,7 @@
                     Fueling Change Through Collective Action
                 </div>
             </div>
+
             <div class="funds-container row">
                 <div class="fund col">
                     <div class="top col">

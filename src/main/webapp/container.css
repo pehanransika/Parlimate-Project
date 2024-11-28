@@ -328,3 +328,16 @@ div:has(.post-dropDownMenu) {
     flex-direction: column;
     justify-content: center;
 }
+form{
+    width: 100%;
+}
+.caption-box{
+    width: 100%;
+    padding-inline: 0 !important;
+}
+#post-desc{
+    width: 100% !important;
+    resize: none;
+    height: 10rem;
+    margin-top: 0.25rem;
+}

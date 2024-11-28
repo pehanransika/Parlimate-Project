@@ -267,9 +267,17 @@
             </div>
         </div>
         <div class="nav-body col">
-            <div class="newmeeting row">
-						<span> request meeting </span
-                        ><i class="fa-solid fa-pencil"></i>
+            <div class="meeting-btns row">
+                <a href="./meetingrequestDetail.jsp" class="myMeetings row">
+                    <span> My meeting </span
+                    ><i class="fa-solid fa-clock"></i>
+                </a>
+                <div class="newmeeting row">
+                            <span> request meeting </span
+                            ><i class="fa-solid fa-pencil"></i>
+                </div>
+
+
             </div>
             <div class="items col">
                 <div
@@ -447,8 +455,7 @@
                         <div class="item-title">
                             <div class="title">
                                 How to Improve the Education System with
-                                the Help of Sajith Premadasa’s
-                                ‘Cake-Cutting’ Strategies!
+                                the Help of Sajith Premadasa
                             </div>
                             <div class="time-period small-text row">
                                 <i class="fa-solid fa-clock"></i>
