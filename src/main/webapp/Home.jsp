@@ -138,7 +138,7 @@ return;
       <div class="account row">
         <div class="user-profile">
           <div class="prof-img"></div>
-          <div class="user-name">Naleeka Kumarasinghe</div>
+          <div class="user-name">${userProfile.name}</div>
         </div>
         <div class="switch-btn capitalize">
           <a href="#">switch account
@@ -148,6 +148,7 @@ return;
       <form method="POST" action="PublishPostServlet">
         <div class="caption-box col content-pd">
           <div class="title capitalize">caption</div>
+          <input type="hidden" name="userid" id="userid" value="${user.userId}" />
 
           <textarea autocomplete="off" name="content" id="content" placeholder="Enter the caption of the discussion"></textarea>
         </div>
