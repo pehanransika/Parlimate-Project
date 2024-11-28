@@ -150,12 +150,14 @@
                 </div>
             </div>
             <div class="fund-btns row">
+                <a href="GetAllRequestServlet">
                 <button class="my-funds row">
                     <i class="fa-solid fa-wallet"></i>
                     <span>
                         my fundraises
                     </span>
                 </button>
+                </a>
                 <button class="req-funds row">
                     <i class="fa-sharp fa-solid fa-plus"></i>
                     <span>
