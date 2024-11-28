@@ -137,7 +137,7 @@
                             >Remember me on this device</label
                             >
                         </div>
-                        <a href="#">Forgot password?</a>
+                        <a href="forgotPassword.jsp">Forgot password?</a>
                     </div>
                     <button class="btn login-btn">Login</button>
                     <div class="signup-section col">
@@ -299,11 +299,13 @@
                             <option value="galle">galle</option>
                         </select>
                         <input
-                                type="text"
+                                type="hidden"
                                 class="general-user inp-field"
                                 placeholder="Enter Image URL"
                                 name="img_url"
                                 id="imageUrl-input"
+                                value="image url .jpg"
+
                         />
                         <div
                                 class="nic-field row-fields general-user politician-inputs"

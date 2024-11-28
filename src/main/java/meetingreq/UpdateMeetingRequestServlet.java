@@ -22,7 +22,7 @@ public class UpdateMeetingRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Retrieve and validate request ID
-            String meetingrequestIdParam = request.getParameter("requestId");
+            String meetingrequestIdParam = request.getParameter("meetingrequestid");
             System.out.println("Request ID received: " + meetingrequestIdParam);
 
             if (meetingrequestIdParam == null || meetingrequestIdParam.trim().isEmpty()) {

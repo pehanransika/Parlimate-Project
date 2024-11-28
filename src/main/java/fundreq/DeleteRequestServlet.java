@@ -33,21 +33,21 @@ public class DeleteRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Request Deleted Successfully'); window.location.href='GetAllRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Request Deleted Successfully'); window.history.back();</script>");
             } else {
                 // If the request is not found
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='GetAllRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='error.jsp';</script>");
             }
         } catch (NumberFormatException e) {
             System.err.println("Invalid Request ID: " + e.getMessage());
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='GetAllRequestsServlet';</script>");
+            response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='error.jsp';</script>");
         } catch (Exception e) {
             System.err.println("Error during request deletion: " + e.getMessage());
             e.printStackTrace();
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='GetAllRequestsServlet';</script>");
+            response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='error.jsp';</script>");
         }
     }
 }
