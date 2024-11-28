@@ -447,8 +447,7 @@
                         <div class="item-title">
                             <div class="title">
                                 How to Improve the Education System with
-                                the Help of Sajith Premadasa’s
-                                ‘Cake-Cutting’ Strategies!
+                                the Help of Sajith Premadasa
                             </div>
                             <div class="time-period small-text row">
                                 <i class="fa-solid fa-clock"></i>

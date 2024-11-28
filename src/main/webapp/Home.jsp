@@ -150,7 +150,7 @@ return;
           <div class="title capitalize">caption</div>
           <input type="hidden" name="userid" id="userid" value="${user.userId}" />
 
-          <textarea autocomplete="off" name="content" id="content" placeholder="Enter the caption of the discussion"></textarea>
+          <textarea autocomplete="off" name="content" id="post-desc" placeholder="Enter the caption of the discussion"></textarea>
         </div>
         <div class="popbtns capitalize">
           <div class="clear-btn" id="popup-clear-btn">
