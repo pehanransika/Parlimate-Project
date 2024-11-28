@@ -226,6 +226,8 @@ body.reqPop-active {
 									text-transform: capitalize;
 									border-top-left-radius: 0.5rem;
 									border-bottom-left-radius: 0.5rem;
+									border-top-right-radius: 0;
+									border-bottom-right-radius: 0;
 									padding: 0.75rem;
 									font-weight: 500;
 									color: #8e8e8e;
@@ -280,7 +282,7 @@ body:not(.reqPop-active){
 	align-self: flex-end;
 }
 .newmeeting:hover {
-	background: #383838;
+	background: #70a2ff;
 }
 .newmeeting:active{
 	scale: 0.98;

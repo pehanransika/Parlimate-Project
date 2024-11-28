@@ -51,7 +51,7 @@ return;
 
 <body class="">
 
-<form action="CreateRequestServlet" method="post" class="popup-f" enctype="multipart/form-data">
+<form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
   <div class="bg"></div>
   <div class="fund-popup col">
     <div class="head row">
@@ -97,8 +97,6 @@ return;
           </div>
         </div>
       </div>
-      <label for="datetime">Date and Time:</label>
-      <input type="datetime-local" id="datetime" name="datetime" required>
 
       <div class="fund-attach field">
         <span for="" class="title">Upload Attachments</span>

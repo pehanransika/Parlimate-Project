@@ -51,3 +51,5 @@ fundFInp.addEventListener("change", () => {
         filesList.appendChild(listItem);
     }
 })
+
+

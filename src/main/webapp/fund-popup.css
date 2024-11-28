@@ -327,3 +327,6 @@ body.fund-active .popup-f{
 .att-btn ~ input[type="file"] {
 	display: none;
 }
+#datetime{
+	width: fit-content;
+}

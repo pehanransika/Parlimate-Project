@@ -46,6 +46,7 @@
                 font-size: 0.9rem;
 
                 && span {
+                    font-weight: 500;
                     color: #1e1e1e;
                 }
             }
@@ -203,7 +204,8 @@
     border-radius: 0.75rem;
     margin-top: 1.25rem;
     cursor: pointer;
-    transform: background 0.25s ease;
+    user-select: none;
+    transition: background 0.25s ease, scale 0.25s ease;
 
     && span {
         font-size: 1.1rem;
@@ -212,4 +214,8 @@
 }
 .donate-btn:hover {
     background: #2c2c2c;
+}
+.donate-btn:active {
+    scale: 0.98;
+    background: #393939;
 }
