@@ -90,7 +90,7 @@
             <span class="tip">profile</span>
             <div class="dropDownMenu">
                 <div class="profile">
-                    <a href="./Profile/profile.jsp">
+                    <a href="http://localhost:8080/Parlimate/Profile/profile.jsp">
                         <div class="img"></div>
                         <div class="details">
                             <div class="name medium-text bold">
