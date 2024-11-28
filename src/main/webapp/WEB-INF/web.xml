@@ -225,6 +225,7 @@
   <servlet-mapping>
     <servlet-name>UpdateRequestServlet</servlet-name>
     <url-pattern>/UpdateRequestServlet</url-pattern>
+    <url-pattern>/Fundraising/UpdateRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DeleteRequestServlet</servlet-name>
@@ -234,6 +235,7 @@
   <servlet-mapping>
     <servlet-name>DeleteRequestServlet</servlet-name>
     <url-pattern>/DeleteRequestServlet</url-pattern>
+    <url-pattern>/Fundraising/DeleteRequestServlet</url-pattern>
   </servlet-mapping>
 
   <servlet>

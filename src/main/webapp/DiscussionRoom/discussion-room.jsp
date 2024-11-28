@@ -90,9 +90,10 @@
                         <label class="title" for="disc-title"
                         >proposed Title</label
                         >
+                        <input type="hidden" name="politicianid" id="politicianid" value="${userProfile.politicianId}" />
                         <input
                                 type="text"
-                                name="disc-title"
+                                name="topic"
                                 id="disc-title"
                                 required
                                 placeholder="Education reform policies"
@@ -103,7 +104,7 @@
                         >Purpose of the debate</label
                         >
                         <textarea
-                                name="disc-desc"
+                                name="purposeofmeeting"
                                 id="disc-desc"
                                 required
                                 placeholder="To discuss proposed funding strategies"
@@ -117,7 +118,7 @@
                             >
                             <input
                                     type="date"
-                                    name="disc-date"
+                                    name="proposaldate"
                                     id="disc-date"
                                     required
                             />
@@ -128,7 +129,7 @@
                             >
                             <input
                                     type="time"
-                                    name="disc-time"
+                                    name="proposaltime"
                                     id="disc-time"
                                     required
                             />
@@ -139,13 +140,10 @@
                         >Estimated duration</label
                         >
                         <div class="drop-type">
-                            <select name="time-unit" id="time-unit">
-                                <option value="hour">hour</option>
-                                <option value="minute">minute</option>
-                            </select>
+
                             <input
-                                    type="number"
-                                    name="disc-dur"
+                                    type="text"
+                                    name="estimatedduration"
                                     id="disc-dur"
                                     placeholder="2"
                                     required
@@ -170,7 +168,7 @@
                         >
                         <input
                                 type="text"
-                                name="disc-opNames"
+                                name="opponentname"
                                 id="disc-opNames"
                                 required
                                 placeholder="Sajith Premadasa"
@@ -185,6 +183,7 @@
                                 required
                                 placeholder="Samagi Jana Balawegaya"
                                 id="disc-party-aff"
+                                name="partyaffiliation"
                         />
                         <div class="separator"></div>
                     </div>
@@ -203,7 +202,7 @@
                         <label class="title" for="disc-pref"
                         >Preferred Discussion Format</label
                         >
-                        <select name="disc-pref" id="disc-pref">
+                        <select name="discussionformat" id="disc-pref">
                             <option value="Open-debate">
                                 Open debate
                             </option>
@@ -223,6 +222,7 @@
                                 type="text"
                                 placeholder="Chathura senarathne"
                                 id="disc-party-host"
+                                name="preferredhost"
                         />
                         <div class="separator"></div>
                     </div>

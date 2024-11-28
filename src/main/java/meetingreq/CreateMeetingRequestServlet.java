@@ -19,16 +19,10 @@ public class CreateMeetingRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Retrieve politician ID from session
-            HttpSession session = request.getSession();
-            Integer politician_id = (Integer) session.getAttribute("politician_id");
 
-            // Set a default value for politician ID if not found in session
-            if (politician_id == null) {
-                politician_id = 1; // Default ID if no session-based politician ID is found
-            }
-
+            int defaultPoliticianId = 1;
             // Retrieve form data
+            String politicianIdStr = request.getParameter("politicianid");
             String topic = request.getParameter("topic");
             String purposeofmeeting = request.getParameter("purposeofmeeting");
             String opponentname = request.getParameter("opponentname");
@@ -39,6 +33,9 @@ public class CreateMeetingRequestServlet extends HttpServlet {
             String proposaltimeString = request.getParameter("proposaltime");
             String estimatedduration = request.getParameter("estimatedduration");
 
+            int politician_id= (politicianIdStr != null && !politicianIdStr.isEmpty())
+                    ? Integer.parseInt(politicianIdStr)
+                    : defaultPoliticianId;
             // Validate required fields
             if (topic == null || purposeofmeeting == null || opponentname == null || partyaffiliation == null ||
                     proposaldateString == null || proposaltimeString == null || estimatedduration == null) {
