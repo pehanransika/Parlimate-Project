@@ -26,13 +26,13 @@ public class RequestController {
 
     // Method to create a new fundraising request
     public static boolean createFundraisingRequest(int userId, String title, String description, String category,
-                                                   BigDecimal targetAmount, String currency,String  attachment_url) throws SQLException {
+                                                   BigDecimal targetAmount, String currency,String  attachment_url, String name) throws SQLException {
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
 
-        String query = "INSERT INTO FundraisingRequests (userid, title, description, category, targetamount, currency, datetime, attachment_url) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        String query = "INSERT INTO FundraisingRequests (userid, title, description, category, targetamount, currency, datetime, attachment_url, name) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -42,8 +42,9 @@ public class RequestController {
             stmt.setString(4, category);
             stmt.setBigDecimal(5, targetAmount);
             stmt.setString(6, currency);
-            stmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
             stmt.setString(8, attachment_url );
+            stmt.setString(9, name );
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -55,7 +56,7 @@ public class RequestController {
     // Method to retrieve all fundraising requests
     public static List<RequestModel> getAllFundraisingRequests() throws SQLException {
         List<RequestModel> requests = new ArrayList<>();
-        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url FROM FundraisingRequests";
+        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url , name FROM FundraisingRequests";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -71,9 +72,10 @@ public class RequestController {
                 String currency = rs.getString("currency");
                 Timestamp datetime = rs.getTimestamp("datetime");
                 String attachment_url = rs.getString("attachment_url");  // Fixed space issue
+                String name = rs.getString("name");
 
                 RequestModel request = new RequestModel(requestId, userId, title, description,
-                        category, targetAmount, currency, datetime, attachment_url);
+                        category, targetAmount, currency, datetime, attachment_url,name);
                 requests.add(request);
             }
         }
@@ -83,7 +85,7 @@ public class RequestController {
 
     // Method to retrieve a single fundraising request by ID
     public static RequestModel getFundraisingRequestById(int requestId) throws SQLException {
-        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url " +
+        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, datetime, attachment_url , name" +
                 "FROM FundraisingRequests WHERE requestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -101,8 +103,9 @@ public class RequestController {
                     String currency = rs.getString("currency");
                     Timestamp datetime = rs.getTimestamp("datetime");
                     String  attachment_url=rs.getString(" attachment_url");
+                    String name = rs.getString("name");
 
-                    return new RequestModel(requestId, userId, title, description, category, targetAmount, currency, datetime, attachment_url);
+                    return new RequestModel(requestId, userId, title, description, category, targetAmount, currency, datetime, attachment_url,name);
                 }
             }
         } catch (SQLException e) {

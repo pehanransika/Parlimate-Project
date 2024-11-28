@@ -82,6 +82,8 @@
                 <label for="fundtitle" class="title">Title</label>
                 <input type="text" required placeholder="Fundraise for the senior care house" name="title" id="fundtitle">
             </div>
+            <input type="hidden" name="userid" id="useri" value="${user.userId}" />
+            <input type="hidden" name="username" id="usernam" value="${userProfile.name}" />
             <div class="fund-decs field">
                 <label for="fund-desc" class="title">Description</label>
                 <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>

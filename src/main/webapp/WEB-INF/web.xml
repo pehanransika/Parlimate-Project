@@ -205,6 +205,7 @@
   <servlet-mapping>
     <servlet-name>CreateRequestServlet</servlet-name>
     <url-pattern>/CreateRequestServlet</url-pattern>
+    <url-pattern>/Fundraising/CreateRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GetAllRequestsServlet</servlet-name>
@@ -214,6 +215,7 @@
   <servlet-mapping>
     <servlet-name>GetAllRequestsServlet</servlet-name>
     <url-pattern>/GetAllRequestsServlet</url-pattern>
+    <url-pattern>/Fundraising/GetAllRequestsServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>UpdateRequestServlet</servlet-name>

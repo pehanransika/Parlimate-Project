@@ -64,6 +64,8 @@ return;
       <div class="title">Request a fundraise</div>
       <div class="separator"></div>
     </div>
+    <input type="hidden" name="userid" id="useri" value="${user.userId}" />
+    <input type="hidden" name="username" id="usernam" value="${userProfile.name}" />
     <div class="body col">
       <div class="fund-title field">
         <label for="fundtitle" class="title">Title</label>

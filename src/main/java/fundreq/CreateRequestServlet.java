@@ -28,7 +28,13 @@ public class CreateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountStr = request.getParameter("targetamount");
             String currency = request.getParameter("currency");
-            String datetimeStr = request.getParameter("datetime");
+            String userIdStr = request.getParameter("userid");
+            String username = request.getParameter("username");
+            int userId = (userIdStr != null && !userIdStr.isEmpty())
+                    ? Integer.parseInt(userIdStr)
+                    : defaultUserId;
+
+
 
             // Handle file upload using getPart
             Part attachmentPart = request.getPart("attachmentUrl");  // Corresponds to the file input name
@@ -57,8 +63,7 @@ public class CreateRequestServlet extends HttpServlet {
                     description == null || description.trim().isEmpty() ||
                     category == null || category.trim().isEmpty() ||
                     targetAmountStr == null || targetAmountStr.trim().isEmpty() ||
-                    currency == null || currency.trim().isEmpty() ||
-                    datetimeStr == null || datetimeStr.trim().isEmpty()) {
+                    currency == null || currency.trim().isEmpty() ) {
                 throw new IllegalArgumentException("All fields are required except Attachment URL.");
             }
 
@@ -69,11 +74,11 @@ public class CreateRequestServlet extends HttpServlet {
             }
 
             // Parse datetime
-            Timestamp datetime = Timestamp.valueOf(datetimeStr.replace("T", " ") + ":00");
+
 
             // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
-                    defaultUserId, title, description, category, targetAmount, currency, attachmentUrl);
+                    userId, title, description, category, targetAmount, currency, attachmentUrl, username);
 
             // Response
             if (isCreated) {
