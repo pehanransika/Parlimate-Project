@@ -92,7 +92,7 @@ return;
               </select>
             </div>
             <div class="amount">
-              <input required type="number" name="targetamount" id="fund-amount" placeholder="1,000,000.00">
+              <input required step="1000" type="number" name="targetamount" id="fund-amount" placeholder="1,000,000.00">
             </div>
           </div>
         </div>
