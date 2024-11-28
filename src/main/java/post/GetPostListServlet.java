@@ -23,7 +23,7 @@ public class GetPostListServlet extends HttpServlet {
             request.setAttribute("allposts", allPosts);
 
             // Forward to postDetail.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("postlist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("postsDetail.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             // Log the exception for debugging

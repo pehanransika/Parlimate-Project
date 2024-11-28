@@ -112,6 +112,7 @@
                                 name="email"
                                 id="login-email"
                                 placeholder="Email address"
+                                required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
                         />
                         <div class="pswrd">
                             <input
@@ -151,29 +152,13 @@
             </div>
         </div>
     </form>
-    <form action="UserInsertServlet" method="post">
+    <form action="UserInsertServlet" method="post" onsubmit="return validateForm()">
         <div class="signup-cont col">
             <div class="login-container col">
                 <div class="btn close-btn">
-                    <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                                d="M1.90039 2.00043L13.9004 14.0004"
-                                stroke="#1E1E1E"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                        />
-                        <path
-                                d="M13.9004 2.00043L1.90039 14.0004"
-                                stroke="#1E1E1E"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                        />
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.90039 2.00043L13.9004 14.0004" stroke="#1E1E1E" stroke-width="3" stroke-linecap="round" />
+                        <path d="M13.9004 2.00043L1.90039 14.0004" stroke="#1E1E1E" stroke-width="3" stroke-linecap="round" />
                     </svg>
                 </div>
 
@@ -183,71 +168,22 @@
                 </div>
                 <div class="content col">
 
-                    <input
-                            type="radio"
-                            name="userType"
-                            id="userType-select-cit"
-                            value="Citizen"
-                            checked
-                            hidden
-                    />
-                    <input
-                            type="radio"
-                            name="userType"
-                            id="userType-select-pol"
-                            value="Politician"
-                            hidden
-                    />
-                    <input
-                            type="radio"
-                            name="userType"
-                            id="userType-select-part"
-                            value="Political-Party"
-                            hidden
-                    />
+                    <input type="radio" name="userType" id="userType-select-cit" value="Citizen" checked hidden />
+                    <input type="radio" name="userType" id="userType-select-pol" value="Politician" hidden />
+                    <input type="radio" name="userType" id="userType-select-part" value="Political Party" hidden />
+
                     <div class="signup-slider row">
-                        <label
-                                id="citizen-set"
-                                class="active tab"
-                                data-target="citizen"
-                                for="userType-select-cit"
-                        >
-                            citizen
-                        </label>
-                        <label
-                                id="politician-set"
-                                class="tab"
-                                data-target="politician"
-                                for="userType-select-pol"
-                        >
-                            politician
-                        </label>
-                        <label
-                                class="tab"
-                                id="politicalParty-set"
-                                data-target="politicalParty"
-                                for="userType-select-part"
-                        >
-                            political party
-                        </label>
+                        <label id="citizen-set" class="active tab" data-target="citizen" for="userType-select-cit">citizen</label>
+                        <label id="politician-set" class="tab" data-target="politician" for="userType-select-pol">politician</label>
+                        <label class="tab" id="politicalParty-set" data-target="politicalParty" for="userType-select-part">political party</label>
                         <span class="slider"></span>
                     </div>
+
                     <div class="signup-content col">
                         <div class="row-fields general-user row">
-                            <input
-                                    type="text"
-                                    class="inp-field"
-                                    placeholder="Full name"
-                                    name="name"
-                            />
+                            <input type="text" class="inp-field" placeholder="Full name" name="name" required pattern="^[A-Za-z]+([ ]?[A-Za-z]+)*$" title="Please Check the Name" />
                         </div>
-                        <input
-                                type="email"
-                                name="email"
-                                id="singup-email"
-                                class="inp-field general-user"
-                                placeholder="Email address"
-                        />
+                        <input type="email" name="email" id="singup-email" class="inp-field general-user" placeholder="Email address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" />
                         <div class="general-user row-fields row">
                             <div class="pswrd">
                                 <input
@@ -256,200 +192,126 @@
                                         placeholder="Password"
                                         id="password"
                                         name="Password"
+                                        required
+                                        minlength="6"
+                                        pattern="^(?=.[A-Z])(?=.[!@#$%^&*()_+={}\[\]:;,.<>?/-]).{6,}$"
                                 />
-                                <i
-                                        class="fa-solid fa-eye toggle-password"
-                                        data-target="password"
-                                ></i>
+
+                                <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
                             </div>
                             <div class="tel">
-                                <input
-                                        type="tel"
-                                        class="general-user inp-field"
-                                        placeholder="Contact number"
-                                        name="phoneNumber"
-                                        id="telNumber-signup"
-                                />
+                                <input type="tel" class="general-user inp-field" placeholder="Contact number" name="phoneNumber" id="telNumber-signup" minlength="10" maxlength="10" required pattern="^0\d*$" />
                             </div>
                         </div>
-                        <input
-                                type="text"
-                                name="address"
-                                id="singup-address"
-                                class="inp-field general-user"
-                                placeholder="Address"
-                        />
-                        <select
-                                name="district"
-                                class="general-user"
-                                id="district"
-                        >
-                            <option
-                                    value="invalid"
-                                    disabled="disabled"
-                                    selected
-                            >
-                                District
-                            </option>
-                            <option value="kandy">kandy</option>
-                            <option value="colombo">colombo</option>
-                            <option value="mathara">mathara</option>
-                            <option value="horana">horana</option>
-                            <option value="jaffna">jaffna</option>
-                            <option value="galle">galle</option>
+                        <input type="text" name="address" id="singup-address" class="inp-field general-user" placeholder="Address" required />
+                        <select name="district" class="general-user" id="district" required>
+                            <option value="invalid" disabled="disabled" selected>District</option>
+                            <option value="colombo">Colombo</option>
+                            <option value="gampaha">Gampaha</option>
+                            <option value="kalutara">Kalutara</option>
+                            <option value="kandy">Kandy</option>
+                            <option value="matale">Matale</option>
+                            <option value="nuwaraeliya">Nuwara Eliya</option>
+                            <option value="ratnapura">Ratnapura</option>
+                            <option value="kegalle">Kegalle</option>
+                            <option value="anuradhapura">Anuradhapura</option>
+                            <option value="polonnaruwa">Polonnaruwa</option>
+                            <option value="badulla">Badulla</option>
+                            <option value="moneragala">Moneragala</option>
+                            <option value="matara">Matara</option>
+                            <option value="hambantota">Hambantota</option>
+                            <option value="galle">Galle</option>
+                            <option value="kurunegala">Kurunegala</option>
+                            <option value="puttalam">Puttalam</option>
+                            <option value="jaffna">Jaffna</option>
+                            <option value="mannar">Mannar</option>
+                            <option value="vavuniya">Vavuniya</option>
+                            <option value="mulaitivu">Mulaitivu</option>
+                            <option value="kilinochchi">Kilinochchi</option>
+                            <option value="trincomalee">Trincomalee</option>
+                            <option value="batticaloa">Batticaloa</option>
+                            <option value="ampara">Ampara</option>
                         </select>
-                        <input
-                                type="hidden"
-                                class="general-user inp-field"
-                                placeholder="Enter Image URL"
-                                name="img_url"
-                                id="imageUrl-input"
-                                value="image url .jpg"
 
-                        />
-                        <div
-                                class="nic-field row-fields general-user politician-inputs"
-                        >
+
+                        <!-- Validation for Politician and Party -->
+                        <div class="nic-field row-fields general-user politician-inputs">
                             <label for="nic-front">
-                                <input
-                                        type="file"
-                                        class="image-upload-inp"
-                                        name="img_url"
-                                        id="nic-front"
-                                        hidden
-                                        accept="image/png, image/jpg, image/jpeg"
-                                />
+                                <input type="file" class="image-upload-inp" name="img_url" id="nic-front" hidden accept="image/png, image/jpg, image/jpeg" />
                                 <div class="img-view row">
-                                    <i
-                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                            style="
-														--fa-secondary-color: #a2aec3;
-													"
-                                    ></i>
-                                    <span id="nic-front-label">
-													NIC front
-												</span>
+                                    <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
+                                    <span id="nic-front-label">NIC front</span>
                                 </div>
                             </label>
                             <label for="nic-back">
-                                <input
-                                        type="file"
-                                        class="image-upload-inp"
-                                        name="nic-back"
-                                        id="nic-back"
-                                        accept="image/png, image/jpg, image/jpeg"
-                                        hidden
-                                />
+                                <input type="file" class="image-upload-inp" name="nic-back" id="nic-back" accept="image/png, image/jpg, image/jpeg" hidden />
                                 <div class="img-view row">
-                                    <i
-                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                            style="
-														--fa-secondary-color: #a2aec3;
-													"
-                                    ></i>
-                                    <span id="nic-back-label">
-													NIC back
-												</span>
+                                    <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
+                                    <span id="nic-back-label">NIC back</span>
                                 </div>
                             </label>
                         </div>
-                        <input
-                                type="text"
-                                class="inp-field polParty"
-                                placeholder="Party Name"
-                                id="partyName-signup"
-                                name="partyName"
-                        />
-                        <input
-                                type="text"
-                                class="inp-field polParty"
-                                placeholder="Party Leader's Name"
-                                id="partyLeaderName-signup"
-                        />
+
+                        <!-- Political Party Info -->
+                        <input type="text" class="inp-field polParty" placeholder="Party Name" id="partyName-signup" name="name" pattern="^[A-Za-z ]+$" />
+                        <input type="text" class="inp-field polParty" placeholder="Party Leader's Name" id="partyLeaderName-signup" pattern="^[A-Za-z ]+$" />
                         <div class="row-fields row">
-                            <input
-                                    type="text"
-                                    class="inp-field polParty"
-                                    name="partyPhoneNumber"
-                                    placeholder="Contact number"
-                                    id="partyLeader-signup"
-                            />
-                            <input
-                                    type="number"
-                                    class="inp-field polParty"
-                                    name="noOfMembers"
-                                    placeholder="Number of members"
-                                    id="no_of_members"
-                                    min="1"
-                            />
+                            <input type="text" class="inp-field polParty" name="phoneNumber" placeholder="Contact number" id="partyLeader-signup" />
+                            <input type="number" class="inp-field polParty" name="noOfMembers" placeholder="Number of members" id="no_of_members" min="1" />
                         </div>
-                        <input
-                                type="text"
-                                class="inp-field polParty"
-                                name="partyAddress"
-                                placeholder="Address"
-                                id="addressn"
-                        />
+                        <input type="text" class="inp-field polParty" name="address" placeholder="Address" id="addressn" />
                         <div class="party-imgs col row-fields">
                             <label for="party-logo">
-                                <input
-                                        type="file"
-                                        class="image-upload-inp"
-                                        accept="image/png, image/jpg, image/jpeg"
-                                        name="logoImg"
-                                        id="party-logo"
-                                        hidden
-                                />
-                                <div
-                                        class="img-view row polParty"
-                                        id="party-logo-bg"
-                                >
-                                    <i
-                                            class="fa-duotone fa-solid fa-cloud-arrow-up"
-                                            style="
-														--fa-secondary-color: #a2aec3;
-													"
-                                    >
-                                    </i>
-                                    <span
-                                            id="party-logo-name polParty"
-                                    >Party Logo
-												</span>
+                                <input type="file" class="image-upload-inp" accept="image/png, image/jpg, image/jpeg" name="logoImg" id="party-logo" hidden />
+                                <div class="img-view row polParty" id="party-logo-bg">
+                                    <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
+                                    <span id="party-logo-name polParty">Party Logo</span>
                                 </div>
                             </label>
                         </div>
                     </div>
+
                     <div class="remember row">
-                        <input
-                                type="checkbox"
-                                name="agreement-signup"
-                                id="agreement-signup"
-                        />
-                        <label for="agreement-signup"
-                        >I hereby agree to the policies of
-                            Parlimate</label
-                        >
+                        <input type="checkbox" name="agreement-signup" id="agreement-signup" required />
+                        <label for="agreement-signup">I hereby agree to the policies of Parlimate</label>
                     </div>
-                    <button
-                            class="btn login-btn"
-                            id="signup-submit-btn"
-                    >
-                        Create account
-                    </button>
+                    <button class="btn login-btn" id="signup-submit-btn">Create account</button>
                     <div class="signup-section col">
                         <div class="divider"></div>
-                        <span>
-										Already have an account?
-										<button id="login-link" type="button">
-											Login
-										</button>
-									</span>
+                        <span>Already have an account?
+                        <button id="login-link" type="button">Login</button>
+                    </span>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script>
+    function validateForm() {
+        // Get the form inputs
+        const email = document.getElementById("singup-email");
+        const password = document.getElementById("password");
+        const phoneNumber = document.getElementById("telNumber-signup");
+
+        // Define the email pattern
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        // Check if fields are filled out
+        if (!email.value || !password.value || !phoneNumber.value) {
+            alert("Please fill out all required fields.");
+            return false;
+        }
+
+        // Check if the email matches the pattern
+        if (!emailPattern.test(email.value)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+
+        return true; // If all checks pass, return true to submit the form
+    }
+</script>
 <ul class="items row">
     <li class="item row">
         <svg

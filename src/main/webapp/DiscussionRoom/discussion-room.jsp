@@ -41,7 +41,7 @@
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
-
+<c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
 <div class="reqPop">
     <div class="bg"></div>
     <form action="CreateMeetingRequestServlet" method="post">
@@ -240,6 +240,7 @@
         </div>
     </form>
 </div>
+</c:if>
 <div class="notification-msg"></div>
 <div class="container col">
     <div class="pageTitles">
@@ -267,14 +268,18 @@
             </div>
         </div>
         <div class="nav-body col">
+
             <div class="meeting-btns row">
+                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
                 <a href="GetAllMeetingRequestServlet" class="myMeetings row">
                     <span> My meeting </span
                     ><i class="fa-solid fa-clock"></i>
-                </a>
+                </a>   </c:if>
                 <div class="newmeeting row">
+                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
                             <span> request meeting </span
                             ><i class="fa-solid fa-pencil"></i>
+                 </c:if>
                 </div>
 
 

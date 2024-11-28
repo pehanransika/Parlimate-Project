@@ -172,6 +172,10 @@ return;
     </div>
   </div>
 </div>
+
+
+
+
 <div class="comment-popup">
   <div class="comment-container col-u">
     <div class="drop-cmnt"></div>
@@ -283,6 +287,9 @@ return;
 </div>
 </div>
 
+
+
+
 <%@ include file="index/sidebar.jsp" %>
 
 <div class="logoutBtn capitalize">
@@ -381,6 +388,10 @@ return;
       <a href="#" class="past-surv-link small-text">See past surevys</a>
     </div>
   </div>
+
+
+
+
   <div class="post reactable reacted">
     <div class="top">
       <div class="post-details">
@@ -458,6 +469,9 @@ return;
       </button>
     </div>
   </div>
+
+
+
 </div>
 </body>
 <script src="script.js"></script>
