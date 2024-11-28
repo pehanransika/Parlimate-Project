@@ -561,7 +561,6 @@
 </div>
 </body>
 <script src="../loadSidebar.js"></script>
-<%--<script src="./fund-pop.js">--%>
 <script>
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
@@ -586,4 +585,6 @@
         })
     });
 </script>
+<script src="./fund-pop.js"></script>
+
 </html>

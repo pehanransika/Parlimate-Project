@@ -77,6 +77,7 @@
     transition: background 0.25s ease,
     color 0.25s ease,
     padding-left 0.25s ease;
+    user-select: none;
 }
 .navs li label i{
     position: absolute;
