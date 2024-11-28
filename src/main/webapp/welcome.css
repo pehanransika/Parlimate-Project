@@ -547,3 +547,13 @@ input.polParty.party-active,
 .row-fields div{
 	flex: 1;
 }
+.general-email, .general-password {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.general-email.inactive,
+.general-password.inactive {
+	display: none !important;
+}
