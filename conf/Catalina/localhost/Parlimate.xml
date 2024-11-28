@@ -8,5 +8,7 @@
     <PostResources base="D:/Group Project second year/JAR Files-20241102T061912Z-001/JAR Files/jstl-api-1.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jstl-api-1.2.jar"/>
     <PostResources base="D:/Group Project second year/JAR Files-20241102T061912Z-001/JAR Files/mysql-connector-java-5.1.48-bin.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/mysql-connector-java-5.1.48-bin.jar"/>
     <PostResources base="D:/Group Project second year/JAR Files-20241102T061912Z-001/JAR Files/servlet-api.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/servlet-api.jar"/>
+    <PostResources base="D:/Downloads/activation-1.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/activation-1.1.jar"/>
+    <PostResources base="D:/Downloads/javax.mail-1.6.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/javax.mail-1.6.0.jar"/>
   </Resources>
 </Context>

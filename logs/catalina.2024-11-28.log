@@ -2411,3 +2411,646 @@
 28-Nov-2024 18:56:06.951 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
 28-Nov-2024 18:56:06.958 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
 28-Nov-2024 18:56:06.970 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 18:56:10.530 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 18:56:10.537 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 18:56:10.538 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 18:56:10.538 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 18:56:10.538 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 18:56:10.538 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 18:56:10.538 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 18:56:10.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 18:56:10.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 18:56:10.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 18:56:10.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 18:56:10.551 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=55418:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 18:56:10.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 18:56:10.559 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 18:56:10.559 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 18:56:10.559 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 18:56:10.573 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 18:56:11.134 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 18:56:11.162 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1052] milliseconds
+28-Nov-2024 18:56:11.241 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 18:56:11.241 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 18:56:11.261 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 18:56:12.345 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 18:56:12.440 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,178] ms
+28-Nov-2024 18:56:12.448 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 18:56:12.483 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1318] milliseconds
+28-Nov-2024 19:09:46.231 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:09:46.249 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:09:46.273 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:09:46.286 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:09:46.303 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:09:50.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:09:50.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:09:50.857 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:09:50.857 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:09:50.857 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:09:50.858 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:09:50.870 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:09:50.870 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:09:50.871 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:09:50.871 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:09:50.871 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=57778:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:09:50.872 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:09:50.878 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:09:50.879 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:09:50.879 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:09:50.890 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:09:51.608 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:09:51.650 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1224] milliseconds
+28-Nov-2024 19:09:51.753 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:09:51.754 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:09:51.777 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:09:53.002 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:09:53.122 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,344] ms
+28-Nov-2024 19:09:53.126 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:09:53.155 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1502] milliseconds
+28-Nov-2024 19:12:27.252 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:12:27.264 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:12:27.276 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:12:27.286 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:12:27.298 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:12:31.137 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:12:31.144 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:12:31.145 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:12:31.145 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:12:31.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:12:31.147 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:12:31.160 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:12:31.161 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:12:31.161 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:12:31.162 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:12:31.163 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=58265:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:12:31.163 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:12:31.163 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:12:31.163 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:12:31.168 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:12:31.168 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:12:31.168 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:12:31.178 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:12:31.932 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:12:31.975 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1257] milliseconds
+28-Nov-2024 19:12:32.128 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:12:32.128 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:12:32.148 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:12:33.546 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:12:33.654 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,506] ms
+28-Nov-2024 19:12:33.659 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:12:33.686 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1706] milliseconds
+28-Nov-2024 19:19:58.990 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:19:59.019 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:19:59.086 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:19:59.107 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:19:59.147 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:20:08.350 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:20:08.359 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:20:08.359 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:20:08.360 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:20:08.361 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:20:08.361 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:20:08.388 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:20:08.390 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:20:08.390 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:20:08.390 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=59276:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:20:08.391 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:20:08.392 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:20:08.392 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:20:08.403 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:20:08.404 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:20:08.404 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:20:08.434 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:20:09.320 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:20:09.371 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1611] milliseconds
+28-Nov-2024 19:20:09.486 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:20:09.487 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:20:09.520 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:20:10.885 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:20:11.029 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,508] ms
+28-Nov-2024 19:20:11.034 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:20:11.071 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1698] milliseconds
+28-Nov-2024 19:26:41.939 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:26:41.954 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:26:41.982 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:26:41.993 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:26:42.003 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:26:46.359 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:26:46.365 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:26:46.365 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:26:46.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:26:46.367 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:26:46.377 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:26:46.378 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:26:46.379 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:26:46.379 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=60208:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:26:46.379 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:26:46.379 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:26:46.379 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:26:46.386 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:26:46.386 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:26:46.386 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:26:46.398 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:26:46.945 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:26:46.970 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1002] milliseconds
+28-Nov-2024 19:26:47.039 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:26:47.039 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:26:47.052 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:26:48.034 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:26:48.122 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,071] ms
+28-Nov-2024 19:26:48.127 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:26:48.153 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1180] milliseconds
+28-Nov-2024 19:30:28.196 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:30:28.218 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:30:28.251 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:30:28.299 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:30:28.318 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:30:32.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:30:32.876 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:30:32.877 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:30:32.877 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:30:32.877 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:30:32.877 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:30:32.890 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=60737:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:30:32.891 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:30:32.896 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:30:32.897 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:30:32.897 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:30:32.908 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:30:33.683 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:30:33.725 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1290] milliseconds
+28-Nov-2024 19:30:33.834 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:30:33.835 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:30:33.853 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:30:35.509 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:30:35.636 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,782] ms
+28-Nov-2024 19:30:35.647 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:30:35.693 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1964] milliseconds
+28-Nov-2024 19:47:38.138 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:47:38.174 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 19:47:38.278 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 19:47:38.320 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:47:38.374 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:47:46.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 19:47:46.673 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 19:47:46.673 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 19:47:46.673 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 19:47:46.673 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 19:47:46.675 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:47:46.688 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 19:47:46.688 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 19:47:46.688 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 19:47:46.688 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=63421:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 19:47:46.689 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 19:47:46.690 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 19:47:46.690 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 19:47:46.700 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 19:47:46.700 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 19:47:46.700 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 19:47:46.720 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 19:47:47.420 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:47:47.456 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1305] milliseconds
+28-Nov-2024 19:47:47.639 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 19:47:47.639 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 19:47:47.672 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 19:47:49.554 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 19:47:49.689 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [2,017] ms
+28-Nov-2024 19:47:49.694 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 19:47:49.732 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [2273] milliseconds
+28-Nov-2024 20:02:01.691 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:02:01.764 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 20:02:01.918 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 20:02:01.968 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:02:02.030 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:02:12.792 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 20:02:12.805 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 20:02:12.806 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 20:02:12.807 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 20:02:12.807 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 20:02:12.807 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 20:02:12.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 20:02:12.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 20:02:12.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 20:02:12.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 20:02:12.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:02:12.827 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 20:02:12.828 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 20:02:12.828 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 20:02:12.828 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 20:02:12.828 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=65352:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 20:02:12.829 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 20:02:12.830 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 20:02:12.845 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 20:02:12.846 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 20:02:12.846 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 20:02:12.876 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 20:02:13.658 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:02:13.701 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1466] milliseconds
+28-Nov-2024 20:02:13.803 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 20:02:13.804 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 20:02:13.832 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 20:02:15.289 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 20:02:15.413 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,581] ms
+28-Nov-2024 20:02:15.416 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:02:15.446 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1743] milliseconds
+28-Nov-2024 20:14:02.825 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:14:02.860 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 20:14:02.888 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:14:03.978 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:14:05.065 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:14:05.241 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 20:14:05.244 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [Parlimate] is still processing a request that has yet to finish. This is very likely to create a memory leak. You can control the time allowed for requests to finish by using the unloadDelay attribute of the standard Context implementation. Stack trace of request processing thread:[
+ java.base/sun.nio.ch.SocketDispatcher.read0(Native Method)
+ java.base/sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:46)
+ java.base/sun.nio.ch.NioSocketImpl.tryRead(NioSocketImpl.java:256)
+ java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:307)
+ java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+ java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
+ java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1108)
+ java.base/java.net.Socket$SocketInputStream.read(Socket.java:1095)
+ com.sun.mail.util.TraceInputStream.read(TraceInputStream.java:126)
+ java.base/java.io.BufferedInputStream.fill(BufferedInputStream.java:291)
+ java.base/java.io.BufferedInputStream.implRead(BufferedInputStream.java:325)
+ java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:312)
+ com.sun.mail.util.LineInputStream.readLine(LineInputStream.java:104)
+ com.sun.mail.smtp.SMTPTransport.readServerResponse(SMTPTransport.java:2425)
+ com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2172)
+ com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:726)
+ javax.mail.Service.connect(Service.java:388)
+ javax.mail.Service.connect(Service.java:246)
+ javax.mail.Service.connect(Service.java:195)
+ javax.mail.Transport.send0(Transport.java:254)
+ javax.mail.Transport.send(Transport.java:124)
+ UserPackage.ForgotPassword.doPost(ForgotPassword.java:61)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+ org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+ org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+ org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+ org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+ org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+ org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+ org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+ org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:396)
+ org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+ org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:937)
+ org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+ org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+ org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+ java.base/java.lang.Thread.run(Thread.java:1570)]
+28-Nov-2024 20:14:05.267 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:14:10.315 WARNING [Thread-1] org.apache.tomcat.util.net.AbstractEndpoint.shutdownExecutor The executor associated with thread pool [http-nio-8080] has not fully shutdown. Some application threads may still be running.
+28-Nov-2024 20:14:10.326 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:14:16.242 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 20:14:16.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 20:14:16.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 20:14:16.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 20:14:16.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 20:14:16.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 20:14:16.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 20:14:16.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 20:14:16.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 20:14:16.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 20:14:16.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=50420:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 20:14:16.260 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 20:14:16.261 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 20:14:16.268 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 20:14:16.268 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 20:14:16.270 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 20:14:16.290 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 20:14:17.000 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:14:17.038 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1201] milliseconds
+28-Nov-2024 20:14:17.142 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 20:14:17.143 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 20:14:17.166 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 20:14:18.463 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 20:14:18.558 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,391] ms
+28-Nov-2024 20:14:18.563 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:14:18.596 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1554] milliseconds
+28-Nov-2024 20:17:35.164 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:17:35.191 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 20:17:35.203 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:17:36.316 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:17:37.403 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:17:37.548 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [Parlimate] is still processing a request that has yet to finish. This is very likely to create a memory leak. You can control the time allowed for requests to finish by using the unloadDelay attribute of the standard Context implementation. Stack trace of request processing thread:[
+ java.base/sun.nio.ch.SocketDispatcher.read0(Native Method)
+ java.base/sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:46)
+ java.base/sun.nio.ch.NioSocketImpl.tryRead(NioSocketImpl.java:256)
+ java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:307)
+ java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+ java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
+ java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1108)
+ java.base/java.net.Socket$SocketInputStream.read(Socket.java:1095)
+ com.sun.mail.util.TraceInputStream.read(TraceInputStream.java:126)
+ java.base/java.io.BufferedInputStream.fill(BufferedInputStream.java:291)
+ java.base/java.io.BufferedInputStream.implRead(BufferedInputStream.java:325)
+ java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:312)
+ com.sun.mail.util.LineInputStream.readLine(LineInputStream.java:104)
+ com.sun.mail.smtp.SMTPTransport.readServerResponse(SMTPTransport.java:2425)
+ com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2172)
+ com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:726)
+ javax.mail.Service.connect(Service.java:388)
+ javax.mail.Service.connect(Service.java:246)
+ javax.mail.Service.connect(Service.java:195)
+ javax.mail.Transport.send0(Transport.java:254)
+ javax.mail.Transport.send(Transport.java:124)
+ UserPackage.ForgotPassword.doPost(ForgotPassword.java:61)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+ org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+ org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+ org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+ org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+ org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+ org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+ org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+ org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:396)
+ org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+ org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:937)
+ org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+ org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+ org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+ java.base/java.lang.Thread.run(Thread.java:1570)]
+28-Nov-2024 20:17:37.561 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:17:42.580 WARNING [Thread-1] org.apache.tomcat.util.net.AbstractEndpoint.shutdownExecutor The executor associated with thread pool [http-nio-8080] has not fully shutdown. Some application threads may still be running.
+28-Nov-2024 20:17:42.584 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:17:47.596 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 20:17:47.602 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 20:17:47.602 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 20:17:47.602 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 20:17:47.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:17:47.612 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 20:17:47.613 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 20:17:47.614 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 20:17:47.614 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=50869:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 20:17:47.614 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 20:17:47.614 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 20:17:47.614 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 20:17:47.619 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 20:17:47.620 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 20:17:47.620 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 20:17:47.628 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 20:17:48.234 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:17:48.264 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [991] milliseconds
+28-Nov-2024 20:17:48.352 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 20:17:48.353 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 20:17:48.371 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 20:17:49.806 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 20:17:49.921 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,549] ms
+28-Nov-2024 20:17:49.928 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:17:49.963 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1696] milliseconds
+28-Nov-2024 20:27:17.454 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:27:17.472 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 20:27:17.483 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:27:18.563 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:27:19.651 INFO [Thread-1] org.apache.catalina.core.StandardWrapper.unload Waiting for [1] instance(s) to be deallocated for Servlet [UserPackage.ForgotPassword]
+28-Nov-2024 20:27:19.803 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 20:27:19.805 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [Parlimate] is still processing a request that has yet to finish. This is very likely to create a memory leak. You can control the time allowed for requests to finish by using the unloadDelay attribute of the standard Context implementation. Stack trace of request processing thread:[
+ java.base/sun.nio.ch.SocketDispatcher.read0(Native Method)
+ java.base/sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:46)
+ java.base/sun.nio.ch.NioSocketImpl.tryRead(NioSocketImpl.java:256)
+ java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:307)
+ java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+ java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
+ java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1108)
+ java.base/java.net.Socket$SocketInputStream.read(Socket.java:1095)
+ com.sun.mail.util.TraceInputStream.read(TraceInputStream.java:126)
+ java.base/java.io.BufferedInputStream.fill(BufferedInputStream.java:291)
+ java.base/java.io.BufferedInputStream.implRead(BufferedInputStream.java:325)
+ java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:312)
+ com.sun.mail.util.LineInputStream.readLine(LineInputStream.java:104)
+ com.sun.mail.smtp.SMTPTransport.readServerResponse(SMTPTransport.java:2425)
+ com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2172)
+ com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:726)
+ javax.mail.Service.connect(Service.java:388)
+ javax.mail.Service.connect(Service.java:246)
+ javax.mail.Service.connect(Service.java:195)
+ javax.mail.Transport.send0(Transport.java:254)
+ javax.mail.Transport.send(Transport.java:124)
+ UserPackage.ForgotPassword.doPost(ForgotPassword.java:62)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+ javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ UserPackage.UserSessionFilter.doFilter(UserSessionFilter.java:34)
+ org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+ org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+ org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+ org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+ org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+ org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+ org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+ org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+ org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+ org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+ org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:396)
+ org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+ org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:937)
+ org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+ org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+ org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+ org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+ java.base/java.lang.Thread.run(Thread.java:1570)]
+28-Nov-2024 20:27:19.825 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:27:24.853 WARNING [Thread-1] org.apache.tomcat.util.net.AbstractEndpoint.shutdownExecutor The executor associated with thread pool [http-nio-8080] has not fully shutdown. Some application threads may still be running.
+28-Nov-2024 20:27:24.856 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:27:30.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
+28-Nov-2024 20:27:30.018 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
+28-Nov-2024 20:27:30.018 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
+28-Nov-2024 20:27:30.018 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 11
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Users\Manuja Ransara\.jdks\corretto-22.0.2
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           22.0.2+9-FR
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         D:\Parlimate
+28-Nov-2024 20:27:30.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:27:30.030 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Nov-2024 20:27:30.030 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Nov-2024 20:27:30.030 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Nov-2024 20:27:30.030 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Nov-2024 20:27:30.030 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Program Files\apache-tomcat-9.0.97
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=D:\Parlimate
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\Parlimate\temp
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=D:\Parlimate\conf\logging.properties
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\lib\idea_rt.jar=52264:C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\bin
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stdout.encoding=UTF-8
+28-Nov-2024 20:27:30.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dsun.stderr.encoding=UTF-8
+28-Nov-2024 20:27:30.036 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+28-Nov-2024 20:27:30.038 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+28-Nov-2024 20:27:30.038 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+28-Nov-2024 20:27:30.058 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+28-Nov-2024 20:27:30.772 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:27:30.805 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1214] milliseconds
+28-Nov-2024 20:27:30.892 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Nov-2024 20:27:30.892 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
+28-Nov-2024 20:27:30.909 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml]
+28-Nov-2024 20:27:32.173 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+28-Nov-2024 20:27:32.308 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [D:\Parlimate\conf\Catalina\localhost\Parlimate.xml] has finished in [1,397] ms
+28-Nov-2024 20:27:32.312 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:27:32.342 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1534] milliseconds
+28-Nov-2024 20:31:23.873 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:31:23.886 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Nov-2024 20:31:23.900 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [Parlimate] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+28-Nov-2024 20:31:23.909 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Nov-2024 20:31:23.925 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]

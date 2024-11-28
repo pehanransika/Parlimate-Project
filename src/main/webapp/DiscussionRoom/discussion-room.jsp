@@ -268,7 +268,7 @@
         </div>
         <div class="nav-body col">
             <div class="meeting-btns row">
-                <a href="./meetingrequestDetail.jsp" class="myMeetings row">
+                <a href="GetAllMeetingRequestServlet" class="myMeetings row">
                     <span> My meeting </span
                     ><i class="fa-solid fa-clock"></i>
                 </a>

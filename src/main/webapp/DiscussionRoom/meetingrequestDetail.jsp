@@ -68,7 +68,7 @@
         <button class="close-btn" onclick="closeEditPopup()"></button>
         <form action="UpdateMeetingRequestServlet" method="post" enctype="multipart/form-data">
             <!-- Hidden field for meeting request ID -->
-            <input type="hidden" name="meetingrequestid" id="meetingrequestid" value="${meetingrequestid}" />
+            <input type="text" name="meetingrequestid" id="meetingrequestid" value="3" />
 
             <!-- Input fields for other parameters -->
             <div class="formSection">

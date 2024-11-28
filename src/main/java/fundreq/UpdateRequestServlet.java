@@ -51,7 +51,7 @@ public class UpdateRequestServlet extends HttpServlet {
 
             if (isUpdated) {
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Request Updated Successfully'); window.location.href='GetAllRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Request Updated Successfully'); window.history.back();</script>");
             } else {
                 request.setAttribute("error", "Failed to update the request.");
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
@@ -64,7 +64,7 @@ public class UpdateRequestServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('Error processing request. Please try again later.'); window.location.href='wrong.jsp';</script>");
+            response.getWriter().println("<script>alert('Error processing request. Please try again later.'); window.location.href='error.jsp';</script>");
         }
     }
 }

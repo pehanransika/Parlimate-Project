@@ -17,13 +17,20 @@ public class UserInsertServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
          String email = req.getParameter("email");
-        System.out.println("hii");
          String password = req.getParameter("Password");
 
          String userType = req.getParameter("userType");
          int userid ;
          boolean isType = false;
          userid = UserController.insertUser(email, password, userType);
+        if (userid == -2) { // Duplicate email
+            String alertMessage = "Duplicate email entered. Please use a different email.";
+            resp.getWriter().println("<script>");
+            resp.getWriter().println("alert('" + alertMessage + "');");
+            resp.getWriter().println("window.history.back();"); // Redirect back to the previous page
+            resp.getWriter().println("</script>");
+            return;
+        }
 
         if (userid > 0){
             if(userType.equals("Citizen")) {

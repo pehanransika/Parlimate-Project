@@ -7,8 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserController {
+    public static boolean isEmailExists(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // If count > 0, email exists
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking email existence: " + e.getMessage());
+        }
+        return false;
+    }
     public static int insertUser(String email, String password, String userType) {
+
         boolean isSuccess = false;
+        if (isEmailExists(email)) {
+            return -2; // Indicate duplicate email
+        }
 
         // Get the current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
