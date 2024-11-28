@@ -7,15 +7,18 @@ public class PostModel {
     private Integer userId;
     private String content;
     private Timestamp datetime;
+    private String name;
 
 
 
 
-    public PostModel(int userId, int postId, Timestamp datetime, String content) {
+    public PostModel(int userId, int postId, Timestamp datetime, String content,String name) {
         this.userId = userId;
         this.postId = postId;
         this.datetime = datetime;
         this.content = content;
+        this.name = name;
+
     }
 
 
@@ -50,6 +53,13 @@ public class PostModel {
 
     public void setDatetime(Timestamp datetime) {
         this.datetime = datetime;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

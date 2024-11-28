@@ -21,6 +21,7 @@ public class PublishPostServlet extends HttpServlet {
 
             // Retrieve user ID from the form
             String userIdStr = request.getParameter("userid");
+            String username = request.getParameter("username");
             int userId = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
@@ -34,7 +35,7 @@ public class PublishPostServlet extends HttpServlet {
             }
 
             // Call the PostController to publish the post
-            boolean isPublished = PostController.PublishPost(userId, content);
+            boolean isPublished = PostController.PublishPost(userId, content,username);
 
             if (isPublished) {
                 // If successful, redirect with a success message

@@ -423,6 +423,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     <c:forEach var="post" items="${allposts}">
         <li class="post-item">
             <div class="post-header">
+                <p>${post.name}</p>
                 <div class="post-info">
 
 

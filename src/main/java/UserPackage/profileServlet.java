@@ -40,8 +40,8 @@ public class profileServlet extends HttpServlet {
               }
 
 // Store the user profile in session and request under a single attribute
-              req.getSession().setAttribute("userProfile", userProfile);
-              req.setAttribute("userProfile", userProfile);
+              req.getSession().setAttribute("userinfo", userProfile);
+              req.setAttribute("userinfo", userProfile);
 
               req.getRequestDispatcher("Home.jsp").forward(req,resp);
 
