@@ -264,7 +264,8 @@ body:not(.reqPop-active){
 		display: none;
 	}
 }
-.newmeeting {
+.meeting-btns > div,
+.meeting-btns > a{
 	text-transform: capitalize;
 	width: fit-content;
 	padding: 0.5rem 1rem;
@@ -277,13 +278,29 @@ body:not(.reqPop-active){
 	transition: background 0.25s ease,
 	scale 0.25s ease;
 	user-select: none;
-	margin-right: 1.25rem;
 	margin-bottom: -1rem;
-	align-self: flex-end;
+}
+.meeting-btns{
+	&& .myMeetings{
+		background: white;
+		color: #1e1e1e;
+		border: 1px solid #1e1e1e;
+		transition: background 0.25s ease, scale 0.25s ease;
+	}
+	&& .myMeetings:hover{
+		background: #f3f3f3;
+	}
 }
 .newmeeting:hover {
 	background: #70a2ff;
 }
 .newmeeting:active{
 	scale: 0.98;
+}
+.meeting-btns{
+	align-self: flex-end;
+	gap: 0.5rem;
+}
+.meeting-btns > div:last-child{
+	margin-right: 1.25rem;
 }
