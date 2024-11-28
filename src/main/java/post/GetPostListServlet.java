@@ -17,13 +17,14 @@ public class GetPostListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Fetch all posts from PostController
-            List<PostModel> allPosts = PostController.getAllPosts();
+            List<PostModel> allPosts = PostController.getListPosts();
+
 
             // Set the list as a request attribute
             request.setAttribute("allposts", allPosts);
 
             // Forward to postDetail.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("postsDetail.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
             // Log the exception for debugging

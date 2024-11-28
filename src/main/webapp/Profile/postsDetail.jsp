@@ -9,11 +9,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>My posts</title>
-    <link rel="stylesheet" href="index.css"/>
-    <link rel="stylesheet" href="index/sidebar1.css"/>
-    <link rel="stylesheet" href="index/header/header.css"/>
-    <link rel="stylesheet" href="container.css"/>
-    <link rel="stylesheet" href="postDetails.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="../index/sidebar1.css"/>
+    <link rel="stylesheet" href="../index/header/header.css"/>
+    <link rel="stylesheet" href="../container.css"/>
+    <link rel="stylesheet" href="../postDetails.css"/>
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
 /> -->
@@ -123,8 +123,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <body class="">
 
-<%@ include file="index/sidebar.jsp" %>
-<%@ include file="./index/header/header.jsp" %>
+<%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
 <div class="container">
     <div class="pageTitles">
         <h2 class="title">My posts</h2>

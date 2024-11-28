@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setAttribute("userProfile", userProfile);
 
                 // Redirect to Home.jsp
-                resp.sendRedirect("Home.jsp");
+                resp.sendRedirect("GetPostListServlet");
 
             } else {
                 // Handle failed login

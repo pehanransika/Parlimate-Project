@@ -185,12 +185,10 @@ return;
           <a href="#" class="img"></a>
           <div class="details">
             <a href="#" class="name">Himasha Chinthani</a>
-
             <div class="posted-date">
               <i class="fa-light fa-clock"></i>
               <div class="time">
-                <span class="value">30</span>
-                <span class="unit">minutes ago</span>
+                <span class="value" id="popup-time">30</span> <!-- Will be updated by JS -->
               </div>
             </div>
           </div>
@@ -209,45 +207,21 @@ return;
           </div>
         </div>
       </div>
-      <div class="content">
-        Sri Lankan politics is the gift that keeps on giving—if
-        by "gift" you mean a never-ending circus of
-        incompetence, corruption, and sheer absurdity. As a
-        university student, it's genuinely inspiring to watch
-        our leaders navigate the complexities of mismanagement
-        with such ease. I mean, who needs to study political
-        science when you can just observe the daily antics of
-        our elected officials? From budget proposals that defy
-        logic to development projects that never see the light
-        of day, it's a masterclass in how to turn a
-        resource-rich nation into a hotbed of inefficiency. And
-        let's not forget the high-octane drama of party
-        defections, last-minute coalitions, and the occasional
-        parliamentary brawl—because what's governance without a
-        little theatrics? Honestly, if there was a degree in
-        Political Satire, I'd be graduating with honors thanks
-        to the endless content provided by our esteemed
-        politicians.
-        <div class="hashtags">
-          <span>#PoliticalCircus</span>
-          <span>#LearnFromTheWorst </span>
-          <span>#IslandOfIrony </span>
-          <span>#UniLife </span>
-          <span>#SriLankaRealityShow </span>
-        </div>
-      </div>
+      <div class="content" id="popup-content">
+        Sri Lankan politics is the gift that keeps on giving...
+      </div> <!-- Will be updated by JS -->
       <div class="reactions">
         <button class="like btn">
-						<span class="reactIcon">
-							<i class="fa-solid fa-thumbs-up"></i>
-						</span>
+                    <span class="reactIcon">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </span>
           <span>like</span>
-          <span class="count"> 32k </span>
+          <span class="count">0</span>
         </button>
         <button class="share btn">
-						<span class="reactIcon">
-							<i class="fa-duotone fa-solid fa-share-all"></i>
-						</span>
+                    <span class="reactIcon">
+                        <i class="fa-duotone fa-solid fa-share-all"></i>
+                    </span>
           <span>share</span>
         </button>
       </div>
@@ -256,18 +230,7 @@ return;
     <div class="add-cmnt row">
       <div class="curr-user row">
         <div class="prof-img"></div>
-        <div class="button-container">
-          <!-- Button styled link, now it triggers the ViewCommentServlet -->
-          <a href="ViewCommentListServlet" class="see-comments-button">
-            <button class="see-comments-button">
-              <i class="fa-solid fa-comment"></i>
-              <span>See Comments</span>
-            </button>
-          </a>
-        </div>
       </div>
-
-
       <form action="PublishNewCommentServlet" method="POST">
         <textarea name="content" id="add-cmnt" placeholder="Comment here" required></textarea>
         <button type="submit" class="post-btn row btn capitalize">
@@ -275,19 +238,9 @@ return;
           <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
         </button>
       </form>
-      <a href="ViewCommentServlet" class="see-my-comments-button">
-        <button class="see-my-comments-button">
-          <i class="fa-solid fa-comment"></i>
-          <span>See my Comments</span>
-        </button>
-      </a>
-
     </div>
   </div>
 </div>
-</div>
-
-
 
 
 <%@ include file="index/sidebar.jsp" %>
@@ -392,88 +345,75 @@ return;
 
 
 
-  <div class="post reactable reacted">
-    <div class="top">
-      <div class="post-details">
-        <a href="#" class="img"></a>
-        <div class="details">
-          <a href="#" class="name">Himasha Chinthani</a>
-          <div class="posted-date">
-            <i class="fa-light fa-clock"></i>
-            <div class="time">
-              <span class="value">30</span>
-              <span class="unit">minutes ago</span>
+
+  <ul class="post-list" style="list-style-type: none; padding: 0; margin-left: 300px; margin-right: 20px; gap: 1.5rem;">
+    <c:forEach var="post" items="${allposts}">
+      <div class="post reactable reacted">
+        <div class="top">
+          <div class="post-details">
+            <a href="#" class="img"></a>
+            <div class="details">
+              <a href="#" class="name">${post.name}</a>
+              <div class="posted-date">
+                <i class="fa-light fa-clock"></i>
+                <div class="time">
+                  <span class="value">${post.datetime}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <input type="checkbox" name="post-menu" id="postMenu" class="menuBtn" />
+            <span class="tip">options</span>
+            <label for="postMenu" class="btn-2">
+              <i class="fa-regular fa-ellipsis-vertical"></i>
+            </label>
+            <div class="post-dropDownMenu">
+              <ul>
+                <li><a href="#">report</a></li>
+                <li><a href="#">copy link</a></li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <input type="checkbox" name="post-menu" id="postMenu" class="menuBtn" />
-        <span class="tip">options</span>
-        <label for="postMenu" class="btn-2">
-          <i class="fa-regular fa-ellipsis-vertical"></i>
-        </label>
-        <div class="post-dropDownMenu">
-          <ul>
-            <li><a href="#">report</a></li>
-            <li><a href="#">copy link</a></li>
-          </ul>
+        <div class="content">
+            ${post.content}
+        </div>
+        <div class="reactions">
+          <button class="like btn">
+                    <span class="reactIcon">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </span>
+            <span>like</span>
+            <span class="count">32k</span>
+          </button>
+          <button class="comment btn" onclick="openCommentPopup('${post.content}', '${post.datetime}')">
+                    <span class="reactIcon">
+                        <i class="fa-solid fa-message"></i>
+                    </span>
+            <span>comment</span>
+            <span class="count">1k</span>
+          </button>
+          <button class="share btn">
+                    <span class="reactIcon">
+                        <i class="fa-duotone fa-solid fa-share-all"></i>
+                    </span>
+            <span>share</span>
+          </button>
         </div>
       </div>
-    </div>
-    <div class="content">
-      Sri Lankan politics is the gift that keeps on giving—if by
-      "gift" you mean a never-ending circus of incompetence,
-      corruption, and sheer absurdity. As a university student,
-      it's genuinely inspiring to watch our leaders navigate the
-      complexities of mismanagement with such ease. I mean, who
-      needs to study political science when you can just observe
-      the daily antics of our elected officials? From budget
-      proposals that defy logic to development projects that never
-      see the light of day, it's a masterclass in how to turn a
-      resource-rich nation into a hotbed of inefficiency. And
-      let's not forget the high-octane drama of party defections,
-      last-minute coalitions, and the occasional parliamentary
-      brawl—because what's governance without a little theatrics?
-      Honestly, if there was a degree in Political Satire, I'd be
-      graduating with honors thanks to the endless content
-      provided by our esteemed politicians.
-      <div class="hashtags">
-        <span>#PoliticalCircus</span>
-        <span>#LearnFromTheWorst </span>
-        <span>#IslandOfIrony </span>
-        <span>#UniLife </span>
-        <span>#SriLankaRealityShow </span>
-      </div>
-    </div>
-    <div class="reactions">
-      <button class="like btn">
-					<span class="reactIcon">
-						<i class="fa-solid fa-thumbs-up"></i>
-					</span>
-        <span>like</span>
-        <span class="count"> 32k </span>
-      </button>
-      <button class="comment btn">
-					<span class="reactIcon">
-						<i class="fa-solid fa-message"></i>
-					</span>
-        <span>comment</span>
-        <span class="count">1k</span>
-      </button>
-      <button class="share btn">
-					<span class="reactIcon">
-						<i class="fa-duotone fa-solid fa-share-all"></i>
-					</span>
-        <span>share</span>
-      </button>
-    </div>
-  </div>
-
-
+      &nbsp;&nbsp;
+    </c:forEach>
+  </ul>
 
 </div>
 </body>
+<script>function openCommentPopup(content, datetime) {
+  // Update the popup content and datetime
+  document.getElementById("popup-content").innerText = content;
+  document.getElementById("popup-time").innerText = datetime;
+}
+</script>
 <script src="script.js"></script>
 <script src="home.js"></script>
 <script src="home.js"></script>

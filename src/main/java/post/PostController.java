@@ -49,14 +49,41 @@ public class PostController {
         }
     }
 
-    // Method to retrieve all posts
-    public static List<PostModel> getAllPosts() throws SQLException {
+    public static List<PostModel> getAllPosts(int user_id) throws SQLException {
         List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime , name FROM post";
+        String query = "SELECT postid, userid, content, datetime , name FROM post WHERE userid = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Set the parameter before executing the query
+            stmt.setInt(1, user_id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int postId = rs.getInt("postid");
+                    int userId = rs.getInt("userid");
+                    String content = rs.getString("content");
+                    Timestamp datetime = rs.getTimestamp("datetime");
+                    String name = rs.getString("name");
+
+                    PostModel post = new PostModel(userId, postId, datetime, content, name);
+                    posts.add(post);
+                }
+            }
+        }
+        return posts;
+    }
+
+
+    public static List<PostModel> getListPosts() throws SQLException {
+        List<PostModel> posts = new ArrayList<>();
+        String query = "SELECT postid, userid, content, datetime , name FROM post ";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
+
 
             while (rs.next()) {
                 int postId = rs.getInt("postid");
@@ -64,7 +91,7 @@ public class PostController {
                 String content = rs.getString("content");
                 Timestamp datetime = rs.getTimestamp("datetime");
                 String name = rs.getString("name");
-             //   String username= rs.getString("username");
+                //   String username= rs.getString("username");
 
 
                 PostModel post = new PostModel(userId, postId, datetime,content,name);

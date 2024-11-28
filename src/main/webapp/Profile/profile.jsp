@@ -129,10 +129,14 @@
             edit profile
         </a>
         <div class="bottom">
-            <a class="view-my-post row" href="/Parlimate/GetPostAllServlet?postId=${post.postId}">
-                <span>View My Posts</span>
-                <i class="fa-classic fa-solid fa-angles-right fa-fw"></i>
-            </a>
+            <form action="GetPostAllServlet" method="post">
+                <input type="hidden" name="user_id" value="${user.userId}" />
+
+                <button type="submit" class="view-my-post row" >
+                    <span>View My Posts</span>
+                    <i class="fa-classic fa-solid fa-angles-right fa-fw"></i>
+                </button>
+             </form>
         </div>
     </div>
 </div>

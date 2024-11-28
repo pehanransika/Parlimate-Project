@@ -124,6 +124,7 @@
   <servlet-mapping>
     <servlet-name>GetPostAllServlet</servlet-name>
     <url-pattern>/GetPostAllServlet</url-pattern>
+    <url-pattern>/Profile/GetPostAllServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>UpdatePostServlet</servlet-name>
@@ -132,7 +133,7 @@
 
   <servlet-mapping>
     <servlet-name>UpdatePostServlet</servlet-name>
-    <url-pattern>/UpdatePostServlet</url-pattern>
+    <url-pattern>/Profile/UpdatePostServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DeletePostServlet</servlet-name>
@@ -141,7 +142,7 @@
 
   <servlet-mapping>
     <servlet-name>DeletePostServlet</servlet-name>
-    <url-pattern>/DeletePostServlet</url-pattern>
+    <url-pattern>/Profile/DeletePostServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GetPostListServlet</servlet-name>

@@ -30,12 +30,17 @@ public class UpdatePostServlet extends HttpServlet {
 
             if (isUpdated) {
                 // If successful, retrieve the updated list of posts
-                List<PostModel> posts = PostController.getAllPosts();
+                List<PostModel> posts = PostController.getListPosts();
                 request.setAttribute("posts", posts);
 
                 // Show alert and redirect to GetPostAllServlet
                 String alertMessage = "Post Updated Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostAllServlet';</script>");
+               // response.getWriter().println("<script>alert('" + alertMessage + "'); </script>");
+                response.setContentType("text/html");
+                response.getWriter().println("<script>");
+                response.getWriter().println("window.history.back();");
+                response.getWriter().println("setTimeout(function() { location.reload(true); }, 100);"); // Reload with a slight delay
+                response.getWriter().println("</script>");
             } else {
                 // If update fails, forward to the error page
                 String alertMessage = "Failed to update the post.";

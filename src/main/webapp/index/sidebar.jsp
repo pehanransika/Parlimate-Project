@@ -4,7 +4,7 @@
     <div class="navs">
         <ul>
             <li>
-                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate/Home.jsp" checked/>
+                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate/GetPostListServlet" checked/>
                 <label for="nav-Home" onclick="navigate(this)"><i class="fa-solid fa-house"></i>Home</label>
             </li>
             <li>
