@@ -8,6 +8,7 @@
         response.sendRedirect("../index.jsp");
         return;
     }%>
+
 <html>
 <head>
     <title>Announcements</title>
@@ -435,7 +436,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             Politicians and political parties announcements
         </div>
     </div>
-    <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+<c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
     <div class="ann-btns-2 row">
         <button class="add-announcement" id="add-announcement">
             <i class="fa-solid fa-plus"></i>
@@ -450,7 +451,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </a>
 
     </div>
-    </c:if>
+</c:if>
     <ul class="announcement-list">
 
         <c:forEach var="announcement" items="${allannouncements}">
