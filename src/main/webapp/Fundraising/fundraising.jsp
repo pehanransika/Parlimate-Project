@@ -466,13 +466,7 @@
                 </div>
             </div>
         </div>
-        <div class="more-donations-container">
-            <button class="more-donations"><i class="bx bx-plus"></i> More Donations</button>
-        </div>
-        <div class="fundraiser-actions">
-            <button class="donate">Donate</button>
-            <button class="report">Report</button>
-        </div>
+
 
     </div>
 </div>
