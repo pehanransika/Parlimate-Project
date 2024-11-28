@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../index/header/header.css" />
     <link rel="stylesheet" href="../container.css" />
+    <link rel="stylesheet" href="./fund-popup.css" />
 
     <link
             rel="stylesheet"
@@ -63,6 +64,79 @@
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+<form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
+    <div class="bg"></div>
+    <div class="fund-popup col">
+        <div class="head row">
+            <div class="close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="icon">
+                <i class="fa-regular fa-briefcase"></i>
+            </div>
+            <div class="title">Request a fundraise</div>
+            <div class="separator"></div>
+        </div>
+        <div class="body col">
+            <div class="fund-title field">
+                <label for="fundtitle" class="title">Title</label>
+                <input type="text" required placeholder="Fundraise for the senior care house" name="title" id="fundtitle">
+            </div>
+            <div class="fund-decs field">
+                <label for="fund-desc" class="title">Description</label>
+                <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>
+            </div>
+            <div class="multi-fields row">
+                <div class="fund-cat field">
+                    <label for="fund-categ" class="title">Category</label>
+                    <select required name="category" id="fund-categ">
+                        <option value="educational">Educational</option>
+                        <option value="social">Social</option>
+                        <option value="community-se">Community Service</option>
+                    </select>
+                </div>
+                <div class="fund-amount field col">
+                    <label class="title" for="fund-amount">Fund Target</label>
+                    <div class="content row">
+                        <div class="curr">
+                            <select required name="currency" id="fund-currency">
+                                <option value="lkr">LKR</option>
+                                <option value="usd">USD</option>
+                            </select>
+                        </div>
+                        <div class="amount">
+                            <input required type="number" name="targetamount" id="fund-amount" placeholder="1,000,000.00">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fund-attach field">
+                <span for="" class="title">Upload Attachments</span>
+                <div class="att-container">
+                    <div class="action row">
+                        <label for="fund-att" class="att-btn">Select File</label>
+                        <input type="file" name="attachmentUrl" id="fund-att" multiple>
+                        <div class="sep"></div>
+                    </div>
+                    <div class="att-content">
+                        <span class="no-of-files">No file attached</span>
+                        <ul id="att-list" class="col">
+                            <!-- uploaded files will be listed here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom row">
+            <button class="cancel-btn form-btn">Cancel</button>
+            <button type="submit" class="submit-btn form-btn row">
+                <i class="fa-duotone fa-solid fa-check"></i>
+                Publish
+            </button>
+        </div>
+    </div>
+</form>
 
 <div class="container">
     <div class="fundraisers-container">
@@ -72,6 +146,20 @@
                 <div class="subTitle">
                     Fueling Change Through Collective Action
                 </div>
+            </div>
+            <div class="fund-btns row">
+                <button class="my-funds row">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>
+                        my fundraises
+                    </span>
+                </button>
+                <button class="req-funds row">
+                    <i class="fa-sharp fa-solid fa-plus"></i>
+                    <span>
+                        Request fundraise
+                    </span>
+                </button>
             </div>
 
             <div class="funds-container row">
@@ -473,6 +561,7 @@
 </div>
 </body>
 <script src="../loadSidebar.js"></script>
+<%--<script src="./fund-pop.js">--%>
 <script>
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
@@ -485,7 +574,7 @@
             } else {
                 body.classList.add("sidebar-deactive");
             }
-        });
+        })
     });
 
     navRadios.forEach(radio => {
@@ -494,7 +583,7 @@
             if (selectedValue) {
                 window.location.href = selectedValue; // Redirect to the selected page
             }
-        });
+        })
     });
 </script>
 </html>

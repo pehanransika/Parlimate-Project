@@ -232,3 +232,31 @@
     scale: 0.98;
     background: #393939;
 }
+.fund-btns{
+    justify-self: flex-end;
+    margin-right: 4rem;
+    gap: 1rem;
+
+    && button {
+        text-transform: capitalize;
+        gap: 0.5rem;
+        font-weight: 500;
+        border-radius: 0.75rem;
+        background: #1e1e1e;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border: 1px solid #1e1e1e;
+        transition: 0.25s ease;
+    }
+    && button:hover{
+        background: #3c3c3c;
+    }
+
+    && .my-funds{
+        background: #fff;
+        color: #1E1E1E;
+    }
+    && .my-funds:hover{
+        background: #f4f4f4;
+    }
+}
