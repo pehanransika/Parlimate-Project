@@ -457,3 +457,119 @@ body.popup-active-delete #editPopup{
     justify-content: space-between;
     margin-bottom: 1rem;
 }
+.announcement-item{
+    color: #1E1E1E;
+}
+.ann-publisher{
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+.announcement-list{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 0.5rem;
+}
+.announcement-item{
+    padding: 1rem;
+    list-style: none;
+    border-radius: 1rem;
+    background: #fff;
+    width: 100%;
+    height: fit-content;
+    border: 1px solid #cfcfcf;
+    gap: 0.25rem;
+    border-left: 1rem solid #dae4ff;
+    transition: 0.25s ease;
+    position: relative;
+
+    && .ann-date{
+        color: #5e5e5e;
+        font-size: 0.8rem;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    && .ann-title{
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    && .announcement-content{
+        color: #5e5e5e;
+        margin-top: -0.5rem;
+        font-style: italic;
+        width: 100%;
+        text-wrap: wrap;
+        display: inline;
+        height: max-content;
+    }
+
+    && .announcement-actions{
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+        align-self: flex-end;
+    }
+
+    && button {
+        text-transform: capitalize;
+        background: transparent;
+        border: none;
+        font-weight: 600;
+        padding: 0.25rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        transition: 0.25s ease;
+        border: 1px solid white;
+    }
+    && .button-update{
+        color: #4a8fe5;
+    }
+    && .button-update:hover{
+        background: #f4f9ff;
+        border: 1px solid #dbeeff;
+    }
+    && .button-delete{
+        color: #dc4242;
+    }
+    && .button-delete:hover{
+        background: #ffeeee;
+        border: 1px solid #ffdbdb;
+    }
+}
+.announcement-item:hover{
+    background: #fcfcff;
+    border: 1px solid #acacac;
+    border-left: 1rem solid #4a8fe5;
+}
+.ann-pub-img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: #a3a3a3;
+}
+.announcement-info{
+    gap: 0.5rem;
+}
+#searchInput{
+    padding: 1rem 1rem 1rem 3rem;
+    border-radius: 0.75rem;
+    font-style: 1.2rem;
+    border: 1px solid #DDDDDD;
+    width: 100%;
+}
+.search{
+    position: relative;
+    width: 100%;
+
+    && .search-icon{
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+        transform: translateY(-50%);
+        color: #777777;
+    }
+}
