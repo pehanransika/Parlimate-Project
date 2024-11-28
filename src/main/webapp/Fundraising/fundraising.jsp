@@ -77,7 +77,7 @@
                 <div class="fund col">
                     <div class="top col">
                         <div class="head row">
-                            <div class="title">Bringing Clean Water to Morawewa</div>
+                            <div class="title">Bringing Clean Water Access to Morawewa</div>
                             <div class="location row">
                                 <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
                                 Trincomalee
@@ -222,7 +222,7 @@
                             <div class="img"></div>
                         </div>
                         <div class="desc">
-                            Many rural schools in Monaragala lack consistent electricity, affecting the quality of education. This project will install solar panels in 5 schools, ensuring students have access to electricity for learning.
+                            Many rural schools in Monaragala lack consistent electricity, affecting the quality of education. This project will install solar panels in 5 schools, ensuring students have access to electricity for uninterrupted learning and development
                         </div>
                         <div class="donations row">
                             LKR
@@ -337,7 +337,7 @@
                 <div class="fund col">
                     <div class="top col">
                         <div class="head row">
-                            <div class="title">Bringing Clean Water to Morawewa</div>
+                            <div class="title">Bringing Clean Water Access to Morawewa</div>
                             <div class="location row">
                                 <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
                                 Trincomalee
@@ -399,15 +399,74 @@
                         </div>
                     </div>
                 </div>
+                <div class="fund col">
+                    <div class="top col">
+                        <div class="head row">
+                            <div class="title">Rebuild Hope: Homes for Flood-Affected Families in Ratnapura</div>
+                            <div class="location row">
+                                <i class="fa-sharp fa-light fa-location-dot fa-fw"></i>
+                                Ratnapura
+                            </div>
+                        </div>
+                        <div class="organizer">Organized by <span>Siri Sena</span></div>
+                        <div class="category">Community</div>
+                    </div>
+                    <div class="content col">
+                        <div class="imgs row">
+                            <div class="img"></div>
+                            <div class="img"></div>
+                        </div>
+                        <div class="desc">
+                            Recent floods in the Ratnapura District have left hundreds of families homeless. This fundraiser aims to provide immediate shelter and rebuild homes for 10 affected families. The funds will cover construction materials, labor, and basic household essentials.
+                        </div>
+                        <div class="donations row">
+                            LKR
+                            <div class="raised">
+                                502,661
+                            </div>
+                            <div class="target">
+                                3,000,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="donation-progress row">
+                            <div class="seperator top"></div>
+                            <div class="percentage row">
+                                <div class="icon">
+                                    <i class="fa-light fa-sack-dollar"></i>
+                                </div>
+                                <div succ class="progress col">
+                                    <div class="numeric row">
+                                        16%
+                                        <span>completed</span>
+                                    </div>
+                                    <div class="graphical">
+                                        <div class="bg-bar">
+                                            <div class="success-bar" style="width: 16%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contributions row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="text row">
+                                    <span>224</span> people have contributed
+                                </div>
+                            </div>
+                            <div class="seperator bottom"></div>
+                        </div>
+                        <div class="donate-btn">
+                            <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                            <span>Donate</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="more-donations-container">
-            <button class="more-donations"><i class="bx bx-plus"></i> More Donations</button>
-        </div>
-        <div class="fundraiser-actions">
-            <button class="donate">Donate</button>
-            <button class="report">Report</button>
-        </div>
+
 
     </div>
 </div>
