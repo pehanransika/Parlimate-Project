@@ -166,8 +166,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <input type="hidden" name="postid" value="${post.postId}"/>
                         <button type="submit" class="button button-delete">Delete</button>
                     </form>
-
-
                 </div>
                 <div class="reactions">
                     <button class="like btn">

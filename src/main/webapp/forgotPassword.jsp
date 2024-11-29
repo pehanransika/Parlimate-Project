@@ -3,26 +3,14 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>Parlimate - Reset Password</title>
+<title>Reset Password | Parlimate</title>
 <link
 	href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
 	rel='stylesheet'>
-<link href='' rel='stylesheet'>
+	<link rel="stylesheet" href="forgotPassword.css">
 <script type='text/javascript'
 	src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <style>
-body {
-	background-position: center;
-	background-color: #eee;
-	background-repeat: no-repeat;
-	background-size: cover;
-	color: #505050;
-	font-family: "Rubik", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 1.5;
-	text-transform: none
-}
 
 .forgot {
 	background-color: #fff;

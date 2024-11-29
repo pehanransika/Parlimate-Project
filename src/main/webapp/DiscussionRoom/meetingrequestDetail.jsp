@@ -7,21 +7,19 @@
 <head>
     <title>Meeting Requests</title>
     <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../container.css" />
     <link rel="stylesheet" href="./discussion-room.css" />
     <link rel="stylesheet" href="./reqPop.css" />
+    <link rel="stylesheet" href="../postDetails.css" />
     <link href="../index/sidebar1.css" rel="stylesheet" />
     <link href="../index/header/header.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f5f7fb; margin: 20px; padding: 20px; }
         .top-bar { display: flex; justify-content: flex-end; margin-top: 80px; }
         .button-home { background-color: #007bff; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-size: 16px; transition: background-color 0.3s ease; }
         .button-home:hover { background-color: #0056b3; }
-        h2 { color: #3a3a3a; text-align: center; margin-bottom: 30px; }
-        #searchInput { width: 100%; max-width: 200px; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; outline: none; margin-left: 250px; }
-        #searchInput:focus { border-color: #007bff; }
-        .request-list { list-style-type: none; padding: 0; margin-left: 300px; margin-right: 20px; gap: 1.5rem; }
-        .request-item { background-color: #ffffff; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; position: relative; display: flex; flex-direction: column; gap: 15px; cursor: pointer; }
+        .request-item { background-color: #ffffff; margin-bottom: 20px; border-radius: 10px; padding: 20px; position: relative; display: flex; flex-direction: column; gap: 15px; cursor: pointer; border-left: 0.75rem solid #75a8ec; transition: 0.25s ease;
+        }
         .request-item:hover { outline: 1px solid rgb(185, 185, 185); border-left: 0.75rem solid #5490FF; }
         .request-header { display: flex; justify-content: space-between; }
         .request-info h3 { margin: 0; font-size: 18px; color: #333; }
@@ -29,10 +27,6 @@
         .request-content { margin-top: 10px; font-size: 16px; color: #555; }
         .request-actions { display: flex; justify-content: flex-end; gap: 10px; }
         .button { border: none; padding: 10px 0; font-size: 14px; border-radius: 5px; transition: background-color 0.3s ease; width: 100px; height: 40px; text-align: center; display: flex; align-items: center; justify-content: center; }
-        .button-update { background-color: #6a5acd; color: white; }
-        .button-update:hover { background-color: #5b4ab5; }
-        .button-delete { background-color: #f44336; color: white; }
-        .button-delete:hover { background-color: #e53935; }
         .popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; }
         .popup { background-color: white; padding: 20px; border-radius: 10px; width: 400px; position: relative; }
         .popup .close-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; }
@@ -48,48 +42,56 @@
 <body>
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+<div class="container">
+    <div class="pageTitles">
+        <h2 class="title">My meeting requests</h2>
+        <div class="subTitle">Your pending meeting requests</div>
+    </div>
 
-<div class="top-bar">
-    <a href="index.jsp" class="button-home">Go to Home</a>
+    <div class="search">
+        <label for="searchInput" class="icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+        <input type="text" id="searchInput" placeholder="Search requests..." onkeyup="filterRequests()">
+    </div>
+
+
+    <ul class="request-list">
+        <c:forEach var="request" items="${allMeetingRequests}">
+            <li class="request-item">
+                <div class="request-header">
+                    <h3>${fn:escapeXml(request.topic)}</h3>
+                    <p>${fn:escapeXml(request.proposaldate)} ${fn:escapeXml(request.proposaltime)}</p>
+                </div>
+                <div class="request-content">
+                    <p><strong>Purpose:</strong> ${fn:escapeXml(request.purposeofmeeting)}</p>
+                    <p><strong>Opponents:</strong> ${fn:escapeXml(request.opponentname)}</p>
+                    <p><strong>Host:</strong> ${fn:escapeXml(request.discussionformat)}</p>
+                </div>
+                <div class="request-actions">
+                    <button
+                            class="button button-update"
+                            onclick="openEditPopup(
+                                    '${fn:escapeXml(request.meetingrequestid)}',
+                                    '${fn:escapeXml(request.topic)}',
+                                    '${fn:escapeXml(request.purposeofmeeting)}',
+                                    '${fn:escapeXml(request.proposaldate)}',
+                                    '${fn:escapeXml(request.proposaltime)}',
+                                    '${fn:escapeXml(request.opponentname)}',
+                                    '${fn:escapeXml(request.discussionformat)}')">
+                        Update
+                    </button>
+                    <form action="DeleteNewMeetingRequestServlet" method="post" onsubmit="return confirm('Are you sure?');">
+                        <input type="hidden" name="meetingrequestid" value="${fn:escapeXml(request.meetingrequestid)}" />
+                        <button type="submit" class="button button-delete">Delete</button>
+                    </form>
+                </div>
+            </li>
+        </c:forEach>
+    </ul>
+
 </div>
 
-<h2>My Meeting Requests</h2>
-
-<input type="text" id="searchInput" placeholder="Search requests..." onkeyup="filterRequests()">
-
-<ul class="request-list">
-    <c:forEach var="request" items="${allMeetingRequests}">
-        <li class="request-item">
-            <div class="request-header">
-                <h3>${fn:escapeXml(request.topic)}</h3>
-                <p>${fn:escapeXml(request.proposaldate)} ${fn:escapeXml(request.proposaltime)}</p>
-            </div>
-            <div class="request-content">
-                <p><strong>Purpose:</strong> ${fn:escapeXml(request.purposeofmeeting)}</p>
-                <p><strong>Opponents:</strong> ${fn:escapeXml(request.opponentname)}</p>
-                <p><strong>Host:</strong> ${fn:escapeXml(request.discussionformat)}</p>
-            </div>
-            <div class="request-actions">
-                <button
-                        class="button button-update"
-                        onclick="openEditPopup(
-                                '${fn:escapeXml(request.meetingrequestid)}',
-                                '${fn:escapeXml(request.topic)}',
-                                '${fn:escapeXml(request.purposeofmeeting)}',
-                                '${fn:escapeXml(request.proposaldate)}',
-                                '${fn:escapeXml(request.proposaltime)}',
-                                '${fn:escapeXml(request.opponentname)}',
-                                '${fn:escapeXml(request.discussionformat)}')">
-                    Update
-                </button>
-                <form action="DeleteNewMeetingRequestServlet" method="post" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name="meetingrequestid" value="${fn:escapeXml(request.meetingrequestid)}" />
-                    <button type="submit" class="button button-delete">Delete</button>
-                </form>
-            </div>
-        </li>
-    </c:forEach>
-</ul>
 
 
 
