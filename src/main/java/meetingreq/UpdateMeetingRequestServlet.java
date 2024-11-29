@@ -68,7 +68,7 @@ public class UpdateMeetingRequestServlet extends HttpServlet {
 
             if (isUpdated) {
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Meeting Request Updated Successfully'); window.location.href='GetAllMeetingRequests';</script>");
+                response.getWriter().println("<script>alert('Meeting Request Updated Successfully'); window.location.href='GetAllMeetingRequestServlet';</script>");
             } else {
                 request.setAttribute("error", "Failed to update the meeting request.");
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");

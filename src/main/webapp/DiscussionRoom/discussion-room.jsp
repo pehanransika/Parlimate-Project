@@ -214,16 +214,12 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label class="title" for="disc-party-aff"
-                        >preffered host
-                            <span>(Optional)</span></label
-                        >
-                        <input
-                                type="text"
-                                placeholder="Chathura senarathne"
-                                id="disc-party-host"
-                                name="preferredhost"
-                        />
+                        <label class="title" for="disc-party-host">Preferred Host <span>(Optional)</span></label>
+                        <select id="disc-party-host" name="preferredhost">
+                            <option value="Hashan Perera">Hashan Perera</option>
+                            <option value="Gayan Fernando">Gayan Fernando</option>
+                            <option value="Jiranthan Rasamanikkam">Jiranthan Rasamanikkam</option>
+                        </select>
                         <div class="separator"></div>
                     </div>
                     <div class="bottom">

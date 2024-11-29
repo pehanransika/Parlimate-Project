@@ -16,7 +16,7 @@
         </div>
 
         <div class="logo">
-            <a href="<c:url value='../Home.jsp' />">
+            <a href="<c:url value='http://localhost:8080/Parlimate/GetPostListServlet' />">
                 <img src="<c:url value='/assets/images/logo.png' />" alt="ParlimateLogo">
             </a>
         </div>

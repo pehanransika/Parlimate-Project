@@ -40,7 +40,7 @@ public class PublishPostServlet extends HttpServlet {
             if (isPublished) {
                 // If successful, redirect with a success message
                 String alertMessage = "Post Published Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostAllServlet';</script>");
+                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostListServlet';</script>");
             } else {
                 // If not successful, forward to the error page
                 String alertMessage = "Failed to publish post.";

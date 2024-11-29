@@ -19,6 +19,7 @@ public class GetPostAllServlet extends HttpServlet {
 
             // Fetch all posts from PostController
             String user_idStr = request.getParameter("user_id");
+            System.out.println(user_idStr);
             int user_id = Integer.parseInt(user_idStr);
             List<PostModel> allPosts = PostController.getAllPosts(user_id);
 

@@ -346,7 +346,7 @@ return;
 
 
 
-  <ul class="post-list" style="list-style-type: none; padding: 0; margin-left: 300px; margin-right: 20px; gap: 1.5rem;">
+  <ul class="post-list" style="list-style-type: none; padding: 0; margin-right: 20px; gap: 1.5rem;">
     <c:forEach var="post" items="${allposts}">
       <div class="post reactable reacted">
         <div class="top">

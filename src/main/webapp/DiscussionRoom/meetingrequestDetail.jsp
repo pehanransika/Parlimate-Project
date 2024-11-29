@@ -6,9 +6,13 @@
 <html>
 <head>
     <title>Meeting Requests</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./discussion-room.css" />
+    <link rel="stylesheet" href="./reqPop.css" />
+    <link href="../index/sidebar1.css" rel="stylesheet" />
+    <link href="../index/header/header.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* General styles reused from previous JSP */
         body { font-family: Arial, sans-serif; background-color: #f5f7fb; margin: 20px; padding: 20px; }
         .top-bar { display: flex; justify-content: flex-end; margin-top: 80px; }
         .button-home { background-color: #007bff; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-size: 16px; transition: background-color 0.3s ease; }
@@ -34,7 +38,7 @@
         .popup .close-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; }
         .formSection { margin-bottom: 15px; }
         .formSection label { display: block; margin-bottom: 5px; }
-        .formSection input, .formSection textarea, .formSection select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .formSection input, .formSection textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
         .popbtns { text-align: center; margin-top: 20px; }
         .post-btn { padding: 10px 20px; background-color: #6a5acd; color: white; border: none; border-radius: 5px; cursor: pointer; }
         .post-btn:hover { background-color: #5b4ab5; }
@@ -42,6 +46,8 @@
 </head>
 
 <body>
+<%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
 
 <div class="top-bar">
     <a href="index.jsp" class="button-home">Go to Home</a>
@@ -55,29 +61,29 @@
     <c:forEach var="request" items="${allMeetingRequests}">
         <li class="request-item">
             <div class="request-header">
-                <h3>${request.topic}</h3>
-                <p>${request.proposaldate} ${request.proposaltime}</p>
+                <h3>${fn:escapeXml(request.topic)}</h3>
+                <p>${fn:escapeXml(request.proposaldate)} ${fn:escapeXml(request.proposaltime)}</p>
             </div>
             <div class="request-content">
-                <p><strong>Purpose:</strong> ${request.purposeofmeeting}</p>
-                <p><strong>Opponents:</strong> ${request.opponentname}</p>
-                <p><strong>Host:</strong> ${request.preferredhost}</p>
+                <p><strong>Purpose:</strong> ${fn:escapeXml(request.purposeofmeeting)}</p>
+                <p><strong>Opponents:</strong> ${fn:escapeXml(request.opponentname)}</p>
+                <p><strong>Host:</strong> ${fn:escapeXml(request.discussionformat)}</p>
             </div>
             <div class="request-actions">
                 <button
                         class="button button-update"
                         onclick="openEditPopup(
-                                '${request.meetingrequestid}',
-                                '${request.topic}',
+                                '${fn:escapeXml(request.meetingrequestid)}',
+                                '${fn:escapeXml(request.topic)}',
                                 '${fn:escapeXml(request.purposeofmeeting)}',
-                                '${request.proposaldate}',
-                                '${request.proposaltime}',
-                                '${request.opponentname}',
-                                '${request.preferredhost}')">
+                                '${fn:escapeXml(request.proposaldate)}',
+                                '${fn:escapeXml(request.proposaltime)}',
+                                '${fn:escapeXml(request.opponentname)}',
+                                '${fn:escapeXml(request.discussionformat)}')">
                     Update
                 </button>
                 <form action="DeleteNewMeetingRequestServlet" method="post" onsubmit="return confirm('Are you sure?');">
-                    <input type="hidden" name="meetingrequestid" value="${request.meetingrequestid}" />
+                    <input type="hidden" name="meetingrequestid" value="${fn:escapeXml(request.meetingrequestid)}" />
                     <button type="submit" class="button button-delete">Delete</button>
                 </form>
             </div>
@@ -85,156 +91,69 @@
     </c:forEach>
 </ul>
 
+
+
 <div class="popup-modal" id="editPopup">
     <div class="popup">
         <span>Edit Request</span>
-        <button class="close-btn" onclick="closeEditPopup()"></button>
-        <form action="UpdateMeetingRequestServlet" method="post" enctype="multipart/form-data">
-            <!-- Hidden field for meeting request ID -->
-            <input type="hidden" name="meetingrequestid" id="meetingrequestid" value="${meetingrequestid}" />
-
-            <!-- Input fields for other parameters -->
+        <button class="close-btn" onclick="closeEditPopup()">X</button>
+        <form action="UpdateMeetingRequestServlet" method="post">
+            <input type="hidden" name="meetingrequestid" id="meetingRequestId" />
             <div class="formSection">
                 <label for="editTopic">Topic</label>
-                <input type="text" id="editTopic" name="topic" value="${topic}" />
+                <input type="text" id="editTopic" name="topic" />
             </div>
             <div class="formSection">
                 <label for="editPurpose">Purpose</label>
-                <textarea id="editPurpose" name="purposeofmeeting">${purposeofmeeting}</textarea>
+                <textarea id="editPurpose" name="purposeofmeeting"></textarea>
             </div>
             <div class="formSection">
                 <label for="editDate">Date</label>
-                <input type="date" id="editDate" name="proposaldate" value="${proposaldate}" />
+                <input type="date" id="editDate" name="proposaldate" />
             </div>
             <div class="formSection">
                 <label for="editTime">Time</label>
-                <input type="time" id="editTime" name="proposaltime" value="${proposaltime}" />
+                <input type="time" id="editTime" name="proposaltime" />
             </div>
             <div class="formSection">
                 <label for="editOpponents">Opponents</label>
-                <input type="text" id="editOpponents" name="opponentname" value="${opponentname}" />
+                <input type="text" id="editOpponents" name="opponentname" />
             </div>
             <div class="formSection">
                 <label for="editHost">Host</label>
-                <input type="text" id="editHost" name="preferredhost" value="${preferredhost}" />
+                <input type="text" id="editHost" name="preferredhost" />
             </div>
             <div class="popbtns">
                 <button type="submit" class="post-btn">Save Changes</button>
             </div>
         </form>
-
-
     </div>
 </div>
 
 <script>
-    function openEditPopup(
-        meetingrequestid, topic, purposeofmeeting, proposaldate,
-        proposaltime, opponentname, preferredhost, estimatedduration,
-        discussionformat, partyaffiliation
-    ) {
-        // Ensure the popup is displayed
-        const editPopup = document.getElementById('editPopup');
-        if (editPopup) {
-            editPopup.style.display = 'flex';
-        } else {
-            console.error("Edit popup element not found.");
-            return;
-        }
-
-        // Set the meeting request ID
-        const meetingRequestIdField = document.getElementById('meetingRequestId');
-        if (meetingRequestIdField) {
-            meetingRequestIdField.value = meetingrequestid || '';
-        } else {
-            console.error("Meeting Request ID field not found.");
-        }
-
-        // Set the topic
-        const topicField = document.getElementById('editTopic');
-        if (topicField) {
-            topicField.value = topic || '';
-        } else {
-            console.error("Topic field not found.");
-        }
-
-        // Set the purpose of meeting
-        const purposeField = document.getElementById('editPurpose');
-        if (purposeField) {
-            purposeField.value = purposeofmeeting || '';
-        } else {
-            console.error("Purpose of Meeting field not found.");
-        }
-
-        // Set the proposal date
-        const dateField = document.getElementById('editDate');
-        if (dateField) {
-            dateField.value = proposaldate || '';
-        } else {
-            console.error("Proposal Date field not found.");
-        }
-
-        // Set the proposal time
-        const timeField = document.getElementById('editTime');
-        if (timeField) {
-            timeField.value = proposaltime || '';
-        } else {
-            console.error("Proposal Time field not found.");
-        }
-
-        // Set the opponent name
-        const opponentField = document.getElementById('editOpponents');
-        if (opponentField) {
-            opponentField.value = opponentname || '';
-        } else {
-            console.error("Opponent Name field not found.");
-        }
-
-        // Set the preferred host
-        const hostField = document.getElementById('editHost');
-        if (hostField) {
-            hostField.value = preferredhost || '';
-        } else {
-            console.error("Preferred Host field not found.");
-        }
-
-        // Set the estimated duration
-        const durationField = document.getElementById('editduration');
-        if (durationField) {
-            durationField.value = estimatedduration || '';
-        } else {
-            console.error("Estimated Duration field not found.");
-        }
-
-        // Optionally handle discussion format and party affiliation
-        const discussionFormatField = document.getElementById('editDiscussionFormat');
-        if (discussionFormatField) {
-            discussionFormatField.value = discussionformat || '';
-        } else {
-            console.warn("Discussion Format field not found.");
-        }
-
-        const partyAffiliationField = document.getElementById('editPartyAffiliation');
-        if (partyAffiliationField) {
-            partyAffiliationField.value = partyaffiliation || '';
-        } else {
-            console.warn("Party Affiliation field not found.");
-        }
+    function openEditPopup(meetingrequestid, topic, purposeofmeeting, proposaldate, proposaltime, opponentname, preferredhost) {
+        document.getElementById('editPopup').style.display = 'flex';
+        document.getElementById('meetingRequestId').value = meetingrequestid;
+        document.getElementById('editTopic').value = topic;
+        document.getElementById('editPurpose').value = purposeofmeeting;
+        document.getElementById('editDate').value = proposaldate;
+        document.getElementById('editTime').value = proposaltime;
+        document.getElementById('editOpponents').value = opponentname;
+        document.getElementById('editHost').value = preferredhost;
     }
 
     function closeEditPopup() {
         document.getElementById('editPopup').style.display = 'none';
     }
+
     function filterRequests() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        const requests = document.querySelectorAll('.request-item');
-        requests.forEach(req => {
-            const text = req.textContent.toLowerCase();
-            req.style.display = text.includes(input) ? '' : 'none';
+        const input = document.getElementById('searchInput').value.toUpperCase();
+        const items = document.querySelectorAll('.request-item');
+        items.forEach(item => {
+            const text = item.innerText.toUpperCase();
+            item.style.display = text.includes(input) ? '' : 'none';
         });
     }
 </script>
-
 </body>
 </html>
-
