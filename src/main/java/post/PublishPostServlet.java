@@ -21,7 +21,10 @@ public class PublishPostServlet extends HttpServlet {
 
             // Retrieve user ID from the form
             String userIdStr = request.getParameter("userid");
+<<<<<<< HEAD
             String username = request.getParameter("username");
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             int userId = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
@@ -35,12 +38,20 @@ public class PublishPostServlet extends HttpServlet {
             }
 
             // Call the PostController to publish the post
+<<<<<<< HEAD
             boolean isPublished = PostController.PublishPost(userId, content,username);
+=======
+            boolean isPublished = PostController.PublishPost(userId, content);
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
             if (isPublished) {
                 // If successful, redirect with a success message
                 String alertMessage = "Post Published Successfully";
+<<<<<<< HEAD
                 response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostListServlet';</script>");
+=======
+                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostAllServlet';</script>");
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             } else {
                 // If not successful, forward to the error page
                 String alertMessage = "Failed to publish post.";

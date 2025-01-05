@@ -2,12 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<<<<<<< HEAD
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
     }%>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
 <html>
 <head>
@@ -21,7 +24,10 @@
             margin: 20px;
             padding: 20px;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         body.sidebar-deactive .sidebar {
             transform: translateX(-100%);
         }
@@ -75,23 +81,41 @@
         .announcement-list {
             list-style-type: none;
             padding: 0;
+<<<<<<< HEAD
             gap: 1.5rem;
+=======
+            margin-left: 300px;
+            margin-right: 20px;
+            gap: 1.5rem;
+            margin-top: 150px;
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         }
 
 
         .announcement-item {
             background-color: #ffffff;
+<<<<<<< HEAD
             margin-bottom: 1rem;
             border-radius: 0.75rem;
+=======
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             padding: 20px;
             position: relative;
             display: flex;
             cursor: pointer;
             flex-direction: column;
+<<<<<<< HEAD
             transition: 0.25s ease;
             border-left: 0.75rem solid #e0e0e0;
         }
 
+=======
+            gap: 15px;
+        }
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         .announcement-item:hover {
             outline: 1px solid rgb(185, 185, 185);
             border-left: 0.75rem solid #5490FF;
@@ -117,9 +141,15 @@
         }
 
         .announcement-content {
+<<<<<<< HEAD
             font-size: 0.98rem;
             color: #555;
             margin-left: 3.5rem;
+=======
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         }
 
         /* Button Styles */
@@ -212,6 +242,10 @@
         }
 
         .post-btn {
+<<<<<<< HEAD
+=======
+            padding: 10px 20px;
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             background-color: #6a5acd;
             color: white;
             border: none;
@@ -222,6 +256,7 @@
         .post-btn:hover {
             background-color: #5b4ab5;
         }
+<<<<<<< HEAD
 
         .back-button {
             position: fixed; /* Fix the button in place */
@@ -232,6 +267,17 @@
             color: white; /* Text color */
             font-size: 1rem; /* Font size */
             border: none; /* Remove default button border */
+=======
+        .back-button {
+            position: fixed; /* Fix the button in place */
+            top: 20px;       /* Distance from the top of the page */
+            right: 20px;     /* Distance from the right edge of the page */
+            padding: 0.8rem 1.5rem; /* Add some padding inside the button */
+            background-color: #4a8fe5; /* Background color */
+            color: white;    /* Text color */
+            font-size: 1rem; /* Font size */
+            border: none;    /* Remove default button border */
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             border-radius: 1rem; /* Rounded corners */
             cursor: pointer; /* Pointer cursor on hover */
             font-weight: bold; /* Make text bold */
@@ -249,6 +295,7 @@
         .back-button:focus {
             outline: none; /* Remove focus outline */
         }
+<<<<<<< HEAD
 
         .ann-btns-2 {
             display: flex;
@@ -319,6 +366,16 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
+=======
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements | Parlimate</title>
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../index/sidebar1.css" />
+    <link rel="stylesheet" href="../header.css" />
+    <link rel="stylesheet" href="../container.css" />
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -368,6 +425,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <%@ include file="../index/sidebar.jsp" %>
 
+<<<<<<< HEAD
 <%@ include file="../index/header/header.jsp" %>
 <%--<a href="announcements.jsp">--%>
 <%--    <button class="back-button">--%>
@@ -482,12 +540,182 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </div>
 
+=======
+<div class="header pd-2">
+    <div class="start row">
+        <div class="sidebar-toggle-btn sideMenuBtn btn">
+            <i class="fa-sharp fa-solid fa-bars"></i>
+        </div>
+
+        <div class="logo">
+            <a href="./index.html">
+                PARLIMATE
+            </a>
+        </div>
+    </div>
+    <div class="headerSearchBar row">
+        <input type="search" name="mainSearch" id="headerSearchBar"
+               placeholder="Search politicians, Political parties...." />
+        <label for="headerSearchBar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+    </div>
+    <div class="headerBtns">
+        <div class="headerBtn">
+            <input type="checkbox" name="notifi" id="notificationBtn" />
+            <label for="notificationBtn" class="btn">
+                <i class="fa-solid fa-bell"></i>
+            </label>
+            <span class="tip">notifications</span>
+            <div class="dropDownMenu">
+                <ul>
+                    <li>
+                        <a href="#" class="notification">
+                            <div class="noti-img"></div>
+                            <div class="noti-title">
+                                <div class="notification-from">
+                                    Ranil wickramasinghe
+                                </div>
+                                <span>Lorem, ipsum dolor sit amet
+											consectetur adipisicing elit. Qui,
+											ullam. Quos aperiam in re</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="notification">
+                            <div class="noti-img"></div>
+                            <div class="noti-title">
+                                <div class="notification-from">
+                                    Ranil wickramasinghe
+                                </div>
+                                <span>Lorem, ipsum dolor sit amet
+											consectetur adipisicing elit. Qui,
+											ullam. Quos aperiam in re</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="notification">
+                            <div class="noti-img"></div>
+                            <div class="noti-title">
+                                <div class="notification-from">
+                                    Ranil wickramasinghe
+                                </div>
+                                <span>Lorem, ipsum dolor sit amet
+											consectetur adipisicing elit. Qui,
+											ullam. Quos aperiam in re</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a href="./Announcements/announcements.html" class="bottom-btn small-text capitalize">
+                    see all notifications
+                </a>
+            </div>
+        </div>
+        <div class="headerBtn">
+            <input type="checkbox" name="profile" id="profileBtn" />
+            <label for="profileBtn" class="btn">
+                <i class="fa-solid fa-user"></i>
+            </label>
+            <span class="tip">profile</span>
+            <div class="dropDownMenu">
+                <div class="profile">
+                    <a href="../Profile/profile.html">
+                        <div class="img"></div>
+                        <div class="details">
+                            <div class="name medium-text bold">
+                                Naleeka Kumarasinghe
+                            </div>
+                            <div class="email small-text">
+                                knaleeka845@gmail.com
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <ul class="capitalize">
+                    <li>
+                        <a href="#">
+									<span>
+										<i class="fa-regular fa-gear"></i>
+									</span>
+                            <span> account settings </span>
+                        </a>
+                    </li>
+                    <div class="sep-line"></div>
+                    <li>
+                        <a href="#">
+									<span>
+										<i class="fa-regular fa-circle-question"></i>
+									</span>
+                            <span> help center </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+									<span>
+										<i class="fa-regular fa-star"></i>
+									</span>
+                            <span> upgrade plan </span>
+                        </a>
+                    </li>
+                    <div class="sep-line"></div>
+
+                    <li>
+                        <div class="logoutBtn capitalize">
+                            <div class="cont">
+                                <input type="checkbox" name="logoutBtn" id="logoutBtn" />
+                                <label for="logoutBtn">
+                                    <i class="fa-solid fa-sign-out"></i>
+                                    <span>logout</span>
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="announcements.jsp">
+    <button class="back-button">
+        BACK
+    </button>
+</a>
+
+
+<ul class="announcement-list">
+    <c:forEach var="announcement" items="${allannouncements}">
+        <li class="announcement-item">
+
+            <div class="announcement-header">
+                <div class="announcement-info">
+                    <h3>By: ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}</h3>
+                    <h3>${announcement.title}</h3>
+                    <p>${announcement.datetime}</p>
+
+                </div>
+            </div>
+            <div class="announcement-content">
+                    ${announcement.content}
+            </div>
+
+        </li>
+    </c:forEach>
+</ul>
+
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 <!-- Update Announcement Popup Modal -->
 
 
 <script>
+<<<<<<< HEAD
     console.log(document.getElementById("politicianid").value, typeof(document.getElementById("politicianid").value))
 
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
@@ -502,6 +730,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     });
 
+<<<<<<< HEAD
     const addAnnBtn = document.getElementById("add-announcement");
     const popCloseBtn = document.querySelector("#popup-close-btn");
 
@@ -516,6 +745,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             body.classList.remove("popup-active");
         }
     });
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
 </script>
 <script src="../script.js"></script>

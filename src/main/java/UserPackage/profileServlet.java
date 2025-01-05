@@ -1,5 +1,9 @@
 package UserPackage;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.RequestDispatcher;
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +30,7 @@ public class profileServlet extends HttpServlet {
               req.setAttribute("user", user);
               String usertype = user.getUserType();
               int userid = user.getUserId();
+<<<<<<< HEAD
               Object userProfile = null;
 
               if (usertype.equals("Citizen")) {
@@ -49,6 +54,37 @@ public class profileServlet extends HttpServlet {
           }else{
               //Handle case where user id is not log in
               resp.sendRedirect("index.jsp");
+=======
+              if(usertype.equals("Citizen")) {
+
+                  List<CitizenModel> Citizens = CitizenController.CitizenProfile(userid);
+                  req.getSession().setAttribute("citizen", Citizens.get(0));
+                  CitizenModel citizen = (CitizenModel)  req.getSession().getAttribute("citizen");
+                  req.setAttribute("citizen", citizen);
+
+              }else if(usertype.equals("Politician")) {
+
+                  List<PoliticianModel> Politicians = PoliticianController.PoliticianProfile(userid);
+                  req.getSession().setAttribute("politician", Politicians.get(0));
+                  PoliticianModel politician = (PoliticianModel)  req.getSession().getAttribute("politician");
+                  req.setAttribute("politician", politician);
+
+              }else if(usertype.equals("Political Party")) {
+
+                  List<PoliticalPartyModel> PoliticalPartys = PoliticalPartyController.PoliticalPartyProfile(userid);
+                  req.getSession().setAttribute("political party", PoliticalPartys.get(0));
+                  PoliticalPartyModel politicalParty = (PoliticalPartyModel)  req.getSession().getAttribute("political party");
+                  req.setAttribute("political party", politicalParty);
+
+              }else {
+
+              }
+              req.getRequestDispatcher("profile.jsp").forward(req,resp);
+
+          }else{
+              //Handle case where user id is not log in
+              resp.sendRedirect("login.jsp");
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
           }
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserController {
+<<<<<<< HEAD
     public static boolean isEmailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection connection = DBConnection.getConnection();
@@ -30,6 +31,10 @@ public class UserController {
         if (isEmailExists(email)) {
             return -2; // Indicate duplicate email
         }
+=======
+    public static int insertUser(String email, String password, String userType) {
+        boolean isSuccess = false;
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
         // Get the current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();

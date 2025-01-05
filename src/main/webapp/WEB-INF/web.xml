@@ -114,8 +114,11 @@
     <url-pattern>/PublishPostServlet</url-pattern>
   </servlet-mapping>
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>
@@ -124,7 +127,10 @@
   <servlet-mapping>
     <servlet-name>GetPostAllServlet</servlet-name>
     <url-pattern>/GetPostAllServlet</url-pattern>
+<<<<<<< HEAD
     <url-pattern>/Profile/GetPostAllServlet</url-pattern>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>UpdatePostServlet</servlet-name>
@@ -133,7 +139,11 @@
 
   <servlet-mapping>
     <servlet-name>UpdatePostServlet</servlet-name>
+<<<<<<< HEAD
     <url-pattern>/Profile/UpdatePostServlet</url-pattern>
+=======
+    <url-pattern>/UpdatePostServlet</url-pattern>
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>DeletePostServlet</servlet-name>
@@ -142,7 +152,11 @@
 
   <servlet-mapping>
     <servlet-name>DeletePostServlet</servlet-name>
+<<<<<<< HEAD
     <url-pattern>/Profile/DeletePostServlet</url-pattern>
+=======
+    <url-pattern>/DeletePostServlet</url-pattern>
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>GetPostListServlet</servlet-name>
@@ -153,8 +167,11 @@
     <servlet-name>GetPostListServlet</servlet-name>
     <url-pattern>/GetPostListServlet</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>UserPackage.LoginServlet</servlet-class>
@@ -162,7 +179,11 @@
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
+<<<<<<< HEAD
     <url-pattern>/LoginNewServlet</url-pattern>
+=======
+    <url-pattern>/LoginServlet</url-pattern>
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>UserInsertServlet</servlet-name>
@@ -208,7 +229,10 @@
   <servlet-mapping>
     <servlet-name>CreateRequestServlet</servlet-name>
     <url-pattern>/CreateRequestServlet</url-pattern>
+<<<<<<< HEAD
     <url-pattern>/Fundraising/CreateRequestServlet</url-pattern>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>GetAllRequestsServlet</servlet-name>
@@ -218,7 +242,10 @@
   <servlet-mapping>
     <servlet-name>GetAllRequestsServlet</servlet-name>
     <url-pattern>/GetAllRequestsServlet</url-pattern>
+<<<<<<< HEAD
     <url-pattern>/Fundraising/GetAllRequestServlet</url-pattern>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>UpdateRequestServlet</servlet-name>
@@ -228,7 +255,10 @@
   <servlet-mapping>
     <servlet-name>UpdateRequestServlet</servlet-name>
     <url-pattern>/UpdateRequestServlet</url-pattern>
+<<<<<<< HEAD
     <url-pattern>/Fundraising/UpdateRequestServlet</url-pattern>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
   </servlet-mapping>
   <servlet>
     <servlet-name>DeleteRequestServlet</servlet-name>
@@ -238,6 +268,7 @@
   <servlet-mapping>
     <servlet-name>DeleteRequestServlet</servlet-name>
     <url-pattern>/DeleteRequestServlet</url-pattern>
+<<<<<<< HEAD
     <url-pattern>/Fundraising/DeleteRequestServlet</url-pattern>
   </servlet-mapping>
 
@@ -287,6 +318,13 @@
     <filter-name>UserSessionFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+=======
+  </servlet-mapping>
+
+
+
+
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
 
 </web-app>

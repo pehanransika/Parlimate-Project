@@ -113,6 +113,7 @@ public class AnnouncementController {
         // SQL query to fetch all announcements with politician name
         String query = "SELECT a.announcementid, a.politicianid, a.title, a.content, a.datetime, p.name AS politicianName "
                 + "FROM announcement a "
+<<<<<<< HEAD
                 + "JOIN politician p ON a.politicianid = p.politician_id "
                 + "ORDER BY a.datetime DESC"; // Sort announcements by datetime in descending order
 
@@ -167,6 +168,9 @@ public class AnnouncementController {
                 + "WHERE a.politicianid = " + politicianId + " "
                 + "ORDER BY a.datetime DESC"
                 ; // Sort announcements by datetime in descending order
+=======
+                + "JOIN politician p ON a.politicianid = p.politician_id";  // Join with the politician table
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
         // Database connection and PreparedStatement
         try (Connection conn = DBConnection.getConnection();
