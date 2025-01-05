@@ -70,7 +70,7 @@ public class UserInsertServlet extends HttpServlet {
             String alertMessage = "Registered Successfully";
             resp.getWriter().println("<script>");
             resp.getWriter().println("alert('" + alertMessage + "');");
-            resp.getWriter().println("window.location.href='Home.jsp';");
+            resp.getWriter().println("window.location.href='index.jsp';");
             resp.getWriter().println("</script>");
 
 

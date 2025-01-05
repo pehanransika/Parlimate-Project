@@ -113,14 +113,13 @@
                     </div>
                     <div class="multi-fields">
                         <div class="field">
-                            <label class="title" for="disc-date"
-                            >Proposed Date</label
-                            >
+                            <label class="title" for="disc-date">Proposed Date</label>
                             <input
                                     type="date"
                                     name="proposaldate"
                                     id="disc-date"
                                     required
+                                    min=""
                             />
                         </div>
                         <div class="field">
@@ -164,7 +163,7 @@
                 <div class="input-group">
                     <div class="field">
                         <label class="title" for="disc-opNames"
-                        >Opponents names</label
+                        >Invite Politician (Optional) </label
                         >
                         <input
                                 type="text"
@@ -676,6 +675,8 @@
 <script src="./discussin.js"></script>
 <script src="./reqPop.js"></script>
 <script>
+
+    document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
     const navBtns = document.querySelectorAll(".nav-btn button");
 
     navBtns.forEach((btn) => {
