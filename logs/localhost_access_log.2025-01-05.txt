@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:46 +0530] "GET /Parlimate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/ HTTP/1.1" 200 23875
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/BG%20line.png HTTP/1.1" 200 822163
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/view-3d-hand%201.png HTTP/1.1" 200 62134
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/logo%202.png HTTP/1.1" 200 74891
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/welcome.js HTTP/1.1" 200 7314
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/welcome.css HTTP/1.1" 200 9868
+0:0:0:0:0:0:0:1 - - [05/Jan/2025:17:28:51 +0530] "GET /Parlimate/lucide_move-right.svg HTTP/1.1" 200 277
