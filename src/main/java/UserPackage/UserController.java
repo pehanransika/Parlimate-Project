@@ -24,7 +24,7 @@ public class UserController {
         }
         return false;
     }
-    public static int insertUser(String email, String password, String userType) {
+    public static int insertUser(String email, String hashedPassword, String userType) {
 
         boolean isSuccess = false;
         if (isEmailExists(email)) {
@@ -43,7 +43,7 @@ public class UserController {
 
             // Set parameters in the PreparedStatement
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, hashedPassword);
             statement.setString(3, userType);
             statement.setTimestamp(4, new Timestamp(System.currentTimeMillis())); // Set current timestamp
 

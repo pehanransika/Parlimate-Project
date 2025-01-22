@@ -1,0 +1,13 @@
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:19 +0530] "GET /Parlimate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/ HTTP/1.1" 200 23875
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/view-3d-hand%201.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/welcome.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/BG%20line.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/welcome.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/logo%202.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:40 +0530] "GET /Parlimate/lucide_move-right.svg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:28:42 +0530] "GET /favicon.ico HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:30:22 +0530] "POST /Parlimate/UserInsertServlet HTTP/1.1" 200 23875
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:36:17 +0530] "GET /Parlimate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:36:24 +0530] "GET /Parlimate/ HTTP/1.1" 200 23875
+0:0:0:0:0:0:0:1 - - [22/Jan/2025:08:37:36 +0530] "POST /Parlimate/UserInsertServlet HTTP/1.1" 200 23875
