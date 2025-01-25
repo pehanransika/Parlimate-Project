@@ -28,29 +28,19 @@ public class PostController {
     }
 
     // Method to publish a post
-
     public static boolean PublishPost(int userId, String content,String name) throws SQLException {
-
-    public static boolean PublishPost(int userId, String content) throws SQLException {
-
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
 
-
         String query = "INSERT INTO post (userid, content, datetime,name) VALUES (?, ?, ?,?)";
-
-        String query = "INSERT INTO post (userid, content, datetime) VALUES (?, ?, ?)";
-
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, userId);
             stmt.setString(2, content);
             stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-
             stmt.setString(4, name);
-
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -58,7 +48,6 @@ public class PostController {
             throw e;
         }
     }
-
 
     public static List<PostModel> getAllPosts(int user_id) throws SQLException {
         List<PostModel> posts = new ArrayList<>();
@@ -91,33 +80,21 @@ public class PostController {
         List<PostModel> posts = new ArrayList<>();
         String query = "SELECT postid, userid, content, datetime , name FROM post ";
 
-    // Method to retrieve all posts
-    public static List<PostModel> getAllPosts() throws SQLException {
-        List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime FROM post";
-
-
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
+
 
             while (rs.next()) {
                 int postId = rs.getInt("postid");
                 int userId = rs.getInt("userid");
                 String content = rs.getString("content");
                 Timestamp datetime = rs.getTimestamp("datetime");
-
                 String name = rs.getString("name");
                 //   String username= rs.getString("username");
 
 
                 PostModel post = new PostModel(userId, postId, datetime,content,name);
-
-             //   String username= rs.getString("username");
-
-
-                PostModel post = new PostModel(userId, postId, datetime,content);
-
                 posts.add(post);
             }
         }
@@ -127,11 +104,7 @@ public class PostController {
     // Method to get a single post by ID
     public static List<PostModel> getById(String postid) {
         int convertedID = Integer.parseInt(postid);
-
         String query = "SELECT postid, userid, content, datetime ,name FROM post";
-
-        String query = "SELECT postid, userid, content, datetime FROM post";
-
 
         List<PostModel> posts = new ArrayList<>();
 
@@ -146,15 +119,9 @@ public class PostController {
                     int userId = rs.getInt("userid");
                     String content = rs.getString("content");
                     Timestamp datetime = rs.getTimestamp("datetime");
-
                     String name= rs.getString("name");
 
                     PostModel post = new PostModel(userId, postId, datetime, content,name);
-
-
-
-                    PostModel post = new PostModel(userId, postId, datetime, content);
-
                     posts.add(post);
                 }
             }
@@ -197,3 +164,4 @@ public class PostController {
         return false;
     }
 }
+
