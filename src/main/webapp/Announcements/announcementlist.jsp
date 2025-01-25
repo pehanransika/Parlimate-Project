@@ -2,15 +2,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<<<<<<< HEAD
+
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
     }%>
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
 <html>
 <head>
@@ -24,10 +23,7 @@
             margin: 20px;
             padding: 20px;
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         body.sidebar-deactive .sidebar {
             transform: translateX(-100%);
         }
@@ -81,41 +77,39 @@
         .announcement-list {
             list-style-type: none;
             padding: 0;
-<<<<<<< HEAD
+
             gap: 1.5rem;
-=======
+
             margin-left: 300px;
             margin-right: 20px;
             gap: 1.5rem;
             margin-top: 150px;
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         }
 
 
         .announcement-item {
             background-color: #ffffff;
-<<<<<<< HEAD
+
             margin-bottom: 1rem;
             border-radius: 0.75rem;
-=======
+
             margin-bottom: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             padding: 20px;
             position: relative;
             display: flex;
             cursor: pointer;
             flex-direction: column;
-<<<<<<< HEAD
+
             transition: 0.25s ease;
             border-left: 0.75rem solid #e0e0e0;
         }
 
-=======
             gap: 15px;
         }
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         .announcement-item:hover {
             outline: 1px solid rgb(185, 185, 185);
             border-left: 0.75rem solid #5490FF;
@@ -141,15 +135,15 @@
         }
 
         .announcement-content {
-<<<<<<< HEAD
+
             font-size: 0.98rem;
             color: #555;
             margin-left: 3.5rem;
-=======
+
             margin-top: 10px;
             font-size: 16px;
             color: #555;
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         }
 
         /* Button Styles */
@@ -242,10 +236,9 @@
         }
 
         .post-btn {
-<<<<<<< HEAD
-=======
+
             padding: 10px 20px;
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             background-color: #6a5acd;
             color: white;
             border: none;
@@ -256,7 +249,7 @@
         .post-btn:hover {
             background-color: #5b4ab5;
         }
-<<<<<<< HEAD
+
 
         .back-button {
             position: fixed; /* Fix the button in place */
@@ -267,7 +260,7 @@
             color: white; /* Text color */
             font-size: 1rem; /* Font size */
             border: none; /* Remove default button border */
-=======
+
         .back-button {
             position: fixed; /* Fix the button in place */
             top: 20px;       /* Distance from the top of the page */
@@ -277,7 +270,7 @@
             color: white;    /* Text color */
             font-size: 1rem; /* Font size */
             border: none;    /* Remove default button border */
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             border-radius: 1rem; /* Rounded corners */
             cursor: pointer; /* Pointer cursor on hover */
             font-weight: bold; /* Make text bold */
@@ -295,7 +288,7 @@
         .back-button:focus {
             outline: none; /* Remove focus outline */
         }
-<<<<<<< HEAD
+
 
         .ann-btns-2 {
             display: flex;
@@ -366,7 +359,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
-=======
+
     </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -375,7 +368,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -540,7 +533,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </div>
 
-=======
+
 <div class="header pd-2">
     <div class="start row">
         <div class="sidebar-toggle-btn sideMenuBtn btn">
@@ -706,16 +699,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </c:forEach>
 </ul>
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 <!-- Update Announcement Popup Modal -->
 
 
 <script>
-<<<<<<< HEAD
+
     console.log(document.getElementById("politicianid").value, typeof(document.getElementById("politicianid").value))
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
@@ -730,7 +722,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     });
 
-<<<<<<< HEAD
+
     const addAnnBtn = document.getElementById("add-announcement");
     const popCloseBtn = document.querySelector("#popup-close-btn");
 
@@ -745,8 +737,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             body.classList.remove("popup-active");
         }
     });
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
 </script>
 <script src="../script.js"></script>
