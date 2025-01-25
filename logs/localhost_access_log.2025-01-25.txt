@@ -25,3 +25,13 @@
 0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:03:07 +0530] "GET /Parlimate/logo%202.png HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:03:07 +0530] "GET /Parlimate/script.js HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:03:07 +0530] "GET /Parlimate/fund-pop.js HTTP/1.1" 200 2059
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:27 +0530] "GET /Parlimate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:28 +0530] "GET /Parlimate/ HTTP/1.1" 200 23875
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:53 +0530] "POST /Parlimate/LoginServlet HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /Parlimate/edit.css HTTP/1.1" 404 773
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /Parlimate/index/header/header.css HTTP/1.1" 200 4233
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /Parlimate/GetPostListServlet HTTP/1.1" 200 126375
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /sidebar1.css HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /Parlimate/header.css HTTP/1.1" 404 775
+0:0:0:0:0:0:0:1 - - [25/Jan/2025:11:04:54 +0530] "GET /Parlimate/assets/images/logo.png HTTP/1.1" 200 74891
