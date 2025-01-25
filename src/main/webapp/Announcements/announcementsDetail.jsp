@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<<<<<<< HEAD
+
 <%
     HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
-=======
+
 
 <html>
 <head>
@@ -356,7 +356,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </div>
 
-=======
+
 
 <div class="header pd-2">
     <div class="start row">
@@ -535,7 +535,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </c:forEach>
 </ul>
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 <!-- Update Announcement Popup Modal -->
 <div class="popup-modal" id="editPopup">
     <div class="popup">
@@ -548,22 +548,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         <form action="UpdateServlet" method="post">
             <!-- Hidden fields for announcement ID and politician ID -->
-<<<<<<< HEAD
+
             <input type="hidden" name="announcementid" id="announcementid"/>
             <input type="hidden" name="politicianid" id="politicianid"/>
-=======
+
             <input type="hidden" name="announcementid" id="announcementid" />
             <input type="hidden" name="politicianid" id="politicianid" />
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
             <!-- Title Section -->
             <div class="formSection">
                 <label for="editTitle">Title</label>
-<<<<<<< HEAD
+
                 <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required/>
-=======
+
                 <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required />
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             </div>
 
             <!-- Content Section -->
@@ -572,14 +572,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <textarea id="editContent" name="content" placeholder="Edit content here..." required></textarea>
             </div>
 
-<<<<<<< HEAD
 
-=======
             <!-- Date and Time Section -->
 
 
             <!-- Save Button -->
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             <div class="popbtns">
                 <button type="submit" class="post-btn">Save Changes</button>
             </div>
@@ -611,10 +609,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             }
         });
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     // Function to open the modal and populate the form
     function openEditPopup(announcementid, politicianid, title, content, datetime) {
         // Show the popup modal
