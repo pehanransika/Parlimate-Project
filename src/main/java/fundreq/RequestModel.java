@@ -13,18 +13,18 @@ public class RequestModel {
     private String currency;          // Currency type
     private Timestamp datetime;       // Timestamp for when the request is created
     private String  attachment_url;     // URL to the attachment (file)
-<<<<<<< HEAD
+
     private String name;
 
     // Constructor
     public RequestModel(Integer requestId, Integer userId, String title, String description,
                         String category, BigDecimal targetAmount, String currency, Timestamp datetime, String  attachment_url , String name) {
-=======
+
 
     // Constructor
     public RequestModel(Integer requestId, Integer userId, String title, String description,
                         String category, BigDecimal targetAmount, String currency, Timestamp datetime, String  attachment_url) {
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         this.requestId = requestId;
         this.userId = userId;
         this.title = title;
@@ -34,10 +34,10 @@ public class RequestModel {
         this.currency = currency;
         this.datetime = datetime;
         this. attachment_url =  attachment_url;  // New field
-<<<<<<< HEAD
+
         this.name = name;
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
+
     }
 
     // Getters and Setters
@@ -112,7 +112,7 @@ public class RequestModel {
     public void setAttachmentUrl(String  attachment_url) {
         this. attachment_url =  attachment_url;
     }
-<<<<<<< HEAD
+
 
     public String getName() {
         return  name;
@@ -121,6 +121,5 @@ public class RequestModel {
     public void setName(String  name) {
         this. name =  name;
     }
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 }
