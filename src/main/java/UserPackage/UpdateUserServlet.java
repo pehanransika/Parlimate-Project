@@ -42,17 +42,17 @@ public class UpdateUserServlet extends HttpServlet {
                     String name = req.getParameter("name");
                     String address = req.getParameter("address");
                     String phoneNumber = req.getParameter("phoneNumber");
-<<<<<<< HEAD
+
                     String district = req.getParameter("district");
                     String imgUrl = req.getParameter("img_url");
 
                     isTypeUpdated = CitizenController.updateCitizen(userId, name, address, phoneNumber, district, imgUrl);
-=======
+
                     String profile = req.getParameter("profile");
                     String imgUrl = req.getParameter("img_url");
 
                     isTypeUpdated = CitizenController.updateCitizen(userId, name, address, phoneNumber, profile, imgUrl);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
                     break;
                 }
                 case "Politician": {
