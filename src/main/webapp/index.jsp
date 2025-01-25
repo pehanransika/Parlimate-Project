@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
+
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Parlimate</title>
@@ -17,7 +17,7 @@
 </div>
 <div class="bg-hand">
     <img src="./view-3d-hand 1.png"/>
-=======
+
 
     <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -250,7 +250,7 @@
     </div>
         </div>
     </div>
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 </div>
 <div class="container col">
     <div class="header row">
@@ -508,7 +508,7 @@
                                     <span id="party-logo-name polParty">Party Logo</span>
                                 </div>
                             </label>
-=======
+
                     </li>
                 </ul>
             </div>
@@ -606,7 +606,7 @@
                         <div class="time">
                             <span class="value">30</span>
                             <span class="unit">minutes ago</span>
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
                         </div>
                     </div>
 
@@ -626,7 +626,7 @@
         </div>
     </form>
 </div>
-<<<<<<< HEAD
+
 <script>
     function validateForm() {
         // Get the form inputs
@@ -709,7 +709,7 @@
 </script>
 </body>
 </html>
-=======
+
 
 </body>
 <script>
@@ -734,4 +734,4 @@
 <script src="fund-pop.js"></script>
 
 </html>
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
