@@ -37,6 +37,7 @@ public class PoliticianController {
     }
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
+<<<<<<< HEAD
         String sql = "SELECT * FROM politician WHERE user_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -44,31 +45,57 @@ public class PoliticianController {
 
             // Use PreparedStatement to safely set the user_id parameter
             stmt.setInt(1, id);
+=======
+        String sql = "SELECT * FROM politician WHERE user_id = '" + id + "'";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
             // Execute the query and process the ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+<<<<<<< HEAD
                     int politicianId = rs.getInt("politician_id");
                     int userId = rs.getInt("user_id");
+=======
+                    int citizenid = rs.getInt("politician_id");
+                    int userid = rs.getInt("user_id");
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
                     String name = rs.getString("name");
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
+<<<<<<< HEAD
                     String profileImageUrl = rs.getString("profile_img_url");
 
                     // Create a PoliticianModel object and add it to the list
                     PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, profileImageUrl);
+=======
+                    String ProfileImageUrl = rs.getString("profile_image_url");
+
+                    PoliticianModel politician = new PoliticianModel(citizenid, userid, name, address, phoneNumber, politicalPartyId, ProfileImageUrl);
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
                     politicians.add(politician);
                 }
             }
 
         } catch (SQLException e) {
+<<<<<<< HEAD
             System.err.println("Error retrieving data from politician table: " + e.getMessage());
         }
 
         return politicians;
     }
 
+=======
+            System.err.println("Error retrieving data from users table: " + e.getMessage());
+        }
+
+        return politicians;
+
+    }
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
     public static boolean updatePolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
         // SQL query to update politician record

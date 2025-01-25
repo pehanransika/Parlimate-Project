@@ -128,6 +128,7 @@
             <i class="fa-solid fa-pen-to-square"></i>
             edit profile
         </a>
+<<<<<<< HEAD
         <div class="bottom">
             <form action="GetPostAllServlet" method="post">
                 <input type="hidden" name="user_id" value="${user.userId}" />
@@ -138,6 +139,16 @@
                 </button>
              </form>
         </div>
+=======
+        <a href="/Parlimate/GetPostAllServlet?postId=${post.postId}">
+            <button class="view-my-post">
+                <i class="fa-solid fa-eye"></i>
+                <span>View My Post</span>
+            </button>
+        </a>
+
+
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     </div>
 </div>
 </body>
