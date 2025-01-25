@@ -1,10 +1,9 @@
 package UserPackage;
 
-<<<<<<< HEAD
-=======
+
 import java.security.Timestamp;
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 public class UserModel {
     private int userId;
     private String email;
