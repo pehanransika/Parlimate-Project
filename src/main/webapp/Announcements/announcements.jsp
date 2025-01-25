@@ -254,10 +254,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
     </div>
 
-<<<<<<< HEAD
+
 <%--    edit popup--%>
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     <div class="popup-modal" id="editPopup">
         <div class="popup">
             <div class="title">
@@ -291,10 +290,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
     </div>
-<<<<<<< HEAD
+
 <%--delete popup--%>
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     <div class="popup-modal" id="deletePopup">
         <div class="popup">
             <div class="title">
@@ -371,8 +369,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <button class="delete-btn" onclick="openDeletePopup(this)">
                             Delete
                         </button>
-<<<<<<< HEAD
-=======
+
                     </div>
                 </div>
             </div>
@@ -403,7 +400,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </p>
                     <div class="location">
                         <span>Location: HR Office</span>
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+95
                     </div>
                     <div class="ann-btns rown">
                         <button
@@ -419,8 +416,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
 
 
-<<<<<<< HEAD
-=======
+
+
             <!-- Add more cards as needed -->
             <div class="post announcement-card">
                 <div class="post-head">
@@ -471,7 +468,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                     </div>
                 </div>
             </div>
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         </div>
 
         </div>
