@@ -58,7 +58,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
     <style>
-=======
+
     <title>Announcements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -210,7 +210,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             background-color: #e53935;
         }
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         /* Popup Modal Styles */
         .popup-modal {
             display: none;
@@ -273,8 +273,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             background-color: #5b4ab5;
         }
     </style>
-<<<<<<< HEAD
-=======
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Announcements | Parlimate</title>
@@ -325,7 +324,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 </head>
 
 <body class="">
@@ -403,7 +402,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </ul>
 </div>
 
-=======
 
 <div class="header pd-2">
     <div class="start row">
@@ -585,7 +583,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </c:forEach>
 </ul>
 
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 <!-- Update Announcement Popup Modal -->
 <div class="popup-modal" id="editPopup">
     <div class="popup">
@@ -598,13 +596,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         <form action="UpdatePostServlet" method="post">
             <!-- Hidden fields for post ID and user ID -->
-<<<<<<< HEAD
+
             <input type="hidden" name="postid" id="postid" value="${postid}"/>
             <input type="hidden" name="userid" id="userid" value="${userid}"/>
-=======
+
             <input type="hidden" name="postid" id="postid" value="${postid}" />
             <input type="hidden" name="userid" id="userid" value="${userid}" />
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
             <!-- Content Section -->
             <div class="formSection">
@@ -645,10 +643,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             }
         });
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     // Function to open the modal and populate the form
     function openEditPopup(postid, userid, content, datetime) {
         // Show the popup modal
