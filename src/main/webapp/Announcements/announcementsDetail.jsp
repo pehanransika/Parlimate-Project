@@ -247,7 +247,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -296,7 +296,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <body class="">
 
 <%@ include file="../index/sidebar.jsp" %>
-<<<<<<< HEAD
+
 <%@ include file="../index/header/header.jsp" %>
 
 <div class="container">
