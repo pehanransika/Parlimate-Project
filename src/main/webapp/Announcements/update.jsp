@@ -1,11 +1,14 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
   if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
     response.sendRedirect("index.jsp");
     return;
   }%>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 <html>
 <head>
   <title>Announcement Details</title>

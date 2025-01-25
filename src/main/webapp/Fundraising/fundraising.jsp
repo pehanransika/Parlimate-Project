@@ -577,8 +577,13 @@
             } else {
                 body.classList.add("sidebar-deactive");
             }
+<<<<<<< HEAD
         })
     });
+=======
+        });
+    })
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
     navRadios.forEach(radio => {
         radio.addEventListener('change', (event) => {

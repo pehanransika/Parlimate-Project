@@ -1,3 +1,4 @@
+
 package UserPackage;
 
 import java.sql.*;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserController {
+
     public static boolean isEmailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection connection = DBConnection.getConnection();
@@ -24,12 +26,16 @@ public class UserController {
         }
         return false;
     }
-    public static int insertUser(String email, String password, String userType) {
+    public static int insertUser(String email, String hashedPassword, String userType) {
 
         boolean isSuccess = false;
         if (isEmailExists(email)) {
             return -2; // Indicate duplicate email
         }
+
+    public static int insertUser(String email, String password, String userType) {
+        boolean isSuccess = false;
+
 
         // Get the current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -43,7 +49,7 @@ public class UserController {
 
             // Set parameters in the PreparedStatement
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, hashedPassword);
             statement.setString(3, userType);
             statement.setTimestamp(4, new Timestamp(System.currentTimeMillis())); // Set current timestamp
 
@@ -196,4 +202,3 @@ public class UserController {
 
 
 }
-
