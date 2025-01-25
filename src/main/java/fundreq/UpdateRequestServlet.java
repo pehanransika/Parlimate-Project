@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-<<<<<<< HEAD
+
 import java.time.LocalDateTime;
 
-=======
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 @WebServlet("/UpdateNewRequestServlet")
 @MultipartConfig
 public class UpdateRequestServlet extends HttpServlet {
@@ -57,11 +57,11 @@ public class UpdateRequestServlet extends HttpServlet {
 
             if (isUpdated) {
                 response.setContentType("text/html");
-<<<<<<< HEAD
+
                 response.getWriter().println("<script>alert('Request Updated Successfully'); window.history.back();</script>");
-=======
+
                 response.getWriter().println("<script>alert('Request Updated Successfully'); window.location.href='GetAllRequestsServlet';</script>");
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             } else {
                 request.setAttribute("error", "Failed to update the request.");
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
@@ -74,11 +74,11 @@ public class UpdateRequestServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             response.setContentType("text/html");
-<<<<<<< HEAD
+
             response.getWriter().println("<script>alert('Error processing request. Please try again later.'); window.location.href='error.jsp';</script>");
-=======
+
             response.getWriter().println("<script>alert('Error processing request. Please try again later.'); window.location.href='wrong.jsp';</script>");
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         }
     }
 }
