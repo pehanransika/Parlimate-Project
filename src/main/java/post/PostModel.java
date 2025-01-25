@@ -7,28 +7,24 @@ public class PostModel {
     private Integer userId;
     private String content;
     private Timestamp datetime;
-<<<<<<< HEAD
+
     private String name;
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
 
 
 
-<<<<<<< HEAD
+
     public PostModel(int userId, int postId, Timestamp datetime, String content,String name) {
-=======
+
     public PostModel(int userId, int postId, Timestamp datetime, String content) {
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
         this.userId = userId;
         this.postId = postId;
         this.datetime = datetime;
         this.content = content;
-<<<<<<< HEAD
+
         this.name = name;
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     }
 
 
@@ -64,7 +60,7 @@ public class PostModel {
     public void setDatetime(Timestamp datetime) {
         this.datetime = datetime;
     }
-<<<<<<< HEAD
+
     public String getName() {
         return name;
     }
@@ -72,8 +68,7 @@ public class PostModel {
     public void setName(String name) {
         this.name = name;
     }
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
 }
 
