@@ -1,9 +1,5 @@
 package UserPackage;
 
-<<<<<<< HEAD
-=======
-import javax.servlet.RequestDispatcher;
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-<<<<<<< HEAD
 @WebServlet("/LoginServlet")
-=======
-@WebServlet("/LoginNewServlet")
-
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +17,6 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-<<<<<<< HEAD
         try {
             // Validate login credentials
             List<UserModel> userlogin = UserController.loginValidate(email, password);
@@ -66,22 +56,5 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-=======
-        try{
-            List<UserModel> userlogin = UserController.loginValidate(email,password);
-            if(userlogin != null && !userlogin.isEmpty()){
-                req.getSession().setAttribute("user", userlogin.get(0));
-                resp.sendRedirect("profile.jsp");
-            }else{
-                String alertMessage = "Login failed,please try again";
-                resp.getWriter().println("<script>alert('"+alertMessage+"');window.location.href='login.jsp'</script>");
-            }
-            //req.setAttribute("userlogin", userlogin);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        //RequestDispatcher dis = req.getRequestDispatcher("profile.jsp");
-       // dis.forward(req, resp);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     }
 }

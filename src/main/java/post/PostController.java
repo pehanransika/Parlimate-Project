@@ -28,30 +28,19 @@ public class PostController {
     }
 
     // Method to publish a post
-<<<<<<< HEAD
     public static boolean PublishPost(int userId, String content,String name) throws SQLException {
-=======
-    public static boolean PublishPost(int userId, String content) throws SQLException {
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
 
-<<<<<<< HEAD
         String query = "INSERT INTO post (userid, content, datetime,name) VALUES (?, ?, ?,?)";
-=======
-        String query = "INSERT INTO post (userid, content, datetime) VALUES (?, ?, ?)";
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, userId);
             stmt.setString(2, content);
             stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-<<<<<<< HEAD
             stmt.setString(4, name);
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -60,7 +49,6 @@ public class PostController {
         }
     }
 
-<<<<<<< HEAD
     public static List<PostModel> getAllPosts(int user_id) throws SQLException {
         List<PostModel> posts = new ArrayList<>();
         String query = "SELECT postid, userid, content, datetime , name FROM post WHERE userid = ?";
@@ -91,38 +79,22 @@ public class PostController {
     public static List<PostModel> getListPosts() throws SQLException {
         List<PostModel> posts = new ArrayList<>();
         String query = "SELECT postid, userid, content, datetime , name FROM post ";
-=======
-    // Method to retrieve all posts
-    public static List<PostModel> getAllPosts() throws SQLException {
-        List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime FROM post";
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             while (rs.next()) {
                 int postId = rs.getInt("postid");
                 int userId = rs.getInt("userid");
                 String content = rs.getString("content");
                 Timestamp datetime = rs.getTimestamp("datetime");
-<<<<<<< HEAD
                 String name = rs.getString("name");
                 //   String username= rs.getString("username");
 
 
                 PostModel post = new PostModel(userId, postId, datetime,content,name);
-=======
-             //   String username= rs.getString("username");
-
-
-                PostModel post = new PostModel(userId, postId, datetime,content);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
                 posts.add(post);
             }
         }
@@ -132,11 +104,7 @@ public class PostController {
     // Method to get a single post by ID
     public static List<PostModel> getById(String postid) {
         int convertedID = Integer.parseInt(postid);
-<<<<<<< HEAD
         String query = "SELECT postid, userid, content, datetime ,name FROM post";
-=======
-        String query = "SELECT postid, userid, content, datetime FROM post";
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 
         List<PostModel> posts = new ArrayList<>();
 
@@ -151,15 +119,9 @@ public class PostController {
                     int userId = rs.getInt("userid");
                     String content = rs.getString("content");
                     Timestamp datetime = rs.getTimestamp("datetime");
-<<<<<<< HEAD
                     String name= rs.getString("name");
 
                     PostModel post = new PostModel(userId, postId, datetime, content,name);
-=======
-
-
-                    PostModel post = new PostModel(userId, postId, datetime, content);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
                     posts.add(post);
                 }
             }

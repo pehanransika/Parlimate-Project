@@ -16,7 +16,6 @@ public class GetPostAllServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-<<<<<<< HEAD
 
             // Fetch all posts from PostController
             String user_idStr = request.getParameter("user_id");
@@ -25,14 +24,6 @@ public class GetPostAllServlet extends HttpServlet {
             List<PostModel> allPosts = PostController.getAllPosts(user_id);
 
             request.setAttribute("allposts", allPosts);
-=======
-            // Fetch all posts from PostController
-            List<PostModel> allPosts = PostController.getAllPosts();
-
-            // Set the list as a request attribute
-            request.setAttribute("allposts", allPosts);
-
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
             // Forward to postDetail.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("postsDetail.jsp");
             dispatcher.forward(request, response);

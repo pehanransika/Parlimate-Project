@@ -10,13 +10,6 @@ public class DBConnection {
     private static final String username = "postgres"; // Your PostgreSQL username
     private static final String password = "root"; // Your PostgreSQL password
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
->>>>>>> 2fe7427cd4b542d36f6cb33a4927282f7cdb83e5
     public static Connection getConnection() {
         Connection con = null;
         try {

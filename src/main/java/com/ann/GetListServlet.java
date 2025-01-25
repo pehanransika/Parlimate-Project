@@ -1,22 +1,20 @@
 package com.ann;
 
-<<<<<<< HEAD
+
 import UserPackage.PoliticianModel;
 import UserPackage.UserModel;
 
 import javax.net.ssl.HandshakeCompletedEvent;
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
+
 import javax.servlet.http.HttpSession;
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 import java.io.IOException;
 import java.util.List;
 
@@ -28,19 +26,18 @@ public class GetListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         List<AnnouncementModel> allannouncements = AnnouncementController.getAllAnnouncements();
         request.setAttribute("allannouncements",allannouncements);
-<<<<<<< HEAD
 
 
 // Then forward to announcementsDetail.jsp
         RequestDispatcher dispatcher2 = request.getRequestDispatcher("announcementlist.jsp");
         dispatcher2.include(request, response);
-=======
+
 // Forward to announcements.jsp
         RequestDispatcher dispatcher1 = request.getRequestDispatcher("announcementlist.jsp");
         dispatcher1.include(request, response);
 
 // Then forward to announcementsDetail.jsp
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{

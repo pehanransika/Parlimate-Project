@@ -451,7 +451,6 @@ body.popup-active-edit #editPopup{
 }
 body.popup-active-delete #editPopup{
     display: initial;
-<<<<<<< HEAD
 }
 .ann-btns-2{
     display: flex;
@@ -577,6 +576,4 @@ body.popup-active-delete #editPopup{
 }
 .cont{
     margin-left: 3.5rem;
-=======
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
 }
