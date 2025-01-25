@@ -9,6 +9,11 @@ public class DBConnection {
     private static final String url = "jdbc:postgresql://localhost:5433/ParlimateNew"; // Adjust as needed
     private static final String username = "postgres"; // Your PostgreSQL username
     private static final String password = "root"; // Your PostgreSQL password
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2fe7427cd4b542d36f6cb33a4927282f7cdb83e5
     public static Connection getConnection() {
         Connection con = null;
         try {

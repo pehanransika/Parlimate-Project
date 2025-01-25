@@ -254,7 +254,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
     </div>
 
+<<<<<<< HEAD
 <%--    edit popup--%>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     <div class="popup-modal" id="editPopup">
         <div class="popup">
             <div class="title">
@@ -288,7 +291,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 <%--delete popup--%>
+=======
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
     <div class="popup-modal" id="deletePopup">
         <div class="popup">
             <div class="title">
@@ -365,11 +371,107 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <button class="delete-btn" onclick="openDeletePopup(this)">
                             Delete
                         </button>
+<<<<<<< HEAD
+=======
+                    </div>
+                </div>
+            </div>
+
+            <!-- Announcement Card 2 -->
+            <div class="post announcement-card">
+                <div class="post-head">
+                    <div class="post-details row">
+                        <div class="img"></div>
+                        <div class="user-details col">
+                            <div class="name">Naleeka Kumarasinghe</div>
+                            <div class="posted-date row">
+										<span class="date"
+                                        >August 11, 2024</span
+                                        >
+                                <span class="time">2:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content col">
+                    <h2 class="post-title">New Policy Announcement</h2>
+                    <p>
+                        A new company policy has been introduced
+                        regarding remote work. All employees are
+                        required to follow the new guidelines starting
+                        from next month.
+                    </p>
+                    <div class="location">
+                        <span>Location: HR Office</span>
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+                    </div>
+                    <div class="ann-btns rown">
+                        <button
+                                class="edit-btn"
+                                onclick="openEditPopup(this)"
+                        >
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
+
                     </div>
                 </div>
             </div>
 
 
+<<<<<<< HEAD
+=======
+            <!-- Add more cards as needed -->
+            <div class="post announcement-card">
+                <div class="post-head">
+                    <div class="post-details">
+                        <div class="img"></div>
+                        <div>
+                            <div class="name">Pehan Ransika</div>
+                            <div class="posted-date">
+                                <span>August 11, 2024</span>
+                                <span>2:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <h2 class="post-title">New Policy Announcement</h2>
+                    <p>
+                        A new company policy has been introduced
+                        regarding remote work. All employees are
+                        required to follow the new guidelines starting
+                        from next month. A new company policy has been
+                        introduced regarding remote work. All employees
+                        are required to follow the new guidelines
+                        starting from next month. A new company policy
+                        has been introduced regarding remote work. All
+                        employees are required to follow the new
+                        guidelines starting from next month. A new
+                        company policy has been introduced regarding
+                        remote work. All employees are required to
+                        follow the new guidelines starting from next
+                        month. A new company policy has been introduced
+                        regarding remote work. All employees are
+                        required to follow the new guidelines starting
+                        from next month.
+                    </p>
+                    <div class="location">
+                        <span>Location: HR Office</span>
+                    </div>
+                    <div class="ann-btns rown">
+                        <button
+                                class="edit-btn"
+                                onclick="openEditPopup(this)"
+                        >
+                            Edit
+                        </button>
+                        <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
+
+                    </div>
+                </div>
+            </div>
+>>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
         </div>
 
         </div>
