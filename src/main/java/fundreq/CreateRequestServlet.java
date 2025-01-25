@@ -1,6 +1,6 @@
 package fundreq;
 
-<<<<<<< HEAD
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-=======
+
 import fundreq.RequestController;
 
 import javax.servlet.annotation.MultipartConfig;
@@ -45,7 +45,7 @@ public class CreateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountStr = request.getParameter("targetamount");
             String currency = request.getParameter("currency");
-<<<<<<< HEAD
+
             String userIdStr = request.getParameter("userid");
             String username = request.getParameter("username");
             int userId = (userIdStr != null && !userIdStr.isEmpty())
@@ -53,9 +53,8 @@ public class CreateRequestServlet extends HttpServlet {
                     : defaultUserId;
 
 
-=======
             String datetimeStr = request.getParameter("datetime");
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
             // Handle file upload using getPart
             Part attachmentPart = request.getPart("attachmentUrl");  // Corresponds to the file input name
@@ -84,12 +83,12 @@ public class CreateRequestServlet extends HttpServlet {
                     description == null || description.trim().isEmpty() ||
                     category == null || category.trim().isEmpty() ||
                     targetAmountStr == null || targetAmountStr.trim().isEmpty() ||
-<<<<<<< HEAD
+
                     currency == null || currency.trim().isEmpty() ) {
-=======
+
                     currency == null || currency.trim().isEmpty() ||
                     datetimeStr == null || datetimeStr.trim().isEmpty()) {
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
                 throw new IllegalArgumentException("All fields are required except Attachment URL.");
             }
 
@@ -100,19 +99,19 @@ public class CreateRequestServlet extends HttpServlet {
             }
 
             // Parse datetime
-<<<<<<< HEAD
+
 
 
             // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
                     userId, title, description, category, targetAmount, currency, attachmentUrl, username);
-=======
+
             Timestamp datetime = Timestamp.valueOf(datetimeStr.replace("T", " ") + ":00");
 
             // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
                     defaultUserId, title, description, category, targetAmount, currency, attachmentUrl);
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
 
             // Response
             if (isCreated) {
