@@ -33,15 +33,15 @@ public class DeletePostServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-<<<<<<< HEAD
+
                 response.setContentType("text/html");
                 response.getWriter().println("<script>");
                 response.getWriter().println("window.history.back();");
                 response.getWriter().println("setTimeout(function() { location.reload(true); }, 100);"); // Reload with a slight delay
                 response.getWriter().println("</script>");
-=======
+
                 response.getWriter().println("<script>alert('Data Deleted Successfully'); window.location.href='GetPostAllServlet';</script>");
->>>>>>> 72354581de48bfd381a545c7f574c30d58d84595
+
             } else {
                 // Fetch details and forward to error page
                 List<PostModel> postsDetails = PostController.getById(postIdParam);
