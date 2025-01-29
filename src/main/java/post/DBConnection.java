@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 package post;
 
@@ -46,7 +46,7 @@ public class DBConnection {
 
 
 }
-=======
+
 
 package post;
 
@@ -94,4 +94,4 @@ public class DBConnection {
 
 
 }
->>>>>>> master
+
