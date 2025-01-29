@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 public class CitizenModel  {
@@ -45,7 +45,7 @@ public class CitizenModel  {
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
 }
-=======
+
 package UserPackage;
 
 public class CitizenModel  {
@@ -92,4 +92,4 @@ public class CitizenModel  {
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
 }
->>>>>>> master
+
