@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package post;
 
 import java.sql.Timestamp;
@@ -65,7 +65,7 @@ public class PostModel {
 
 }
 
-=======
+
 package post;
 
 import java.sql.Timestamp;
@@ -132,4 +132,3 @@ public class PostModel {
 
 }
 
->>>>>>> master
