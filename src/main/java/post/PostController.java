@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package post;
 
 import java.sql.Connection;
@@ -165,7 +165,7 @@ public class PostController {
         return false;
     }
 }
-=======
+
 package post;
 
 import java.sql.Connection;
@@ -332,4 +332,4 @@ public class PostController {
         return false;
     }
 }
->>>>>>> master
+
