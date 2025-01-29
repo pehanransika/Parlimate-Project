@@ -1,0 +1,190 @@
+body.sidebar-deactive .sidebar {
+    transform: translateX(-100%);
+}
+.container .pageTitles{
+    align-self: start;
+    margin-bottom: 2rem;
+}
+html{
+    font-size: 13px;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    transition: margin-left 0.3s;
+    gap: 0;
+}
+.container > .row {
+    align-items: start;
+    gap: 2rem;
+    justify-content: space-between;
+}
+.announcements {
+    gap: 1.5rem;
+    width: 100%;
+}
+.announcement-card {
+    border-radius: 0.75rem;
+    border-left: 0.75rem solid rgba(185, 185, 185, 0.548);
+    padding: 1.5rem 2rem ;
+    width: 100%;
+    transition: outline 0.3s ease, border-left 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+.announcement-card:hover {
+    outline: 1px solid rgb(185, 185, 185);
+    border-left: 0.75rem solid #5490FF;
+}
+.post-details {
+    gap: 1rem;
+}
+.post-details .img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+.post-details .name {
+    font-weight: 500;
+    font-size: 1rem;
+}
+.announcements .posted-date {
+    font-size: 0.7rem;
+    color: #777;
+    font-weight: 500;
+    gap: 0.75rem;
+}
+.announcement-card .content{
+    gap: 0.25rem;
+}
+.content .post-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0.5rem;
+}
+.content p {
+    font-size: 0.9rem;
+    color: #727272;
+}
+.location {
+    margin-top: 0.75rem;
+    font-size: 0.8em;
+    color: #888;
+    text-align: end;
+}
+/* Politician Card */
+.politician-container{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.politician-card {
+    min-width: 15rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Image Styling */
+.politician-card img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: #ddd; /* Fallback for no image */
+}
+
+/* Politician Details */
+.politician-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.politician-details h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.politician-details p {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.subTitle1 {
+    color: var(--grey-3);
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.current-results{
+    margin-top:1%;
+    display:grid;
+    grid-template-columns:  1fr 2fr;
+    grid-gap:1rem;
+
+}
+
+
+
+#percentage,#name{
+    display: inline;
+}
+
+.total-votes{
+    font-size:1.4rem;
+}
+
+
+
+.chart{
+    width:200px;
+    height:200px;
+
+}
+
+.Analytics{
+    margin-top:3rem;
+    height:40px;
+    color:white;
+    background-color: rgba(106, 57, 185, 0.897);
+    border-color: white;
+    font-size: 17px;
+    border-radius: 10px;
+}
+.Analytics:hover{
+    background-color: white;
+    color:purple;
+    border-color: purple;
+    transition-delay: 0.3s;
+}
+.Analytics:active{
+    color:white;
+    background-color: rgba(106, 57, 185, 0.897);
+    border-color: white;
+}
+
+#vote-btn{
+    background-color: rgba(106, 57, 185, 0.897);
+}
+
+#vote-btn:hover{
+    background-color: white;
+    color:purple;
+    border-color: purple;
+
+}
+
