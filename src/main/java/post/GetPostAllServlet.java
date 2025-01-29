@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -45,7 +45,7 @@ public class GetPostAllServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-=======
+
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -92,4 +92,4 @@ public class GetPostAllServlet extends HttpServlet {
         doGet(request, response);
     }
 }
->>>>>>> master
+
