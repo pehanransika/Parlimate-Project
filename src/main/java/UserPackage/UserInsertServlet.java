@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -137,7 +137,7 @@ public class UserInsertServlet extends HttpServlet {
     }
 
 }
-=======
+
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -224,4 +224,4 @@ public class UserInsertServlet extends HttpServlet {
         }
     }
 }
->>>>>>> master
+
