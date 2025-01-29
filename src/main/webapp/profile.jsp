@@ -16,7 +16,15 @@
        <h2>Gmail: ${user.email}</h2>
        <h2>Password: ${user.password}</h2>
        <h2>UserType: ${user.userType}</h2>
+<<<<<<< HEAD
        <h2>name: ${userProfile.name}</h2>
+=======
+
+       <h2>name: ${userProfile.name}</h2>
+
+       <h2>name: ${citizen.name}</h2>
+
+>>>>>>> master
        <a href="updateprofile.jsp?id=${user.userId}&email=${user.email}&password=${user.password}&userType=${user.userType}&name=${citizen.name}">
            <button>Update</button>
        </a>
