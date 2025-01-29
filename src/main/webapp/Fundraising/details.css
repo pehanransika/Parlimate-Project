@@ -1,0 +1,105 @@
+li {
+    list-style: none;
+}
+.request-list{
+    gap: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+.request-item{
+    padding: 1.2rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid #DDDDDD;
+    background: #FFFFFF;
+    gap: 1rem;
+    width: fit-content;
+    min-width: 20rem;
+
+    && .title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        max-width: 5rem;
+    }
+    && .date{
+        color: #5a5a5a;
+    }
+    && .request-content{
+        gap: 0.25rem;
+    }
+
+    && .request-content{
+        color: #979797;
+        position: relative;
+        font-weight: 600;
+
+        && span {
+            color: #1E1E1E;
+            font-weight: 500;
+        }
+    }
+    && .seperator{
+        position: absolute;
+        bottom: -2rem;
+        left: -1.25rem;
+        right: -1.25rem;
+        height: 1px;
+        background: #DDDDDD;
+    }
+    && .request-actions{
+        gap: 0.25rem;
+        align-self: flex-end;
+        margin-top: 2rem;
+
+        && button {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #1E1E1E;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        && .button-delete {
+            background: #ffcece;
+            color: darkred;
+        }
+        && .button-update{
+            background: #efefef;
+        }
+        && .button-update:hover{
+            border: 1px solid #d6d6d6;
+        }
+        && .button-delete:hover{
+            border: 1px solid #dd9696;
+        }
+    }
+}
+.search{
+     width: 25rem;
+     position: relative;
+
+     && .icon {
+         position: absolute;
+         top: 50%;
+         left: 1rem;
+         transform: translateY(-50%);
+         color: #8a8a8a;
+     }
+     && input {
+         width: 100%;
+         padding: 0.75rem 0.75rem 0.75rem 3rem;
+         border-radius: 0.75rem;
+         border: 1px solid #bdbdbd;
+         outline: 0;
+     }
+     && input:focus{
+         border: 1px solid #989898;
+     }
+}
+span.cap{
+    text-transform: uppercase;
+}
