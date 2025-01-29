@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.ann;
 
 import UserPackage.PoliticianModel;
@@ -34,7 +34,7 @@ public class GetListServlet extends HttpServlet {
         doGet(request,response);
     }
 }
-=======
+
 package com.ann;
 
 import UserPackage.PoliticianModel;
@@ -70,4 +70,4 @@ public class GetListServlet extends HttpServlet {
         doGet(request,response);
     }
 }
->>>>>>> master
+
