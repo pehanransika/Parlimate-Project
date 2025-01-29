@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 public class UserModel {
@@ -37,7 +37,7 @@ public class UserModel {
 
 
 
-=======
+
 package UserPackage;
 
 public class UserModel {
@@ -76,4 +76,4 @@ public class UserModel {
 
 
 
->>>>>>> master
+
