@@ -10,9 +10,9 @@ import java.util.List;
 public class PoliticianController {
 
     // Method to insert a new politician record without political party ID
-    public static boolean insertPolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
+    public static boolean insertPolitician(int userId, String name, String address, String phoneNumber, String NICfront, String NICBack) {
         // SQL query to insert politician record
-        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number, profile_img_url) VALUES (?, ?, ?, ?, ?);";
+        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number, nic_front,nic_back) VALUES (?, ?, ?, ?, ?,?);";
 
         // Try-with-resources to manage database connection and statement
         try (Connection conn = DBConnection.getConnection();
@@ -23,7 +23,10 @@ public class PoliticianController {
             insertPoliticianStmt.setString(2, name);          // Set the name
             insertPoliticianStmt.setString(3, address);       // Set the address
             insertPoliticianStmt.setString(4, phoneNumber);   // Set the phone number
-            insertPoliticianStmt.setString(5, profileImgUrl); // Set the profile image URL
+            insertPoliticianStmt.setString(5, NICfront); // Set the profile image URL
+            insertPoliticianStmt.setString(6, NICBack);
+
+
 
             // Execute the update and return true if the insertion was successful
             int rowsInserted = insertPoliticianStmt.executeUpdate();
@@ -111,4 +114,3 @@ public class PoliticianController {
     }
 
 }
-
