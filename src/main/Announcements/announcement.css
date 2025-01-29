@@ -1,0 +1,290 @@
+body.sidebar-deactive .sidebar {
+    transform: translateX(-100%);
+}
+.container .pageTitles{
+    align-self: start;
+    margin-bottom: 2rem;
+}
+html{
+    font-size: 13px;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    transition: margin-left 0.3s;
+    gap: 0;
+}
+.container > .row {
+    align-items: start;
+    gap: 2rem;
+    justify-content: space-between;
+}
+.announcements {
+    gap: 1.5rem;
+    width: 100%;
+}
+.announcement-card {
+    border-radius: 0.75rem;
+    border-left: 0.75rem solid rgba(185, 185, 185, 0.548);
+    padding: 1.5rem 2rem ;
+    width: 100%;
+    transition: outline 0.3s ease, border-left 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+.announcement-card:hover {
+    outline: 1px solid rgb(185, 185, 185);
+    border-left: 0.75rem solid #5490FF;
+}
+.post-details {
+    gap: 1rem;
+}
+.post-details .img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+.post-details .name {
+    font-weight: 500;
+    font-size: 1rem;
+}
+.announcements .posted-date {
+    font-size: 0.7rem;
+    color: #777;
+    font-weight: 500;
+    gap: 0.75rem;
+}
+.announcement-card .content{
+    gap: 0.25rem;
+}
+.content .post-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0.5rem;
+}
+.content p {
+    font-size: 0.9rem;
+    color: #727272;
+}
+.location {
+    margin-top: 0.75rem;
+    font-size: 0.8em;
+    color: #888;
+    text-align: end;
+}
+/* Politician Card */
+.politician-container{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.politician-card {
+    min-width: 15rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Image Styling */
+.politician-card img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: #ddd; /* Fallback for no image */
+}
+
+/* Politician Details */
+.politician-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.politician-details h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.politician-details p {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.add-announcement{
+    cursor: pointer !important;
+    width: 16rem;
+    min-height: 10rem;
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid #b9d1ff;
+    background: #5490FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.add-announcement i {
+    font-size: 3rem;
+}
+
+/* change this later */
+.popup {
+    margin-top: 2rem;
+    margin-inline: auto;
+    cursor: auto;
+    padding: 1.25rem 2rem 2.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--grey-1);
+    background: var(--main-color);
+    width: fit-content;
+    transition: top 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.popup .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.popup .breakLine {
+    height: 1px;
+    background: var(--grey-3);
+}
+.popup div:has( .breakLine){
+    position: relative;
+}
+.breakLine{
+    position: absolute;
+    left: -2rem;
+    right: -2rem;
+    bottom: -1rem;
+}
+#popup-close-btn{
+    padding: 0.25rem 0.5rem;
+}
+.popup .content {
+    margin-top: 4.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.popup .content > div:not(.popbtns) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border: 1px solid var(--grey-4);
+    border-radius: 0.5rem;
+}
+.popup .content .popbtns {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--grey-3);
+    margin-top: 2rem;
+}
+.popup .content .popbtns div{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--grey-3);
+    cursor: pointer;
+    transition: scale 0.25s ease, color 0.25s ease, background 0.25s ease, border 0.25s ease;
+    user-select: none;
+}
+
+.popup .content .popbtns div:active{
+    scale: 0.9;
+}
+.popup .content .popbtns div:hover{
+    color: var(--black-1);
+    background: var(--grey-1);
+}
+.popup .content .popbtns .post-btn {
+    color: var(--main-color);
+    background: #5490FF;
+    border: 1px solid #5490FF;
+}
+.popup .content .popbtns .post-btn:hover{
+    background: #5490FF;
+    color: var(--main-color);
+    border: 1px solid #5490FF;
+}
+.popup .content > .row{
+    align-items: center;
+    flex-direction: row;
+    gap: 8rem;
+}
+.popup .content > .col{
+    flex-direction: column;
+    gap: 1rem;
+}
+.popup .content .user-profile{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+}
+.popup .content .user-profile .prof-img {
+    background: var(--grey-3);
+    width: 40px;
+    height: 40px;
+}
+.switch-btn a{
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    transition: color 0.25s ease, background 0.25s ease;
+}
+.switch-btn a:hover{
+    color: var(--main-color);
+    background: var(--black-2);
+}
+.content .content-pd{
+    padding: 1rem 1rem 1.5rem !important;
+}
+.popup input[type="text"],
+.popup textarea{
+    flex-wrap: wrap;
+    width: 100%;
+    border: 1px solid var(--grey-4);
+    background: var(--grey-1);
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.75rem;
+}
+.popup input[type="text"]:focus{
+    border: 1px solid var(--black-1);
+    outline: 0;
+}
+.error {
+    outline: 1px solid #ff3333;
+}
+textarea{
+    height: 8rem !important;
+    resize: none !important;
+}
