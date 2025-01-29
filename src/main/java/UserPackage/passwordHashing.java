@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import java.security.MessageDigest;
@@ -38,7 +38,7 @@ public class passwordHashing {
     }
 }
 
-=======
+
 package UserPackage;
 
 import java.security.MessageDigest;
@@ -78,4 +78,3 @@ public class passwordHashing {
     }
 }
 
->>>>>>> master
