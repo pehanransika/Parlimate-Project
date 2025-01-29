@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package post;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,7 +59,7 @@ public class DeletePostServlet extends HttpServlet {
     }
 }
 
-=======
+
 package post;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -120,4 +120,4 @@ public class DeletePostServlet extends HttpServlet {
     }
 }
 
->>>>>>> master
+
