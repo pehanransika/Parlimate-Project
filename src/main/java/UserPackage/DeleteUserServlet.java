@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -70,7 +70,7 @@ public class  DeleteUserServlet extends HttpServlet {
         }
     }
 }
-=======
+
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -142,4 +142,4 @@ public class  DeleteUserServlet extends HttpServlet {
         }
     }
 }
->>>>>>> master
+
