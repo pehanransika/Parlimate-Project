@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Chat</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <!-- Updated HTML Button for 'Start Chat' -->
+
+
+  <!-- Chat container in the middle of the page -->
+  <div class="chat-container">
+    <div class="prompt-message">
+      <p>💬 <strong>Need help? Let's Chat!</strong></p>
+      <p>Our support team is ready to assist you.</p>
+      <button class="chat-start-btn" onclick="openChatPopup()">Start Chat</button>
+    </div>
+  </div>
+
+  <!-- Chat Popup -->
+  <div id="chatPopup" class="chat-popup">
+    <div class="chat-popup-header">
+      <span>Support Chat</span>
+      <button class="close-btn" onclick="closeChatPopup()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <form id="chatForm" onsubmit="sendMessage(event)">
+      <input type="text" id="chatInput" placeholder="Type your message..." required>
+      <button type="submit" class="send-btn">Send</button>
+    </form>
+  </div>
+
+  <script src="chat.js"></script>
+</body>
+</html>
