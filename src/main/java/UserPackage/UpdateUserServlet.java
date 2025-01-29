@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -94,7 +94,7 @@ public class UpdateUserServlet extends HttpServlet {
         resp.sendRedirect("updateprofile.jsp");
     }
 }
-=======
+
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -190,4 +190,4 @@ public class UpdateUserServlet extends HttpServlet {
         resp.sendRedirect("updateprofile.jsp");
     }
 }
->>>>>>> master
+
