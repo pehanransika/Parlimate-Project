@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -53,7 +53,7 @@ public class profileServlet extends HttpServlet {
           }
     }
 }
-=======
+
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -108,4 +108,4 @@ public class profileServlet extends HttpServlet {
           }
     }
 }
->>>>>>> master
+
