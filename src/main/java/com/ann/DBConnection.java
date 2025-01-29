@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 package com.ann;
 
@@ -45,7 +45,6 @@ public class DBConnection {
 
 
 }
-=======
 
 package com.ann;
 
@@ -92,4 +91,4 @@ public class DBConnection {
 
 
 }
->>>>>>> master
+
