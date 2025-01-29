@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import java.sql.Connection;
@@ -110,7 +110,7 @@ public class CitizenController {
     }
 
 
-=======
+
 package UserPackage;
 
 import java.sql.Connection;
@@ -222,5 +222,5 @@ public class CitizenController {
     }
 
 
->>>>>>> master
+
 }
