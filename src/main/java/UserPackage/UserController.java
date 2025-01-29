@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import java.sql.*;
@@ -198,7 +198,7 @@ public class UserController {
 
 }
 
-=======
+
 package UserPackage;
 
 import java.sql.*;
@@ -398,4 +398,4 @@ public class UserController {
 
 }
 
->>>>>>> master
+
