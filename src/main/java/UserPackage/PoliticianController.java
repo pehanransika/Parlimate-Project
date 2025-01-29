@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package UserPackage;
 
 import java.sql.Connection;
@@ -115,7 +115,7 @@ public class PoliticianController {
     }
 
 }
-=======
+
 package UserPackage;
 
 import java.sql.Connection;
