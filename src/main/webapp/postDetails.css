@@ -1,0 +1,97 @@
+.search{
+    width: 25rem;
+    position: relative;
+
+    && .icon {
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+        transform: translateY(-50%);
+        color: #8a8a8a;
+    }
+    && input {
+        width: 100%;
+        padding: 0.75rem 0.75rem 0.75rem 3rem;
+        border-radius: 0.75rem;
+        border: 1px solid #bdbdbd;
+        outline: 0;
+    }
+    && input:focus{
+        border: 1px solid #989898;
+    }
+}
+.post-item{
+    list-style: none;
+    background: #FFFFFF;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e3e3e3;
+    position: relative;
+}
+.post-header{
+    gap: 1rem;
+
+    && .pro-img{
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: #DDDDDD;
+    }
+    && .posted-by{
+        && .pName{
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        && .pDate{
+            color: #5a5a5a;
+        }
+    }
+
+}
+.post-content{
+    padding-block: 2rem;
+    position: relative;
+
+    && .seperator{
+        position: absolute;
+        left: -1rem;
+        right: -1rem;
+        height: 1px;
+        background: #d1d1d1;
+    }
+    && .sepT{
+        top: 1rem;
+    }
+}
+.post-actions{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    && button {
+        background: transparent;
+        border: 1px solid #DDDDDD;
+        font-size: 0.9rem;
+        padding: 0.25rem 0.4rem;
+        border-radius: 0.75rem;
+        outline: none;
+        font-weight: 500;
+    }
+    && .button-delete {
+        background: #ffcece;
+        color: #750a0a;
+    }
+    && .button-update{
+        background: #efefef;
+    }
+    && .button-update:hover{
+        border: 1px solid #d6d6d6;
+    }
+    && .button-delete:hover{
+        border: 1px solid #dd9696;
+    }
+}
+.reactions{
+    margin-top: 2rem;
+    border-top: 1px solid #DDDDDD;
+}

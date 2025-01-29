@@ -1,0 +1,343 @@
+
+.weeklySurvey {
+    background: var(--main-color);
+    flex: 2;
+
+}
+.post-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.post-title {
+    color: var(--black-3);
+}
+.topContent {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+.topContent > div {
+    background: var(--main-color);
+    border-radius: 1.15rem;
+}
+.survTime {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.survTime span {
+    color: var(--grey-3);
+}
+.survey-title {
+    font-weight: 600;
+}
+.surveyContent {
+    padding: 0.75rem 0.25rem;
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.surveyContent span {
+    display: flex;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    font-weight: 400;
+}
+.surveyContent span:hover {
+    background: var(--grey-1);
+    transition: color 0.2s ease;
+}
+.surveyContent span:has(input:checked) {
+    background: #ecf2ff;
+    color: #3c6ac0;
+    font-weight: 500;
+}
+.surveyContent span label {
+    flex: 1;
+}
+.btns,
+.last-surveys {
+    flex: 1;
+    padding: 1.5rem 2rem 4rem 2rem;
+    min-width: 20rem;
+    position: relative;
+}
+.past-surv-link {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--link-color-text);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.75rem;
+    background: var(--link-color-bg);
+    transition: background 0.25s ease-in;
+    position: absolute;
+    left: 50%;
+    bottom: 0.5rem;
+    transform: translate(-50%, -50%);
+}
+.past-surv-link:hover {
+    background: var(--link-color-bg-dark);
+}
+.content {
+    height: 100%;
+}
+.post {
+    background: var(--main-color);
+    gap: 1rem;
+    padding-bottom: 4rem;
+    outline: 0px solid var(--grey-5);
+    overflow: hidden;
+    transition: filter 0.5s ease, outline 0.25s ease;
+}
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#postMenu:checked ~ .btn-2 {
+    background: var(--grey-5);
+}
+#postMenu {
+    display: none;
+}
+#postMenu:checked ~ .btn-2 {
+    background: var(--grey-5);
+}
+.post-details {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.post-details .img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: grey;
+}
+.post-details .name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.posted-date {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--grey-3);
+    gap: 0.45rem;
+}
+.post .content {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.hashtags {
+    color: var(--primary-color);
+}
+button .count {
+    margin-right: -0.75rem;
+    color: var(--grey-3);
+}
+.post:has(#postMenu:checked) {
+    outline: 1px solid var(--grey-5);
+    filter: contrast(0.96);
+}
+div:has(.post-dropDownMenu) {
+    position: relative;
+}
+.post-dropDownMenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0rem;
+    transform: translateX(-50%);
+    background: var(--main-color);
+    outline: 1px solid var(--grey-5);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    width: max-content;
+}
+.post-dropDownMenu ul {
+    position: relative;
+    z-index: 1;
+}
+.post-dropDownMenu li {
+    list-style: none;
+    text-transform: capitalize;
+    font-size: 0.85rem;
+}
+.post-dropDownMenu li a {
+    display: block;
+    border-bottom: 1px solid var(--grey-1);
+    padding: 0.5rem 1rem;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+}
+.post-dropDownMenu li a:hover {
+    background: var(--grey-5);
+}
+#postMenu:checked ~ .post-dropDownMenu {
+    display: block;
+}
+.topContent .addPost-btn {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+    background: #5490ff;
+    height: fit-content;
+    color: var(--main-color);
+    outline: 0px solid var(--border-color);
+}
+.greeting {
+    font-size: 1.25rem;
+}
+.content div:not(.greeting) {
+    font-size: 0.875rem;
+}
+.reactions {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    left: 0;
+    bottom: 0;
+}
+.reactions > button {
+    color: rgb(83, 83, 83);
+    border-radius: 0;
+    border: 0px;
+    padding: 0.45rem;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    font-weight: 600;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.post {
+    border-radius: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.post.reactable {
+    padding-bottom: 3rem !important;
+}
+.post.reacted .like,
+.post.reacted .like .count {
+    color: var(--primary-color);
+}
+#vote-btn {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+}
+.social-btns {
+    background: transparent !important;
+    gap: 1rem;
+}
+.social-btns > div {
+    cursor: pointer;
+    padding: 1.5rem 2rem;
+    user-select: none;
+    font-weight: 500;
+    transition: scale 0.25s ease;
+    border-radius: 1.15rem;
+}
+.social-btns > div:hover {
+    scale: 0.98;
+}
+.social-btns > div:hover {
+    scale: 0.96;
+}
+.req-fundraising {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(180deg, #5490FF 50%, #61a5ff 100%);
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-color);
+}
+.req-fundraising .title {
+    font-weight: 600;
+    font-size: 1.45rem;
+}
+#vote-btn.submitted {
+    background: #5490FF;
+}
+@media screen and (max-width: 1349px) {
+    .social-btns{
+        width: 100%;
+    }
+    .addPost-btn{
+        width: 100%;
+        flex: 1;
+    }
+    .req-fundraising{
+        width: 50%;
+        flex: 1;
+    }
+    .weeklySurvey{
+        flex: 1;
+    }
+    .weeklySurvey{
+        flex: 1;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .weeklySurvey{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1040px){
+    .weeklySurvey{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 960px){
+    html{
+        font-size: 1.25rem;
+    }
+    .topContent{
+        flex-direction: column;
+    }
+    .addPost-btn{
+        width: 100%;
+    }
+}
+.addPost-btn .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+form{
+    width: 100%;
+}
+.caption-box{
+    width: 100%;
+    padding-inline: 0 !important;
+}
+#post-desc{
+    width: 100% !important;
+    resize: none;
+    height: 10rem;
+    margin-top: 0.25rem;
+}
