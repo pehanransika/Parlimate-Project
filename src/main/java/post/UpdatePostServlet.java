@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -55,7 +55,7 @@ public class UpdatePostServlet extends HttpServlet {
         }
     }
 }
-=======
+
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -112,4 +112,4 @@ public class UpdatePostServlet extends HttpServlet {
         }
     }
 }
->>>>>>> master
+
