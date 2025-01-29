@@ -5,7 +5,10 @@
 
 <html>
 <head>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -58,6 +61,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
     <style>
+<<<<<<< HEAD
+=======
 
     <title>Announcements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -211,6 +216,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         }
 
 
+>>>>>>> master
         /* Popup Modal Styles */
         .popup-modal {
             display: none;
@@ -273,6 +279,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             background-color: #5b4ab5;
         }
     </style>
+<<<<<<< HEAD
+=======
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -325,12 +333,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
 
+>>>>>>> master
 </head>
 
 <body class="">
 
 <%@ include file="index/sidebar.jsp" %>
-<<<<<<< HEAD
 <%@ include file="./index/header/header.jsp" %>
 <div class="container">
     <div class="pageTitles">
@@ -402,6 +410,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </ul>
 </div>
 
+<<<<<<< HEAD
+=======
 
 <div class="header pd-2">
     <div class="start row">
@@ -584,6 +594,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 </ul>
 
 
+>>>>>>> master
 <!-- Update Announcement Popup Modal -->
 <div class="popup-modal" id="editPopup">
     <div class="popup">
@@ -596,6 +607,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         <form action="UpdatePostServlet" method="post">
             <!-- Hidden fields for post ID and user ID -->
+<<<<<<< HEAD
+            <input type="hidden" name="postid" id="postid" value="${postid}"/>
+            <input type="hidden" name="userid" id="userid" value="${userid}"/>
+=======
 
             <input type="hidden" name="postid" id="postid" value="${postid}"/>
             <input type="hidden" name="userid" id="userid" value="${userid}"/>
@@ -603,6 +618,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             <input type="hidden" name="postid" id="postid" value="${postid}" />
             <input type="hidden" name="userid" id="userid" value="${userid}" />
 
+>>>>>>> master
 
             <!-- Content Section -->
             <div class="formSection">

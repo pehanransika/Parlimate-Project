@@ -2,14 +2,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
     }%>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 
 <html>
 <head>
@@ -77,6 +83,9 @@
         .announcement-list {
             list-style-type: none;
             padding: 0;
+<<<<<<< HEAD
+            gap: 1.5rem;
+=======
 
             gap: 1.5rem;
 
@@ -85,11 +94,16 @@
             gap: 1.5rem;
             margin-top: 150px;
 
+>>>>>>> master
         }
 
 
         .announcement-item {
             background-color: #ffffff;
+<<<<<<< HEAD
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+=======
 
             margin-bottom: 1rem;
             border-radius: 0.75rem;
@@ -97,19 +111,26 @@
             margin-bottom: 20px;
             border-radius: 10px;
 
+>>>>>>> master
             padding: 20px;
             position: relative;
             display: flex;
             cursor: pointer;
             flex-direction: column;
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
             transition: 0.25s ease;
             border-left: 0.75rem solid #e0e0e0;
         }
 
+<<<<<<< HEAD
+=======
             gap: 15px;
         }
 
+>>>>>>> master
         .announcement-item:hover {
             outline: 1px solid rgb(185, 185, 185);
             border-left: 0.75rem solid #5490FF;
@@ -135,6 +156,11 @@
         }
 
         .announcement-content {
+<<<<<<< HEAD
+            font-size: 0.98rem;
+            color: #555;
+            margin-left: 3.5rem;
+=======
 
             font-size: 0.98rem;
             color: #555;
@@ -144,6 +170,7 @@
             font-size: 16px;
             color: #555;
 
+>>>>>>> master
         }
 
         /* Button Styles */
@@ -236,9 +263,12 @@
         }
 
         .post-btn {
+<<<<<<< HEAD
+=======
 
             padding: 10px 20px;
 
+>>>>>>> master
             background-color: #6a5acd;
             color: white;
             border: none;
@@ -249,7 +279,10 @@
         .post-btn:hover {
             background-color: #5b4ab5;
         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 
         .back-button {
             position: fixed; /* Fix the button in place */
@@ -260,6 +293,8 @@
             color: white; /* Text color */
             font-size: 1rem; /* Font size */
             border: none; /* Remove default button border */
+<<<<<<< HEAD
+=======
 
         .back-button {
             position: fixed; /* Fix the button in place */
@@ -271,6 +306,7 @@
             font-size: 1rem; /* Font size */
             border: none;    /* Remove default button border */
 
+>>>>>>> master
             border-radius: 1rem; /* Rounded corners */
             cursor: pointer; /* Pointer cursor on hover */
             font-weight: bold; /* Make text bold */
@@ -288,7 +324,10 @@
         .back-button:focus {
             outline: none; /* Remove focus outline */
         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 
         .ann-btns-2 {
             display: flex;
@@ -359,6 +398,8 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
+<<<<<<< HEAD
+=======
 
     </style>
     <meta charset="UTF-8" />
@@ -369,6 +410,7 @@
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
 
+>>>>>>> master
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -418,7 +460,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <%@ include file="../index/sidebar.jsp" %>
 
-<<<<<<< HEAD
 <%@ include file="../index/header/header.jsp" %>
 <%--<a href="announcements.jsp">--%>
 <%--    <button class="back-button">--%>
@@ -533,6 +574,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </div>
 
+<<<<<<< HEAD
+=======
 
 <div class="header pd-2">
     <div class="start row">
@@ -700,14 +743,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 </ul>
 
 
+>>>>>>> master
 <!-- Update Announcement Popup Modal -->
 
 
 <script>
+<<<<<<< HEAD
+    console.log(document.getElementById("politicianid").value, typeof(document.getElementById("politicianid").value))
+
+=======
 
     console.log(document.getElementById("politicianid").value, typeof(document.getElementById("politicianid").value))
 
 
+>>>>>>> master
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
@@ -722,7 +771,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     });
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
     const addAnnBtn = document.getElementById("add-announcement");
     const popCloseBtn = document.querySelector("#popup-close-btn");
 
@@ -737,7 +789,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             body.classList.remove("popup-active");
         }
     });
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 
 </script>
 <script src="../script.js"></script>

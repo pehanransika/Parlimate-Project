@@ -254,9 +254,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         </div>
     </div>
 
+<<<<<<< HEAD
+<%--    edit popup--%>
+=======
 
 <%--    edit popup--%>
 
+>>>>>>> master
     <div class="popup-modal" id="editPopup">
         <div class="popup">
             <div class="title">
@@ -290,9 +294,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+<%--delete popup--%>
+=======
 
 <%--delete popup--%>
 
+>>>>>>> master
     <div class="popup-modal" id="deletePopup">
         <div class="popup">
             <div class="title">
@@ -369,6 +377,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <button class="delete-btn" onclick="openDeletePopup(this)">
                             Delete
                         </button>
+<<<<<<< HEAD
+=======
 
                     </div>
                 </div>
@@ -411,11 +421,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         </button>
                         <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
 
+>>>>>>> master
                     </div>
                 </div>
             </div>
 
 
+<<<<<<< HEAD
+=======
 
 
             <!-- Add more cards as needed -->
@@ -469,6 +482,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 </div>
             </div>
 
+>>>>>>> master
         </div>
 
         </div>

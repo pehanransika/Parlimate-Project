@@ -1,12 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
         response.sendRedirect("index.jsp");
         return;
     }%>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,17 +1,23 @@
 package fundreq;
 
+<<<<<<< HEAD
+=======
 
 import javax.servlet.RequestDispatcher;
 
+>>>>>>> master
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+<<<<<<< HEAD
+=======
 
 import java.util.List;
 
+>>>>>>> master
 
 @WebServlet("/DeleteNewRequestServlet")
 public class DeleteRequestServlet extends HttpServlet {
@@ -39,12 +45,17 @@ public class DeleteRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
                 response.getWriter().println("<script>alert('Request Deleted Successfully'); window.history.back();</script>");
             } else {
                 // If the request is not found
                 response.setContentType("text/html");
                 response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='error.jsp';</script>");
+<<<<<<< HEAD
+=======
 
                 response.getWriter().println("<script>alert('Request Deleted Successfully'); window.location.href='GetAllRequestsServlet';</script>");
             } else {
@@ -52,24 +63,33 @@ public class DeleteRequestServlet extends HttpServlet {
                 response.setContentType("text/html");
                 response.getWriter().println("<script>alert('Request not found or already deleted.'); window.location.href='GetAllRequestsServlet';</script>");
 
+>>>>>>> master
             }
         } catch (NumberFormatException e) {
             System.err.println("Invalid Request ID: " + e.getMessage());
             response.setContentType("text/html");
+<<<<<<< HEAD
+            response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='error.jsp';</script>");
+=======
 
             response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='error.jsp';</script>");
 
             response.getWriter().println("<script>alert('Invalid request ID format.'); window.location.href='GetAllRequestsServlet';</script>");
 
+>>>>>>> master
         } catch (Exception e) {
             System.err.println("Error during request deletion: " + e.getMessage());
             e.printStackTrace();
             response.setContentType("text/html");
+<<<<<<< HEAD
+            response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='error.jsp';</script>");
+=======
 
             response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='error.jsp';</script>");
 
             response.getWriter().println("<script>alert('An error occurred. Please try again later.'); window.location.href='GetAllRequestsServlet';</script>");
 
+>>>>>>> master
         }
     }
 }
