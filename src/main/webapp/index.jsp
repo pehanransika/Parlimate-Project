@@ -203,9 +203,9 @@
                                 <input type="tel" class="general-user inp-field" placeholder="Contact number" name="phoneNumber" id="telNumber-signup" minlength="10" maxlength="10" required pattern="^0\d*$" />
                             </div>
                         </div>
-                        <input type="text" name="address" id="singup-address" class="inp-field general-user" placeholder="Address" required />
+                      
                         <select name="district" class="general-user" id="district" required>
-                            <option value="invalid" disabled="disabled" selected>District</option>
+                            <option value="invalid" disabled="disabled" selected>Electrant division</option>
                             <option value="colombo">Colombo</option>
                             <option value="gampaha">Gampaha</option>
                             <option value="kalutara">Kalutara</option>

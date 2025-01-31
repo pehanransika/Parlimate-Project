@@ -53,12 +53,12 @@ public class UserInsertServlet extends HttpServlet {
         if (userId > 0) {
             if ("Citizen".equals(userType)) {
                 String name = req.getParameter("name");
-                String address = req.getParameter("address");
+
                 String phoneNumber = req.getParameter("phoneNumber");
                 String profile = req.getParameter("district");
-                String imgUrl = req.getParameter("img_url");
 
-                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber, profile, imgUrl);
+
+                isType = CitizenController.insertCitizen(userId, name,  phoneNumber, profile);
             } else if ("Politician".equals(userType)) {
                 String name = req.getParameter("name");
                 String address = req.getParameter("address");

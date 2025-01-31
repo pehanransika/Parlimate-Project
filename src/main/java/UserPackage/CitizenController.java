@@ -10,17 +10,17 @@ import java.util.List;
 
 
 public class CitizenController {
-    public static boolean insertCitizen(int userId, String name, String address, String phoneNumber, String district, String imageUrl) {
-        String insertQuery = "INSERT INTO citizen (user_id, name, address, phone_number, district, image_url) VALUES (?, ?, ?, ?, ?, ?)";
+    public static boolean insertCitizen(int userId, String name, String phoneNumber, String district) {
+        String insertQuery = "INSERT INTO citizen (user_id, name, phone_number, district) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(insertQuery)) {
 
             statement.setInt(1, userId);
             statement.setString(2, name);
-            statement.setString(3, address);
-            statement.setString(4, phoneNumber);
-            statement.setString(5, district);
-            statement.setString(6, imageUrl);  // Use image_url here
+
+            statement.setString(3, phoneNumber);
+            statement.setString(4, district);
+
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;  // Returns true if insertion is successful
@@ -42,13 +42,13 @@ public class CitizenController {
                 while (rs.next()) {
                     int citizenid = rs.getInt("citizen_id");
                     int userid = rs.getInt("user_id");
-                    String address = rs.getString("address");
+
                     String phoneNumber = rs.getString("phone_number");
                     String name = rs.getString("name");
                     String district = rs.getString("district");
-                    String imageUrl = rs.getString("image_url");
 
-                    CitizenModel citizen = new CitizenModel(citizenid, userid, address, phoneNumber, name, district, imageUrl);
+
+                    CitizenModel citizen = new CitizenModel(citizenid, userid, phoneNumber, name, district);
                     citizens.add(citizen);
                 }
             }
@@ -60,17 +60,17 @@ public class CitizenController {
         return citizens;
     }
 
-    public static boolean updateCitizen(int userId, String name, String address, String phoneNumber, String district, String imageUrl) {
-        String updateQuery = "UPDATE citizen SET name = ?, address = ?, phone_number = ?, district = ?, image_url = ? WHERE user_id = ?";
+    public static boolean updateCitizen(int userId, String name,  String phoneNumber, String district) {
+        String updateQuery = "UPDATE citizen SET name = ?, phone_number = ?, district = ? WHERE user_id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateQuery)) {
 
             statement.setString(1, name);
-            statement.setString(2, address);
-            statement.setString(3, phoneNumber);
-            statement.setString(4, district);
-            statement.setString(5, imageUrl);
-            statement.setInt(6, userId);  // Set the user_id for WHERE clause
+
+            statement.setString(2, phoneNumber);
+            statement.setString(3, district);
+
+            statement.setInt(5, userId);  // Set the user_id for WHERE clause
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;  // Returns true if the update is successful
