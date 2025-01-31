@@ -1,0 +1,209 @@
+
+body.overlay-active {
+    overflow-y: hidden;
+    transition-delay: 1s;
+}
+body.overlay-active > *:not(.popup-modal, .notification-msg) {
+    filter: blur(0.08rem);
+    transition: filter 0.35s ease;
+}
+body.overlay-active > .popup-modal {
+    pointer-events: auto;
+    z-index: 1001;
+    opacity: 1;
+}
+body.overlay-active > .popup-modal .popup {
+    top: 50%;
+}
+body.overlay-active .popup-modal{
+    cursor: pointer;
+}
+.popup-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.205);
+    transition: background 0.35s ease;
+}
+.popup {
+    cursor: auto;
+    position: fixed;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%) ;
+    padding: 1.25rem 2rem 2.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--grey-1);
+    background: var(--main-color);
+    min-width: 40rem;
+    transition: top 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.popup .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.popup .breakLine {
+    height: 1px;
+    background: var(--grey-3);
+}
+.popup div:has( .breakLine){
+    position: relative;
+}
+.breakLine{
+    position: absolute;
+    left: -2rem;
+    right: -2rem;
+    bottom: -1rem;
+}
+#popup-close-btn{
+    padding: 0.25rem 0.5rem;
+}
+.popup .content {
+    margin-top: 4.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.popup .content > div:not(.popbtns) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border: 1px solid var(--grey-4);
+    border-radius: 0.5rem;
+}
+.popup .content .popbtns {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--grey-3);
+    margin-top: 2rem;
+}
+.popup .content .popbtns div{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--grey-3);
+    cursor: pointer;
+    transition: scale 0.25s ease, color 0.25s ease, background 0.25s ease, border 0.25s ease;
+    user-select: none;
+}
+
+.popup .content .popbtns div:active{
+    scale: 0.9;
+}
+.popup .content .popbtns div:hover{
+    color: var(--black-1);
+    background: var(--grey-1);
+}
+.popup .content .popbtns .post-btn {
+    color: var(--main-color);
+    background: #5490FF;
+    border: 1px solid #5490FF;
+}
+.popup .content .popbtns .post-btn:hover{
+    background: #5490FF;
+    color: var(--main-color);
+    border: 1px solid #5490FF;
+}
+.popup .content > .row{
+    align-items: center;
+    flex-direction: row;
+    gap: 8rem;
+}
+.popup .content > .col{
+    flex-direction: column;
+    gap: 1rem;
+}
+.popup .content .user-profile{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+}
+.popup .content .user-profile .prof-img {
+    background: var(--grey-3);
+    width: 40px;
+    height: 40px;
+}
+.switch-btn a{
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    transition: color 0.25s ease, background 0.25s ease;
+}
+.switch-btn a:hover{
+    color: var(--main-color);
+    background: var(--black-2);
+}
+#add-post-caption{
+    font-family: inherit;
+    resize: none;
+    border-radius: 0.75rem;
+    height: 7rem;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid var(--grey-4);
+    background: var(--grey-1);
+}
+#add-post-caption:focus {
+    border: 1px solid var(--black-1);
+}
+.content .content-pd{
+    padding: 1rem 1rem 1.5rem !important;
+}
+.popup input[type="text"],
+.popup textarea{
+    flex-wrap: wrap;
+    width: 100%;
+    border: 1px solid var(--grey-4);
+    background: var(--grey-1);
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.75rem;
+}
+.popup input[type="text"]:focus{
+    border: 1px solid var(--black-1);
+    outline: 0;
+}
+.recomended-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+}
+.recomended-tags span {
+    --btn-bg: rgb(231, 233, 255);
+    --btn-color: rgb(85, 93, 182);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    background: var(--btn-bg);
+    color: var(--btn-color);
+    transition: color 0.25s ease, background 0.25s ease;
+    user-select: none;
+}
+.recomended-tags span label:before{
+    content: "#";
+}
+.recomended-tags span input[type="checkbox"]{
+    display: none;
+}
+.recomended-tags span:has( input[type="checkbox"]:checked){
+    background: var(--btn-color);
+    color: white;
+}
+.error {
+    outline: 1px solid #ff3333;
+}
+

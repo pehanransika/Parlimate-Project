@@ -1,0 +1,156 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f8f9fc;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 2000px;
+    padding: 20px;
+    height: 85vh; /* Set to full viewport height */
+    background-color: #ffffff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+/* Header */
+header h1 {
+    font-size: 2em;
+    color: black;
+}
+
+header p {
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Search Section */
+.search-section {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-section input {
+    width: 80%;
+    padding: 12px;
+    border: 2px solid purple;
+    border-radius: 6px;
+    outline: none;
+}
+
+.search-section button {
+    padding: 12px 20px;
+    background-color:  rgba(106, 57, 185, 0.897);;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-section button:hover {
+    background-color: purple;
+}
+
+/* FAQ Section */
+.faq-section {
+    margin-top: 30px;
+}
+
+.faq-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.faq-card {
+    background-color: #f1f4fa;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-card h3 {
+    color:  rgba(106, 57, 185, 0.897);;
+    font-size: 1.2em;
+}
+
+.faq-card:hover {
+    background-color: #e0e7ff;
+}
+
+.faq-answer {
+    display: none;
+    margin-top: 10px;
+    color: #555;
+}
+
+/* Contact Section */
+.contact-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.contact-section button {
+    padding: 12px 25px;
+    background-color: rgba(106, 57, 185, 0.897);;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.contact-section button:hover {
+    background-color:purple;
+}
+
+/* Chatbot Popup */
+.chatbot-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    padding: 15px;
+    background-color:  rgba(106, 57, 185, 0.897);;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-popup h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.chatbot-popup button {
+    padding: 8px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    color:  rgba(106, 57, 185, 0.897);;
+    background-color: white;
+    cursor: pointer;
+}
+
+.chatbot-popup button:hover {
+    background-color: #f0f0f0;
+}

@@ -1,6 +1,5 @@
 package fundreq;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,23 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import fundreq.RequestController;
-
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Part;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import javax.servlet.RequestDispatcher;
-import java.io.File;
-
-
 
 @WebServlet("/CreateNewRequestServlet")
 @MultipartConfig
@@ -46,15 +28,11 @@ public class CreateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountStr = request.getParameter("targetamount");
             String currency = request.getParameter("currency");
-
             String userIdStr = request.getParameter("userid");
             String username = request.getParameter("username");
             int userId = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
-
-
-            String datetimeStr = request.getParameter("datetime");
 
 
 
@@ -85,16 +63,7 @@ public class CreateRequestServlet extends HttpServlet {
                     description == null || description.trim().isEmpty() ||
                     category == null || category.trim().isEmpty() ||
                     targetAmountStr == null || targetAmountStr.trim().isEmpty() ||
-
                     currency == null || currency.trim().isEmpty() ) {
-
-
-                    currency == null || currency.trim().isEmpty() ) {
-
-                    currency == null || currency.trim().isEmpty() ||
-                    datetimeStr == null || datetimeStr.trim().isEmpty()) {
-
-
                 throw new IllegalArgumentException("All fields are required except Attachment URL.");
             }
 
@@ -107,19 +76,9 @@ public class CreateRequestServlet extends HttpServlet {
             // Parse datetime
 
 
-
             // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
                     userId, title, description, category, targetAmount, currency, attachmentUrl, username);
-
-
-            Timestamp datetime = Timestamp.valueOf(datetimeStr.replace("T", " ") + ":00");
-
-            // Call the RequestController
-            boolean isCreated = RequestController.createFundraisingRequest(
-                    defaultUserId, title, description, category, targetAmount, currency, attachmentUrl);
-
-
 
             // Response
             if (isCreated) {

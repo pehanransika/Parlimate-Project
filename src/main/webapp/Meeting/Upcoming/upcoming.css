@@ -1,0 +1,166 @@
+.modal {
+    width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    align-items: center;
+}
+
+.meeting-title {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+
+.caption {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.caption p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: black;
+}
+
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.detail-item input,
+.slot-btn {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+
+
+.name {
+    margin-bottom: 20px;
+}
+
+.name input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: black;
+    background-color: #f5f5f5;
+}
+
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: black;
+}
+
+.detail-item input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+}
+.password {
+    margin-bottom: 20px;
+}
+
+.password input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Button Styling */
+.notify-btn,
+.register-btn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #9d4edd;
+    color: white;
+}
+
+.notify-btn {
+    background-color: #cccccc;
+    color: #333;
+}
+
+.register-btn {
+    background-color: #9d4edd;
+}
+
+.notify-btn:hover,
+.register-btn:hover {
+    opacity: 0.8;
+}

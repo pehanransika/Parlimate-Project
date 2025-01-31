@@ -1,0 +1,155 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Modal Container Styling */
+.modal {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Modal Header Styling */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Modal Body Styling */
+.modal-body {
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+}
+
+/* Meeting Title Styling */
+.meeting-title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+/* Name Input Field Styling */
+.name {
+    margin-bottom: 20px;
+}
+
+.name input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: black;
+    background-color: #f5f5f5;
+}
+
+/* Detail Grid Styling */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Detail Item Styling */
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: black;
+}
+
+.detail-item input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+}
+.password {
+    margin-bottom: 20px;
+}
+
+.password input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Button Styling */
+.clear-btn,
+.submit-btn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #9d4edd;
+    color: white;
+}
+
+.clear-btn {
+    background-color: #cccccc;
+    color: #333;
+}
+
+.submit-btn {
+    background-color: #9d4edd;
+}
+
+.clear-btn:hover,
+.submit-btn:hover {
+    opacity: 0.8;
+}

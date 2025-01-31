@@ -1,0 +1,143 @@
+.line{
+    width: 1rem;
+    background: var(--black-2);
+    height: 0.15rem;
+    border-radius: 1rem;
+}
+.sideMenuBtn{
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    align-self: flex-end;
+}
+.sidebar{
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 4.5rem;
+    bottom: 0;
+    width: 17.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--main-color);
+    gap: 1.5rem;
+    border-right: 1px solid var(--grey-4);
+    transition: left 0.35s ease 0.25s;
+}
+#sideBarSearch{
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem 0.875rem 3rem;
+    background: var(--grey-2);
+    border: 1px solid #eaeaea;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    width: 100%;
+}
+.searchBar{
+    position: relative;
+    font-size: 0.875rem;
+}
+.searchBar label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--disable-icon-color);
+}
+#sideBarSearch:focus ~ label{
+    color: var(--black-1);
+    transition: color 0.3s ease;
+}
+.navs{
+    margin-top: 1rem;
+    width: 100%;
+}
+.navs ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    gap: 1rem;
+}
+.navs li {
+    width: 100%;
+    display: flex;
+    height: max-content;
+}
+.navs li label {
+    padding: 0.5rem 1.5rem 0.5rem 3rem;
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+    border-radius: 0.5rem;
+    position: relative;
+    color: var(--grey-3);
+    transition: background 0.25s ease,
+    color 0.25s ease,
+    padding-left 0.25s ease;
+    user-select: none;
+}
+.navs li label i{
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    transition: left 0.25s ease;
+}
+.navs li label:hover {
+    background: var(--grey-2);
+    color: var(--black-1);
+    padding-left: 4rem;
+}
+.navs li label:hover i {
+    left: 2rem;
+}
+.navs li input{
+    display: none;
+}
+.navs li input:checked ~ label {
+    background: var(--grey-1);
+    color: var(--black-1);
+    font-weight: 600;
+}
+.logoutBtn{
+    margin-top: auto;
+    width: 100%;
+}
+.logoutBtn .cont{
+    font-size: 0.875rem;
+    width: 100%;
+}
+.logoutBtn .cont input {
+    display: none;
+}
+.logoutBtn .cont label {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    border-radius: 0.865rem;
+    background: var(--grey-1);
+    padding: 0.865rem 1.5rem;
+    font-weight: 600;
+    transition: background 0.25s ease;
+}
+.logoutBtn .cont label:hover {
+    background: var(--grey-4);
+}
+@media(max-width:400px){
+    .sidebar{
+        left: 0;
+        right: 0;
+        width: 100vw;
+    }
+    .container{
+        display: none ;
+    }
+    body:not(:has(.sidebar-deactive)) ~ .container{
+        display: flex !important;
+    }
+
+}
