@@ -61,7 +61,10 @@ public class UserInsertServlet extends HttpServlet {
                 isType = CitizenController.insertCitizen(userId, name,  phoneNumber, profile);
             } else if ("Politician".equals(userType)) {
                 String name = req.getParameter("name");
-                String address = req.getParameter("address");
+                String addressLine1 = req.getParameter("addressLine1");  // Address Line 1
+                String addressLine2 = req.getParameter("addressLine2");  // Address Line 2
+                String city = req.getParameter("city");                  // City
+                String zipCode = req.getParameter("zipCode");            // Zip code
                 String phoneNumber = req.getParameter("phoneNumber");
 
                 // Get the uploaded files (NIC front and back)
@@ -89,10 +92,12 @@ public class UserInsertServlet extends HttpServlet {
                 NICfrontPart.write(NICfrontPath);
                 NICbackPart.write(NICbackPath);
 
-                // Insert politician details into the database
-                isType = PoliticianController.insertPolitician(userId, name, address, phoneNumber, NICfrontFileName, NICbackFileName);
+                // Insert politician details into the database with the new address fields
+                isType = PoliticianController.insertPolitician(userId, name, addressLine1, addressLine2, city, zipCode, phoneNumber, NICfrontFileName, NICbackFileName);
 
-                // Handle the result (optional)
+
+
+            // Handle the result (optional)
                 if (isType) {
                     System.out.println("Politician details added successfully!");
                 } else {

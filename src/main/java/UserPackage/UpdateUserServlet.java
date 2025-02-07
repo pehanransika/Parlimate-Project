@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -45,17 +44,22 @@ public class UpdateUserServlet extends HttpServlet {
                     String phoneNumber = req.getParameter("phoneNumber");
                     String district = req.getParameter("district");
 
-
                     isTypeUpdated = CitizenController.updateCitizen(userId, name, phoneNumber, district);
                     break;
                 }
                 case "Politician": {
                     String name = req.getParameter("name");
-                    String address = req.getParameter("address");
+                    String addressLine1 = req.getParameter("addressLine1");  // Address line 1
+                    String addressLine2 = req.getParameter("addressLine2");  // Address line 2
+                    String city = req.getParameter("city");                  // City
+                    String zipCode = req.getParameter("zipCode");            // Zip code
                     String phoneNumber = req.getParameter("phoneNumber");
                     String profileImgUrl = req.getParameter("profile");
 
-                    isTypeUpdated = PoliticianController.updatePolitician(userId, name, address, phoneNumber, profileImgUrl);
+                    // Call the updatePolitician method with the new address fields
+                    isTypeUpdated = PoliticianController.updatePolitician(
+                            userId, name, addressLine1, addressLine2, city, zipCode, phoneNumber, profileImgUrl
+                    );
                     break;
                 }
                 case "Political Party": {
@@ -94,4 +98,3 @@ public class UpdateUserServlet extends HttpServlet {
         resp.sendRedirect("updateprofile.jsp");
     }
 }
-

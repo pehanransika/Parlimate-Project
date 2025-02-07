@@ -180,10 +180,17 @@
                     </div>
 
                     <div class="signup-content col">
+                        <!-- Full Name Input -->
                         <div class="row-fields general-user row">
                             <input type="text" class="inp-field" placeholder="Full name" name="name" required pattern="^[A-Za-z]+([ ]?[A-Za-z]+)*$" title="Please Check the Name" />
                         </div>
-                        <input type="email" name="email" id="singup-email" class="inp-field general-user" placeholder="Email address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" />
+
+                        <!-- Email Input -->
+                        <div class="row-fields general-user row">
+                            <input type="email" name="email" id="singup-email" class="inp-field general-user" placeholder="Email address" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" />
+                        </div>
+
+                        <!-- Password & Contact Number Inputs -->
                         <div class="general-user row-fields row">
                             <div class="pswrd">
                                 <input
@@ -194,67 +201,95 @@
                                         name="Password"
                                         required
                                         minlength="6"
-                                        pattern="^(?=.[A-Z])(?=.[!@#$%^&*()_+={}\[\]:;,.<>?/-]).{6,}$"
+                                        pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*()_+={}\[\]:;,.<>?/-]).{6,}$"
                                 />
-
                                 <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
                             </div>
                             <div class="tel">
                                 <input type="tel" class="general-user inp-field" placeholder="Contact number" name="phoneNumber" id="telNumber-signup" minlength="10" maxlength="10" required pattern="^0\d*$" />
                             </div>
+
+
+                        <!-- District (Select) Input -->
+                        <div class="row-fields general-user row">
+                            <select name="district" class="general-user" id="district" required>
+                                <option value="invalid" disabled="disabled" selected>Electrant division</option>
+                                <option value="colombo">Colombo</option>
+                                <option value="gampaha">Gampaha</option>
+                                <option value="kalutara">Kalutara</option>
+                                <option value="kandy">Kandy</option>
+                                <option value="matale">Matale</option>
+                                <option value="nuwaraeliya">Nuwara Eliya</option>
+                                <option value="ratnapura">Ratnapura</option>
+                                <option value="kegalle">Kegalle</option>
+                                <option value="anuradhapura">Anuradhapura</option>
+                                <option value="polonnaruwa">Polonnaruwa</option>
+                                <option value="badulla">Badulla</option>
+                                <option value="moneragala">Moneragala</option>
+                                <option value="matara">Matara</option>
+                                <option value="hambantota">Hambantota</option>
+                                <option value="galle">Galle</option>
+                                <option value="kurunegala">Kurunegala</option>
+                                <option value="puttalam">Puttalam</option>
+                                <option value="jaffna">Jaffna</option>
+                                <option value="mannar">Mannar</option>
+                                <option value="vavuniya">Vavuniya</option>
+                                <option value="mulaitivu">Mulaitivu</option>
+                                <option value="kilinochchi">Kilinochchi</option>
+                                <option value="trincomalee">Trincomalee</option>
+                                <option value="batticaloa">Batticaloa</option>
+                                <option value="ampara">Ampara</option>
+                            </select>
                         </div>
-                      
-                        <select name="district" class="general-user" id="district" required>
-                            <option value="invalid" disabled="disabled" selected>Electrant division</option>
-                            <option value="colombo">Colombo</option>
-                            <option value="gampaha">Gampaha</option>
-                            <option value="kalutara">Kalutara</option>
-                            <option value="kandy">Kandy</option>
-                            <option value="matale">Matale</option>
-                            <option value="nuwaraeliya">Nuwara Eliya</option>
-                            <option value="ratnapura">Ratnapura</option>
-                            <option value="kegalle">Kegalle</option>
-                            <option value="anuradhapura">Anuradhapura</option>
-                            <option value="polonnaruwa">Polonnaruwa</option>
-                            <option value="badulla">Badulla</option>
-                            <option value="moneragala">Moneragala</option>
-                            <option value="matara">Matara</option>
-                            <option value="hambantota">Hambantota</option>
-                            <option value="galle">Galle</option>
-                            <option value="kurunegala">Kurunegala</option>
-                            <option value="puttalam">Puttalam</option>
-                            <option value="jaffna">Jaffna</option>
-                            <option value="mannar">Mannar</option>
-                            <option value="vavuniya">Vavuniya</option>
-                            <option value="mulaitivu">Mulaitivu</option>
-                            <option value="kilinochchi">Kilinochchi</option>
-                            <option value="trincomalee">Trincomalee</option>
-                            <option value="batticaloa">Batticaloa</option>
-                            <option value="ampara">Ampara</option>
-                        </select>
+                    </div>
+                    </div>
 
 
-                        <!-- Validation for Politician and Party -->
-                        <div class="nic-field row-fields general-user politician-inputs">
-                            <label for="nic-front">
-                                <input type="file" class="image-upload-inp" name="nic-front" id="nic-front" hidden accept="image/png, image/jpg, image/jpeg" />
-                                <div class="img-view row">
-                                    <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
-                                    <span id="nic-front-label">NIC front</span>
-                                </div>
-                            </label>
 
-                            <label for="nic-back">
-                                <input type="file" class="image-upload-inp" name="nic-back" id="nic-back" accept="image/png, image/jpg, image/jpeg" hidden />
-                                <div class="img-view row">
-                                    <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
-                                    <span id="nic-back-label">NIC back</span>
-                                </div>
-                            </label>
+                    <!-- Validation for Politician and Party -->
+                    <div class="nic-field row-fields general-user politician-inputs">
+                        <!-- Address Fields (Moved before NIC upload) -->
+                        <label for="addressLine1">
+                            Address Line 1:
+                            <input type="text" name="addressLine1" id="addressLine1" class="form-input" placeholder="Enter address line 1" />
+                        </label>
 
-                        </div>
+                        <label for="addressLine2">
+                            Address Line 2:
+                            <input type="text" name="addressLine2" id="addressLine2" class="form-input" placeholder="Enter address line 2" />
+                        </label>
 
-                        <!-- Political Party Info -->
+                        <label for="city">
+                            City:
+                            <input type="text" name="city" id="city" class="form-input" placeholder="Enter city" />
+                        </label>
+
+                        <label for="zipCode">
+                            Zip Code:
+                            <input type="text" name="zipCode" id="zipCode" class="form-input" placeholder="Enter zip code" />
+                        </label>
+
+                        <!-- File Upload for NIC Front -->
+                        <label for="nic-front">
+                            <input type="file" class="image-upload-inp" name="nic-front" id="nic-front" hidden accept="image/png, image/jpg, image/jpeg" />
+                            <div class="img-view row">
+                                <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
+                                <span id="nic-front-label">NIC front</span>
+                            </div>
+                        </label>
+
+                        <!-- File Upload for NIC Back -->
+                        <label for="nic-back">
+                            <input type="file" class="image-upload-inp" name="nic-back" id="nic-back" accept="image/png, image/jpg, image/jpeg" hidden />
+                            <div class="img-view row">
+                                <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
+                                <span id="nic-back-label">NIC back</span>
+                            </div>
+                        </label>
+                    </div>
+
+
+                    <!-- Political Party Info -->
                         <input type="text" class="inp-field polParty" placeholder="Party Name" id="partyName-signup" name="name" pattern="^[A-Za-z ]+$" />
                         <input type="text" class="inp-field polParty" placeholder="Party Leader's Name" id="partyLeaderName-signup" pattern="^[A-Za-z ]+$" />
                         <div class="row-fields row">
@@ -277,6 +312,7 @@
                         <input type="checkbox" name="agreement-signup" id="agreement-signup" required />
                         <label for="agreement-signup">I hereby agree to the policies of Parlimate</label>
                     </div>
+                <br>
                     <button class="btn login-btn" id="signup-submit-btn">Create account</button>
                     <div class="signup-section col">
                         <div class="divider"></div>
@@ -286,7 +322,9 @@
                     </div>
                 </div>
             </div>
+    </form>
         </div>
+
     </form>
 </div>
 <script>
