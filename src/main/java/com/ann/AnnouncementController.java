@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.ann;
 
 import java.sql.Connection;
@@ -259,7 +259,7 @@ public class AnnouncementController {
     }
 
 }
-=======
+
 package com.ann;
 
 import java.sql.Connection;
