@@ -43,23 +43,18 @@ public class UpdateUserServlet extends HttpServlet {
                     String address = req.getParameter("address");
                     String phoneNumber = req.getParameter("phoneNumber");
                     String district = req.getParameter("district");
+                    String imgUrl = req.getParameter("img_url");
 
-                    isTypeUpdated = CitizenController.updateCitizen(userId, name, phoneNumber, district);
+                    isTypeUpdated = CitizenController.updateCitizen(userId, name, address, phoneNumber, district, imgUrl);
                     break;
                 }
                 case "Politician": {
                     String name = req.getParameter("name");
-                    String addressLine1 = req.getParameter("addressLine1");  // Address line 1
-                    String addressLine2 = req.getParameter("addressLine2");  // Address line 2
-                    String city = req.getParameter("city");                  // City
-                    String zipCode = req.getParameter("zipCode");            // Zip code
+                    String address = req.getParameter("address");
                     String phoneNumber = req.getParameter("phoneNumber");
                     String profileImgUrl = req.getParameter("profile");
 
-                    // Call the updatePolitician method with the new address fields
-                    isTypeUpdated = PoliticianController.updatePolitician(
-                            userId, name, addressLine1, addressLine2, city, zipCode, phoneNumber, profileImgUrl
-                    );
+                    isTypeUpdated = PoliticianController.updatePolitician(userId, name, address, phoneNumber, profileImgUrl);
                     break;
                 }
                 case "Political Party": {

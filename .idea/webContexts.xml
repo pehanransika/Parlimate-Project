@@ -4,6 +4,8 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/fundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/adminfundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/requestDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

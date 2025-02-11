@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import java.sql.Connection;
@@ -10,10 +9,10 @@ import java.util.List;
 
 public class PoliticianController {
 
-    // Method to insert a new politician record with address fields
-    public static boolean insertPolitician(int userId, String name, String addressLine1, String addressLine2, String city, String zipCode, String phoneNumber, String NICfront, String NICBack) {
-        // SQL query to insert politician record with address fields
-        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address_line_1, address_line_2, city, zip_code, phone_number, nic_front, nic_back) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    // Method to insert a new politician record without political party ID
+    public static boolean insertPolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
+        // SQL query to insert politician record
+        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number, profile_img_url) VALUES (?, ?, ?, ?, ?);";
 
         // Try-with-resources to manage database connection and statement
         try (Connection conn = DBConnection.getConnection();
@@ -22,13 +21,9 @@ public class PoliticianController {
             // Set the values for the PreparedStatement
             insertPoliticianStmt.setInt(1, userId);           // Set the user ID
             insertPoliticianStmt.setString(2, name);          // Set the name
-            insertPoliticianStmt.setString(3, addressLine1);  // Set address line 1
-            insertPoliticianStmt.setString(4, addressLine2);  // Set address line 2
-            insertPoliticianStmt.setString(5, city);          // Set the city
-            insertPoliticianStmt.setString(6, zipCode);       // Set the zip code
-            insertPoliticianStmt.setString(7, phoneNumber);   // Set the phone number
-            insertPoliticianStmt.setString(8, NICfront);      // Set the NIC front
-            insertPoliticianStmt.setString(9, NICBack);       // Set the NIC back
+            insertPoliticianStmt.setString(3, address);       // Set the address
+            insertPoliticianStmt.setString(4, phoneNumber);   // Set the phone number
+            insertPoliticianStmt.setString(5, profileImgUrl); // Set the profile image URL
 
             // Execute the update and return true if the insertion was successful
             int rowsInserted = insertPoliticianStmt.executeUpdate();
@@ -40,8 +35,6 @@ public class PoliticianController {
             return false;
         }
     }
-
-    // Method to retrieve politician profile with address fields
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
         String sql = "SELECT * FROM politician WHERE user_id = ?";
@@ -58,16 +51,13 @@ public class PoliticianController {
                     int politicianId = rs.getInt("politician_id");
                     int userId = rs.getInt("user_id");
                     String name = rs.getString("name");
-                    String addressLine1 = rs.getString("address_line_1");
-                    String addressLine2 = rs.getString("address_line_2");
-                    String city = rs.getString("city");
-                    String zipCode = rs.getString("zip_code");
+                    String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
                     String profileImageUrl = rs.getString("profile_img_url");
 
                     // Create a PoliticianModel object and add it to the list
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, addressLine1, addressLine2, city, zipCode, phoneNumber, politicalPartyId, profileImageUrl);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, profileImageUrl);
                     politicians.add(politician);
                 }
             }
@@ -79,10 +69,10 @@ public class PoliticianController {
         return politicians;
     }
 
-    // Method to update politician record with address fields
-    public static boolean updatePolitician(int userId, String name, String addressLine1, String addressLine2, String city, String zipCode, String phoneNumber, String profileImgUrl) {
-        // SQL query to update politician record with address fields
-        String updatePoliticianSQL = "UPDATE politician SET name = ?, address_line_1 = ?, address_line_2 = ?, city = ?, zip_code = ?, phone_number = ?, profile_img_url = ? WHERE user_id = ?";
+
+    public static boolean updatePolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
+        // SQL query to update politician record
+        String updatePoliticianSQL = "UPDATE politician SET name = ?, address = ?, phone_number = ?, profile_img_url = ? WHERE user_id = ?";
 
         // Try-with-resources to manage database connection and statement
         try (Connection conn = DBConnection.getConnection();
@@ -90,13 +80,10 @@ public class PoliticianController {
 
             // Set the values for the PreparedStatement
             updatePoliticianStmt.setString(1, name);           // Set the name
-            updatePoliticianStmt.setString(2, addressLine1);    // Set address line 1
-            updatePoliticianStmt.setString(3, addressLine2);    // Set address line 2
-            updatePoliticianStmt.setString(4, city);            // Set the city
-            updatePoliticianStmt.setString(5, zipCode);         // Set the zip code
-            updatePoliticianStmt.setString(6, phoneNumber);     // Set the phone number
-            updatePoliticianStmt.setString(7, profileImgUrl);   // Set the profile image URL
-            updatePoliticianStmt.setInt(8, userId);             // Set the user ID for the WHERE clause
+            updatePoliticianStmt.setString(2, address);        // Set the address
+            updatePoliticianStmt.setString(3, phoneNumber);    // Set the phone number
+            updatePoliticianStmt.setString(4, profileImgUrl);  // Set the profile image URL
+            updatePoliticianStmt.setInt(5, userId);            // Set the user ID for the WHERE clause
 
             // Execute the update and return true if the update was successful
             int rowsUpdated = updatePoliticianStmt.executeUpdate();
@@ -109,7 +96,6 @@ public class PoliticianController {
         }
     }
 
-    // Method to delete a politician by user ID
     public static boolean deletePolitician(int userId) {
         String sql = "DELETE FROM politician WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -123,4 +109,6 @@ public class PoliticianController {
         }
         return false;
     }
+
 }
+

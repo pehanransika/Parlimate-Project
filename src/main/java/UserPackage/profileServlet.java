@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -53,4 +52,3 @@ public class profileServlet extends HttpServlet {
           }
     }
 }
-

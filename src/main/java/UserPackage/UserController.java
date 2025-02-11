@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import java.sql.*;
@@ -69,17 +68,18 @@ public class UserController {
 
     //Login Validate
     public static List<UserModel> loginValidate(String email, String password) {
-
         List<UserModel> users = new ArrayList<>();
+
+        // Hash the input password before checking
+        String hashedPassword = passwordHashing.hashPassword(password);
+
         String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Set the parameters for the prepared statement
             stmt.setString(1, email);
-            stmt.setString(2, password); // Consider hashing this before storing
+            stmt.setString(2, hashedPassword); // ✅ Now comparing hashed passwords
 
-            // Execute the query and process the ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("user_id");
@@ -99,6 +99,7 @@ public class UserController {
 
         return users;
     }
+
 
     public static List<UserModel> UserProfile(int id) {
         List<UserModel> users = new ArrayList<>();

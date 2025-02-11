@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import javax.servlet.RequestDispatcher;
@@ -7,13 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.servlet.annotation.MultipartConfig;
-@MultipartConfig
+
 @WebServlet("/UserNewInsertServlet")
 public class UserInsertServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -53,57 +47,19 @@ public class UserInsertServlet extends HttpServlet {
         if (userId > 0) {
             if ("Citizen".equals(userType)) {
                 String name = req.getParameter("name");
-
+                String address = req.getParameter("address");
                 String phoneNumber = req.getParameter("phoneNumber");
                 String profile = req.getParameter("district");
+                String imgUrl = req.getParameter("img_url");
 
-
-                isType = CitizenController.insertCitizen(userId, name,  phoneNumber, profile);
+                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber, profile, imgUrl);
             } else if ("Politician".equals(userType)) {
                 String name = req.getParameter("name");
-                String addressLine1 = req.getParameter("addressLine1");  // Address Line 1
-                String addressLine2 = req.getParameter("addressLine2");  // Address Line 2
-                String city = req.getParameter("city");                  // City
-                String zipCode = req.getParameter("zipCode");            // Zip code
+                String address = req.getParameter("address");
                 String phoneNumber = req.getParameter("phoneNumber");
+                String profileImgUrl = req.getParameter("img_url");
 
-                // Get the uploaded files (NIC front and back)
-                Part NICfrontPart = req.getPart("nic-front");
-                Part NICbackPart = req.getPart("nic-back");
-
-                // Define the upload directory for the user
-                String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "user_" + userId;
-
-                // Ensure the user-specific directory exists
-                File userDir = new File(uploadPath);
-                if (!userDir.exists()) {
-                    userDir.mkdirs(); // Create the directory (including parent directories if needed)
-                }
-
-                // Extract file names for NIC front and back
-                String NICfrontFileName = extractFileName(NICfrontPart);
-                String NICbackFileName = extractFileName(NICbackPart);
-
-                // Set the full paths for NIC front and back
-                String NICfrontPath = uploadPath + File.separator + NICfrontFileName;
-                String NICbackPath = uploadPath + File.separator + NICbackFileName;
-
-                // Write files to the specified paths
-                NICfrontPart.write(NICfrontPath);
-                NICbackPart.write(NICbackPath);
-
-                // Insert politician details into the database with the new address fields
-                isType = PoliticianController.insertPolitician(userId, name, addressLine1, addressLine2, city, zipCode, phoneNumber, NICfrontFileName, NICbackFileName);
-
-
-
-            // Handle the result (optional)
-                if (isType) {
-                    System.out.println("Politician details added successfully!");
-                } else {
-                    System.out.println("Failed to add politician details.");
-                }
-
+                isType = PoliticianController.insertPolitician(userId, name, address, phoneNumber, profileImgUrl);
             } else if ("Political-Party".equals(userType)) {
                 String name = req.getParameter("partyName");
                 String address = req.getParameter("partyAddress");
@@ -127,19 +83,4 @@ public class UserInsertServlet extends HttpServlet {
             dis2.forward(req, resp);
         }
     }
-
-    // Helper method to extract file name
-    private String extractFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        if (contentDisposition != null) {
-            for (String content : contentDisposition.split(";")) {
-                if (content.trim().startsWith("filename")) {
-                    return content.substring(content.indexOf("=") + 2, content.length() - 1);
-                }
-            }
-        }
-        return null; // Return null if no filename is found
-    }
-
 }
-

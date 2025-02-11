@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import java.security.MessageDigest;
@@ -37,5 +36,4 @@ public class passwordHashing {
         }
     }
 }
-
 

@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -70,4 +69,3 @@ public class  DeleteUserServlet extends HttpServlet {
         }
     }
 }
-

@@ -197,6 +197,16 @@
     <url-pattern>/Fundraising/UpdateRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetRequestsServlet</servlet-name>
+    <servlet-class>fundreq.GetRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRequestsServlet</servlet-name>
+    <url-pattern>/GetRequestsServlet</url-pattern>
+    <url-pattern>/admin/Fundraising/GetnewRequestServlet/</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>DeleteRequestServlet</servlet-name>
     <servlet-class>fundreq.DeleteRequestServlet</servlet-class>
   </servlet>

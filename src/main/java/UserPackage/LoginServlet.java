@@ -1,4 +1,3 @@
-
 package UserPackage;
 
 import javax.servlet.ServletException;
@@ -59,4 +58,3 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
-
