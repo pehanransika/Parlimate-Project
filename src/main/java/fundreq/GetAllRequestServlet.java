@@ -25,7 +25,9 @@ public class GetAllRequestServlet extends HttpServlet {
             // Forward to requestsDetail.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("requestDetail.jsp");
 
+
             dispatcher.forward(request, response);
+
         } catch (Exception e) {
             // Log the exception for debugging
             e.printStackTrace();
