@@ -1,0 +1,15 @@
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:36:09 +0530] "GET /Parlimate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:36:18 +0530] "GET /Parlimate/ HTTP/1.1" 200 23877
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:36:18 +0530] "GET /favicon.ico HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:26 +0530] "POST /Parlimate/LoginServlet HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:30 +0530] "GET /Parlimate/edit.css HTTP/1.1" 404 773
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:30 +0530] "GET /css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:30 +0530] "GET /sidebar1.css HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:30 +0530] "GET /Parlimate/header.css HTTP/1.1" 404 775
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:30 +0530] "GET /Parlimate/GetPostListServlet HTTP/1.1" 200 130907
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /Parlimate/Announcements/GetListServlet?announcementId=123 HTTP/1.1" 200 30994
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /Parlimate/Announcements/GetListServlet?announcementId=123 HTTP/1.1" 200 8206
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /sidebar1.css HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [12/Feb/2025:08:42:36 +0530] "GET /Parlimate/Announcements/header.css HTTP/1.1" 404 793
