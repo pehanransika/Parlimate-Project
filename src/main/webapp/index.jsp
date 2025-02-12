@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">//change insert servlet
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -152,7 +152,7 @@
             </div>
         </div>
     </form>
-    <form action="UserInsertServlet" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+    <form action="UserInsertServlet" method="post" onsubmit="return validateForm()">
         <div class="signup-cont col">
             <div class="login-container col">
                 <div class="btn close-btn">
@@ -237,13 +237,12 @@
                         <!-- Validation for Politician and Party -->
                         <div class="nic-field row-fields general-user politician-inputs">
                             <label for="nic-front">
-                                <input type="file" class="image-upload-inp" name="nic-front" id="nic-front" hidden accept="image/png, image/jpg, image/jpeg" />
+                                <input type="file" class="image-upload-inp" name="img_url" id="nic-front" hidden accept="image/png, image/jpg, image/jpeg" />
                                 <div class="img-view row">
                                     <i class="fa-duotone fa-solid fa-cloud-arrow-up" style="--fa-secondary-color: #a2aec3;"></i>
                                     <span id="nic-front-label">NIC front</span>
                                 </div>
                             </label>
-
                             <label for="nic-back">
                                 <input type="file" class="image-upload-inp" name="nic-back" id="nic-back" accept="image/png, image/jpg, image/jpeg" hidden />
                                 <div class="img-view row">
@@ -251,7 +250,6 @@
                                     <span id="nic-back-label">NIC back</span>
                                 </div>
                             </label>
-
                         </div>
 
                         <!-- Political Party Info -->
@@ -370,10 +368,5 @@
 <script src="./welcome.js">
 </script>
 </body>
-
 </html>
-
-
-</html>
-
 
