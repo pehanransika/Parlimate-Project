@@ -90,12 +90,7 @@
     <servlet-name>PublishPostServlet</servlet-name>
     <url-pattern>/PublishPostServlet</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> master
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>
@@ -129,11 +124,7 @@
     <servlet-name>GetPostListServlet</servlet-name>
     <url-pattern>/GetPostListServlet</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
 
-
-=======
->>>>>>> master
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>UserPackage.LoginServlet</servlet-class>
@@ -250,9 +241,5 @@
     <filter-name>UserSessionFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-<<<<<<< HEAD
 
-
-=======
->>>>>>> master
 </web-app>

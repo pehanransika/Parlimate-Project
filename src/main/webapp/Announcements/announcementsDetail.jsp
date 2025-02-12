@@ -2,10 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 <%
     HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
     if (session1 == null || session.getAttribute("user") == null) {
@@ -26,8 +23,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
-<<<<<<< HEAD
-=======
+
 
 
 <html>
@@ -253,7 +249,7 @@
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../container.css" />
 
->>>>>>> master
+
     <link rel="stylesheet" href="./ann.css">
     <!-- <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
@@ -302,10 +298,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <body class="">
 
 <%@ include file="../index/sidebar.jsp" %>
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 <%@ include file="../index/header/header.jsp" %>
 
 <div class="container">
@@ -364,9 +357,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </ul>
 
 </div>
-
-<<<<<<< HEAD
-=======
 
 
 <div class="header pd-2">
@@ -547,7 +537,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 </ul>
 
 
->>>>>>> master
+
 <!-- Update Announcement Popup Modal -->
 <div class="popup-modal" id="editPopup">
     <div class="popup">
@@ -560,10 +550,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         <form action="UpdateServlet" method="post">
             <!-- Hidden fields for announcement ID and politician ID -->
-<<<<<<< HEAD
+
             <input type="hidden" name="announcementid" id="announcementid"/>
             <input type="hidden" name="politicianid" id="politicianid"/>
-=======
+
 
             <input type="hidden" name="announcementid" id="announcementid"/>
             <input type="hidden" name="politicianid" id="politicianid"/>
@@ -571,20 +561,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             <input type="hidden" name="announcementid" id="announcementid" />
             <input type="hidden" name="politicianid" id="politicianid" />
 
->>>>>>> master
+
 
             <!-- Title Section -->
             <div class="formSection">
                 <label for="editTitle">Title</label>
-<<<<<<< HEAD
+
                 <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required/>
-=======
+
 
                 <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required/>
 
                 <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required />
 
->>>>>>> master
             </div>
 
             <!-- Content Section -->
@@ -593,15 +582,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <textarea id="editContent" name="content" placeholder="Edit content here..." required></textarea>
             </div>
 
-
-<<<<<<< HEAD
-=======
             <!-- Date and Time Section -->
 
 
             <!-- Save Button -->
 
->>>>>>> master
+
             <div class="popbtns">
                 <button type="submit" class="post-btn">Save Changes</button>
             </div>
@@ -634,10 +620,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
+
+
     // Function to open the modal and populate the form
     function openEditPopup(announcementid, politicianid, title, content, datetime) {
         // Show the popup modal

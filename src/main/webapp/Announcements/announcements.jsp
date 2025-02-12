@@ -377,8 +377,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         <button class="delete-btn" onclick="openDeletePopup(this)">
                             Delete
                         </button>
-<<<<<<< HEAD
-=======
 
                     </div>
                 </div>
@@ -421,14 +419,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                         </button>
                         <button class="delete-btn" onclick="openDeletePopup(this)">Delete</button>
 
->>>>>>> master
+
                     </div>
                 </div>
             </div>
 
 
-<<<<<<< HEAD
-=======
+
 
 
             <!-- Add more cards as needed -->
@@ -482,7 +479,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 </div>
             </div>
 
->>>>>>> master
+
         </div>
 
         </div>

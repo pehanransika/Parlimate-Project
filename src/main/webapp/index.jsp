@@ -370,10 +370,10 @@
 <script src="./welcome.js">
 </script>
 </body>
-<<<<<<< HEAD
-</html>
-=======
 
 </html>
 
->>>>>>> master
+
+</html>
+
+
