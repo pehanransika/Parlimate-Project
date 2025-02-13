@@ -63,7 +63,7 @@ public class CommentController {
                 + "JOIN users u ON c.userid = u.user_id";
 
         // Database connection and PreparedStatement
-        try (Connection conn = comment.DBConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Execute the query and retrieve the result
@@ -105,7 +105,7 @@ public class CommentController {
         ArrayList<CommentModel> comments = new ArrayList<>();
 
         // Database connection and PreparedStatement
-        try (Connection conn = comment.DBConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Set the parameter for the query
@@ -137,7 +137,7 @@ public class CommentController {
     public static boolean updateComment(int commentid, String content, LocalDateTime datetime) {
         String query = "UPDATE comment SET content = ?, datetime = ? WHERE commentid = ?";
 
-        try (Connection conn = comment.DBConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Set the parameters for the prepared statement

@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
             // Validate login credentials
             List<UserModel> userlogin = UserController.loginValidate(email, password);
 
+
             if (userlogin != null && !userlogin.isEmpty()) {
                 UserModel user = userlogin.get(0);
 
@@ -62,9 +63,24 @@ public class LoginServlet extends HttpServlet {
             } else {
                 // Handle failed login
                 resp.getWriter().println("<script>alert('Login failed, please try again'); window.location.href='index.jsp';</script>");
+
+                // Store the user profile in session
+                req.getSession().setAttribute("userProfile", userProfile);
+
+                // Redirect to Home.jsp
+                resp.sendRedirect("GetPostListServlet");
+
+            } else {
+                // Handle failed login
+                String alertMessage = "Login failed, please try again";
+                resp.getWriter().println("<script>alert('" + alertMessage + "');window.location.href='index.jsp'</script>");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+}
+
 }

@@ -93,7 +93,6 @@
   </servlet-mapping>
 
 
-
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>

@@ -69,12 +69,21 @@ public class UserController {
     //Login Validate
     public static List<UserModel> loginValidate(String email, String password) {
         List<UserModel> users = new ArrayList<>();
+
         String sql = "SELECT * FROM users WHERE email = ?";
+
+
+
+        // Hash the input password before checking
+        String hashedPassword = passwordHashing.hashPassword(password);
+
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, email);
+
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -90,6 +99,20 @@ public class UserController {
                         UserModel user = new UserModel(id, gmail, storedHash, userType, createdAt);
                         users.add(user);
                     }
+
+            stmt.setString(2, hashedPassword); // ✅ Now comparing hashed passwords
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("user_id");
+                    String gmail = rs.getString("email");
+                    String pass = rs.getString("password");
+                    String userType = rs.getString("user_type");
+                    String createdAt = rs.getString("created_at");
+
+                    UserModel user = new UserModel(id, gmail, pass, userType, createdAt);
+                    users.add(user);
+
                 }
             }
 

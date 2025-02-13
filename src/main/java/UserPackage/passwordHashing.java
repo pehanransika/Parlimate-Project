@@ -36,6 +36,7 @@ public class passwordHashing {
         }
     }
 
+
     /**
      * Verifies if the input password matches the stored hash.
      *
@@ -53,3 +54,7 @@ public class passwordHashing {
         return hashedPassword.equals(storedHash);
     }
 }
+
+}
+
+
