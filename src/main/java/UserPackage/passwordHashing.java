@@ -35,5 +35,26 @@ public class passwordHashing {
             return null;
         }
     }
+
+
+    /**
+     * Verifies if the input password matches the stored hash.
+     *
+     * @param password The plain-text password entered by the user.
+     * @param storedHash The hashed password stored in the database.
+     * @return true if the password matches, false otherwise.
+     */
+    public static boolean checkPassword(String password, String storedHash) {
+        if (password == null || storedHash == null) {
+            return false; // Avoid null pointer errors
+        }
+
+        // Hash the input password and compare it with the stored hash
+        String hashedPassword = hashPassword(password);
+        return hashedPassword.equals(storedHash);
+    }
 }
+
+}
+
 

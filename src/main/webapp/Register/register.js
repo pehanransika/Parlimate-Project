@@ -1,4 +1,3 @@
-
 function showForm(formType) {
 
     document.querySelectorAll('.form-section').forEach(section => section.style.display = 'none');

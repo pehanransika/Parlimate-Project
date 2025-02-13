@@ -20,6 +20,8 @@ public class LoginServlet extends HttpServlet {
         try {
             // Validate login credentials
             List<UserModel> userlogin = UserController.loginValidate(email, password);
+
+
             if (userlogin != null && !userlogin.isEmpty()) {
                 UserModel user = userlogin.get(0);
 
@@ -30,17 +32,37 @@ public class LoginServlet extends HttpServlet {
                 String usertype = user.getUserType();
                 int userid = user.getUserId();
                 Object userProfile = null;
+                String redirectUrl = "GetPostListServlet"; // Default redirect
 
-                if (usertype.equals("Citizen")) {
-                    List<CitizenModel> citizens = CitizenController.CitizenProfile(userid);
-                    userProfile = citizens.get(0);
-                } else if (usertype.equals("Politician")) {
-                    List<PoliticianModel> politicians = PoliticianController.PoliticianProfile(userid);
-                    userProfile = politicians.get(0);
-                } else if (usertype.equals("Political Party")) {
-                    List<PoliticalPartyModel> politicalParties = PoliticalPartyController.PoliticalPartyProfile(userid);
-                    userProfile = politicalParties.get(0);
+                switch (usertype) {
+                    case "Citizen":
+                        List<CitizenModel> citizens = CitizenController.CitizenProfile(userid);
+                        if (!citizens.isEmpty()) userProfile = citizens.get(0);
+                        break;
+                    case "Politician":
+                        List<PoliticianModel> politicians = PoliticianController.PoliticianProfile(userid);
+                        if (!politicians.isEmpty()) userProfile = politicians.get(0);
+                        break;
+                    case "Political Party":
+                        List<PoliticalPartyModel> politicalParties = PoliticalPartyController.PoliticalPartyProfile(userid);
+                        if (!politicalParties.isEmpty()) userProfile = politicalParties.get(0);
+                        break;
+                    case "admin":
+                    case "moderator":
+                        List<AdminModel> admins = AdminController.AdminProfile(userid);
+                        if (!admins.isEmpty()) userProfile = admins.get(0);
+                        redirectUrl = "admin/Home/index.jsp";
+                        break;
                 }
+
+                // Store the user profile in session
+                req.getSession().setAttribute("userProfile", userProfile);
+
+                // Redirect to the appropriate page
+                resp.sendRedirect(redirectUrl);
+            } else {
+                // Handle failed login
+                resp.getWriter().println("<script>alert('Login failed, please try again'); window.location.href='index.jsp';</script>");
 
                 // Store the user profile in session
                 req.getSession().setAttribute("userProfile", userProfile);
@@ -52,9 +74,13 @@ public class LoginServlet extends HttpServlet {
                 // Handle failed login
                 String alertMessage = "Login failed, please try again";
                 resp.getWriter().println("<script>alert('" + alertMessage + "');window.location.href='index.jsp'</script>");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+}
+
 }

@@ -1,4 +1,3 @@
-
 let disCloseBtn = document.querySelector(".live-meeting-popup .cls-btn")
 const livePopup = document.querySelector(".item-live")
 const livePopCls = document.querySelector(".live-meeting-popup .btns .close")
