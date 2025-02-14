@@ -5,15 +5,15 @@ public class UserModel {
     private String email;
     private String password;
     private String userType;
-    private String createdAt;
+    private String created_at;
 
     // Constructors, Getters, and Setters
-    public UserModel(int userId, String email, String password, String userType, String createdAt) {
+    public UserModel(int userId, String email, String password, String userType, String created_at) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.userType = userType;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
     }
 
     // Getters and Setters
@@ -29,8 +29,8 @@ public class UserModel {
     public String getUserType() { return userType; }
     public void setUserType(String userType) { this.userType = userType; }
 
-    public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public String getCreated_at() { return created_at; }
+    public void setCreated_at(String created_at) { this.created_at = created_at; }
 }
 
 

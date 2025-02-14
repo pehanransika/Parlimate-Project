@@ -49,17 +49,17 @@ public class UserInsertServlet extends HttpServlet {
                 String name = req.getParameter("name");
                 String address = req.getParameter("address");
                 String phoneNumber = req.getParameter("phoneNumber");
-                String profile = req.getParameter("district");
-                String imgUrl = req.getParameter("img_url");
+                String district = req.getParameter("district");
 
-                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber, profile, imgUrl);
+
+                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber,district);
             } else if ("Politician".equals(userType)) {
                 String name = req.getParameter("name");
                 String address = req.getParameter("address");
                 String phoneNumber = req.getParameter("phoneNumber");
-                String profileImgUrl = req.getParameter("img_url");
 
-                isType = PoliticianController.insertPolitician(userId, name, address, phoneNumber, profileImgUrl);
+
+                isType = PoliticianController.insertPolitician(userId, name, address, phoneNumber);
             } else if ("Political-Party".equals(userType)) {
                 String name = req.getParameter("partyName");
                 String address = req.getParameter("partyAddress");
