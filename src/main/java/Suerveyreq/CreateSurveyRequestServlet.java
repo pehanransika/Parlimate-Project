@@ -1,7 +1,5 @@
 package Suerveyreq;
 
-import Suerveyreq.SurveyRequestController;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,31 +18,37 @@ public class CreateSurveyRequestServlet extends HttpServlet {
             int defaultUserId = 2; // Default user ID if not provided
 
             // Retrieve form data
-            String title = request.getParameter("title");
+
             String questionType = request.getParameter("questiontype");
             String questionText = request.getParameter("questiontext");
             String userIdStr = request.getParameter("userid");
 
-            // Parse user ID or use the default
             int userId = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
 
+
             // Get the current timestamp for the survey request
             Timestamp requestTime = new Timestamp(System.currentTimeMillis());
 
+            // Debugging logs
+            System.out.println("User ID: " + userId);
+
+            System.out.println("Question Type: " + questionType);
+            System.out.println("Question Text: " + questionText);
+            System.out.println("Request Time: " + requestTime);
+
             // Call the controller to create a survey request
-            boolean isTrue = SurveyRequestController.createSurveyRequest(userId, title, questionType, questionText, requestTime);
+            boolean isTrue = SurveyRequestController.createSurveyRequest(userId, questionType, questionText, requestTime);
 
             if (isTrue) {
                 // If successful, show alert and redirect to GetListServlet
                 String alertMessage = "Survey Request published successfully.";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetListServlet';</script>");
+                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetAllSurveyRequestServlet';</script>");
             } else {
                 // If not successful, forward to the error page
-                String alertMessage = "Failed to publish survey request.";
-                request.setAttribute("error", alertMessage);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("wrong.jsp");
+                request.setAttribute("error", "Failed to publish survey request.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/wrong.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (NumberFormatException | SQLException e) {
@@ -52,11 +56,9 @@ public class CreateSurveyRequestServlet extends HttpServlet {
             e.printStackTrace();
 
             // Provide user-friendly error message
-            String alertMessage = "Invalid input or database error. Please try again.";
-            request.setAttribute("error", alertMessage);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("wrong.jsp");
+            request.setAttribute("error", "Invalid input or database error. Please try again.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/wrong.jsp");
             dispatcher.forward(request, response);
         }
     }
 }
-

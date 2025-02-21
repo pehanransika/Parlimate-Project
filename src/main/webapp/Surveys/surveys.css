@@ -14,6 +14,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
 .container {
     transition: margin-left 0.3s;
     gap: 0;
@@ -95,6 +97,33 @@ body {
     align-items: center;
     gap: 1rem;
 }
+
+.request-survey {
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    font-size: 18px; /* Larger font size */
+    font-weight: bold;
+    padding: 12px 24px; /* Bigger button */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+.request-survey:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.request-survey span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 
 /* Image Styling */
 .politician-card img {

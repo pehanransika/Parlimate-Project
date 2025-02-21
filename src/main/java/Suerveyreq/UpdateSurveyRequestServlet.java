@@ -32,17 +32,12 @@ public class UpdateSurveyRequestServlet extends HttpServlet {
 
             // Retrieve other form parameters
             String useridParam = request.getParameter("userid");
-            String title = request.getParameter("title");
+
             String questiontype = request.getParameter("questiontype");
             String questiontext = request.getParameter("questiontext");
             String requesttimeParam = request.getParameter("requesttime");
 
             // Validate mandatory fields
-            if (title == null || title.trim().isEmpty() ||
-                    questiontype == null || questiontype.trim().isEmpty() ||
-                    questiontext == null || questiontext.trim().isEmpty()) {
-                throw new IllegalArgumentException("Required fields are missing.");
-            }
 
             // Parse user ID
             Integer userid = null;
@@ -63,7 +58,7 @@ public class UpdateSurveyRequestServlet extends HttpServlet {
 
             // Call the controller method to update the survey request
             boolean isUpdated = SurveyRequestController.updateSurveyRequest(
-                    suerveyrequestid, userid, title, questiontype, questiontext, requesttime);
+                    suerveyrequestid, userid,  questiontype, questiontext, requesttime);
 
             if (isUpdated) {
                 response.setContentType("text/html");

@@ -4,55 +4,60 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class SuerveyRequestModel {
-    private Integer suerveyrequestid;
-    private Integer userid;
-    private String title;
-    private String questiontype;
-    private String questiontext;
-    private Timestamp requesttime;
+    private Integer surveyRequestId;
+    private Integer userId;
 
-    public SuerveyRequestModel(Integer suerveyrequestid, Integer userid, String title, String questiontype, String questiontext, LocalDateTime requesttime){
-        this.suerveyrequestid=suerveyrequestid;
-        this.userid=userid;
-        this.title=title;
-        this.questiontype=questiontype;
-        this.questiontext=questiontext;
-        this.requesttime= Timestamp.valueOf(requesttime);
+    private String questionType;
+    private String questionText;
+    private Timestamp requestTime;
+
+    public SuerveyRequestModel(Integer surveyRequestId, Integer userId,  String questionType, String questionText, LocalDateTime requestTime) {
+        this.surveyRequestId = surveyRequestId;
+        this.userId = userId;
+
+        this.questionType = questionType;
+        this.questionText = questionText;
+        this.requestTime = Timestamp.valueOf(requestTime);
     }
-    public Integer getSuerveyrequestid(){
-        return suerveyrequestid;
+
+    public Integer getSurveyRequestId() {
+        return surveyRequestId;
     }
-    public void setSuerveyrequestid(Integer suerveyrequestid){
-        this.suerveyrequestid=suerveyrequestid;
+
+    public void setSurveyRequestId(Integer surveyRequestId) {
+        this.surveyRequestId = surveyRequestId;
     }
-    public Integer getUserid(){
-        return userid;
+
+    public Integer getUserId() {
+        return userId;
     }
-    public void setUserid(Integer userid){
-        this.userid=userid;
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
-    public String getTitle(){
-        return title;
+
+
+    public String getQuestionType() {
+        return questionType;
     }
-    public void setTitle(String title){
-        this.title=title;
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
     }
-    public String getQuestiontype(){
-        return questiontype;
+
+    public String getQuestionText() {
+        return questionText;
     }
-    public void setQuestiontype(String questiontype){
-        this.questiontype=questiontype;
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
-    public String getQuestiontext(){
-        return questiontext;
+
+    public Timestamp getRequestTime() {
+        return requestTime;
     }
-    public void setQuestiontext(String questiontext){
-        this.questiontext=questiontext;
-    }
-    public Timestamp getRequesttime(){
-        return requesttime;
-    }
-    public void setRequesttime(Timestamp requesttime){
-        this.requesttime=requesttime;
+
+    public void setRequestTime(Timestamp requestTime) {
+        this.requestTime = requestTime;
     }
 }

@@ -27,46 +27,46 @@ public class SurveyRequestController {
     }
 
     // Method to create a new survey request
-    public static boolean createSurveyRequest(int userid, String title, String questionType, String questionText, Timestamp requestTime) throws SQLException {
-        String insertQuery = "INSERT INTO survey_requests (userid, title, questiontype, questiontext, requesttime) VALUES (?, ?, ?, ?, ?)";
+    public static boolean createSurveyRequest(int userid, String questionType, String questionText, Timestamp requestTime) throws SQLException {
+        String insertQuery = "INSERT INTO survey_requests (userid, questiontype, questiontext, requesttime) VALUES ( ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
 
             stmt.setInt(1, userid);
-            stmt.setString(2, title);
-            stmt.setString(3, questionType);
-            stmt.setString(4, questionText);
-            stmt.setTimestamp(5, requestTime);
+
+            stmt.setString(2, questionType);
+            stmt.setString(3, questionText);
+            stmt.setTimestamp(4, requestTime);
 
             int rowsInserted = stmt.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
             return rowsInserted > 0;
         } catch (SQLException e) {
             System.err.println("Error creating survey request: " + e.getMessage());
             throw e;
         }
     }
-
     // Retrieve all survey requests
     public static List<SuerveyRequestModel> getAllSurveyRequests() throws SQLException {
         List<SuerveyRequestModel> requests = new ArrayList<>();
-        String query = "SELECT surveyrequestid, userid, title, questiontype, questiontext, requesttime " +
-                "FROM survey_requests";
+        String query = "SELECT surveyrequestid, userid, questiontype, questiontext, requesttime " +
+                "FROM survey_requests"; // Correct column name here
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                int surveyRequestId = rs.getInt("surveyrequestid");
+                int surveyRequestId = rs.getInt("surveyrequestid");  // Ensure correct column name
                 int userId = rs.getInt("userid");
-                String title = rs.getString("title");
+
                 String questionType = rs.getString("questiontype");
                 String questionText = rs.getString("questiontext");
                 Timestamp requestTime = rs.getTimestamp("requesttime");
 
                 // Create a SuerveyRequestModel object
                 SuerveyRequestModel request = new SuerveyRequestModel(
-                        surveyRequestId, userId, title, questionType, questionText, requestTime.toLocalDateTime()
+                        surveyRequestId, userId, questionType, questionText, requestTime.toLocalDateTime()
                 );
                 requests.add(request);
             }
@@ -80,7 +80,7 @@ public class SurveyRequestController {
 
     // Retrieve a single survey request by ID
     public static SuerveyRequestModel getSurveyRequestById(int surveyrequestid) throws SQLException {
-        String query = "SELECT userid, title, questiontype, questiontext, requesttime " +
+        String query = "SELECT userid, questiontype, questiontext, requesttime " +
                 "FROM survey_requests WHERE surveyrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -92,13 +92,13 @@ public class SurveyRequestController {
                 if (rs.next()) {
 
                     int userid = rs.getInt("userid");
-                    String title = rs.getString("title");
+
                     String questiontype = rs.getString("questiontype");
                     String questiontext = rs.getString("questiontext");
                     Timestamp requesttime = rs.getTimestamp("requesttime");
 
                     // Return the model with the fetched data
-                    return new SuerveyRequestModel(surveyrequestid, userid, title, questiontype, questiontext, requesttime.toLocalDateTime());
+                    return new SuerveyRequestModel(surveyrequestid, userid,  questiontype, questiontext, requesttime.toLocalDateTime());
                 }
             }
         } catch (SQLException e) {
@@ -110,31 +110,29 @@ public class SurveyRequestController {
     }
 
     // Update a survey request
-    public static boolean updateSurveyRequest(int surveyrequestid, Integer userid, String title, String questiontype,
+    public static boolean updateSurveyRequest(int surveyrequestid, Integer userid, String questiontype,
                                               String questiontext, Timestamp requesttime) throws SQLException {
-        String query = "UPDATE survey_requests SET userid = ?, title = ?, questiontype = ?, questiontext = ?, " +
+        String query = "UPDATE survey_requests SET userid = ?, questiontype = ?, questiontext = ?, " +
                 "requesttime = ? WHERE surveyrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Input validation (basic example)
-            if (title == null || title.trim().isEmpty() || questiontype == null || questiontype.trim().isEmpty()) {
-                throw new IllegalArgumentException("Title and question type cannot be null or empty.");
-            }
+
 
             // Log input parameters for debugging
             System.out.println("Updating survey request with ID: " + surveyrequestid);
-            System.out.println("Parameters: " + userid + ", " + title + ", " + questiontype + ", " + questiontext + ", "
+            System.out.println("Parameters: " + userid +  ", " + questiontype + ", " + questiontext + ", "
                     + requesttime);
 
             // Set parameters in the correct order
             stmt.setObject(1, userid);
-            stmt.setString(2, title);
-            stmt.setString(3, questiontype);
-            stmt.setString(4, questiontext);
-            stmt.setTimestamp(5, requesttime);
-            stmt.setInt(6, surveyrequestid);
+
+            stmt.setString(2, questiontype);
+            stmt.setString(3, questiontext);
+            stmt.setTimestamp(4, requesttime);
+            stmt.setInt(5, surveyrequestid);
 
             // Execute the update query
             int rowsUpdated = stmt.executeUpdate();
