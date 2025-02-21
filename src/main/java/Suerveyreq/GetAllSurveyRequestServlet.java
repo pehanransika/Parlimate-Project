@@ -1,5 +1,8 @@
 package Suerveyreq;
 
+import Suerveyreq.SuerveyRequestModel;
+import Suerveyreq.SurveyRequestController;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/GetnewAllSurveyRequestServlet")
+@WebServlet("/GetAllSurveyRequestServlet")
 public class GetAllSurveyRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -41,4 +44,3 @@ public class GetAllSurveyRequestServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

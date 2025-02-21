@@ -18,28 +18,31 @@ public class CreateSurveyRequestServlet extends HttpServlet {
             int defaultUserId = 2; // Default user ID if not provided
 
             // Retrieve form data
-
-            String questionType = request.getParameter("questiontype");
             String questionText = request.getParameter("questiontext");
             String userIdStr = request.getParameter("userid");
+            String answer01 = request.getParameter("answer01");
+            String answer02 = request.getParameter("answer02");
+            String answer03 = request.getParameter("answer03");
+            String answer04 = request.getParameter("answer04");
 
             int userId = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
-
 
             // Get the current timestamp for the survey request
             Timestamp requestTime = new Timestamp(System.currentTimeMillis());
 
             // Debugging logs
             System.out.println("User ID: " + userId);
-
-            System.out.println("Question Type: " + questionType);
             System.out.println("Question Text: " + questionText);
+            System.out.println("Answer 01: " + answer01);
+            System.out.println("Answer 02: " + answer02);
+            System.out.println("Answer 03: " + answer03);
+            System.out.println("Answer 04: " + answer04);
             System.out.println("Request Time: " + requestTime);
 
             // Call the controller to create a survey request
-            boolean isTrue = SurveyRequestController.createSurveyRequest(userId, questionType, questionText, requestTime);
+            boolean isTrue = SurveyRequestController.createSurveyRequest(userId, questionText, answer01, answer02, answer03, answer04, requestTime);
 
             if (isTrue) {
                 // If successful, show alert and redirect to GetListServlet

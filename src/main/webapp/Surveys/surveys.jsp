@@ -98,7 +98,7 @@
                         <br>
 
                         <!-- Survey Popup (Hidden by Default) -->
-                      <form action="CreateSurveyRequestServlet" method="post" class="popup-f" id="popup-f">
+                    <form action="CreateSurveyRequestServlet" method="post" class="popup-f" id="popup-f">
 
     <div id="surveyPopup" class="survey-popup">
         <div class="popup-content">
@@ -114,14 +114,21 @@
                     <label for="survey-question" class="title">Question</label>
                     <input type="text" required placeholder="Enter your question here" name="questiontext" id="survey-question">
                 </div>
-                <div class="survey-type field">
-                    <label for="survey-type" class="title">Question Type</label>
-                    <select required name="questiontype" id="survey-type">
-                        <option value="text">Text</option>
-                        <option value="multiple-choice">Multiple Choice</option>
-                        <option value="checkbox">Checkbox</option>
-                        <option value="rating">Rating</option>
-                    </select>
+                <div class="survey-answer field">
+                    <label for="answer01" class="title">Answer 1</label>
+                    <input type="text" required placeholder="Enter first answer" name="answer01" id="answer01">
+                </div>
+                <div class="survey-answer field">
+                    <label for="answer02" class="title">Answer 2</label>
+                    <input type="text" required placeholder="Enter second answer" name="answer02" id="answer02">
+                </div>
+                <div class="survey-answer field">
+                    <label for="answer03" class="title">Answer 3</label>
+                    <input type="text" required placeholder="Enter third answer" name="answer03" id="answer03">
+                </div>
+                <div class="survey-answer field">
+                    <label for="answer04" class="title">Answer 4</label>
+                    <input type="text" required placeholder="Enter fourth answer" name="answer04" id="answer04">
                 </div>
             </div>
             <div class="bottom row">
