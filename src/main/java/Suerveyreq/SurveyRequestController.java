@@ -46,8 +46,8 @@ public class SurveyRequestController {
     }
 
     // Retrieve all survey requests
-    public static List<SuerveyRequestModel> getAllSurveyRequests() throws SQLException {
-        List<SuerveyRequestModel> requests = new ArrayList<>();
+    public static List<SurveyRequestModel> getAllSurveyRequests() throws SQLException {
+        List<  SurveyRequestModel> requests = new ArrayList<>();
         String query = "SELECT suerveyrequestid, userid, questiontext, answer01, answer02, answer03, answer04, requesttime FROM survey_requests";
 
         try (Connection conn = DBConnection.getConnection();
@@ -55,7 +55,7 @@ public class SurveyRequestController {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                SuerveyRequestModel request = new SuerveyRequestModel(
+                SurveyRequestModel request = new SurveyRequestModel(
                         rs.getInt("suerveyrequestid"),
                         rs.getInt("userid"),
                         rs.getString("questiontext"),
@@ -75,16 +75,16 @@ public class SurveyRequestController {
     }
 
     // Retrieve a single survey request by ID
-    public static SuerveyRequestModel getSurveyRequestById(int suerveyrequestid) throws SQLException {
+    public static SurveyRequestModel getSurveyRequestById(int suerveyrequestid) throws SQLException {
         String query = "SELECT userid, questiontext, answer01, answer02, answer03, answer04, requesttime FROM survey_requests WHERE surveyrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, suerveyrequestid);
+            stmt.setLong(1, suerveyrequestid);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new SuerveyRequestModel(
-                            suerveyrequestid,
+                    return new SurveyRequestModel(
+                             suerveyrequestid,
                             rs.getInt("userid"),
                             rs.getString("questiontext"),
                             rs.getString("answer01"),
@@ -127,15 +127,23 @@ public class SurveyRequestController {
     }
 
     // Delete a survey request
-    public static boolean deleteSurveyRequest(int surveyrequestid) throws SQLException {
-        String query = "DELETE FROM survey_requests WHERE surveyrequestid = ?";
+    public static boolean deleteSurveyRequest(int suerveyrequestid) throws SQLException {
+        System.out.println("Attempting to delete survey request with ID: " + suerveyrequestid); // Debugging log
+
+        String query = "DELETE FROM survey_requests WHERE suerveyrequestid = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, surveyrequestid);
-            return stmt.executeUpdate() > 0;
+
+            stmt.setInt(1, suerveyrequestid);
+
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Log result
+
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.err.println("Error deleting survey request: " + e.getMessage());
             throw e;
         }
     }
+
 }

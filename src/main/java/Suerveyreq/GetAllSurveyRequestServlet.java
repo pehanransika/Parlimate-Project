@@ -1,8 +1,5 @@
 package Suerveyreq;
 
-import Suerveyreq.SuerveyRequestModel;
-import Suerveyreq.SurveyRequestController;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,22 +16,19 @@ public class GetAllSurveyRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Fetch all survey requests from SurveyRequestController
-            List<SuerveyRequestModel> allSurveyRequests = SurveyRequestController.getAllSurveyRequests();
+            // Fetch all survey requests
+            List<SurveyRequestModel> allSurveyRequests = SurveyRequestController.getAllSurveyRequests();
 
             // Set the list as a request attribute
             request.setAttribute("allSurveyRequests", allSurveyRequests);
 
-            // Forward to surveyrequestDetail.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("surveyrequestDetail.jsp");
+            // Forward to JSP
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/surveyrequestDetails.jsp");
             dispatcher.forward(request, response);
-
         } catch (Exception e) {
             e.printStackTrace();
-
-            // Set error message and forward to an error page
-            request.setAttribute("error", "Unable to retrieve survey requests. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+            request.setAttribute("error", "Unable to retrieve survey requests.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             dispatcher.forward(request, response);
         }
     }

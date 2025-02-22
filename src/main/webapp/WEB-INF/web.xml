@@ -231,6 +231,15 @@
     <servlet-name>GetAllSurveyRequestServlet</servlet-name>
     <url-pattern>/Surveys/GetAllSurveyRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.DeleteSurveyRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteSurveyRequestServlet</servlet-name>
+    <url-pattern>/Surveys/DeleteSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>CreateMeetingRequestServlet</servlet-name>
