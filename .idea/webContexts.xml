@@ -3,15 +3,14 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
-
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/fundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/adminfundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/requestDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
-
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcements.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcementsDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
-
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/fundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Surveys/surveys.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Surveys" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/adminfundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/requestDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/userManagment/userManagment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/userManagment" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
   </component>

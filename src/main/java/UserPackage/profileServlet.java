@@ -12,43 +12,42 @@ import java.util.List;
 public class profileServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         processRequest(req,resp);
-    }
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-          UserModel user = (UserModel) req.getSession().getAttribute("user");
-          if(user != null) {
-              //forward user data to profile
-              req.setAttribute("user", user);
-              String usertype = user.getUserType();
-              int userid = user.getUserId();
-              Object userProfile = null;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-              if (usertype.equals("Citizen")) {
-                  List<CitizenModel> citizens = CitizenController.CitizenProfile(userid);
-                  userProfile = citizens.get(0);
-              } else if (usertype.equals("Politician")) {
-                  List<PoliticianModel> politicians = PoliticianController.PoliticianProfile(userid);
-                  userProfile = politicians.get(0);
-              } else if (usertype.equals("Political Party")) {
-                  List<PoliticalPartyModel> politicalParties = PoliticalPartyController.PoliticalPartyProfile(userid);
-                  userProfile = politicalParties.get(0);
-              }
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Get the user, citizen, and politician data from the session
+        UserModel user = (UserModel) req.getSession().getAttribute("user");
+        CitizenModel citizen = (CitizenModel) req.getSession().getAttribute("citizen");
+        PoliticianModel politician = (PoliticianModel) req.getSession().getAttribute("politician");
 
-// Store the user profile in session and request under a single attribute
-              req.getSession().setAttribute("userinfo", userProfile);
-              req.setAttribute("userinfo", userProfile);
+        // If none of the session attributes are set, redirect to login page
+        if (user == null && citizen == null && politician == null) {
+            resp.sendRedirect("index.jsp");
+            return;
+        }
 
-              req.getRequestDispatcher("Home.jsp").forward(req,resp);
+        // Set session attributes if available (don't overwrite if already set)
+        if (user != null) {
+            req.getSession().setAttribute("user", user);
+        }
+        if (citizen != null) {
+            req.getSession().setAttribute("citizen", citizen);
+        }
+
+        // Politician profile: If a politician is found in the session, retrieve their profile
 
 
-          }else{
-              //Handle case where user id is not log in
-              resp.sendRedirect("index.jsp");
-          }
+        if (politician != null) {
+            req.getSession().setAttribute("politician",politician);
+        }
+
+        // Forward to the profile.jsp page
+        req.getRequestDispatcher("Profile/profile.jsp").forward(req, resp);
     }
 }

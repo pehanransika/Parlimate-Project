@@ -55,13 +55,13 @@
 			<div class="navigation">
 				<ul>
 					<li>
-						<a href="#" class="nav-item f-row active"> 
+						<a href="index.jsp" class="nav-item f-row active">
 							<i class="fa-regular fa-house"></i>
 							<span>home</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row"> 
+						<a href="../userManagment/userManagment.jsp" class="nav-item f-row">
 							<i class="fa-regular fa-users"></i>
 							<span>user management</span>
 						</a>

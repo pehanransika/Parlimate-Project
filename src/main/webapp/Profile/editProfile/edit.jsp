@@ -1,344 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile | Parlimate</title>
-    <link rel="stylesheet" href="../../index/sidebar1.css" />
-    <link rel="stylesheet" href="../../index/header/header.css" />
-    <link rel="stylesheet" href="../../index.css" />
-    <link rel="stylesheet" href="../profile.css" />
-    <link rel="stylesheet" href="./edit.css" />
-    <!-- icons -->
-    <link
-            rel="stylesheet"
-            data-purpose="Layout StyleSheet"
-            title="Web Awesome"
-            href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
-    />
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
-    />
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 700px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            grid-column: span 2;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Styling the left and right side forms */
+        .left-side {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-side {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ensuring that the layout looks good on small screens */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-<%@ include file="../..//index/sidebar.jsp" %>
+<div class="container">
+    <h1>Update Profile</h1>
 
-<div class="header pd-2">
-    <div class="start row">
-        <div class="sidebar-toggle-btn sideMenuBtn btn">
-            <i class="fa-sharp fa-solid fa-bars"></i>
+    <div class="left-side">
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" name="email" value="${param.email}" readonly>
         </div>
-
-        <div class="logo">
-            <a href="./index.html"> PARLIMATE </a>
+        <div class="form-group">
+            <label>User Type:</label>
+            <input type="text" name="userType" value="${param.userType}" readonly>
         </div>
     </div>
-    <div class="headerSearchBar row">
-        <input
-                type="search"
-                name="mainSearch"
-                id="headerSearchBar"
-                placeholder="Search politicians, Political parties...."
-        />
-        <label for="headerSearchBar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-    </div>
-    <div class="headerBtns">
-        <div class="headerBtn">
-            <input type="checkbox" name="notifi" id="notificationBtn" />
-            <label for="notificationBtn" class="btn">
-                <i class="fa-solid fa-bell"></i>
-            </label>
-            <span class="tip">notifications</span>
-            <div class="dropDownMenu">
-                <ul>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span
-                                >Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span
-                                >
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span
-                                >Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span
-                                >
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span
-                                >Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span
-                                >
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <a
-                        href="./Announcements/announcements.html"
-                        class="bottom-btn small-text capitalize"
-                >
-                    see all notifications
-                </a>
-            </div>
-        </div>
-        <div class="headerBtn">
-            <input type="checkbox" name="profile" id="profileBtn" />
-            <label for="profileBtn" class="btn">
-                <i class="fa-solid fa-user"></i>
-            </label>
-            <span class="tip">profile</span>
-            <div class="dropDownMenu">
-                <div class="profile">
-                    <a href="#">
-                        <div class="img"></div>
-                        <div class="details">
-                            <div class="name medium-text bold">
-                                Naleeka Kumarasinghe
-                            </div>
-                            <div class="email small-text">
-                                knaleeka845@gmail.com
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <ul class="capitalize">
-                    <li>
-                        <a href="#">
-									<span>
-										<i class="fa-regular fa-gear"></i>
-									</span>
-                            <span> account settings </span>
-                        </a>
-                    </li>
-                    <div class="sep-line"></div>
-                    <li>
-                        <a href="#">
-									<span>
-										<i
-                                                class="fa-regular fa-circle-question"
-                                        ></i>
-									</span>
-                            <span> help center </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-									<span>
-										<i class="fa-regular fa-star"></i>
-									</span>
-                            <span> upgrade plan </span>
-                        </a>
-                    </li>
-                    <div class="sep-line"></div>
 
-                    <li>
-                        <div class="logoutBtn capitalize">
-                            <div class="cont">
-                                <input
-                                        type="checkbox"
-                                        name="logoutBtn"
-                                        id="logoutBtn"
-                                />
-                                <label for="logoutBtn">
-                                    <i class="fa-solid fa-sign-out"></i>
-                                    <span>logout</span>
-                                </label>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <div class="right-side">
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" value="${param.password}" required>
         </div>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" value="${param.name}" required>
+        </div>
+        <div class="form-group">
+            <label>Address:</label>
+            <input type="text" name="address" value="${param.address}" required>
+        </div>
+        <div class="form-group">
+            <label>Phone Number:</label>
+            <input type="text" name="phoneNumber" value="${param.phoneNumber}" required>
+        </div>
+        <div class="form-group">
+            <label>Profile:</label>
+            <input type="text" name="profile" value="${param.profile}" required>
+        </div>
+        <div class="form-group">
+            <label>Image URL:</label>
+            <input type="text" name="img_url" value="${param.img_url}" required>
+        </div>
+        <button type="submit" class="btn">Update</button>
     </div>
 </div>
-<div class="container col">
-    <div class="pro-imgs">
-        <div class="cover-bg"></div>
-        <div class="profile-pic"></div>
-    </div>
-    <div class="profile-container">
-        <div class="profile-details profile-details-edit col">
-            <div class="inp-field row">
-                <div class="de-titles col">
-                    <div class="title b-title">Public Profile</div>
-                    <div class="description">
-                        This will be displayed on your profile.
-                    </div>
-                </div>
-                <div class="de-content col">
-                    <input
-                            type="text"
-                            name="name"
-                            id="profile-name"
-                            placeholder="Naleeka Kumarasinghe"
-                    />
 
-                    <input
-                            type="text"
-                            placeholder="@itsNaleeka"
-                            name="profile-username"
-                            id="profile-username"
-                    />
-                </div>
-            </div>
-            <div class="inp-field row">
-                <div class="de-titles col">
-                    <div class="title">Bio</div>
-                    <div class="description">
-                        A brief description about your self.
-                    </div>
-                </div>
-                <div class="de-content col">
-							<textarea
-                                    name="user-bio"
-                                    id="user-bio"
-                                    placeholder="User's bio"
-                            ></textarea>
-                </div>
-            </div>
-            <div class="inp-field row">
-                <div class="de-titles col">
-                    <div class="title">profession</div>
-                    <div class="description">
-                        Your current profession.
-                    </div>
-                </div>
-                <div class="de-content col">
-                    <input
-                            type="text"
-                            name="name"
-                            id="profile-profession"
-                            placeholder="Software Engineer"
-                    />
-                </div>
-            </div>
-            <div class="inp-field row">
-                <div class="de-titles col">
-                    <div class="title">Birthday</div>
-                </div>
-                <div class="de-content col">
-                    <input
-                            type="date"
-                            name="profile-bday"
-                            id="profile-bday"
-                    />
-                </div>
-            </div>
-            <div class="inp-field row">
-                <div class="de-titles col">
-                    <div class="title">educational qualifications</div>
-                    <div class="description">
-                        Your educational qualifications.
-                    </div>
-                </div>
-                <div class="de-content col">
-                    <div class="field">
-                        <input
-                                type="text"
-                                name="name"
-                                id="profile-profession"
-                                placeholder="Graduate at UOC"
-                        />
-                        <button class="add-btn">Add</button>
-                    </div>
-                    <div class="qualifications col">
-								<span class="row">
-									Computer Science undergraduate at UCSC
-									<button class="remove-btn">x</button>
-								</span>
-                        <span class="row">
-									Computer Science undergraduate at UCSC
-									<button class="remove-btn">x</button>
-								</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-btns row">
-                <button class="btn cap cancel-btn">cancel</button>
-                <button class="btn cap save-btn">save changes</button>
-            </div>
-        </div>
-        <div class="reset-password col">
-            <h3 class="title">reset password</h3>
-            <p>Do you want to change your password ?</p>
-            <div class="password-fields col">
-                <div class="pswd-field">
-                    <input
-                            type="password"
-                            placeholder="Enter your current password"
-                    />
-                    <i class="fa-solid fa-eye"></i>
-                </div>
-                <div class="pswd-field">
-                    <input
-                            type="password"
-                            placeholder="Enter your new password"
-                    />
-                    <i class="fa-solid fa-eye"></i>
-                </div>
-                <div class="pswd-field">
-                    <input
-                            type="password"
-                            placeholder="Confirm your new password "
-                    />
-                    <i class="fa-solid fa-eye"></i>
-                </div>
-            </div>
-            <div class="confirm">
-                <button class="confirm-btn cap btn">confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-<script src="../../script.js"></script>
 <script>
-    const eyes = document.querySelectorAll(".fa-eye");
-    eyes.forEach((eye) => {
-        eye.addEventListener("click", () => {
-            const input = eye.previousElementSibling;
-            if (input.type === "password") {
-                input.type = "text";
-                eye.classList.remove("fa-eye");
-                eye.classList.add("fa-eye-slash");
-            } else {
-                input.type = "password";
-                eye.classList.remove("fa-eye-slash");
-                eye.classList.add("fa-eye");
-            }
+    // Ensure readonly fields cannot be edited even through JavaScript console
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector('input[name="email"]').addEventListener("keydown", function (e) {
+            e.preventDefault();
+        });
+        document.querySelector('input[name="userType"]').addEventListener("keydown", function (e) {
+            e.preventDefault();
         });
     });
 </script>
+</body>
 </html>

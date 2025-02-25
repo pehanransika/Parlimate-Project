@@ -15,7 +15,9 @@ public class DeleteSurveyRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Retrieve the survey request ID from the request parameter
-            String surveyRequestIdParam = request.getParameter("surveyrequestid");
+            String surveyRequestIdParam = request.getParameter("surveyRequestId");
+
+
 
             System.out.println("Received surveyRequestId: " + surveyRequestIdParam);
 
@@ -33,16 +35,16 @@ public class DeleteSurveyRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Survey Request Deleted Successfully'); window.location.href='GetAllSurveyRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Survey Request Deleted Successfully'); window.location.href='GetAllSurveyRequestServlet';</script>");
             } else {
                 // Handle case where the survey request is not found or already deleted
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Survey request not found or already deleted.'); window.location.href='GetAllSurveyRequestsServlet';</script>");
+                response.getWriter().println("<script>alert('Survey request not found or already deleted.'); window.location.href='GetAllSurveyRequestServlet';</script>");
             }
         } catch (NumberFormatException e) {
             System.err.println("Invalid Survey Request ID: " + e.getMessage());
             response.setContentType("text/html");
-            response.getWriter().println("<script>alert('Invalid survey request ID format.'); window.location.href='GetAllSurveyRequestsServlet';</script>");
+            response.getWriter().println("<script>alert('Invalid survey request ID format.'); window.location.href='GetAllSurveyRequestServlet';</script>");
         } catch (Exception e) {
             System.err.println("Error during survey request deletion: " + e.getMessage());
             e.printStackTrace();

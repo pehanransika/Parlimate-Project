@@ -161,6 +161,14 @@
     <url-pattern>/DeleteUserServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <servlet-class>UserPackage.UserManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <url-pattern>/admin/userManagment/user-management</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>profileServlet</servlet-name>
     <servlet-class>UserPackage.profileServlet</servlet-class>
   </servlet>
@@ -214,6 +222,42 @@
     <url-pattern>/DeleteRequestServlet</url-pattern>
     <url-pattern>/Fundraising/DeleteRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.CreateSurveyRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateSurveyRequestServlet</servlet-name>
+
+    <url-pattern>/Surveys/CreateSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.GetAllSurveyRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllSurveyRequestServlet</servlet-name>
+    <url-pattern>/Surveys/GetAllSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.UpdateSurveyRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateSurveyRequestServlet</servlet-name>
+    <url-pattern>/Surveys/UpdateSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.DeleteSurveyRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteSurveyRequestServlet</servlet-name>
+    <url-pattern>/Surveys/DeleteSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>CreateMeetingRequestServlet</servlet-name>
     <servlet-class>meetingreq.CreateMeetingRequestServlet</servlet-class>

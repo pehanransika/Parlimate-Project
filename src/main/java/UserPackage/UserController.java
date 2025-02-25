@@ -56,6 +56,32 @@ public class UserController {
 
         return -1; // Indicate failure
     }
+    public static List<UserModel> getAllUsers() {
+        List<UserModel> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String email = rs.getString("email");
+                String userType = rs.getString("user_type");
+                String created_at = rs.getString("created_at");
+
+                UserModel user = new UserModel(userId, email, "", userType, created_at);
+                users.add(user);
+
+                System.out.println("User found: " + userId + ", " + email + ", " + userType);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching users: " + e.getMessage());
+        }
+
+        return users;
+    }
 
     // Login Validation
     public static List<UserModel> loginValidate(String email, String password) {
@@ -77,9 +103,9 @@ public class UserController {
                         int id = rs.getInt("user_id");
                         String gmail = rs.getString("email");
                         String userType = rs.getString("user_type");
-                        String createdAt = rs.getString("created_at");
+                        String created_at = rs.getString("created_at");
 
-                        UserModel user = new UserModel(id, gmail, storedHash, userType, createdAt);
+                        UserModel user = new UserModel(id, gmail, storedHash, userType, created_at);
                         users.add(user);
                     }
                 }
@@ -92,26 +118,25 @@ public class UserController {
     }
 
     // Fetch User Profile
-    public static List<UserModel> getUserProfile(int id) {
+    public static List<UserModel> UserProfile(int id) {
         List<UserModel> users = new ArrayList<>();
-        String sql = "SELECT * FROM users WHERE user_id = ?";
+        // Directly insert the ID into the SQL query
+        String sql = "SELECT * FROM users WHERE user_id = " + id;
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            stmt.setInt(1, id); // Use PreparedStatement to prevent SQL injection
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String userType = rs.getString("user_type");
+                String created_at = rs.getString("created_at");
+                System.out.println("DB Record: ID=" + userId + ", Email=" + email + ", CreatedAt=" + created_at); // Debugging
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    int userId = rs.getInt("user_id");
-                    String email = rs.getString("email");
-                    String password = rs.getString("password");
-                    String userType = rs.getString("user_type");
-                    String createdAt = rs.getString("created_at");
-
-                    UserModel user = new UserModel(userId, email, password, userType, createdAt);
-                    users.add(user);
-                }
+                UserModel user = new UserModel(userId, email, password, userType, created_at);
+                users.add(user);
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving user profile: " + e.getMessage());
@@ -119,6 +144,7 @@ public class UserController {
 
         return users;
     }
+
 
     public static boolean updateUser(int userId, String email, String password) {
         boolean isSuccess = false;
@@ -176,4 +202,6 @@ public class UserController {
             return false;
         }
     }
+
+
 }

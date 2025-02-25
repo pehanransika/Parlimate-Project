@@ -311,6 +311,39 @@
 
         return true; // If all checks pass, return true to submit the form
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        let districtContainer = document.getElementById("district"); // Select the district dropdown
+        let citizenTab = document.getElementById("citizen-set");
+        let politicianTab = document.getElementById("politician-set");
+        let politicalPartyTab = document.getElementById("politicalParty-set");
+
+        function toggleDistrict(selectedUserType) {
+            console.log("Selected User Type:", selectedUserType); // Debugging Output
+
+            if (selectedUserType === "citizen") {
+                districtContainer.style.display = "block"; // Show district for citizens
+            } else {
+                districtContainer.style.display = "none"; // Hide for politicians & political parties
+            }
+        }
+
+        // Add click event listeners for tabs
+        citizenTab.addEventListener("click", function () {
+            toggleDistrict("citizen");
+        });
+
+        politicianTab.addEventListener("click", function () {
+            toggleDistrict("politician");
+        });
+
+        politicalPartyTab.addEventListener("click", function () {
+            toggleDistrict("politicalParty");
+        });
+
+        // Run on page load to set correct visibility
+        toggleDistrict("citizen"); // Default to citizen
+    });
+
 </script>
 <ul class="items row">
     <li class="item row">

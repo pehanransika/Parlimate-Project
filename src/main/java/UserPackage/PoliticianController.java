@@ -10,9 +10,9 @@ import java.util.List;
 public class PoliticianController {
 
     // Method to insert a new politician record without political party ID
-    public static boolean insertPolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
+    public static boolean insertPolitician(int userId, String name, String address, String phoneNumber) {
         // SQL query to insert politician record
-        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number, profile_img_url) VALUES (?, ?, ?, ?, ?);";
+        String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number) VALUES (?, ?, ?, ?);";
 
         // Try-with-resources to manage database connection and statement
         try (Connection conn = DBConnection.getConnection();
@@ -23,7 +23,7 @@ public class PoliticianController {
             insertPoliticianStmt.setString(2, name);          // Set the name
             insertPoliticianStmt.setString(3, address);       // Set the address
             insertPoliticianStmt.setString(4, phoneNumber);   // Set the phone number
-            insertPoliticianStmt.setString(5, profileImgUrl); // Set the profile image URL
+            // Set the profile image URL
 
             // Execute the update and return true if the insertion was successful
             int rowsInserted = insertPoliticianStmt.executeUpdate();
@@ -42,10 +42,9 @@ public class PoliticianController {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Use PreparedStatement to safely set the user_id parameter
             stmt.setInt(1, id);
+            System.out.println("Executing query: " + stmt.toString());
 
-            // Execute the query and process the ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int politicianId = rs.getInt("politician_id");
@@ -54,25 +53,25 @@ public class PoliticianController {
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
-                    String profileImageUrl = rs.getString("profile_img_url");
 
-                    // Create a PoliticianModel object and add it to the list
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, profileImageUrl);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId);
                     politicians.add(politician);
+                    System.out.println("Fetched politician: " + name);
                 }
             }
 
         } catch (SQLException e) {
             System.err.println("Error retrieving data from politician table: " + e.getMessage());
+            e.printStackTrace();
         }
 
+        System.out.println("Total Politicians Found: " + politicians.size());
         return politicians;
     }
 
-
-    public static boolean updatePolitician(int userId, String name, String address, String phoneNumber, String profileImgUrl) {
+    public static boolean updatePolitician(int userId, String name, String address, String phoneNumber) {
         // SQL query to update politician record
-        String updatePoliticianSQL = "UPDATE politician SET name = ?, address = ?, phone_number = ?, profile_img_url = ? WHERE user_id = ?";
+        String updatePoliticianSQL = "UPDATE politician SET name = ?, address = ?, phone_number = ? WHERE user_id = ?";
 
         // Try-with-resources to manage database connection and statement
         try (Connection conn = DBConnection.getConnection();
@@ -82,8 +81,8 @@ public class PoliticianController {
             updatePoliticianStmt.setString(1, name);           // Set the name
             updatePoliticianStmt.setString(2, address);        // Set the address
             updatePoliticianStmt.setString(3, phoneNumber);    // Set the phone number
-            updatePoliticianStmt.setString(4, profileImgUrl);  // Set the profile image URL
-            updatePoliticianStmt.setInt(5, userId);            // Set the user ID for the WHERE clause
+
+            updatePoliticianStmt.setInt(4, userId);            // Set the user ID for the WHERE clause
 
             // Execute the update and return true if the update was successful
             int rowsUpdated = updatePoliticianStmt.executeUpdate();

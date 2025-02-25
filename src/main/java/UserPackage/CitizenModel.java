@@ -7,9 +7,9 @@ public class CitizenModel  {
     private String phoneNumber;
     private String name;
     private String district;
-    private String imageUrl;
 
-    public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name, String district, String imageUrl) {
+
+    public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name, String district) {
 
         this.citizenId = citizenId;
         this.userId = userId;
@@ -17,7 +17,7 @@ public class CitizenModel  {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.district = district;
-        this.imageUrl = imageUrl;
+
     }
 
 
@@ -38,8 +38,7 @@ public class CitizenModel  {
     public String getDistrict() { return district; }
     public void setDistrict(String district) { this.district = district; }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }

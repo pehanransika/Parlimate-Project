@@ -7,17 +7,17 @@ public class PoliticianModel  {
     private String address;
     private String phoneNumber;
     private Integer politicalPartyId; // Nullable if no party
-    private String profileImgUrl;
+
 
     public PoliticianModel(int userId,int politicianId, String name, String address, String phoneNumber,
-                      int politicalPartyId, String profileImgUrl) {
+                      int politicalPartyId) {
         this.userId = userId;
         this.politicianId = politicianId;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.politicalPartyId = politicalPartyId;
-        this.profileImgUrl = profileImgUrl;
+
     }
 
     // Getters and Setters
@@ -36,8 +36,7 @@ public class PoliticianModel  {
     public Integer getPoliticalPartyId() { return politicalPartyId; }
     public void setPoliticalPartyId(Integer politicalPartyId) { this.politicalPartyId = politicalPartyId; }
 
-    public String getProfileImgUrl() { return profileImgUrl; }
-    public void setProfileImgUrl(String profileImgUrl) { this.profileImgUrl = profileImgUrl; }
+
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
