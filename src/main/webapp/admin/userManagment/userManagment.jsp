@@ -3,6 +3,9 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,6 +227,8 @@
                             </td>
                         </tr>
                     </c:forEach>
+
+
                     </tbody>
                 <div class="pagination capitalize f-row">
                     <span>prev</span>

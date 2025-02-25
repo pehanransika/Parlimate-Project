@@ -72,9 +72,10 @@ public class UserController {
 
                 UserModel user = new UserModel(userId, email, "", userType, created_at);
                 users.add(user);
-
-                System.out.println("User found: " + userId + ", " + email + ", " + userType);
             }
+
+            // Debugging: Print user list size
+            System.out.println("Users found: " + users.size());
 
         } catch (SQLException e) {
             System.err.println("Error fetching users: " + e.getMessage());
