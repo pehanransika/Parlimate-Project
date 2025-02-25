@@ -210,10 +210,9 @@ body {
     background-color: rgba(106, 57, 185, 0.897);
 }
 
-#vote-btn:hover{
+#vote-btn:hover {
     background-color: white;
-    color:purple;
+    color: purple;
     border-color: purple;
-
 }
 

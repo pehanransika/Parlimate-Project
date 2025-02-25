@@ -56,6 +56,32 @@ public class UserController {
 
         return -1; // Indicate failure
     }
+    public static List<UserModel> getAllUsers() {
+        List<UserModel> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String email = rs.getString("email");
+                String userType = rs.getString("user_type");
+                String created_at = rs.getString("created_at");
+
+                UserModel user = new UserModel(userId, email, "", userType, created_at);
+                users.add(user);
+
+                System.out.println("User found: " + userId + ", " + email + ", " + userType);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching users: " + e.getMessage());
+        }
+
+        return users;
+    }
 
     // Login Validation
     public static List<UserModel> loginValidate(String email, String password) {

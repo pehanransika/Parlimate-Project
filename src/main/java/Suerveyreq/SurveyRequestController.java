@@ -47,26 +47,34 @@ public class SurveyRequestController {
 
     // Retrieve all survey requests
     public static List<SurveyRequestModel> getAllSurveyRequests() throws SQLException {
-        List<  SurveyRequestModel> requests = new ArrayList<>();
-        String query = "SELECT suerveyrequestid, userid, questiontext, answer01, answer02, answer03, answer04, requesttime FROM survey_requests";
+        List<SurveyRequestModel> requests = new ArrayList<>();
+        String query = "SELECT surveyrequestid, userid, questiontext, answer01, answer02, answer03, answer04, requesttime FROM survey_requests";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
+            System.out.println("Executing query: " + query);
+
             while (rs.next()) {
+                int surveyRequestId = rs.getInt("surveyrequestid");
+                int userId = rs.getInt("userid");
+                String questionText = rs.getString("questiontext");
+                String answer01 = rs.getString("answer01");
+                String answer02 = rs.getString("answer02");
+                String answer03 = rs.getString("answer03");
+                String answer04 = rs.getString("answer04");
+                Timestamp requestTime = rs.getTimestamp("requesttime");
+
+                System.out.println("Fetched Survey ID: " + surveyRequestId + ", User ID: " + userId);
+
                 SurveyRequestModel request = new SurveyRequestModel(
-                        rs.getInt("suerveyrequestid"),
-                        rs.getInt("userid"),
-                        rs.getString("questiontext"),
-                        rs.getString("answer01"),
-                        rs.getString("answer02"),
-                        rs.getString("answer03"),
-                        rs.getString("answer04"),
-                        rs.getTimestamp("requesttime").toLocalDateTime()
+                        surveyRequestId, userId, questionText, answer01, answer02, answer03, answer04, requestTime
                 );
                 requests.add(request);
             }
+            System.out.println("Total survey requests retrieved: " + requests.size());
+
         } catch (SQLException e) {
             System.err.println("Error retrieving all survey requests: " + e.getMessage());
             throw e;
@@ -74,17 +82,18 @@ public class SurveyRequestController {
         return requests;
     }
 
+
     // Retrieve a single survey request by ID
-    public static SurveyRequestModel getSurveyRequestById(int suerveyrequestid) throws SQLException {
+    public static SurveyRequestModel getSurveyRequestById(int surveyrequestid) throws SQLException {
         String query = "SELECT userid, questiontext, answer01, answer02, answer03, answer04, requesttime FROM survey_requests WHERE surveyrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setLong(1, suerveyrequestid);
+            stmt.setLong(1,surveyrequestid);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new SurveyRequestModel(
-                             suerveyrequestid,
+                            surveyrequestid,
                             rs.getInt("userid"),
                             rs.getString("questiontext"),
                             rs.getString("answer01"),
@@ -105,7 +114,7 @@ public class SurveyRequestController {
     // Update a survey request
     public static boolean updateSurveyRequest(int surveyrequestid, int userid, String questionText, String answer01,
                                               String answer02, String answer03, String answer04, Timestamp requestTime) throws SQLException {
-        String query = "UPDATE survey_requests SET userid = ?, questiontext = ?, answer01 = ?, answer02 = ?, answer03 = ?, answer04 = ?, requesttime = ? WHERE surveyrequestid = ?";
+        String query = "UPDATE survey_requests SET userid = ?, questiontext = ?, answer01 = ?, answer02 = ?, answer03 = ?, answer04 = ?, requesttime = ? WHERE surveyrequestid= ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -127,14 +136,14 @@ public class SurveyRequestController {
     }
 
     // Delete a survey request
-    public static boolean deleteSurveyRequest(int suerveyrequestid) throws SQLException {
-        System.out.println("Attempting to delete survey request with ID: " + suerveyrequestid); // Debugging log
+    public static boolean deleteSurveyRequest(int surveyrequestid) throws SQLException {
+        System.out.println("Attempting to delete survey request with ID: " +surveyrequestid); // Debugging log
 
-        String query = "DELETE FROM survey_requests WHERE suerveyrequestid = ?";
+        String query = "DELETE FROM survey_requests WHERE surveyrequestid = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, suerveyrequestid);
+            stmt.setInt(1,surveyrequestid);
 
             int rowsAffected = stmt.executeUpdate();
             System.out.println("Rows affected: " + rowsAffected); // Log result

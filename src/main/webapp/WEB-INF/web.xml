@@ -161,6 +161,14 @@
     <url-pattern>/DeleteUserServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <servlet-class>UserPackage.UserManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagementServlet</servlet-name>
+    <url-pattern>/admin/userManagment/user-management</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>profileServlet</servlet-name>
     <servlet-class>UserPackage.profileServlet</servlet-class>
   </servlet>
@@ -230,6 +238,15 @@
   <servlet-mapping>
     <servlet-name>GetAllSurveyRequestServlet</servlet-name>
     <url-pattern>/Surveys/GetAllSurveyRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateSurveyRequestServlet</servlet-name>
+    <servlet-class>Suerveyreq.UpdateSurveyRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateSurveyRequestServlet</servlet-name>
+    <url-pattern>/Surveys/UpdateSurveyRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DeleteSurveyRequestServlet</servlet-name>

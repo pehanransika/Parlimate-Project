@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../index/sidebar1.css" />
     <link rel="stylesheet" href="../index/header/header.css" />
     <link rel="stylesheet" href="../container.css" />
-    <link rel="stylesheet" href="./surveys.css" />
+    <link rel="stylesheet" href="./survey.css" />
     <link rel="stylesheet" href="./surv-popup.css" />
     <!-- icons -->
     <link

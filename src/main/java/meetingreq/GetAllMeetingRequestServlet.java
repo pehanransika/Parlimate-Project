@@ -42,4 +42,3 @@ public class GetAllMeetingRequestServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

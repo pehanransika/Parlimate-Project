@@ -28,7 +28,7 @@ public class SurveyRequestModel {  // Renamed class to correct typo
     }
 
     // Default Constructor
-    public SurveyRequestModel() {}
+    public SurveyRequestModel(int surveyRequestId, int userid, String questiontext, String answer01, String answer02, String answer03, String answer04, Timestamp requesttime) {}
 
     public int getSurveyRequestId() {  // Ensure getter method follows JavaBean naming conventions
         return surveyRequestId;
