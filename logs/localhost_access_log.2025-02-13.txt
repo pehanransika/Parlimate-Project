@@ -244,6 +244,7 @@
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:11:57 +0530] "GET /Parlimate/index.css HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:11:57 +0530] "GET /sidebar1.css HTTP/1.1" 404 682
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:11:57 +0530] "GET /Parlimate/header.css HTTP/1.1" 404 775
+
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:21:09 +0530] "GET /Parlimate HTTP/1.1" 302 -
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:21:10 +0530] "GET /Parlimate/ HTTP/1.1" 200 23877
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:11:21:11 +0530] "GET /Parlimate/welcome.css HTTP/1.1" 304 -
@@ -485,3 +486,4 @@
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:13:47:21 +0530] "GET /Parlimate/Profile/editProfile/edit.jsp HTTP/1.1" 200 2378
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:13:47:54 +0530] "GET /Parlimate/Profile/editProfile/edit.jsp HTTP/1.1" 200 3952
 0:0:0:0:0:0:0:1 - - [13/Feb/2025:13:49:00 +0530] "GET /Parlimate/Profile/editProfile/edit.jsp HTTP/1.1" 200 3952
+

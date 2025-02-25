@@ -1107,6 +1107,7 @@
 13-Feb-2025 11:15:26.706 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [E:\Parlimate\Parlimate-Project\conf\Catalina\localhost\Parlimate.xml] has finished in [856] ms
 13-Feb-2025 11:15:26.710 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
 13-Feb-2025 11:15:26.727 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [934] milliseconds
+
 13-Feb-2025 11:19:26.685 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
 13-Feb-2025 11:19:26.690 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
 13-Feb-2025 11:19:26.860 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
@@ -1978,3 +1979,4 @@
 13-Feb-2025 13:46:34.428 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [E:\Parlimate\Parlimate-Project\conf\Catalina\localhost\Parlimate.xml] has finished in [1,163] ms
 13-Feb-2025 13:46:34.432 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
 13-Feb-2025 13:46:34.454 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1249] milliseconds
+
