@@ -22,7 +22,7 @@ public class UserManagementServlet extends HttpServlet {
 
         // Attach users to request object
         request.setAttribute("allUsers", allUsers);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/userManagment/userManagment.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userManagment.jsp");
         dispatcher.forward(request, response);
 
     }

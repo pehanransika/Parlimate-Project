@@ -9,12 +9,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+
+
+    </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Management | Admin Dashboard</title>
 
     <link rel="stylesheet" href="./userManagment.css" />
     <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./profile.css"/>
 
     <!-- icons -->
     <link
@@ -123,6 +128,7 @@
         </ul>
     </div>
 </div>
+
 <div class="pageContent">
     <div class="container f-col">
         <div class="top f-row">
@@ -178,7 +184,6 @@
                     <thead>
                     <tr>
                         <td>User ID</td>
-                        <td>User Name</td>
                         <td>Email</td>
                         <td>Role</td>
                         <td>status</td>
@@ -190,13 +195,16 @@
                     <c:forEach var="user" items="${allUsers}">
                         <tr>
                             <td>${user.userId}</td>
-                            <td class="profile f-row">
+                            <td >
                                 <div class="p-img"></div>
                                 <div class="credentials f-col">
                                     <div class="name">${user.email}</div>
-                                    <div class="email">${user.email}</div>
+
+
                                 </div>
                             </td>
+
+
                             <td class="role">
                                 <span class="${user.userType.toLowerCase()}">${user.userType}</span>
                             </td>
@@ -207,18 +215,15 @@
                                     <i class="fa-regular fa-ellipsis-vertical"></i>
                                 </button>
                                 <ul class="menu">
-                                    <li class="f-row">
+                                    <li class="f-row" >
                                         <i class="fa-regular fa-user"></i>
-                                        view profile
+                                        <button class="view-profile-btn" data-user-id="${user.userId}">
+                                            <i class="fa-regular fa-user"></i>
+                                            View Profile
+                                        </button>
                                     </li>
-                                    <li class="f-row">
-                                        <i class="fa-regular fa-pencil"></i>
-                                        edit details
-                                    </li>
-                                    <li class="f-row">
-                                        <i class="fa-regular fa-lock"></i>
-                                        change permission
-                                    </li>
+
+
                                     <li class="f-row del-user">
                                         <i class="fa-regular fa-trash"></i>
                                         delete user
@@ -240,7 +245,108 @@
         </div>
     </div>
 </div>
+<!-- Popup -->
+<!-- Profile Popup -->
+<div id="profilePopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeProfilePopup()">&times;</span>
+        <h2>Profile Details</h2>
+        <div id="profileDetails">
+            <!-- User details will be loaded here dynamically -->
+        </div>
+    </div>
+</div>
+
+
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to open profile popup
+        function openProfilePopup(userId) {
+            const popup = document.getElementById("profilePopup");
+            const profileDetails = document.getElementById("profileDetails");
+
+            if (!popup || !profileDetails) {
+                console.error("Profile popup elements not found!");
+                return;
+            }
+
+            // Simulate an AJAX call to fetch user details (Replace this with real data fetching)
+            const user = usersData.find(u => u.userId === userId);
+            if (user) {
+                profileDetails.innerHTML = `
+                <p><strong>User ID:</strong> ${user.userId}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Role:</strong> ${user.userType}</p>
+                <p><strong>Joined On:</strong> ${user.created_at}</p>
+            `;
+            } else {
+                profileDetails.innerHTML = "<p>User details not found!</p>";
+            }
+
+            popup.style.display = "block";
+        }
+
+        // Function to close profile popup
+        function closeProfilePopup() {
+            document.getElementById("profilePopup").style.display = "none";
+        }
+
+        // Attach event listeners
+        document.querySelectorAll(".view-profile-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const userId = this.getAttribute("data-user-id");
+                openProfilePopup(userId);
+            });
+        });
+
+        // Attach functions to the window object so they can be accessed in inline onclick events
+        window.openProfilePopup = openProfilePopup;
+        window.closeProfilePopup = closeProfilePopup;
+    });
+
+    function openProfilePopup(userId) {
+        fetch(`/getUserDetails?userId=${userId}`)
+            .then(response => response.json())
+            .then(user => {
+                if (user) {
+                    document.getElementById("profileDetails").innerHTML = `
+                    <p><strong>User ID:</strong> ${user.userId}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Role:</strong> ${user.userType}</p>
+                    <p><strong>Joined On:</strong> ${user.created_at}</p>
+                `;
+                    document.getElementById("profilePopup").style.display = "block";
+                } else {
+                    document.getElementById("profileDetails").innerHTML = "<p>User details not found!</p>";
+                }
+            })
+            .catch(error => console.error("Error fetching user details:", error));
+    }
+
+    function closeProfilePopup() {
+        document.getElementById("profilePopup").style.display = "none";
+    }
+
+    // Sample user data (Replace with actual data fetching logic)
+    const usersData = [
+        <c:forEach var="user" items="${allUsers}">
+        {
+            userId: "${user.userId}",
+            email: "${user.email}",
+            userType: "${user.userType}",
+            created_at: "${user.created_at}"
+        },
+        </c:forEach>
+    ];
+
+    // Attach event listeners dynamically
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".view-profile-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                openProfilePopup(this.dataset.userId);
+            });
+        });
+    });
     document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
@@ -282,6 +388,9 @@
             document.querySelector(".delete-user-popup").classList.remove("popup-show");
         });
     });
+
+
+
 </script>
 </body>
 
