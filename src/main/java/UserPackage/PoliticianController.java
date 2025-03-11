@@ -35,6 +35,31 @@ public class PoliticianController {
             return false;
         }
     }
+    public PoliticianModel getUserById(int userId) {
+        PoliticianModel politician = null;
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "SELECT * FROM Politicians WHERE userId = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                politician = new PoliticianModel(
+                        rs.getInt("userId"),
+                        rs.getInt("politicianId"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phoneNumber"),
+                        rs.getInt("politicalPartyId")
+                );
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return politician;
+    }
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
         String sql = "SELECT * FROM politician WHERE user_id = ?";

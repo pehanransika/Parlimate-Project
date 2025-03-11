@@ -79,7 +79,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="../Fundraising/fundraisingManagement.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -170,10 +170,11 @@
                             Filter
                         </button>
                     </div>
-                    <button class="add-btn f-row">
+                    <button class="add-btn f-row" id="openPopup">
                         <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add user
+                        Add User
                     </button>
+
                 </div>
             </div>
             <div class="total-records f-row">
@@ -259,34 +260,32 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to open profile popup
-        function openProfilePopup(userId) {
-            const popup = document.getElementById("profilePopup");
-            const profileDetails = document.getElementById("profileDetails");
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.actbtn button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevents closing immediately after opening
+                let menu = this.nextElementSibling;
+                document.querySelectorAll('.actbtn .menu').forEach(m => {
+                    if (m !== menu) {
+                        m.classList.remove('nav-active');
+                    }
+                });
+                menu.classList.toggle('nav-active');
+            });
+        });
 
-            if (!popup || !profileDetails) {
-                console.error("Profile popup elements not found!");
-                return;
+        // Close the menu when clicking outside
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("view-profile-btn")) {
+                let userId = event.target.getAttribute("data-user-id");
+                openProfilePopup(userId);
             }
+        });
 
-            // Simulate an AJAX call to fetch user details (Replace this with real data fetching)
-            const user = usersData.find(u => u.userId === userId);
-            if (user) {
-                profileDetails.innerHTML = `
-                <p><strong>User ID:</strong> ${user.userId}</p>
-                <p><strong>Email:</strong> ${user.email}</p>
-                <p><strong>Role:</strong> ${user.userType}</p>
-                <p><strong>Joined On:</strong> ${user.created_at}</p>
-            `;
-            } else {
-                profileDetails.innerHTML = "<p>User details not found!</p>";
-            }
+    });
 
-            popup.style.display = "block";
-        }
 
-        // Function to close profile popup
+    // Function to close profile popup
         function closeProfilePopup() {
             document.getElementById("profilePopup").style.display = "none";
         }
@@ -305,10 +304,12 @@
     });
 
     function openProfilePopup(userId) {
-        fetch(`/getUserDetails?userId=${userId}`)
+        fetch(`/UserDetailsServlet?userId=${userId}`)
             .then(response => response.json())
             .then(user => {
-                if (user) {
+                if (user.error) {
+                    document.getElementById("profileDetails").innerHTML = `<p>${user.error}</p>`;
+                } else {
                     document.getElementById("profileDetails").innerHTML = `
                     <p><strong>User ID:</strong> ${user.userId}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
@@ -316,11 +317,12 @@
                     <p><strong>Joined On:</strong> ${user.created_at}</p>
                 `;
                     document.getElementById("profilePopup").style.display = "block";
-                } else {
-                    document.getElementById("profileDetails").innerHTML = "<p>User details not found!</p>";
                 }
             })
-            .catch(error => console.error("Error fetching user details:", error));
+            .catch(error => {
+                console.error("Error fetching user details:", error);
+                document.getElementById("profileDetails").innerHTML = "<p>Failed to load user details.</p>";
+            });
     }
 
     function closeProfilePopup() {
@@ -340,32 +342,42 @@
     ];
 
     // Attach event listeners dynamically
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".view-profile-btn").forEach(button => {
-            button.addEventListener("click", function() {
-                openProfilePopup(this.dataset.userId);
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle dropdown menu
+        document.querySelectorAll('.actbtn button').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.stopPropagation();
+                let menu = this.nextElementSibling;
+                document.querySelectorAll('.actbtn .menu').forEach(m => {
+                    if (m !== menu) {
+                        m.classList.remove('nav-active');
+                    }
+                });
+                menu.classList.toggle('nav-active');
             });
         });
-    });
-    document.querySelectorAll('.actbtn button').forEach(button => {
-        button.addEventListener('click', () => {
+
+        // Close the menu when clicking outside
+        document.addEventListener("click", function (event) {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
-                if (menu !== button.nextElementSibling) {
+                if (!menu.contains(event.target)) {
                     menu.classList.remove('nav-active');
                 }
             });
-            button.nextElementSibling.classList.toggle('nav-active');
+        });
+
+        // Open profile popup
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("view-profile-btn")) {
+                let userId = event.target.getAttribute("data-user-id");
+                openProfilePopup(userId);
+            }
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Toggle popup-active class on body when filter button is clicked
-        document.getElementById("filter-btn").addEventListener("click", function() {
-            document.body.classList.toggle("popup-active");
-            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
-        });
 
-        // Toggle popup-active class on body when delete user button is clicked
+
+    // Toggle popup-active class on body when delete user button is clicked
         document.querySelectorAll(".del-user").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.add("popup-active");
