@@ -36,4 +36,27 @@ public class ModeratorController {
 
         return moderators;
     }
+    public ModeratorModel getUserById(int userId) {
+        ModeratorModel moderator = null;
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "SELECT * FROM Moderators WHERE userid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                moderator = new ModeratorModel(
+                        rs.getInt("moderatorid"),
+                        rs.getString("fullname"),
+                        rs.getString("phone_number"),
+                        rs.getInt("userid")
+                );
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return moderator;
+    }
 }

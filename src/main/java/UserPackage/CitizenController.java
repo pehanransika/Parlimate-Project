@@ -28,6 +28,31 @@ public class CitizenController {
             }
             return false;
         }
+    public CitizenModel getUserById(int userId) {
+        CitizenModel citizen = null;
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "SELECT * FROM Citizens WHERE userId = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                citizen = new CitizenModel(
+                        rs.getInt("citizenId"),
+                        rs.getInt("userId"),
+                        rs.getString("address"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("name"),
+                        rs.getString("district")
+                );
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return citizen;
+    }
 
     public static List<CitizenModel> CitizenProfile(int id) {
         List<CitizenModel> citizens = new ArrayList<>();

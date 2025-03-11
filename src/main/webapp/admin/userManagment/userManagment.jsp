@@ -3,15 +3,23 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+
+
+    </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Management | Admin Dashboard</title>
 
     <link rel="stylesheet" href="./userManagment.css" />
     <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="./profile.css"/>
 
     <!-- icons -->
     <link
@@ -71,7 +79,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="../Fundraising/fundraisingManagement.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -120,6 +128,7 @@
         </ul>
     </div>
 </div>
+
 <div class="pageContent">
     <div class="container f-col">
         <div class="top f-row">
@@ -161,10 +170,11 @@
                             Filter
                         </button>
                     </div>
-                    <button class="add-btn f-row">
+                    <button class="add-btn f-row" id="openPopup">
                         <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add user
+                        Add User
                     </button>
+
                 </div>
             </div>
             <div class="total-records f-row">
@@ -175,7 +185,6 @@
                     <thead>
                     <tr>
                         <td>User ID</td>
-                        <td>User Name</td>
                         <td>Email</td>
                         <td>Role</td>
                         <td>status</td>
@@ -187,13 +196,16 @@
                     <c:forEach var="user" items="${allUsers}">
                         <tr>
                             <td>${user.userId}</td>
-                            <td class="profile f-row">
+                            <td >
                                 <div class="p-img"></div>
                                 <div class="credentials f-col">
                                     <div class="name">${user.email}</div>
-                                    <div class="email">${user.email}</div>
+
+
                                 </div>
                             </td>
+
+
                             <td class="role">
                                 <span class="${user.userType.toLowerCase()}">${user.userType}</span>
                             </td>
@@ -204,18 +216,15 @@
                                     <i class="fa-regular fa-ellipsis-vertical"></i>
                                 </button>
                                 <ul class="menu">
-                                    <li class="f-row">
+                                    <li class="f-row" >
                                         <i class="fa-regular fa-user"></i>
-                                        view profile
+                                        <button class="view-profile-btn" data-user-id="${user.userId}">
+                                            <i class="fa-regular fa-user"></i>
+                                            View Profile
+                                        </button>
                                     </li>
-                                    <li class="f-row">
-                                        <i class="fa-regular fa-pencil"></i>
-                                        edit details
-                                    </li>
-                                    <li class="f-row">
-                                        <i class="fa-regular fa-lock"></i>
-                                        change permission
-                                    </li>
+
+
                                     <li class="f-row del-user">
                                         <i class="fa-regular fa-trash"></i>
                                         delete user
@@ -224,6 +233,8 @@
                             </td>
                         </tr>
                     </c:forEach>
+
+
                     </tbody>
                 <div class="pagination capitalize f-row">
                     <span>prev</span>
@@ -235,26 +246,138 @@
         </div>
     </div>
 </div>
+<!-- Popup -->
+<!-- Profile Popup -->
+<div id="profilePopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeProfilePopup()">&times;</span>
+        <h2>Profile Details</h2>
+        <div id="profileDetails">
+            <!-- User details will be loaded here dynamically -->
+        </div>
+    </div>
+</div>
+
+
 <script>
-    document.querySelectorAll('.actbtn button').forEach(button => {
-        button.addEventListener('click', () => {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.actbtn button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevents closing immediately after opening
+                let menu = this.nextElementSibling;
+                document.querySelectorAll('.actbtn .menu').forEach(m => {
+                    if (m !== menu) {
+                        m.classList.remove('nav-active');
+                    }
+                });
+                menu.classList.toggle('nav-active');
+            });
+        });
+
+        // Close the menu when clicking outside
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("view-profile-btn")) {
+                let userId = event.target.getAttribute("data-user-id");
+                openProfilePopup(userId);
+            }
+        });
+
+    });
+
+
+    // Function to close profile popup
+        function closeProfilePopup() {
+            document.getElementById("profilePopup").style.display = "none";
+        }
+
+        // Attach event listeners
+        document.querySelectorAll(".view-profile-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const userId = this.getAttribute("data-user-id");
+                openProfilePopup(userId);
+            });
+        });
+
+        // Attach functions to the window object so they can be accessed in inline onclick events
+        window.openProfilePopup = openProfilePopup;
+        window.closeProfilePopup = closeProfilePopup;
+    });
+
+    function openProfilePopup(userId) {
+        fetch(`/UserDetailsServlet?userId=${userId}`)
+            .then(response => response.json())
+            .then(user => {
+                if (user.error) {
+                    document.getElementById("profileDetails").innerHTML = `<p>${user.error}</p>`;
+                } else {
+                    document.getElementById("profileDetails").innerHTML = `
+                    <p><strong>User ID:</strong> ${user.userId}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Role:</strong> ${user.userType}</p>
+                    <p><strong>Joined On:</strong> ${user.created_at}</p>
+                `;
+                    document.getElementById("profilePopup").style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching user details:", error);
+                document.getElementById("profileDetails").innerHTML = "<p>Failed to load user details.</p>";
+            });
+    }
+
+    function closeProfilePopup() {
+        document.getElementById("profilePopup").style.display = "none";
+    }
+
+    // Sample user data (Replace with actual data fetching logic)
+    const usersData = [
+        <c:forEach var="user" items="${allUsers}">
+        {
+            userId: "${user.userId}",
+            email: "${user.email}",
+            userType: "${user.userType}",
+            created_at: "${user.created_at}"
+        },
+        </c:forEach>
+    ];
+
+    // Attach event listeners dynamically
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle dropdown menu
+        document.querySelectorAll('.actbtn button').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.stopPropagation();
+                let menu = this.nextElementSibling;
+                document.querySelectorAll('.actbtn .menu').forEach(m => {
+                    if (m !== menu) {
+                        m.classList.remove('nav-active');
+                    }
+                });
+                menu.classList.toggle('nav-active');
+            });
+        });
+
+        // Close the menu when clicking outside
+        document.addEventListener("click", function (event) {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
-                if (menu !== button.nextElementSibling) {
+                if (!menu.contains(event.target)) {
                     menu.classList.remove('nav-active');
                 }
             });
-            button.nextElementSibling.classList.toggle('nav-active');
+        });
+
+        // Open profile popup
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("view-profile-btn")) {
+                let userId = event.target.getAttribute("data-user-id");
+                openProfilePopup(userId);
+            }
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Toggle popup-active class on body when filter button is clicked
-        document.getElementById("filter-btn").addEventListener("click", function() {
-            document.body.classList.toggle("popup-active");
-            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
-        });
 
-        // Toggle popup-active class on body when delete user button is clicked
+
+    // Toggle popup-active class on body when delete user button is clicked
         document.querySelectorAll(".del-user").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.add("popup-active");
@@ -277,6 +400,9 @@
             document.querySelector(".delete-user-popup").classList.remove("popup-show");
         });
     });
+
+
+
 </script>
 </body>
 
