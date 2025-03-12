@@ -169,6 +169,14 @@
     <url-pattern>/admin/userManagment/UserManagementServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>FundraisingManagmentServlet</servlet-name>
+    <servlet-class>fundreq.FundraisingManagmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FundraisingManagmentServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/FundraisingManagmentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>
     <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
   </servlet>
