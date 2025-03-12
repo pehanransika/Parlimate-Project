@@ -1,0 +1,276 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+}
+
+.f-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+/* Navigation Menu */
+.navMenu {
+    width: 250px;
+    height: 100vh;
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.navMenu .logo img {
+    width: 100%;
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation ul li {
+    margin: 15px 0;
+}
+
+.navigation ul li a {
+    text-decoration: none;
+    color: #000000; /* Black text */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation ul li a:hover {
+    background-color: #f0f0f0; /* Light gray hover */
+}
+
+.navigation ul li a.active {
+    background-color: #e0e0e0; /* Slightly darker gray for active state */
+    color: #000000; /* Black text */
+}
+
+.navigation ul li a i {
+    margin-right: 10px;
+    color: #000000; /* Black icons */
+}
+
+.navigation ul li a span {
+    font-size: 14px;
+}
+
+.profile {
+    margin-top: 30px;
+}
+
+.profile .p-img {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0; /* Light gray for profile image */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile .sUser .name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000; /* Black text */
+}
+
+.profile .sUser .role {
+    font-size: 12px;
+    color: #555555; /* Dark gray for role */
+}
+
+.log-out {
+    color: #e74c3c; /* Red for logout */
+    margin-top: 20px;
+}
+
+.log-out:hover {
+    background-color: rgba(231, 76, 60, 0.1); /* Light red hover */
+}
+
+/* Page Content */
+.pageContent {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.top {
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: #000000; /* Black text */
+}
+
+.page-desc {
+    font-size: 14px;
+    color: #555555; /* Dark gray for description */
+}
+
+/* Actions */
+.actions {
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; /* White background */
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0; /* Light gray border */
+}
+
+.search-bar label {
+    margin-right: 10px;
+    color: #555555; /* Dark gray for search icon */
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 200px;
+    background-color: transparent;
+    color: #000000; /* Black text */
+}
+
+.filter-btn, .add-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #000000; /* Black text */
+}
+
+.filter-btn {
+    background-color: #e0e0e0; /* Light gray for filter button */
+}
+
+.filter-btn:hover {
+    background-color: #d0d0d0; /* Slightly darker gray on hover */
+}
+
+.add-btn {
+    background-color: #f0f0f0; /* Light gray for add button */
+}
+
+.add-btn:hover {
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
+}
+
+/* Table */
+.data {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table.fundraising {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.fundraising thead {
+    background-color: #f0f0f0; /* Light gray for table header */
+    color: #000000; /* Black text */
+}
+
+table.fundraising thead td {
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+table.fundraising tbody tr {
+    border-bottom: 1px solid #e0e0e0; /* Light gray border for rows */
+}
+
+table.fundraising tbody tr:hover {
+    background-color: #f0f0f0; /* Light gray hover for rows */
+}
+
+table.fundraising tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #000000; /* Black text */
+}
+
+table.fundraising tbody td a {
+    color: #3498db; /* Blue for links */
+    text-decoration: none;
+}
+
+table.fundraising tbody td a:hover {
+    text-decoration: underline;
+}
+
+.actbtn {
+    display: flex;
+    gap: 10px;
+}
+
+.approve-btn, .reject-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #ffffff; /* White text for buttons */
+}
+
+.approve-btn {
+    background-color: #2ecc71; /* Green for approve button */
+}
+
+.approve-btn:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}
+
+.reject-btn {
+    background-color: #e74c3c; /* Red for reject button */
+}
+
+.reject-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
