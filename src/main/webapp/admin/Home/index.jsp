@@ -61,7 +61,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="../userManagment/userManagment.jsp" class="nav-item f-row">
+						<a href="../userManagement/userManagement.jsp" class="nav-item f-row">
 							<i class="fa-regular fa-users"></i>
 							<span>user management</span>
 						</a>

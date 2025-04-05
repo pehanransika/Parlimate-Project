@@ -166,7 +166,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UserManagementServlet</servlet-name>
-    <url-pattern>/admin/userManagment/UserManagementServlet </url-pattern>
+    <url-pattern>/admin/userManagement/UserManagementServlet </url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>FundraisingManagmentServlet</servlet-name>
