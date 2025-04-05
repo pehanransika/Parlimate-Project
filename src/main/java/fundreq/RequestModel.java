@@ -9,7 +9,7 @@ public class RequestModel {
     private String title;             // Campaign title
     private String description;       // Campaign details
     private String category;          // Campaign category
-    private BigDecimal targetAmount;  // Goal amount
+    private BigDecimal targetamount;  // Goal amount
     private String currency;          // Currency type
     private Timestamp datetime;       // Timestamp for when the request is created
     private String  attachment_url;
@@ -19,13 +19,13 @@ public class RequestModel {
 
     // Constructor
     public RequestModel(Integer requestId, Integer userId, String title, String description,
-                        String category, BigDecimal targetAmount, String currency, String contact_no,String photos,Timestamp datetime, String  attachment_url , String name) {
+                        String category, BigDecimal targetamount, String currency, String contact_no,String photos,Timestamp datetime, String  attachment_url , String name) {
         this.requestId = requestId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category = category;
-        this.targetAmount = targetAmount;
+        this.targetamount = targetamount;
         this.currency = currency;
         this.datetime = datetime;
         this. attachment_url =  attachment_url;
@@ -76,11 +76,11 @@ public class RequestModel {
     }
 
     public BigDecimal getTargetAmount() {
-        return targetAmount;
+        return targetamount;
     }
 
     public void setTargetAmount(BigDecimal targetAmount) {
-        this.targetAmount = targetAmount;
+        this.targetamount = targetAmount;
     }
 
     public String getCurrency() {

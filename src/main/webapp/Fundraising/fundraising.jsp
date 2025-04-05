@@ -92,7 +92,7 @@
                 <!-- other elements -->
                 <div class="fund-contact">
                     <label class="title">Contact Number</label>
-                    <input type="text" placeholder="Enter your contact number">
+                    <input type="tel" placeholder="Enter your contact number" name="contact_no">
                 </div>
                 <!-- other elements -->
             </div>
