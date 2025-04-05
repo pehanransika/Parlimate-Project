@@ -73,25 +73,25 @@
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row"> 
+						<a href="#" class="nav-item f-row">
 							<i class="fa-regular fa-check-to-slot"></i>
 							<span>survey management</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row"> 
+						<a href="#" class="nav-item f-row">
 							<i class="fa-regular fa-cards-blank"></i>
 							<span>post management</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row"> 
+						<a href="#" class="nav-item f-row">
 							<i class="fa-regular fa-circle-check"></i>
 							<span>requests</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row"> 
+						<a href="#" class="nav-item f-row">
 							<i class="fa-regular fa-sliders-up"></i>
 							<span>platform settings</span>
 						</a>
@@ -122,7 +122,7 @@
 					<div class="page f-col">
 						<div class="sUser">
 							<div class="greet">
-								Welcome, 
+								Welcome,
 								<span>Naleeka</span>
 							</div>
 						</div>
@@ -262,19 +262,19 @@
 							<li class="green">
 								<span class="high sUser">Manuja Ransara</span>
 								approved
-								<span class="high act">LLP</span> 
+								<span class="high act">LLP</span>
 								as a Political Party
 							</li>
 							<li class="red">
 								<span class="high sUser">Manuja Ransara</span>
 								deleted
-								<span class="high act">pehan ransika's post</span> 
+								<span class="high act">pehan ransika's post</span>
 								due to innapropriate language usage
 							</li>
 							<li class="red">
 								<span class="high sUser">himasha chinthani</span>
 								deleted
-								<span class="high act">Ransika charith's post</span> 
+								<span class="high act">Ransika charith's post</span>
 								due to not following community guideline
 							</li>
 							<li class="blue">
@@ -284,7 +284,7 @@
 							<li class="green">
 								<span class="high sUser">Manuja Ransara</span>
 								fundraising request by
-								<span class="high act">Palitha</span> 
+								<span class="high act">Palitha</span>
 							</li>
 							<div class="wGradient"></div>
 						</ul>
