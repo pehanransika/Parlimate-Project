@@ -28,6 +28,8 @@ public class CreateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountStr = request.getParameter("targetamount");
             String currency = request.getParameter("currency");
+            String contact_no=request.getParameter("contact_no");
+            String photos=request.getParameter("photos");
             String userIdStr = request.getParameter("userid");
             String username = request.getParameter("username");
             int userId = (userIdStr != null && !userIdStr.isEmpty())
@@ -60,7 +62,7 @@ public class CreateRequestServlet extends HttpServlet {
 
             // Validate required fields
             if (title == null || title.trim().isEmpty() ||
-                    description == null || description.trim().isEmpty() ||
+                    description == null || description.trim().isEmpty() ||contact_no == null||
                     category == null || category.trim().isEmpty() ||
                     targetAmountStr == null || targetAmountStr.trim().isEmpty() ||
                     currency == null || currency.trim().isEmpty() ) {
@@ -78,7 +80,7 @@ public class CreateRequestServlet extends HttpServlet {
 
             // Call the RequestController
             boolean isCreated = RequestController.createFundraisingRequest(
-                    userId, title, description, category, targetAmount, currency, attachmentUrl, username);
+                    userId, title, description, category, targetAmount, currency,contact_no,photos, attachmentUrl, username);
 
             // Response
             if (isCreated) {
