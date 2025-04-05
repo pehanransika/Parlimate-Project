@@ -18,13 +18,13 @@ public class FundraisingManagmentServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Fetch all users from the database
-        List<UserModel> allFunraises = UserController.getAllUsers();
+        List<UserModel> allFundraisings = UserController.getAllUsers();
 
         // Debugging: Print users before setting the attribute
-        System.out.println("Retrieved Users: " + allFunraises);
+        System.out.println("Retrieved Users: " + allFundraisings);
 
         // Attach users to request object
-        request.setAttribute("allFunraises", allFunraises);
+        request.setAttribute("allFundraisings", allFundraisings);
         RequestDispatcher dispatcher = request.getRequestDispatcher("fundraisingManagement.jsp");
         dispatcher.forward(request, response);
 

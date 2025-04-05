@@ -15,14 +15,14 @@ public class UserManagementServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Fetch all users from the database
-        List<UserModel> allUsers = UserController.getAllUsers();
+        List<UserModel> getallUsers = UserController.getAllUsers();
 
         // Debugging: Print users before setting the attribute
-        System.out.println("Retrieved Users: " + allUsers);
+        System.out.println("Retrieved Users: " + getallUsers);
 
         // Attach users to request object
-        request.setAttribute("allUsers", allUsers);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userManagment.jsp");
+        request.setAttribute("getallUsers", getallUsers);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/userManagement/userManagement.jsp");
         dispatcher.forward(request, response);
 
     }

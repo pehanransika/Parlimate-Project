@@ -1,10 +1,7 @@
-<%@ page import="UserPackage.UserModel" %>
-<%@ page import="UserPackage.UserController" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +70,7 @@
                 </a>
             </li>
             <li>
-                <a href="userManagment.jsp" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-users"></i>
                     <span>user management</span>
                 </a>
@@ -193,7 +190,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="user" items="${allUsers}">
+                    <c:forEach var="user" items="${getallUsers}">
                         <tr>
                             <td>${user.userId}</td>
                             <td >
@@ -236,15 +233,15 @@
 
 
                     </tbody>
-                <div class="pagination capitalize f-row">
-                    <span>prev</span>
-                    <span class="curr-page">1</span>
-                    <span>next</span>
-                </div>
+                    <div class="pagination capitalize f-row">
+                        <span>prev</span>
+                        <span class="curr-page">1</span>
+                        <span>next</span>
+                    </div>
             </div>
         </div>
-        </div>
     </div>
+</div>
 </div>
 <!-- Popup -->
 <!-- Profile Popup -->
@@ -286,21 +283,21 @@
 
 
     // Function to close profile popup
-        function closeProfilePopup() {
-            document.getElementById("profilePopup").style.display = "none";
-        }
+    function closeProfilePopup() {
+        document.getElementById("profilePopup").style.display = "none";
+    }
 
-        // Attach event listeners
-        document.querySelectorAll(".view-profile-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                const userId = this.getAttribute("data-user-id");
-                openProfilePopup(userId);
-            });
+    // Attach event listeners
+    document.querySelectorAll(".view-profile-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const userId = this.getAttribute("data-user-id");
+            openProfilePopup(userId);
         });
+    });
 
-        // Attach functions to the window object so they can be accessed in inline onclick events
-        window.openProfilePopup = openProfilePopup;
-        window.closeProfilePopup = closeProfilePopup;
+    // Attach functions to the window object so they can be accessed in inline onclick events
+    window.openProfilePopup = openProfilePopup;
+    window.closeProfilePopup = closeProfilePopup;
     });
 
     function openProfilePopup(userId) {
@@ -378,27 +375,27 @@
 
 
     // Toggle popup-active class on body when delete user button is clicked
-        document.querySelectorAll(".del-user").forEach(button => {
-            button.addEventListener("click", function() {
-                document.body.classList.add("popup-active");
-                document.querySelector(".delete-user-popup").classList.add("popup-show");
-            });
+    document.querySelectorAll(".del-user").forEach(button => {
+        button.addEventListener("click", function() {
+            document.body.classList.add("popup-active");
+            document.querySelector(".delete-user-popup").classList.add("popup-show");
         });
+    });
 
-        // Close popup when close button is clicked
-        document.querySelectorAll(".close-btn").forEach(button => {
-            button.addEventListener("click", function() {
-                document.body.classList.remove("popup-active");
-                document.querySelector(".filter-user-popup").classList.remove("popup-show");
-                document.querySelector(".delete-user-popup").classList.remove("popup-show");
-            });
-        });
-
-        // Close popup when proceed button is clicked
-        document.querySelector(".proceed").addEventListener("click", function() {
+    // Close popup when close button is clicked
+    document.querySelectorAll(".close-btn").forEach(button => {
+        button.addEventListener("click", function() {
             document.body.classList.remove("popup-active");
+            document.querySelector(".filter-user-popup").classList.remove("popup-show");
             document.querySelector(".delete-user-popup").classList.remove("popup-show");
         });
+    });
+
+    // Close popup when proceed button is clicked
+    document.querySelector(".proceed").addEventListener("click", function() {
+        document.body.classList.remove("popup-active");
+        document.querySelector(".delete-user-popup").classList.remove("popup-show");
+    });
     });
 
 
