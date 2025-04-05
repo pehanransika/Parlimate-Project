@@ -88,6 +88,14 @@
                 <label for="fund-desc" class="title">Description</label>
                 <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>
             </div>
+            <div class="fund-popup">
+                <!-- other elements -->
+                <div class="fund-contact">
+                    <label class="title">Contact Number</label>
+                    <input type="tel" placeholder="Enter your contact number" name="contact_no">
+                </div>
+                <!-- other elements -->
+            </div>
             <div class="multi-fields row">
                 <div class="fund-cat field">
                     <label for="fund-categ" class="title">Category</label>
@@ -124,6 +132,22 @@
                     <div class="att-content">
                         <span class="no-of-files">No file attached</span>
                         <ul id="att-list" class="col">
+                            <!-- uploaded files will be listed here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="fund-photo field">
+                <span for="" class="title">Upload Photos</span>
+                <div class="att-container-photo">
+                    <div class="action row-photo">
+                        <label for="fund-photo" class="photo-btn">Select Photo</label>
+                        <input type="file" name="photoUrl" id="fund-photo" multiple>
+                        <div class="sep"></div>
+                    </div>
+                    <div class="photo-content">
+                        <span class="no-of-files">No Photo attached</span>
+                        <ul id="photo-list" class="col">
                             <!-- uploaded files will be listed here -->
                         </ul>
                     </div>

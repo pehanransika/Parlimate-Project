@@ -109,8 +109,10 @@
                 <div class="request-content col">
                     <p>Description: <span> ${request.description}</span></p>
                     <p>Category: <span> ${request.category}</span></p>
+                    <p>Contact Number: <span> ${request.contact_no}</span></p>
                     <p>Target Amount: <span class="cap"> ${request.currency} ${request.targetAmount}</span></p>
                     <p>Attachment: <span> <a href="${request.attachmentUrl}" target="_blank">View Attachment</a> </span></p>
+                    <p>Photos: <span> <a href="${request.photos}" target="_blank">View Photos</a> </span></p>
                 <div class="seperator"></div>
                 </div>
                 <div class="request-actions row">
@@ -121,9 +123,11 @@
                                     '${request.title}',
                                     '${fn:escapeXml(request.description)}',
                                     '${request.category}',
+                                     '${request.contact_no}',
                                     '${request.targetAmount}',
                                     '${request.currency}',
                                     '${request.datetime}',
+                                    '${request.photos}',
                                     '${request.attachmentUrl}')">
                         <i class="fa-solid fa-pen-to-square"></i>
                         Edit
@@ -168,6 +172,10 @@
                 <label for="editDescription">Description</label>
                 <textarea id="editDescription" name="description" required>${description}</textarea>
             </div>
+            <div class="formSection">
+                <label for="editContactNo">Contact NO</label>
+                <textarea id="editContactNo" name="contact_no" required>${contact_no}</textarea>
+            </div>
 
             <div class="formSection">
                 <label for="editCategory">Category</label>
@@ -201,6 +209,11 @@
                 <input type="text" id="editAttachment" name="attachmentUrl" value="${attachmentUrl}" placeholder="Enter URL of attachment" />
                 <input type="file" name="attachment" id="editAttachmentFile" />
             </div>
+            <div class="formSection">
+                <label for="editPhotos">Photos</label>
+                <input type="text" id="editPhotos" name="attachmentUrl" value="${photos}" placeholder="Enter URL of attachment" />
+                <input type="file" name="attachment" id="editPhotoFile" />
+            </div>
 
             <div class="popbtns">
                 <button type="submit" class="post-btn">Save Changes</button>
@@ -211,16 +224,18 @@
 </div>
 
 <script>
-    function openEditPopup(requestId, title, description, category, targetAmount, currency, datetime, attachment_url) {
+    function openEditPopup(requestId, title, description, category,contact_no,photos, targetAmount, currency, datetime, attachment_url) {
         document.getElementById('editPopup').style.display = 'flex';
 
         document.getElementById('requestId').value = requestId;
         document.getElementById('editTitle').value = title;
         document.getElementById('editDescription').value = description;
+        document.getElementById('editContactNo').value = contact_no;
         document.getElementById('editCategory').value = category;
         document.getElementById('editTargetAmount').value = targetAmount;
         document.getElementById('editCurrency').value = currency;
         document.getElementById('editAttachment').value = attachment_url;
+        document.getElementById('editPhotos').value = photos;
     }
 
     function closeEditPopup() {
