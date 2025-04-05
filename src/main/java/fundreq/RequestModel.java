@@ -28,7 +28,7 @@ public class RequestModel {
         this.targetAmount = targetAmount;
         this.currency = currency;
         this.datetime = datetime;
-        this. attachment_url =  attachment_url;  
+        this. attachment_url =  attachment_url;
         this.contact_no=contact_no;
         this.photos=photos;
         this.name = name;
