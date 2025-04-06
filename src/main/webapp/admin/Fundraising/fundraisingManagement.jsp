@@ -198,8 +198,20 @@
                             <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
                             <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
                             <td class="actbtn">
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/GetApproveFundraisingServlet"
+                                      method="post"
+                                      class="approve-form"
+                                      onsubmit="return approveRequest(event, this)">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                 <button class="approve-btn" data-fund-id="${fund.requestId}">Approve</button>
+                                </form>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
+                                      style="display:inline;">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                 <button class="reject-btn" data-fund-id="${fund.requestId}">Reject</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -229,12 +241,12 @@
                         <td>Fund Target</td>
                         <td>Attachment</td>
                         <td>Photos</td>
-                        <td>Status</td>
+
                         <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="fund" items="${approvedFundraisings}">
+                    <c:forEach var="fund" items="${approvalrequests}">
                         <tr>
                             <td>${fund.title}</td>
                             <td>${fund.description}</td>
@@ -243,9 +255,9 @@
                             <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
                             <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
                             <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
-                            <td>${fund.status != null ? fund.status : 'N/A'}</td>
+
                             <td class="actbtn">
-                                <button class="edit-btn" data-fund-id="${fund.requestId}">Edit</button>
+                                <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
                                 <button class="suspend-btn" data-fund-id="${fund.requestId}">Suspend</button>
                             </td>
                         </tr>
@@ -279,14 +291,14 @@
 
     // Existing button functionality
     document.querySelectorAll(".approve-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Approved Fundraising ID: " + fundId);
         });
     });
 
     document.querySelectorAll(".reject-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Rejected Fundraising ID: " + fundId);
         });
@@ -294,18 +306,19 @@
 
     // New button functionality for approval tab
     document.querySelectorAll(".edit-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Edit Fundraising ID: " + fundId);
         });
     });
 
     document.querySelectorAll(".suspend-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Suspend Fundraising ID: " + fundId);
         });
     });
+
 </script>
 </body>
 </html>
