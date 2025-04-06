@@ -62,6 +62,7 @@
     <title>Fundraising Management | Admin Dashboard</title>
 
     <link rel="stylesheet" href="./fundraisingManagement.css" />
+    <link rel="stylesheet" href="./emailpopup.css" />
     <link rel="stylesheet" href="../index.css" />
 
     <!-- icons -->
@@ -267,7 +268,7 @@
                             </td>
                             <td class="actbtn">
                                 <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteApproveRequestServlet"
                                       method="post"
                                       onsubmit="return confirm('Are you sure you want to delete this request?');"
                                       style="display:inline;">
@@ -281,7 +282,30 @@
                 </table>
             </div>
         </div>
-<script>
+        <div id="emailModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3>Send Email to User</h3>
+                <form id="emailForm">
+                    <input type="hidden" id="fundRequestId" name="requestId">
+                    <div class="form-group">
+                        <label for="userEmail">User Email:</label>
+                        <input type="email" id="userEmail" name="userEmail" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubject">Subject:</label>
+                        <input type="text" id="emailSubject" name="subject" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailMessage">Message:</label>
+                        <textarea id="emailMessage" name="message" rows="5" required class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Email</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
     // Tab switching functionality
     function openFundraisingTab(evt, tabName) {
         // Hide all tab content
@@ -337,7 +361,74 @@
             }
         );
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get modal elements
+        const modal = document.getElementById('emailModal');
+        const closeBtn = document.querySelector('.close-btn');
 
+        // Handle edit button clicks
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const requestId = this.getAttribute('data-fund-id');
+                document.getElementById('fundRequestId').value = requestId;
+
+                // Here you could fetch user email via AJAX if needed
+                // fetchUserEmail(requestId);
+
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal when X is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('${pageContext.request.contextPath}/admin/Fundraising/SendEmailServlet', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Email sent successfully!');
+                        modal.style.display = 'none';
+                        this.reset();
+                    } else {
+                        alert('Error sending email: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to send email');
+                });
+        });
+    });
+
+    // Optional: Fetch user email via AJAX
+    function fetchUserEmail(requestId) {
+        fetch('${pageContext.request.contextPath}/admin/Fundraising/GetUserEmailServlet?requestId=' + requestId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.email) {
+                    document.getElementById('userEmail').value = data.email;
+                }
+            })
+            .catch(error => console.error('Error fetching email:', error));
+    }
 </script>
 </body>
 </html>

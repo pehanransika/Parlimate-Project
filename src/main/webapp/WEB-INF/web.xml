@@ -200,6 +200,14 @@
     <servlet-name>DeleteAdminRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/DeleteAdminRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteApproveRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/DeleteApproveRequestServlet</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>

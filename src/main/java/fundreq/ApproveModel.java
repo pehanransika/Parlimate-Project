@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class ApproveModel {
     private int requestid;
+
     private String title;
     private String description;
     private String contact_no;
@@ -18,6 +19,7 @@ public class ApproveModel {
                         String contact_no, String category, double targetamount,
                         String attachment_url, String photos, Timestamp approvalDate) {
         this.requestid = requestid;
+
         this.title = title;
         this.description = description;
         this.contact_no = contact_no;
@@ -46,6 +48,7 @@ public class ApproveModel {
 
     // Setters
     public void setRequestId(int requestid) { this.requestid = requestid; }
+    
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }
 

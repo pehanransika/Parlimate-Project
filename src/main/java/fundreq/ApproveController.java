@@ -18,6 +18,7 @@ public class ApproveController {
                 ApproveModel request = new ApproveModel(
                         rs.getInt("requestid"),
                         rs.getString("title"),
+
                         rs.getString("description"),
                         rs.getString("contact_no"),
                         rs.getString("category"),
