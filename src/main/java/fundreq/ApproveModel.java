@@ -48,7 +48,7 @@ public class ApproveModel {
 
     // Setters
     public void setRequestId(int requestid) { this.requestid = requestid; }
-    
+
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }
 
