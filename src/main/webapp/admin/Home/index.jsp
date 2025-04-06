@@ -67,7 +67,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="../Fundraising/fundraisingManagement.jsp" class="nav-item f-row">
+						<a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
 							<i class="fa-regular fa-briefcase"></i>
 							<span>fundraise management</span>
 						</a>

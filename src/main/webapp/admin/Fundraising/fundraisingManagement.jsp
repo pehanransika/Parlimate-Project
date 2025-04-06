@@ -2,10 +2,7 @@
 <%@ page import="UserPackage.UserController" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,42 +65,20 @@
     <link rel="stylesheet" href="../index.css" />
 
     <!-- icons -->
-    <link
-            rel="stylesheet"
-            data-purpose="Layout StyleSheet"
-            title="Web Awesome"
-            href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
-    />
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
+          href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css" />
 
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
-    />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css" />
 </head>
 <body class="">
 <div class="navMenu f-col center">
@@ -219,12 +194,12 @@
                             <td>${fund.description}</td>
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
-                            <td>${fund.fundTarget}</td>
-                            <td><a href="${fund.attachmentUrl}" target="_blank">View</a></td>
-                            <td><a href="${fund.photos}" target="_blank">View</a></td>
+                            <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
+                            <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
+                            <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
                             <td class="actbtn">
-                                <button class="approve-btn" data-fund-id="${fund.fundId}">Approve</button>
-                                <button class="reject-btn" data-fund-id="${fund.fundId}">Reject</button>
+                                <button class="approve-btn" data-fund-id="${fund.requestId}">Approve</button>
+                                <button class="reject-btn" data-fund-id="${fund.requestId}">Reject</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -265,13 +240,13 @@
                             <td>${fund.description}</td>
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
-                            <td>${fund.fundTarget}</td>
-                            <td>${fund.attachment}</td>
-                            <td>${photos}</td>
-                            <td>${fund.status}</td>
+                            <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
+                            <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
+                            <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
+                            <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
-                                <button class="edit-btn" data-fund-id="${fund.fundId}">Edit</button>
-                                <button class="suspend-btn" data-fund-id="${fund.fundId}">Suspend</button>
+                                <button class="edit-btn" data-fund-id="${fund.requestId}">Edit</button>
+                                <button class="suspend-btn" data-fund-id="${fund.requestId}">Suspend</button>
                             </td>
                         </tr>
                     </c:forEach>
