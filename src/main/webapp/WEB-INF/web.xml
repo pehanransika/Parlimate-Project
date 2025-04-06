@@ -177,6 +177,39 @@
     <url-pattern>/admin/Fundraising/FundraisingManagementServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-class>fundreq.GetApprovalFundraisingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.ApproveFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/ApproveFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteAdminRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteAdminRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAdminRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/DeleteAdminRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteApproveRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/DeleteApproveRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>
     <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
   </servlet>

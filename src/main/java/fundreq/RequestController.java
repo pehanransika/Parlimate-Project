@@ -91,13 +91,13 @@ public class RequestController {
                 BigDecimal targetamount = rs.getBigDecimal("targetamount");
                 String currency = rs.getString("currency");
                 String contact_no = rs.getString("contact_no");
-                String photos=rs.getString("photos");
+                String photos = rs.getString("photos");
                 Timestamp datetime = rs.getTimestamp("datetime");
                 String attachment_url = rs.getString("attachment_url");  // Fixed space issue
                 String name = rs.getString("name");
 
                 RequestModel request = new RequestModel(requestId, userId, title, description,
-                        category, targetamount, currency, contact_no,photos,datetime, attachment_url,name);
+                        category, targetamount, currency, contact_no, photos, datetime, attachment_url, name);
                 requests.add(request);
             }
         }
@@ -123,13 +123,13 @@ public class RequestController {
                     String category = rs.getString("category");
                     BigDecimal targetamount = rs.getBigDecimal("targetamount");
                     String currency = rs.getString("currency");
-                    String contact_no=rs.getString("contact_no");
-                    String photos=rs.getString("photos");
+                    String contact_no = rs.getString("contact_no");
+                    String photos = rs.getString("photos");
                     Timestamp datetime = rs.getTimestamp("datetime");
-                    String  attachment_url=rs.getString(" attachment_url");
+                    String attachment_url = rs.getString(" attachment_url");
                     String name = rs.getString("name");
 
-                    return new RequestModel(requestId, userId, title, description, category, targetamount, currency,contact_no,photos, datetime, attachment_url,name);
+                    return new RequestModel(requestId, userId, title, description, category, targetamount, currency, contact_no, photos, datetime, attachment_url, name);
                 }
             }
         } catch (SQLException e) {
@@ -142,7 +142,7 @@ public class RequestController {
 
     // Method to update a fundraising request
     public static boolean updateFundraisingRequest(int requestId, String title, String description, String category,
-                                                   BigDecimal targetamount, String currency, String contact_no,String photos,LocalDateTime datetime, String attachment_url) throws SQLException {
+                                                   BigDecimal targetamount, String currency, String contact_no, String photos, LocalDateTime datetime, String attachment_url) throws SQLException {
         String query = "UPDATE fundraisingrequests SET title = ?, description = ?, category = ?, targetamount = ?, currency = ?, contact_no=?,photos=?,datetime = ?, attachment_url = ? WHERE requestId = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -153,8 +153,8 @@ public class RequestController {
             stmt.setString(3, category);
             stmt.setBigDecimal(4, targetamount);
             stmt.setString(5, currency);
-            stmt.setString(6,contact_no);
-            stmt.setString(7,photos);
+            stmt.setString(6, contact_no);
+            stmt.setString(7, photos);
             stmt.setTimestamp(8, Timestamp.valueOf(datetime));  // Convert LocalDateTime to Timestamp
             stmt.setString(9, attachment_url); // Correct position of attachment_url
             stmt.setInt(10, requestId);  // Ensure requestId is the last parameter
@@ -181,4 +181,7 @@ public class RequestController {
         }
     }
 
+
 }
+
+

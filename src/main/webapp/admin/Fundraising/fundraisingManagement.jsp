@@ -62,6 +62,7 @@
     <title>Fundraising Management | Admin Dashboard</title>
 
     <link rel="stylesheet" href="./fundraisingManagement.css" />
+    <link rel="stylesheet" href="./emailpopup.css" />
     <link rel="stylesheet" href="../index.css" />
 
     <!-- icons -->
@@ -198,8 +199,19 @@
                             <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
                             <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
                             <td class="actbtn">
-                                <button class="approve-btn" data-fund-id="${fund.requestId}">Approve</button>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/ApproveFundraisingRequestServlet"
+                                      method="POST"
+                                      onsubmit="return confirm('Are you sure you want to approve this request?');">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                    <button type="submit" class="approve-btn">Approve</button>
+                                </form>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
+                                      style="display:inline;">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                 <button class="reject-btn" data-fund-id="${fund.requestId}">Reject</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -229,24 +241,40 @@
                         <td>Fund Target</td>
                         <td>Attachment</td>
                         <td>Photos</td>
-                        <td>Status</td>
                         <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="fund" items="${approvedFundraisings}">
+                    <c:forEach var="fund" items="${approvalrequests}">
                         <tr>
-                            <td>${fund.title}</td>
-                            <td>${fund.description}</td>
-                            <td>${fund.contact_no}</td>
-                            <td>${fund.category}</td>
-                            <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
-                            <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
-                            <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
-                            <td>${fund.status != null ? fund.status : 'N/A'}</td>
+                            <td>${fund.title != null ? fund.title : 'N/A'}</td>
+                            <td>${fund.description != null ? fund.description : 'N/A'}</td>
+                            <td>${fund.contact_no != null ? fund.contact_no : 'N/A'}</td>
+                            <td>${fund.category != null ? fund.category : 'N/A'}</td>
+                            <td>${fund.targetamount != 0 ? fund.targetamount : 'N/A'}</td>
+                            <td>
+                                <a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}"
+                                   target="_blank"
+                                    ${fund.attachmentUrl == null ? 'style="pointer-events: none; color: gray;"' : ''}>
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${fund.photos != null ? fund.photos : '#'}"
+                                   target="_blank"
+                                    ${fund.photos == null ? 'style="pointer-events: none; color: gray;"' : ''}>
+                                    View
+                                </a>
+                            </td>
                             <td class="actbtn">
-                                <button class="edit-btn" data-fund-id="${fund.requestId}">Edit</button>
+                                <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteApproveRequestServlet"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
+                                      style="display:inline;">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                 <button class="suspend-btn" data-fund-id="${fund.requestId}">Suspend</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -254,10 +282,30 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
+        <div id="emailModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3>Send Email to User</h3>
+                <form id="emailForm">
+                    <input type="hidden" id="fundRequestId" name="requestId">
+                    <div class="form-group">
+                        <label for="userEmail">User Email:</label>
+                        <input type="email" id="userEmail" name="userEmail" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubject">Subject:</label>
+                        <input type="text" id="emailSubject" name="subject" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailMessage">Message:</label>
+                        <textarea id="emailMessage" name="message" rows="5" required class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Email</button>
+                </form>
+            </div>
+        </div>
 
-<script>
+        <script>
     // Tab switching functionality
     function openFundraisingTab(evt, tabName) {
         // Hide all tab content
@@ -279,14 +327,14 @@
 
     // Existing button functionality
     document.querySelectorAll(".approve-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
-            alert("Approved Fundraising ID: " + fundId);
+            alert("Approved Fundraising ID: " + requestId);
         });
     });
 
     document.querySelectorAll(".reject-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Rejected Fundraising ID: " + fundId);
         });
@@ -294,18 +342,93 @@
 
     // New button functionality for approval tab
     document.querySelectorAll(".edit-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Edit Fundraising ID: " + fundId);
         });
     });
 
     document.querySelectorAll(".suspend-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
             alert("Suspend Fundraising ID: " + fundId);
         });
     });
+    function refreshFundraisingTable() {
+        $.get('${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet',
+            function(data) {
+                $('#approval-fundraisers').html($(data).find('#approval-fundraisers').html());
+            }
+        );
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get modal elements
+        const modal = document.getElementById('emailModal');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Handle edit button clicks
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const requestId = this.getAttribute('data-fund-id');
+                document.getElementById('fundRequestId').value = requestId;
+
+                // Here you could fetch user email via AJAX if needed
+                // fetchUserEmail(requestId);
+
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal when X is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('${pageContext.request.contextPath}/admin/Fundraising/SendEmailServlet', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Email sent successfully!');
+                        modal.style.display = 'none';
+                        this.reset();
+                    } else {
+                        alert('Error sending email: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to send email');
+                });
+        });
+    });
+
+    // Optional: Fetch user email via AJAX
+    function fetchUserEmail(requestId) {
+        fetch('${pageContext.request.contextPath}/admin/Fundraising/GetUserEmailServlet?requestId=' + requestId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.email) {
+                    document.getElementById('userEmail').value = data.email;
+                }
+            })
+            .catch(error => console.error('Error fetching email:', error));
+    }
 </script>
 </body>
 </html>
