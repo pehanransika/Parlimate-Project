@@ -198,12 +198,11 @@
                             <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
                             <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
                             <td class="actbtn">
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/GetApproveFundraisingServlet"
-                                      method="post"
-                                      class="approve-form"
-                                      onsubmit="return approveRequest(event, this)">
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/ApproveFundraisingRequestServlet"
+                                      method="POST"
+                                      onsubmit="return confirm('Are you sure you want to approve this request?');">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
-                                <button class="approve-btn" data-fund-id="${fund.requestId}">Approve</button>
+                                    <button type="submit" class="approve-btn">Approve</button>
                                 </form>
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
                                       method="post"
@@ -241,24 +240,40 @@
                         <td>Fund Target</td>
                         <td>Attachment</td>
                         <td>Photos</td>
-
                         <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="fund" items="${approvalrequests}">
                         <tr>
-                            <td>${fund.title}</td>
-                            <td>${fund.description}</td>
-                            <td>${fund.contact_no}</td>
-                            <td>${fund.category}</td>
-                            <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
-                            <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
-                            <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
-
+                            <td>${fund.title != null ? fund.title : 'N/A'}</td>
+                            <td>${fund.description != null ? fund.description : 'N/A'}</td>
+                            <td>${fund.contact_no != null ? fund.contact_no : 'N/A'}</td>
+                            <td>${fund.category != null ? fund.category : 'N/A'}</td>
+                            <td>${fund.targetamount != 0 ? fund.targetamount : 'N/A'}</td>
+                            <td>
+                                <a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}"
+                                   target="_blank"
+                                    ${fund.attachmentUrl == null ? 'style="pointer-events: none; color: gray;"' : ''}>
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${fund.photos != null ? fund.photos : '#'}"
+                                   target="_blank"
+                                    ${fund.photos == null ? 'style="pointer-events: none; color: gray;"' : ''}>
+                                    View
+                                </a>
+                            </td>
                             <td class="actbtn">
                                 <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
+                                      style="display:inline;">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                 <button class="suspend-btn" data-fund-id="${fund.requestId}">Suspend</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -266,9 +281,6 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
-
 <script>
     // Tab switching functionality
     function openFundraisingTab(evt, tabName) {
@@ -293,7 +305,7 @@
     document.querySelectorAll(".approve-btn").forEach(button => {
         button.addEventListener("click", function () {
             let fundId = this.getAttribute("data-fund-id");
-            alert("Approved Fundraising ID: " + fundId);
+            alert("Approved Fundraising ID: " + requestId);
         });
     });
 
@@ -318,6 +330,13 @@
             alert("Suspend Fundraising ID: " + fundId);
         });
     });
+    function refreshFundraisingTable() {
+        $.get('${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet',
+            function(data) {
+                $('#approval-fundraisers').html($(data).find('#approval-fundraisers').html());
+            }
+        );
+    }
 
 </script>
 </body>

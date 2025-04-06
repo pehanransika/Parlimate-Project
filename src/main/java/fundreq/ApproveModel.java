@@ -3,48 +3,59 @@ package fundreq;
 import java.sql.Timestamp;
 
 public class ApproveModel {
-    private int requestId;
+    private int requestid;
     private String title;
     private String description;
-    private String contactNo;
+    private String contact_no;
     private String category;
-    private double targetamount;  // Changed field name
-    private String attachmentUrl;
+    private double targetamount;
+    private String attachment_url;
     private String photos;
     private String status;
     private Timestamp approvalDate;
 
-    // Constructor
-    public ApproveModel(int requestId, String title, String description,
-                           String contactNo, String category, double targetamount,
-                           String attachmentUrl, String photos, Timestamp approvalDate) {
-        this.requestId = requestId;
+    public ApproveModel(int requestid, String title, String description,
+                        String contact_no, String category, double targetamount,
+                        String attachment_url, String photos, Timestamp approvalDate) {
+        this.requestid = requestid;
         this.title = title;
         this.description = description;
-        this.contactNo = contactNo;
+        this.contact_no = contact_no;
         this.category = category;
-        this.targetamount = targetamount;  // Updated parameter
-        this.attachmentUrl = attachmentUrl;
+        this.targetamount = targetamount;
+        this.attachment_url = attachment_url;
         this.photos = photos;
         this.status = "APPROVED";
         this.approvalDate = approvalDate;
     }
 
-    // Getters and Setters
-    public int getRequestId() { return requestId; }
+    // Getters
+    public int getRequestId() { return requestid; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
-    public String getContactNo() { return contactNo; }
+
+    public String getContact_no() {
+        return contact_no;
+    }
     public String getCategory() { return category; }
-    public double getTargetammount() { return targetamount; }  // Updated getter
-    public String getAttachmentUrl() { return attachmentUrl; }
+    public double getTargetamount() { return targetamount; }
+    public String getAttachmentUrl() { return attachment_url; }
     public String getPhotos() { return photos; }
     public String getStatus() { return status; }
     public Timestamp getApprovalDate() { return approvalDate; }
 
-    // Setter for targetammount
-    public void setTargetammount(double targetammount) {
-        this.targetamount = targetammount;
+    // Setters
+    public void setRequestId(int requestid) { this.requestid = requestid; }
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+
+    public void setContact_no(String contact_no) {
+        this.contact_no = contact_no;
     }
-    // ... other setters
+    public void setCategory(String category) { this.category = category; }
+    public void setTargetamount(double targetamount) { this.targetamount = targetamount; }
+    public void setAttachmentUrl(String attachment_url) { this.attachment_url = attachment_url; }
+    public void setPhotos(String photos) { this.photos = photos; }
+    public void setStatus(String status) { this.status = status; }
+    public void setApprovalDate(Timestamp approvalDate) { this.approvalDate = approvalDate; }
 }

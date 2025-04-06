@@ -17,7 +17,7 @@ public class GetApprovalFundraisingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Fetch all fundraising requests from FundraisingRequestController
-            List<RequestModel> approvalrequests= RequestController.getAllFundraisingRequests();
+            List<ApproveModel> approvalrequests= ApproveController.getAllApprovedRequests();
 
             // Set the list as a request attribute
             request.setAttribute("approvalrequests", approvalrequests);

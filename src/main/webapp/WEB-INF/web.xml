@@ -185,6 +185,14 @@
     <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.ApproveFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/ApproveFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>DeleteAdminRequestServlet</servlet-name>
     <servlet-class>fundreq.DeleteAdminRequestServlet</servlet-class>
   </servlet>
