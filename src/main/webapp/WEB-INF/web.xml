@@ -217,6 +217,14 @@
     <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>CreateTransferServlet </servlet-name>
+    <servlet-class>bankreq.CreateTransferServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateTransferServlet </servlet-name>
+    <url-pattern>/Fundraising/CreateTransferServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>
     <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
   </servlet>
