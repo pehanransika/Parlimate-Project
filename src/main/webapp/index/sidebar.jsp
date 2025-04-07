@@ -12,7 +12,7 @@
                 <label for="nav-announcements" onclick="navigate(this)"><i class="fa-solid fa-bullhorn"></i>Announcements</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-fundraise" value="http://localhost:8080/Parlimate/Fundraising/fundraising.jsp" />
+                <input type="radio" name="nav" id="nav-fundraise" value="http://localhost:8080/Parlimate/Fundraising/GetAllFundraisingApprovelServlet" />
                 <label for="nav-fundraise" onclick="navigate(this)"><i class="fa-solid fa-coins"></i>Fundraises</label>
             </li>
             <li>

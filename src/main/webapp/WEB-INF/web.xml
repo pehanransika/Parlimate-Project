@@ -203,12 +203,19 @@
   <servlet>
     <servlet-name>DeleteApproveRequestServlet</servlet-name>
     <servlet-class>fundreq.DeleteApproveRequestServlet</servlet-class>
-  </servlet>
+  </servlet>66
   <servlet-mapping>
     <servlet-name>DeleteApproveRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/DeleteApproveRequestServlet</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>GetAllFundraisingApprovelServlet </servlet-name>
+    <servlet-class>fundreq.GetAllFundraisingApprovelServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllFundraisingApprovelServlet </servlet-name>
+    <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>
     <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
