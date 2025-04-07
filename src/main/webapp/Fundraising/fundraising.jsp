@@ -7,6 +7,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +24,8 @@
     <link rel="stylesheet" href="../container.css" />
     <link rel="stylesheet" href="./fund-popup.css" />
     <link rel="stylesheet" href="./payment.css" />
-    <link
+    <link rel="stylesheet" href="./transfer.css" />
+
             rel="stylesheet"
             data-purpose="Layout StyleSheet"
             title="Web Awesome"
@@ -59,7 +61,136 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
+    <style>
+        /* Transfer Popup Styles */
+        .transfer-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
 
+        .transfer-popup .popup-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .transfer-popup .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .transfer-popup .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .transfer-details .form-group {
+            margin-bottom: 15px;
+        }
+
+        .transfer-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .transfer-details input,
+        .transfer-details select,
+        .transfer-details textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .transfer-details .form-checkbox {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .transfer-details .form-checkbox input {
+            margin-right: 10px;
+        }
+
+        /* Payment Popup Styles */
+        .payment-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .payment-popup .popup-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .payment-popup .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-popup .close-popup {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            background-color: #f5f5f5;
+            border-color: #aaa;
+        }
+
+        .payment-method i {
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body class="">
 
@@ -176,12 +307,20 @@
             </div>
             <div class="fund-btns row">
                 <a href="GetAllRequestServlet">
-                <button class="my-funds row">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span>
+                    <button class="my-funds row">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>
                         my fundraises
                     </span>
-                </button>
+                    </button>
+                </a>
+                <a href="GetAllFundraisingApprovelServlet">
+                    <button class="my-accept-fund">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>
+                            my Approved fundraises
+                        </span>
+                    </button>
                 </a>
                 <button class="req-funds row">
                     <i class="fa-sharp fa-solid fa-plus"></i>
@@ -191,14 +330,8 @@
                 </button>
             </div>
 
-
-
-
-
             <div class="fundraising-container">
                 <h1>My Fundraises</h1>
-
-
 
                 <div class="funds-container">
                     <c:forEach var="approveModel" items="${fundraisingRequests}">
@@ -220,8 +353,6 @@
                                 <div class="desc">${approveModel.description}</div>
 
                                 <div class="donations row">
-                                    <!-- Simplified currency display - no need for empty check now -->
-
                                     <div class="target">
                                         <fmt:formatNumber value="${approveModel.targetamount}" type="number" maxFractionDigits="0"/>
                                     </div>
@@ -233,7 +364,7 @@
                                     <div class="seperator top"></div>
                                 </div>
 
-                                <div class="donate-btn">
+                                <div class="donate-btn" onclick="showPaymentPopup('${approveModel.requestId}')">
                                     <i class="fa-sharp fa-solid fa-dollar-sign"></i>
                                     <span>Donate</span>
                                 </div>
@@ -241,93 +372,213 @@
                         </div>
                     </c:forEach>
                 </div>
-                <!-- Add this modal/popup structure at the bottom of your page -->
-                <div id="paymentPopup" class="payment-popup">
+
+                <!-- Payment Popup -->
+                <div id="paymentPopup" class="payment-popup" style="display: none;">
                     <div class="popup-content">
                         <div class="popup-header">
                             <h3>Select Payment Method</h3>
-                            <span class="close-popup">&times;</span>
+                            <span class="close-popup" onclick="closePaymentPopup()">&times;</span>
                         </div>
                         <div class="payment-options">
-                            <div class="payment-method" data-method="card">
+                            <div class="payment-method" onclick="selectPaymentMethod('card')">
                                 <i class="fas fa-credit-card"></i>
                                 <span>Credit/Debit Card</span>
                             </div>
-                            <div class="payment-method" data-method="bank">
+                            <div class="payment-method" onclick="selectPaymentMethod('bank')">
                                 <i class="fas fa-university"></i>
                                 <span>Bank Transfer</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="banktransfer" class="transfer-popup" style="display:none;">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h3>Bank Transfer Donation</h3>
+                            <span class="close-btn" onclick="closeTransferPopup()">&times;</span>
+                        </div>
+                        <div class="transfer-details">
+                            <h3>Bank Transfer Information</h3>
 
-</body>
+                            <div class="form-group">
+                                <label for="bank-name">Bank Name*</label>
+                                <select id="bank-name" name="bank_name" required>
+                                    <option value="">Select your bank</option>
+                                    <option value="Commercial Bank">Commercial Bank</option>
+                                    <option value="People's Bank">People's Bank</option>
+                                    <option value="Bank of Ceylon">Bank of Ceylon</option>
+                                    <option value="Hatton National Bank">Hatton National Bank</option>
+                                    <option value="Sampath Bank">Sampath Bank</option>
+                                    <option value="other">Other Bank</option>
+                                </select>
+                                <input type="text" id="other-bank" name="other_bank" style="display:none; margin-top:5px;"
+                                       placeholder="Please specify bank name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="account-holder">Account Holder Name*</label>
+                                <input type="text" id="account-holder" name="account_holder" required
+                                       placeholder="As it appears in bank records">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="account-number">Account Number*</label>
+                                <input type="text" id="account-number" name="account_number" required
+                                       placeholder="Your bank account number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="branch">Branch Name</label>
+                                <input type="text" id="branch" name="branch"
+                                       placeholder="Bank branch location">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transfer-amount">Transfer Amount (LKR)*</label>
+                                <input type="number" id="transfer-amount" name="amount" min="100" step="100" required
+                                       placeholder="Minimum 100 LKR">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="receipt">Upload Transfer Receipt*</label>
+                                <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" required>
+                                <small>Upload clear image/PDF of your bank transfer receipt</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reference">Payment Reference*</label>
+                                <input type="text" id="reference" name="reference" required readonly
+                                       value="DON-<%= System.currentTimeMillis() %>">
+                                <small>Include this code in your transfer description</small>
+                            </div>
+
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
+                                <label for="confirm-terms">I confirm this transfer is from my own account and complies with platform rules</label>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel</button>
+                                <button type="submit" class="submit-btn">Submit Transfer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../loadSidebar.js"></script>
 <script>
+    // Sidebar and navigation functionality
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
 
     sideMenuBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            if (body.classList.contains("sidebar-deactive")) {
-                body.classList.remove("sidebar-deactive");
-            } else {
-                body.classList.add("sidebar-deactive");
-            }
-        })
+            body.classList.toggle("sidebar-deactive");
+        });
     });
 
     navRadios.forEach(radio => {
         radio.addEventListener('change', (event) => {
             const selectedValue = event.target.value;
             if (selectedValue) {
-                window.location.href = selectedValue; // Redirect to the selected page
-            }
-        })
-    });
-
-    // Get the modal and button elements
-
-        // Get elements
-        const donateBtn = document.getElementById('donateButton');
-        const paymentPopup = document.getElementById('paymentPopup');
-        const closePopup = document.querySelector('.close-popup');
-        const paymentMethods = document.querySelectorAll('.payment-method');
-
-        // Show popup when donate button is clicked
-        donateBtn.addEventListener('click', function() {
-        paymentPopup.style.display = 'flex';
-    });
-
-        // Close popup when X is clicked
-        closePopup.addEventListener('click', function() {
-        paymentPopup.style.display = 'none';
-    });
-
-        // Close popup when clicking outside content
-        paymentPopup.addEventListener('click', function(e) {
-        if (e.target === paymentPopup) {
-        paymentPopup.style.display = 'none';
-    }
-    });
-
-        // Handle payment method selection
-        paymentMethods.forEach(method => {
-        method.addEventListener('click', function () {
-            const paymentType = this.getAttribute('data-method');
-            paymentPopup.style.display = 'none';
-
-            // Handle the selected payment method
-            if (paymentType === 'card') {
-                // Redirect to card payment page or show card form
-                alert('Redirecting to card payment...');
-                // window.location.href = 'card-payment.jsp';
-            } else if (paymentType === 'bank') {
-                // Show bank transfer details
-                alert('Bank transfer details:\nBank: MyBank\nAccount: 1234567890\nIFSC: ABCD1234567');
+                window.location.href = selectedValue;
             }
         });
+    });
+
+    // Payment and transfer popup functionality
+    let currentRequestId = '';
+
+    function showPaymentPopup(requestId) {
+        currentRequestId = requestId;
+        document.getElementById('paymentPopup').style.display = 'flex';
+    }
+
+    function closePaymentPopup() {
+        document.getElementById('paymentPopup').style.display = 'none';
+    }
+
+    function selectPaymentMethod(method) {
+        closePaymentPopup();
+        if (method === 'card') {
+            window.location.href = 'card-payment.jsp?requestId=' + currentRequestId;
+        } else if (method === 'bank') {
+            showTransferPopup(currentRequestId);
+        }
+    }
+
+    function showTransferPopup(requestId) {
+        currentRequestId = requestId;
+        // Generate reference code
+        document.getElementById('reference').value = 'DON-' + requestId + '-' + Math.floor(Math.random() * 10000);
+        document.getElementById('banktransfer').style.display = 'flex';
+    }
+
+    function closeTransferPopup() {
+        document.getElementById('banktransfer').style.display = 'none';
+        document.getElementById('transfer-form').reset();
+    }
+
+    // Close popups when clicking outside
+    document.getElementById('paymentPopup').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePaymentPopup();
+        }
+    });
+
+    document.getElementById('banktransfer').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeTransferPopup();
+        }
+    });
+
+    // Show other bank input if "Other Bank" is selected
+    document.getElementById('bank-name').addEventListener('change', function() {
+        const otherBankInput = document.getElementById('other-bank');
+        otherBankInput.style.display = this.value === 'other' ? 'block' : 'none';
+        if (this.value !== 'other') {
+            otherBankInput.value = '';
+        }
+    });
+
+    // Form submission handling
+    document.getElementById('transfer-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        formData.append('request_id', currentRequestId);
+
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+
+        // Here you would typically send the data to your server
+        fetch('/process-bank-transfer', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Bank transfer details submitted successfully!');
+                    closeTransferPopup();
+                } else {
+                    alert('Error: ' + (data.message || 'Submission failed'));
+                }
+            })
+            .catch(error => {
+                alert('Network error. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Transfer';
+            });
     });
 
 </script>
