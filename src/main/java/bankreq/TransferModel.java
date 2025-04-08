@@ -38,10 +38,12 @@ public class TransferModel {
         this.reference_code = reference_code;
         this.transfer_date = transfer_date;
     }
-
-    public TransferModel(int requestId, int userId, int fundraserId, String bankName, String accountHolderName, String accountNumber, BigDecimal amount, String currency, String receiptImagePath, Timestamp transferDate) {
+    public TransferModel(int transfer_id, int user_id, int fundraiser_id, String bank_name,
+                         String account_holder_name, String account_number, BigDecimal amount,
+                         String currency, String receipt_image_path, Timestamp transfer_date) {
+        this(transfer_id, user_id, fundraiser_id, bank_name, account_holder_name,
+                account_number, null, amount, currency, receipt_image_path, null, transfer_date);
     }
-
 
     // Getters and Setters
     public Integer getTransfer_id() {
@@ -60,12 +62,12 @@ public class TransferModel {
         this.user_id = user_id;
     }
 
-    public Integer getFundraser_id() {
+    public Integer getFundraiser_id() {
         return fundraiser_id;
     }
 
-    public void setFundraser_id(Integer fundraser_id) {
-        this.fundraiser_id = fundraser_id;
+    public void setFundraiser_id(Integer fundraiser_id) {
+        this.fundraiser_id = fundraiser_id;
     }
 
     public String getBank_name() {
@@ -139,6 +141,7 @@ public class TransferModel {
     public void setTransfer_date(Timestamp transfer_date) {
         this.transfer_date = transfer_date;
     }
+
 
     // toString() method for debugging
 

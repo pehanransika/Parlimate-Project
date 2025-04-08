@@ -41,7 +41,10 @@
 			rel="stylesheet"
 			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
 		/>
-
+		<link
+				rel="stylesheet"
+				href="https://site-assets.fontawesome.com/releases/v6.6.0/css/solid.css"
+		/>
 		<link
 			rel="stylesheet"
 			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
@@ -61,7 +64,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="../userManagement/userManagement.jsp" class="nav-item f-row">
+						<a href="../userManagement/UserManagementServlet" class="nav-item f-row">
 							<i class="fa-regular fa-users"></i>
 							<span>user management</span>
 						</a>
@@ -88,6 +91,12 @@
 						<a href="#" class="nav-item f-row">
 							<i class="fa-regular fa-circle-check"></i>
 							<span>requests</span>
+						</a>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+							<i class="fa-regular fa-money-bill-transfer"></i>
+							<span>bank transfer management</span>
 						</a>
 					</li>
 					<li>

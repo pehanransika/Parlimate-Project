@@ -169,6 +169,14 @@
     <url-pattern>/admin/userManagement/UserManagementServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>BankTransferManagementServlet</servlet-name>
+    <servlet-class>bankreq.BankTransferManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BankTransferManagementServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/BankTransferManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>FundraisingManagementServlet</servlet-name>
     <servlet-class>fundreq.FundraisingManagementServlet</servlet-class>
   </servlet>
