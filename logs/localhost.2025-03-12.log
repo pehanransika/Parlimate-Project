@@ -88,6 +88,7 @@
 		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 		at java.base/java.lang.Thread.run(Thread.java:1570)
+
 12-Mar-2025 20:27:33.775 SEVERE [http-nio-8080-exec-6] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/Parlimate] threw exception [javax.el.PropertyNotFoundException: Property [error] not found on type [UserPackage.UserModel]] with root cause
 	javax.el.PropertyNotFoundException: Property [error] not found on type [UserPackage.UserModel]
 		at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:253)
