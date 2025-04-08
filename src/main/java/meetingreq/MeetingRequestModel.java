@@ -20,11 +20,12 @@ public class MeetingRequestModel {
     private String partyaffiliation;        // Political affiliations of participants
     private String discussionformat;        // Format of the meeting (e.g., panel, town hall)
     private String preferredhost;           // Preferred host for the meeting
+    private int participantcount;
 
     // Parameterized constructor
     public MeetingRequestModel(int meetingrequestid, String topic, int politician_id, String purposeofmeeting,
                                LocalDate proposaldate, LocalTime proposaltime, String estimatedduration, String opponentname,
-                               String partyaffiliation, String discussionformat, String preferredhost) {
+                               String partyaffiliation, String discussionformat, String preferredhost , int participantcount) {
         this.meetingrequestid = meetingrequestid;
         this.topic = topic;
         this.politician_id = politician_id;
@@ -36,6 +37,7 @@ public class MeetingRequestModel {
         this.partyaffiliation = partyaffiliation;
         this.discussionformat = discussionformat;
         this.preferredhost = preferredhost;
+        this.participantcount = participantcount;
     }
 
     // Getters and Setters
@@ -127,6 +129,10 @@ public class MeetingRequestModel {
         this.preferredhost = preferredhost;
     }
 
+    public int getparticipantcount() {return participantcount;}
+
+    public void setparticipantcount(int participantcount) {this.participantcount = participantcount;}
+
     // Override toString for better readability
     @Override
     public String toString() {
@@ -142,6 +148,7 @@ public class MeetingRequestModel {
                 ", partyaffiliation='" + partyaffiliation + '\'' +
                 ", discussionformat='" + discussionformat + '\'' +
                 ", preferredhost='" + preferredhost + '\'' +
+                ", participantcount=" + participantcount +
                 '}';
     }
 }

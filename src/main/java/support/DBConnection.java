@@ -1,5 +1,4 @@
-
-package comment;
+package support;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +8,6 @@ public class DBConnection {
     private static final String url = "jdbc:postgresql://localhost:5432/parlimatedatabase"; // Adjust as needed
     private static final String username = "postgres"; // Your PostgreSQL username
     private static final String password = "root"; // Your PostgreSQL password
-
     public static Connection getConnection() {
         Connection con = null;
         try {
@@ -42,6 +40,5 @@ public class DBConnection {
             System.out.println("Connection failed.");
         }
     }
-
 
 }

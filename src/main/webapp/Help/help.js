@@ -4,7 +4,7 @@ window.onload = function () {
   };
   
   function openChat() {
-    window.location.href = "Contact/contact.html"; // Redirect to contact page
+    window.location.href = "Contact/contact.jsp"; // Redirect to contact page
   }
   
   function opennewChat() {

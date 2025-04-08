@@ -61,12 +61,16 @@
             <li class="request-item">
                 <div class="request-header">
                     <h3>${fn:escapeXml(request.topic)}</h3>
-                    <p>${fn:escapeXml(request.proposaldate)} ${fn:escapeXml(request.proposaltime)}</p>
                 </div>
                 <div class="request-content">
                     <p><strong>Purpose:</strong> ${fn:escapeXml(request.purposeofmeeting)}</p>
                     <p><strong>Opponents:</strong> ${fn:escapeXml(request.opponentname)}</p>
+                    <p><strong>Proposed Date:</strong> ${fn:escapeXml(request.proposaldate)}</p>
+                    <p><strong>Proposed Time:</strong> ${fn:escapeXml(request.proposaltime)}</p>
+                    <p><strong>Type of Meeting:</strong> ${fn:escapeXml(request.discussionformat)}</p>
                     <p><strong>Host:</strong> ${fn:escapeXml(request.discussionformat)}</p>
+                    <p><strong>No of Participants:</strong> ${fn:escapeXml(request.participantcount)}</p>
+
                 </div>
                 <div class="request-actions">
                     <button
@@ -78,7 +82,8 @@
                                     '${fn:escapeXml(request.proposaldate)}',
                                     '${fn:escapeXml(request.proposaltime)}',
                                     '${fn:escapeXml(request.opponentname)}',
-                                    '${fn:escapeXml(request.discussionformat)}')">
+                                    '${fn:escapeXml(request.discussionformat)}',
+                                    '${fn:escapeXml(request.participantcount)}')">
                         Update
                     </button>
                     <form action="DeleteNewMeetingRequestServlet" method="post" onsubmit="return confirm('Are you sure?');">
@@ -122,6 +127,10 @@
                 <input type="text" id="editOpponents" name="opponentname" />
             </div>
             <div class="formSection">
+                <label for="editParticipants">No of Participants</label>
+                <input type="text" id="editParticipants" name="participantcount" />
+            </div>
+            <div class="formSection">
                 <label for="editHost">Host</label>
                 <input type="text" id="editHost" name="preferredhost" />
             </div>
@@ -133,7 +142,7 @@
 </div>
 
 <script>
-    function openEditPopup(meetingrequestid, topic, purposeofmeeting, proposaldate, proposaltime, opponentname, preferredhost) {
+    function openEditPopup(meetingrequestid, topic, purposeofmeeting, proposaldate, proposaltime, opponentname, preferredhost , participantcount) {
         document.getElementById('editPopup').style.display = 'flex';
         document.getElementById('meetingRequestId').value = meetingrequestid;
         document.getElementById('editTopic').value = topic;
@@ -142,6 +151,7 @@
         document.getElementById('editTime').value = proposaltime;
         document.getElementById('editOpponents').value = opponentname;
         document.getElementById('editHost').value = preferredhost;
+        document.getElementById('editParticipants').value = participantcount;
     }
 
     function closeEditPopup() {

@@ -75,9 +75,6 @@
                 <div class="item item-active" data-title="DebDetails">
                     Debate Details
                 </div>
-                <div class="item" data-title="OppDetails">
-                    Opponents Info
-                </div>
                 <div class="item" data-title="AddDetails">
                     Additional Information
                 </div>
@@ -162,56 +159,40 @@
                 </div>
                 <div class="input-group">
                     <div class="field">
-                        <label class="title" for="disc-opNames"
-                        >Invite Politician (Optional) </label
-                        >
-                        <input
-                                type="text"
-                                name="opponentname"
-                                id="disc-opNames"
-                                required
-                                placeholder="Sajith Premadasa"
-                        />
-                    </div>
-                    <div class="field">
-                        <label class="title" for="disc-party-aff"
-                        >Party Affiliation(s)</label
-                        >
-                        <input
-                                type="text"
-                                required
-                                placeholder="Samagi Jana Balawegaya"
-                                id="disc-party-aff"
-                                name="partyaffiliation"
-                        />
-                        <div class="separator"></div>
-                    </div>
-                    <div class="bottom">
-                        <button type="button" class="prev-btn btn">
-                            back
-                        </button>
-                        <button type="button" class="next-btn btn">
-                            Next
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <div class="field">
-                        <label class="title" for="disc-pref"
-                        >Preferred Discussion Format</label
-                        >
+                        <label class="title" for="disc-pref">Preferred Discussion Format</label>
                         <select name="discussionformat" id="disc-pref">
-                            <option value="Open-debate">
-                                Open debate
-                            </option>
-                            <option value="Moderated-discussion">
-                                Moderated Discussion
-                            </option>
+                            <option value="Open-debate">Open debate</option>
+                            <option value="Moderated-discussion">Moderated Discussion</option>
                             <option value="QA">Q&A</option>
-                            <option value="Other">other</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    <div id="opponent-fields" style="display: none;">
+                        <div class="field">
+                            <label class="title" for="opponent-name">Opponent Name</label>
+                            <input type="text" id="opponent-name" name="opponentname" placeholder="Enter opponent name">
+                        </div>
+                        <div class="field">
+                            <label class="title" for="opponent-party">Opponent's Party</label>
+                            <input type="text" id="opponent-party" name="partyaffiliation" placeholder="Enter opponent's party">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="title">
+                            <input type="checkbox" id="allow-participants" name="allowParticipants">
+                            Allow Live Participants
+                            <i class="fa-solid fa-circle-info" title="Ticking this will allow participants to join the meeting and interact"></i>
+                        </label>
+                    </div>
+
+                    <div id="participant-fields" style="display: none;">
+                        <div class="field">
+                            <label class="title" for="participant-count">Number of Participants Allowed</label>
+                            <input type="number" id="participant-count" name="participantCount" min="1" placeholder="Enter number of participants">
+                        </div>
+                    </div>
+
                     <div class="field">
                         <label class="title" for="disc-party-host">Preferred Host <span>(Optional)</span></label>
                         <select id="disc-party-host" name="preferredhost">
@@ -221,13 +202,11 @@
                         </select>
                         <div class="separator"></div>
                     </div>
+
                     <div class="bottom">
-                        <button type="button" class="prev-btn btn">
-                            back
-                        </button>
+                        <button type="button" class="prev-btn btn">back</button>
                         <button type="submit" class="next-btn btn">
-                            request
-                            <i class="fa-solid fa-check"></i>
+                            request <i class="fa-solid fa-check"></i>
                         </button>
                     </div>
                 </div>
@@ -686,6 +665,24 @@
             });
             btn.classList.add("nav-active");
         });
+    });
+
+    const discussionFormat = document.getElementById('disc-pref');
+    const opponentFields = document.getElementById('opponent-fields');
+
+    discussionFormat.addEventListener('change', function () {
+        if (this.value === 'Open-debate') {
+            opponentFields.style.display = 'block';
+        } else {
+            opponentFields.style.display = 'none';
+        }
+    });
+
+    const allowParticipantsCheckbox = document.getElementById('allow-participants');
+    const participantFields = document.getElementById('participant-fields');
+
+    allowParticipantsCheckbox.addEventListener('change', function () {
+        participantFields.style.display = this.checked ? 'block' : 'none';
     });
 </script>
 </html>

@@ -32,6 +32,17 @@ public class CreateMeetingRequestServlet extends HttpServlet {
             String proposaldateString = request.getParameter("proposaldate");
             String proposaltimeString = request.getParameter("proposaltime");
             String estimatedduration = request.getParameter("estimatedduration");
+            String participantcountStr = request.getParameter("participantcount");
+
+            int participantcount = 0;
+            if (participantcountStr != null && !participantcountStr.isEmpty()) {
+                try {
+                    participantcount = Integer.parseInt(participantcountStr);
+                } catch (NumberFormatException e) {
+                    // handle invalid input if needed
+                    e.printStackTrace();
+                }
+            }
 
             int politician_id= (politicianIdStr != null && !politicianIdStr.isEmpty())
                     ? Integer.parseInt(politicianIdStr)
@@ -51,7 +62,7 @@ public class CreateMeetingRequestServlet extends HttpServlet {
             // Call the controller to create the meeting request
             boolean isTrue = MeetingRequestController.createMeetingRequest(
                     politician_id, topic, purposeofmeeting, opponentname, partyaffiliation,
-                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration
+                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration,participantcount
             );
 
             if (isTrue) {
