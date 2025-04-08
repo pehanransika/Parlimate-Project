@@ -127,7 +127,7 @@
     }
 
     button {
-      padding: 8px 16px;
+      padding: 8px 12px;
       border: 2px solid transparent;
       border-radius: 5px;
       cursor: pointer;
@@ -142,15 +142,29 @@
       background: white;
       color: rgb(48, 47, 47);
       border: 1px solid rgb(35, 35, 35);
+      border-radius: 5rem;
     }
 
     .btn-next, .btn-finish {
       background: rgb(42, 42, 42);
       color: white;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      border-radius: 5rem;
+    }
+    .direct{
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .no-click {
       pointer-events: none;
+    }
+    #analytics-btn{
+      font-weight: 500;
+      border-radius: 10rem;
     }
   </style>
   <link
@@ -160,38 +174,7 @@
 			href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
 		/>
 
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
-		/>
-		<link
-				rel="stylesheet"
-				href="https://site-assets.fontawesome.com/releases/v6.6.0/css/solid.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
-		/>
+		<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
 </head>
 <body>
 
@@ -199,8 +182,17 @@
   <div class="question-slider" id="question-slider"></div>
 
   <div class="nav-buttons">
-    <button id="prev-btn" class="btn-prev" disabled>Previous</button>
-    <button id="next-btn" class="btn-next">Next</button>
+    <button id="analytics-btn" class="btn-analytics">
+      View Analytics
+    </button>
+    <div class="direct">
+      <button id="prev-btn" class="btn-prev" disabled>
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <button id="next-btn" class="btn-next"> 
+        <i class="fa-solid fa-arrow-right-long"></i>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -248,15 +240,16 @@
   function renderQuestion(index) {
     const q = questions[index];
     const totalVotes = q.votes.reduce((a, b) => a + b, 0);
-    let html = `<div class="question">${index + 1}. ${q.question}</div>`;
+    let html = `<div class="question"> ${q.question}</div>`;
+    let qno = index + 1;
 
     q.options.forEach((opt, optIndex) => {
       const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
       const isSelected = selectedAnswers[index] === optIndex;
 
+
       html += `
         <div class="option ${isSelected ? 'selected' : ''}" style="--percent: ${percent}%" onclick="vote(${optIndex})">
-          <!-- ${opt.img ? `<img src="${opt.img}" alt="${opt.text}" />` : ''} -->
           <div class="text">
             <div><strong>${opt.text}</strong></div>
             ${selectedAnswers[index] !== null ? `<small>${percent}%</small>` : ''}
@@ -291,7 +284,7 @@
     });
 
     prevBtn.disabled = index === 0;
-    nextBtn.innerHTML = index === questions.length - 1 ? "Finish" : "Next";
+    nextBtn.innerHTML = index === questions.length - 1 ? "Finish" : `Next <i class="fa-solid fa-arrow-right-long"></i>`;
     nextBtn.className = index === questions.length - 1 ? "btn-finish" : "btn-next";
 
     // Re-enable buttons after transition
