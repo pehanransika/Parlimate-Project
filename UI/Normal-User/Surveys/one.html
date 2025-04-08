@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Survey</title>
+  <style>
+    :root {
+      --selected: #a98ff6;
+      --purple-unselected: rgba(173, 146, 253, 0.3);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .survey-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 500px;
+    }
+
+    .question-slider {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .question-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .question-slide.enter-from-right {
+      transform: translateX(100%);
+    }
+
+    .question-slide.enter-from-left {
+      transform: translateX(-100%);
+    }
+
+    .question-slide.enter-active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .question-slide.exit-to-left {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .question-slide.exit-to-right {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 2px solid var(--purple-unselected);
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      overflow: hidden;
+      background: #fff;
+      transition: border 0.3s ease;
+    }
+
+    .option img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 15px;
+      z-index: 2;
+    }
+
+    .option .text {
+      z-index: 2;
+    }
+
+    .option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: var(--percent, 0%);
+      background: var(--purple-unselected);
+      z-index: 1;
+      transition: width 0.3s ease;
+    }
+
+    .option.selected {
+      border: 2px solid var(--selected);
+    }
+
+    .option.selected::before {
+      background: var(--selected);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: 2px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: white;
+      cursor: not-allowed;
+    }
+
+    .btn-prev {
+      background: white;
+      color: rgb(48, 47, 47);
+      border: 1px solid rgb(35, 35, 35);
+    }
+
+    .btn-next, .btn-finish {
+      background: rgb(42, 42, 42);
+      color: white;
+    }
+
+    .no-click {
+      pointer-events: none;
+    }
+  </style>
+  <link
+			rel="stylesheet"
+			data-purpose="Layout StyleSheet"
+			title="Web Awesome"
+			href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+		/>
+		<link
+				rel="stylesheet"
+				href="https://site-assets.fontawesome.com/releases/v6.6.0/css/solid.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+		/>
+</head>
+<body>
+
+<div class="survey-container">
+  <div class="question-slider" id="question-slider"></div>
+
+  <div class="nav-buttons">
+    <button id="prev-btn" class="btn-prev" disabled>Previous</button>
+    <button id="next-btn" class="btn-next">Next</button>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "What is your favorite frontend framework?",
+      options: [
+        { text: "React", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" },
+        { text: "Vue", img: "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" },
+        { text: "Angular", img: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" },
+        { text: "Svelte", img: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Svelte_Logo.svg" }
+      ],
+      votes: [10, 5, 3, 2]
+    },
+    {
+      question: "Which backend language do you prefer?",
+      options: [
+        { text: "Node.js", img: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" },
+        { text: "Python", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" },
+        { text: "Java", img: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" },
+        { text: "PHP", img: "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" }
+      ],
+      votes: [7, 8, 4, 1]
+    },
+    {
+      question: "What is your favorite database technology?",
+      options: [
+        { text: "MongoDB", img: "https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png" },
+        { text: "MySQL", img: "https://www.mysql.com/common/logos/logo-mysql-170x115.png" },
+        { text: "PostgreSQL", img: "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" },
+        { text: "SQLite", img: "https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg" }
+      ],
+      votes: [6, 7, 4, 2]
+    }
+  ];
+
+  let currentQuestion = 0;
+  const selectedAnswers = Array(questions.length).fill(null);
+  const questionSlider = document.getElementById('question-slider');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  let isTransitioning = false;
+
+  function renderQuestion(index) {
+    const q = questions[index];
+    const totalVotes = q.votes.reduce((a, b) => a + b, 0);
+    let html = `<div class="question">${index + 1}. ${q.question}</div>`;
+
+    q.options.forEach((opt, optIndex) => {
+      const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
+      const isSelected = selectedAnswers[index] === optIndex;
+
+      html += `
+        <div class="option ${isSelected ? 'selected' : ''}" style="--percent: ${percent}%" onclick="vote(${optIndex})">
+          <!-- ${opt.img ? `<img src="${opt.img}" alt="${opt.text}" />` : ''} -->
+          <div class="text">
+            <div><strong>${opt.text}</strong></div>
+            ${selectedAnswers[index] !== null ? `<small>${percent}%</small>` : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    return html;
+  }
+
+  function showSlide(index, direction) {
+    if (isTransitioning) return; // Prevent multiple clicks during transition
+    isTransitioning = true;
+
+    const oldSlide = questionSlider.querySelector('.question-slide');
+    if (oldSlide) {
+      oldSlide.classList.add(direction === 1 ? 'exit-to-left' : 'exit-to-right');
+      setTimeout(() => {
+        oldSlide.remove();
+      }, 500);
+    }
+
+    const newSlide = document.createElement('div');
+    newSlide.classList.add('question-slide');
+    newSlide.classList.add(direction === 1 ? 'enter-from-right' : 'enter-from-left');
+    newSlide.innerHTML = renderQuestion(index);
+    questionSlider.appendChild(newSlide);
+
+    requestAnimationFrame(() => {
+      newSlide.classList.add('enter-active');
+    });
+
+    prevBtn.disabled = index === 0;
+    nextBtn.innerHTML = index === questions.length - 1 ? "Finish" : "Next";
+    nextBtn.className = index === questions.length - 1 ? "btn-finish" : "btn-next";
+
+    // Re-enable buttons after transition
+    setTimeout(() => {
+      prevBtn.classList.remove('no-click');
+      nextBtn.classList.remove('no-click');
+      isTransitioning = false; // Reset transition state
+    }, 500);
+  }
+
+  function vote(optIndex) {
+    const q = questions[currentQuestion];
+    const prev = selectedAnswers[currentQuestion];
+
+    if (prev !== null) q.votes[prev]--;
+    q.votes[optIndex]++;
+    selectedAnswers[currentQuestion] = optIndex;
+
+    const slide = questionSlider.querySelector('.question-slide');
+    slide.innerHTML = renderQuestion(currentQuestion);
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (isTransitioning) return;
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      showSlide(currentQuestion, -1);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (isTransitioning) return;
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      showSlide(currentQuestion, 1);
+    } else if (nextBtn.classList.contains('btn-finish')) {
+      alert("Survey Complete! Thank you!");
+    }
+  });
+
+  // Initial render
+  showSlide(currentQuestion, 1);
+</script>
+
+</body>
+</html>
