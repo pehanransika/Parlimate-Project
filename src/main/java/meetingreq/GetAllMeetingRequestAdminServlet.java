@@ -9,31 +9,31 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/GetAllMeetingRequestServlet")
-public class GetAllMeetingRequestServlet extends HttpServlet {
+@WebServlet("/GetAllMeetingRequestAdminServlet")
+public class GetAllMeetingRequestAdminServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Fetch all fundraising requests from MeetingRequestController
-            List<MeetingRequestModel> allMeetingRequests =MeetingRequestController.getAllMeetingRequests();
+            // Fetch all meeting requests from MeetingRequestController
+            System.out.println("This is a debug message");
+            List<MeetingRequestModel> allMeetingRequestsAdmin = MeetingRequestController.getAllMeetingRequests();
 
             // Set the list as a request attribute
-            request.setAttribute("allMeetingRequests", allMeetingRequests);
+            request.setAttribute("allMeetingRequestsAdmin", allMeetingRequestsAdmin);
 
             // Forward to requestsDetail.jsp
             System.out.println("This is a debug message");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/DiscussionRoom/meetingrequestDetail.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/meetingManagement/meetingManagement.jsp");
             dispatcher.forward(request, response);
-
 
         } catch (Exception e) {
             // Log the exception for debugging
             e.printStackTrace();
 
             // Set error message and forward to an error page
-            request.setAttribute("error", "Unable to retrieve fundraising requests. Please try again later.");
+            request.setAttribute("error", "Unable to retrieve meeting requests. Please try again later.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
             dispatcher.forward(request, response);
         }

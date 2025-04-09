@@ -275,6 +275,14 @@
     <url-pattern>/DiscussionRoom/GetAllMeetingRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>/GetAllMeetingRequestAdminServlet</servlet-name>
+    <servlet-class>meetingreq.GetAllMeetingRequestAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>/GetAllMeetingRequestAdminServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetAllMeetingRequestAdminServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>UpdateMeetingRequestServlet</servlet-name>
     <servlet-class>meetingreq.UpdateMeetingRequestServlet</servlet-class>
   </servlet>
