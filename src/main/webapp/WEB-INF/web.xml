@@ -233,6 +233,32 @@
     <url-pattern>/Fundraising/CreateTransferServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetAllApprovedTransfersServlet </servlet-name>
+    <servlet-class>bankreq.GetAllApprovedTransfersServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllApprovedTransfersServlet </servlet-name>
+    <url-pattern>/admin/BankTransferManagement/GetAllApprovedTransfersServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <servlet-name>DeleteBankTransferRequestServlet</servlet-name>
+  <servlet-class>bankreq.DeleteBankTransferRequestServlet</servlet-class>
+</servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteBankTransferRequestServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/DeleteBankTransferRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ApprovedTransferRequestServlet</servlet-name>
+    <servlet-class>bankreq.ApprovedTransferRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApprovedTransferRequestServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/ApprovedTransferRequestServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>
     <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
   </servlet>

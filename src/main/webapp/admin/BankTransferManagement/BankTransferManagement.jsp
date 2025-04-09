@@ -170,12 +170,23 @@
                                     </div>
                                 </div>
                                 <div class="card-actions f-row">
+                                    <form action="${pageContext.request.contextPath}/admin/BankTransferManagement/ApprovedTransferRequestServlet"
+                                          method="POST"
+                                          onsubmit="return confirm('Are you sure you want to approve this request?');">
+                                        <input type="hidden" name="transfer_id" value="${transfer.transfer_id}"/>
                                     <button class="btn approve-btn" onclick="approveTransfer(${transfer.transfer_id})">
                                         <i class="fa-regular fa-check"></i> Approve
                                     </button>
+                                    </form>
+                                    <form action="${pageContext.request.contextPath}/admin/BankTransferManagement/DeleteBankTransferRequestServlet"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this request?');"
+                                          style="display:inline;">
+                                        <input type="hidden" name="transferId" value="${transfer.transfer_id}"/>
                                     <button class="btn reject-btn" onclick="rejectTransfer(${transfer.transfer_id})">
                                         <i class="fa-regular fa-xmark"></i> Reject
                                     </button>
+                                    </form>
                                 </div>
                             </div>
                         </c:forEach>
@@ -298,9 +309,9 @@
                     alert('An error occurred while approving the transfer.');
                 });
         }
-    }
 
-    function rejectTransfer(transferId) {
+
+    /*function rejectTransfer(transferId) {
         const reason = prompt('Please enter the reason for rejection:');
         if (reason !== null) {
             // This assumes you have access to the reason in JSP context
@@ -318,7 +329,35 @@
                 .catch(error => {
                     console.error('Error:', error);
                     alert('An error occurred while rejecting the transfer.');
-                });
+                });        }*/
+        function deleteTransfer(transferId) {
+            if (confirm('Are you sure you want to delete this request?')) {
+                fetch('${pageContext.request.contextPath}/admin/BankTransferManagement/DeleteBankTransferRequestServlet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `transferId=${transferId}`
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Show success message for 2 seconds before refreshing
+                            const msg = document.createElement('div');
+                            msg.className = 'delete-success-msg';
+                            msg.textContent = 'Transfer deleted successfully!';
+                            document.body.appendChild(msg);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            alert('Failed to delete transfer.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the transfer.');
+                    });
+            }
         }
     }
 </script>

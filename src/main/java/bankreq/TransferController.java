@@ -99,7 +99,7 @@ public class TransferController {
                 Timestamp transfer_date = rs.getTimestamp("transfer_date");
 
 
-             TransferModel request = new TransferModel(transferId, userId, fundraserId,bank_name,account_holder_name,account_number,amount,currency,receipt_image_path,transfer_date);
+                TransferModel request = new TransferModel(transferId, userId, fundraserId,bank_name,account_holder_name,account_number,amount,currency,receipt_image_path,transfer_date);
                 requests.add(request);
             }
         }
@@ -159,4 +159,3 @@ public class TransferController {
 
 
 }
-

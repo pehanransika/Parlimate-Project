@@ -31,7 +31,7 @@ public class CreateTransferServlet extends HttpServlet {
             String amountStr = request.getParameter("amount");
             String currency = request.getParameter("currency");
             String referenceCode = request.getParameter("reference_code");
-String receipt_image_path=request.getParameter("receipt_image_path");
+            String receipt_image_path=request.getParameter("receipt_image_path");
             // Validate required fields
             validateRequiredFields(fundraiserIdStr, userIdStr, bankName, accountHolder,
                     accountNumber, amountStr, currency);

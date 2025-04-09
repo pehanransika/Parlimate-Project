@@ -283,6 +283,12 @@
                 </div>
             </div>
             <div class="fund-btns row">
+                <a href="GetAllApprovedTransfersServlet">
+                    <button class="my-accept-trans">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Approved Bank Transfers</span>
+                    </button>
+                </a>
                 <a href="GetAllRequestServlet">
                     <button class="my-funds row">
                         <i class="fa-solid fa-wallet"></i>
