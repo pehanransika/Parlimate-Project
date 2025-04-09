@@ -1,10 +1,20 @@
-<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
+<%@ page import="java.util.UUID" %>
+<%
+    // Session check
+    HttpSession session1 = request.getSession(false);
     if (session1 == null || session.getAttribute("user") == null) {
-// User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
-    }%>
+    }
 
+    // Generate CSRF token
+    String csrfToken = UUID.randomUUID().toString();
+    session.setAttribute("csrfToken", csrfToken);
+%>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">

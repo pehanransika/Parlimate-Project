@@ -1,12 +1,12 @@
 
-package Suerveyreq;
+package surveys;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String url = "jdbc:postgresql://localhost:5433/ParlimateNew"; // Adjust as needed
+    private static final String url = "jdbc:postgresql://localhost:5432/Parlimate"; // Adjust as needed
     private static final String username = "postgres"; // Your PostgreSQL username
     private static final String password = "root"; // Your PostgreSQL password
     public static Connection getConnection() {
