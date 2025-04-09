@@ -72,20 +72,16 @@
 </head>
 <body class="">
 
-<%@ include file="../index/sidebar.jsp" %>
-<%@ include file="../index/header/header.jsp" %>
+        <%@ include file="../index/sidebar.jsp" %>
+        <%@ include file="../index/header/header.jsp" %>
 
-    <div class="container col">
-        <div class="pageTitles">
+        <div class="container col">
+            <div class="pageTitles">
                 <h2 class="title">Surveys</h2>
-                <div class="subTitle">
-                    Create and Vote Surveys
-                </div>
-
+                <div class="subTitle">Create and Vote Surveys</div>
 
                 <div class="tab-container">
-
-                    <div class="tab-container">
+                    <div class="tabs">
                         <div class="tab"
                              id="parliament-tab"
                              onclick="window.location.href='../Surveys/surveys.jsp'">
@@ -106,13 +102,86 @@
                         >
                             Your surveys
                         </div>
-                    <div class="slider" id="slider"></div>
+                    </div>
                 </div>
+                <div class="contents">
 
-        </div>
-    </div>
+                    <%--              			content loop                       --%>
+
+                    <div class="content">
+                        <div class="survey-card f-col">
+                            <div class="top f-row">
+                                <div class="profile f-row">
+                                    <div class="p-img"></div>
+                                    <div class="surv-details f-col">
+                                        <div class="name">Manuja ransara</div>
+                                        <div class="date">April 1</div>
+                                    </div>
+                                </div>
+                                <button id="share-btn" class="f-row">
+                                    Share <i class="fa-solid fa-share"></i>
+                                </button>
+                            </div>
+                            <div class="content f-col">
+                                <div class="current-question">
+                                    <div class="pg-no f-row">
+                                        <div class="cur-pg">1</div>
+                                        of
+                                        <div class="all-pgs">3</div>
+                                    </div>
+                                    <div class="question">
+                                        Should Sri Lanka adopt a new constitution?
+                                    </div>
+                                </div>
+                                <div class="responses f-col">
+                                    <div class="response">
+                                        <input
+                                                type="radio"
+                                                name="response-1"
+                                                id="response-1"
+                                        />
+                                        <label for="response-1"
+                                        >Yes, we need a completely new
+                                            constitution</label
+                                        >
+                                    </div>
+                                </div>
+                                <div class="survey-details caps f-row">
+                                    <div class="tot-votes">
+                                        total votes
+                                        <span>42</span>
+                                    </div>
+                                    <span>·</span>
+                                    <div class="deadline">
+                                        <span class="count">7</span>
+                                        days left
+                                    </div>
+                                </div>
+                                <div class="surv-btns caps f-row">
+                                    <button id="analytics-btn" class="analytics-btn">
+                                        View analytics
+                                    </button>
+                                    <div class="navigate-btns f-row">
+                                        <button id="prev-btn" class="prev">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </button>
+                                        <button id="next-btn" class="next">
+                                            Next
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <%--	                 content loop finish                        --%>
+                </div>
+            </div>
 
 </body>
+
 <script src="../loadSidebar.js"></script>
 <script>
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");

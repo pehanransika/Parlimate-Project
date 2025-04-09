@@ -86,31 +86,35 @@
 				<div class="subTitle">Create and Vote Surveys</div>
 
 				<div class="tab-container">
-					<div class="tab"
-						 id="parliament-tab"
-						 onclick="window.location.href='../Surveys/surveys.jsp'">
-						Parlimate surveys
-					</div>
+					<div class="tabs">
+							<div class="tab"
+								 id="parliament-tab"
+								 onclick="window.location.href='../Surveys/surveys.jsp'">
+								Parlimate surveys
+							</div>
 
-					<div
-						class="tab"
-						id="user-tab"
-						onclick="window.location.href='../Surveys/userSurveys.jsp'"
-					>
-						User surveys
+							<div
+								class="tab"
+								id="user-tab"
+								onclick="window.location.href='../Surveys/userSurveys.jsp'"
+							>
+								User surveys
+							</div>
+							<div
+								class="tab"
+								id="your-tab"
+								onclick="window.location.href='../Surveys/yourSurveys.jsp'"
+							>
+								Your surveys
+							</div>
 					</div>
-					<div
-						class="tab"
-						id="your-tab"
-						onclick="window.location.href='../Surveys/yourSurveys.jsp'"
-					>
-						Your surveys
-					</div>
-					<div class="slider" id="slider"></div>
 				</div>
 			</div>
+			<div class="contents">
 
-			<div class="content">
+			              <%--              			content loop                       --%>
+
+		         <div class="content">
 				<div class="survey-card f-col">
 					<div class="top f-row">
 						<div class="profile f-row">
@@ -176,7 +180,12 @@
 					</div>
 				</div>
 			</div>
+
+
+                          <%--	                 content loop finish                        --%>
+			</div>
 		</div>
+
 	</body>
 	<script src="../loadSidebar.js"></script>
 	<script>

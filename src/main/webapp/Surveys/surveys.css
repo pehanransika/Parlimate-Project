@@ -11,7 +11,7 @@ body {
 	background: #ebedf5;
 	padding: 1rem;
 }
-.tab-container {
+.tabs {
 	display: flex;
 	position: relative;
 	margin: 1.5rem 0;
@@ -20,6 +20,10 @@ body {
 	text-transform: capitalize;
 	font-weight: 600;
 }
+.tab-container{
+	width:100%;
+	justify-content: center;
+}
 .tab {
 	padding: 0.75rem 1.5rem;
 	cursor: pointer;
@@ -27,16 +31,16 @@ body {
 	text-align: center;
 	border-radius: 2rem;
 	transition: color 0.3s ease, background 0.3s ease;
+	background-color: black;
 }
 .tab:not(.active) {
-	background: #ffffff;
+	background: white;
 }
 .tab:hover:not(.active) {
-	color: rgb(77, 77, 77);
-	background: #ebebeb;
+	color: white;
+	background: black;
 }
 .slider {
-	position: absolute;
 	height: 100%;
 	background-color: #000000;
 	transition: all 0.3s ease;
@@ -188,4 +192,26 @@ input[type="radio"] ~ label {
             }
         }
 	}
+}
+
+
+
+.pageTitles {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start; /* Align title and subtitle to the left */
+	width:100%;
+}
+
+.title {
+	margin: 0;
+}
+
+.subTitle {
+	margin: 0;
+	color: gray;
+}
+
+.contents{
+	width:100%;
 }
