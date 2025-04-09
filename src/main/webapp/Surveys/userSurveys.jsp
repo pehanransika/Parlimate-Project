@@ -85,9 +85,28 @@
 
 
                 <div class="tab-container">
-                    <div class="tab" id="parliament-tab" onclick="window.location.href='/surveys.jsp'">Parlimate surveys</div>
-                    <div class="tab" id="user-tab" onclick="window.location.href='/userSurveys.jsp'">User surveys</div>
-                    <div class="tab" id="your-tab" onclick="window.location.href='/yourSurveys.jsp'">Your surveys</div>
+
+                    <div class="tab-container">
+                        <div class="tab"
+                             id="parliament-tab"
+                             onclick="window.location.href='../Surveys/surveys.jsp'">
+                            Parlimate surveys
+                        </div>
+
+                        <div
+                                class="tab"
+                                id="user-tab"
+                                onclick="window.location.href='../Surveys/userSurveys.jsp'"
+                        >
+                            User surveys
+                        </div>
+                        <div
+                                class="tab"
+                                id="your-tab"
+                                onclick="window.location.href='../Surveys/yourSurveys.jsp'"
+                        >
+                            Your surveys
+                        </div>
                     <div class="slider" id="slider"></div>
                 </div>
 
