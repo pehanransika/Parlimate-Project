@@ -54,7 +54,7 @@
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="admin/assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
@@ -156,9 +156,9 @@
                         />
                     </div>
                     <div class="scheduled-meeting">
-                        <button class="filter-btn f-row" id="schedule-btn">
+                        <button class="filter-btn f-row" id="request-btn">
                             <i class="fa-solid fa-filter"></i>
-                            Scheduled Meetings
+                            Meeting Requests
                         </button>
                     </div>
                     <button class="add-btn f-row">
@@ -167,7 +167,7 @@
                     </button>
                 </div>
             </div>
-            <h2 class="section-title">Meeting Requests</h2>
+            <h2 class="section-title">Scheduled Meetings</h2>
             <div class="total-records f-row">
                 Total <span>560</span> records
             </div>
@@ -175,25 +175,31 @@
                 <table class="users">
                     <thead>
                     <tr>
-                        <td>Meeting Request ID</td>
-                        <td>User Name</td>
-                        <td>Title</td>
-                        <td>Purpose of the Meeting</td>
+                        <td>Meeting ID</td>
+                        <td>Politician ID</td>
+                        <td>Topic</td>
+                        <td>Description</td>
                         <td>Date</td>
                         <td>Time</td>
-                        <td>Duration</td>
+                        <td>Type</td>
+                        <td>Host</td>
+                        <td>Platform</td>
+                        <td>Deadline</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="meeting" items="${allMeetingRequestsAdmin}">
+                    <c:forEach var="meetings" items="${allMeetings}">
                         <tr>
-                            <td>${meeting.meetingrequestid}</td>
-                            <td>${meeting.politician_id}</td>
-                            <td>${meeting.topic}</td>
-                            <td>${meeting.purposeofmeeting}</td>
-                            <td>${meeting.proposaldate}</td>
-                            <td>${meeting.proposaltime}</td>
-                            <td>${meeting.estimatedduration}</td>
+                            <td>${meetings.meetingId}</td>
+                            <td>${meetings.politicianId}</td>
+                            <td>${meetings.topic}</td>
+                            <td>${meetings.description}</td>
+                            <td>${meetings.date}</td>
+                            <td>${meetings.time}</td>
+                            <td>${meetings.typeofthemeeting}</td>
+                            <td>${meetings.host}</td>
+                            <td>${meetings.platform}</td>
+                            <td>${meetings.deadlinetoregister}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -222,8 +228,9 @@
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("schedule-btn").addEventListener("click", function() {
-            window.location.href = "<%= request.getContextPath() %>/GetAllMeetingServlet";
+        // Toggle popup-active class on body when filter button is clicked
+        document.getElementById("request-btn").addEventListener("click", function() {
+            window.location.href = "<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet";
         });
 
 

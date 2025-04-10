@@ -44,6 +44,7 @@
 
             && .topS {
                 justify-content: space-between;
+
                 && .show {
                     gap: 0.5rem;
                     font-weight: 600;
@@ -96,7 +97,7 @@
                         }
                     }
 
-                    && .filter button {
+                    && .scheduled-meeting button {
                         gap: 0.5rem;
                         border-radius: 0.5rem;
                         outline: none;
@@ -134,6 +135,7 @@
 
             && .data {
                 align-items: center;
+
                 && table {
                     width: 100%;
                     border-collapse: collapse;
@@ -160,6 +162,7 @@
                                 border-top-left-radius: 1rem;
                                 overflow: hidden;
                             }
+
                             && td:last-of-type {
                                 border-top-right-radius: 1rem;
                                 overflow: hidden;
@@ -170,6 +173,7 @@
                     && td {
                         padding: 0.5rem 0.75rem;
                     }
+
                     && tbody {
                         && tr:not(:last-child) {
                             border-bottom: 1px solid #e2e2e2;
@@ -181,6 +185,7 @@
 
                         && td.profile {
                             gap: 0.5rem;
+
                             && .p-img {
                                 width: 2.5rem;
                                 height: 2.5rem;
@@ -194,6 +199,7 @@
                                     font-size: 0.8rem;
                                     font-weight: 500;
                                 }
+
                                 && .email {
                                     color: #8e8e8e;
                                     font-size: 0.7rem;
@@ -201,6 +207,7 @@
                                 }
                             }
                         }
+
                         && td.role span {
                             padding: 0.25rem 0.5rem;
                             border-radius: 1rem;
@@ -211,23 +218,28 @@
                                 color: #443388;
                                 background: #f2e6ff;
                             }
+
                             &&.citizen {
                                 color: #878833;
                                 background: #fff9e6;
                             }
+
                             &&.politician {
                                 color: #883333;
                                 background: #ffe6e6;
                             }
+
                             &&.moderator {
                                 color: #336988;
                                 background: #e6f6ff;
                             }
+
                             &&.political-party {
                                 color: #338840;
                                 background: #e6ffe6;
                             }
                         }
+
                         && td.actbtn button {
                             padding: 0.5rem 1rem;
                             border-radius: 0.5rem;
@@ -236,11 +248,13 @@
                             &&:hover {
                                 background: #e8e8e8;
                             }
+
                             &&:active {
                                 scale: 0.85;
                                 background: #dcdcdc;
                             }
                         }
+
                         && td.actbtn button:has(~ .menu.nav-active) {
                             background: #e8e8e8;
                             border: 1px solid #dfdfdf;
@@ -260,12 +274,12 @@
                                 z-index: 998;
                                 width: max-content;
                                 display: none;
-                                box-shadow: -62px 83px 29px 0px
-                                rgba(148, 148, 148, 0),
-                                -40px 53px 27px 0px rgba(148, 148, 148, 0.01),
-                                -22px 30px 22px 0px rgba(148, 148, 148, 0.05),
-                                -10px 13px 17px 0px rgba(148, 148, 148, 0.09),
-                                -2px 3px 9px 0px rgba(148, 148, 148, 0.1);
+                                box-shadow:
+                                        -62px 83px 29px 0px rgba(148, 148, 148, 0),
+                                        -40px 53px 27px 0px rgba(148, 148, 148, 0.01),
+                                        -22px 30px 22px 0px rgba(148, 148, 148, 0.05),
+                                        -10px 13px 17px 0px rgba(148, 148, 148, 0.09),
+                                        -2px 3px 9px 0px rgba(148, 148, 148, 0.1);
 
                                 && li {
                                     color: #6f6f6f;
@@ -275,14 +289,14 @@
                                     gap: 0.75rem;
                                     font-weight: 500;
                                     text-transform: capitalize;
-                                    transition: background 0.25s ease-in-out,
-                                    color 0.25s ease-in-out;
+                                    transition: background 0.25s ease-in-out, color 0.25s ease-in-out;
 
                                     &&:hover {
                                         background: #ededed;
                                         color: #3b3b3b;
                                     }
                                 }
+
                                 &&.nav-active {
                                     display: block;
                                 }
@@ -307,6 +321,7 @@
                         &&:hover {
                             background: #e8e8e8;
                         }
+
                         &&:active {
                             background: #dcdcdc;
                         }
@@ -316,11 +331,14 @@
         }
     }
 }
+
 .filter-user-popup {
     min-width: 25rem;
+
     && .head {
         text-align: left !important;
         margin-top: 0 !important;
+
         && .title {
             gap: 0.5rem;
             color: black;
@@ -333,6 +351,7 @@
                 line-height: 0.9rem;
             }
         }
+
         && .content {
             align-items: start !important;
             text-align: left;
@@ -355,7 +374,10 @@
                     && .dropdown-content {
                         display: none;
                         padding-block: 0.5rem;
+                        flex-direction: column;
+                        gap: 0.25rem;
                     }
+
                     && > input[type="checkbox"] {
                         display: none;
 
@@ -367,11 +389,14 @@
                             display: flex;
                         }
                     }
+
                     && > label {
                         user-select: none;
                         color: #535353;
                         font-weight: 500;
                         justify-content: space-between;
+                        display: flex;
+                        cursor: pointer;
 
                         && span {
                             text-transform: capitalize;
@@ -382,106 +407,8 @@
                             transition: transform 0.25s ease;
                         }
                     }
-                    && > .dropdown-content {
-                        margin-top: 0.5rem;
-                        gap: 0.35rem;
-                        && input[type="checkbox"] {
-                            display: none;
-
-                            &&:checked ~ label {
-                                background: #1e1e1e;
-                                color: #f1f1f1;
-                                border: 1px solid #1e1e1e;
-                            }
-                        }
-
-                        && input[type="radio"] {
-                            display: none;
-                            &&:checked ~ label {
-                                background: #1e1e1e;
-                                color: #f1f1f1;
-                                border: 1px solid #1e1e1e;
-                            }
-                        }
-
-                        && .toggle-btn-check {
-                            font-size: 0.8rem;
-                            padding: 0.25rem 0.65rem;
-                            background: #f1f1f1;
-                            text-transform: capitalize;
-                            border-radius: 0.75rem;
-                            font-weight: 500;
-                            border: 1px solid #dcdcdc;
-                            transition: background 0.25s ease, color 0.25s ease;
-                        }
-                    }
-                    && > .wrap {
-                        flex-wrap: wrap;
-                        gap: 0.5rem;
-                        row-gap: 1rem;
-                    }
-                    && .city {
-                        gap: 1rem;
-
-                        && span {
-                            color: #535353;
-                            font-weight: 500;
-                        }
-
-                        && select {
-                            text-transform: capitalize;
-                            padding: 0.25rem 0.5rem;
-                            border-radius: 0.5rem;
-                            font-family: inherit;
-                            background: #ececec;
-                            border: 1px solid #bdbdbd;
-                            color: #616161;
-                            font-weight: 500;
-                        }
-                    }
-
-                    && .attribute {
-                        flex-wrap: wrap;
-                        row-gap: 1rem;
-                        column-gap: 0.5rem;
-                    }
-                    && .dropdown-content.sort {
-                        gap: 1.5rem;
-
-                        && .order {
-                            gap: 0.5rem;
-                        }
-                    }
                 }
             }
         }
-        && .action.btns {
-            display: flex;
-            width: 100%;
-            justify-content: flex-end;
-            gap: 0.5rem;
-            margin-top: 1rem;
-
-            && button {
-                padding: 0.35rem 0.75rem;
-                text-transform: capitalize;
-                font-weight: 500;
-                border-radius: 0.5rem;
-                outline: 0;
-                border: 1px solid #e5e5e5;
-                color: #6f6f6f;
-            }
-
-            && .apply-btn {
-                background: #5e87ff;
-                color: white;
-            }
-        }
     }
-}
-.delete-user-popup {
-    && .head {
-        align-items: center;
-    }
-    padding-bottom: 9rem !important;
 }
