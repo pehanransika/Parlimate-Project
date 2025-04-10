@@ -1,0 +1,72 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.profile-imgs{
+        position: relative;
+        && .cover-photo{
+        width: 100%;
+        height: 15rem;
+        border-radius: 0.75rem 0.75rem 0 0;
+        overflow: hidden;
+
+        && img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    && .profile-photo{
+        position: absolute;
+        bottom: -4rem;
+        left: 5rem;
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        border: 0.25rem solid #fff;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.profile-details{
+    background: #fff;
+    padding: 5rem 6rem;
+    width: 100%;
+    border-radius: 0 0 0.75rem 0.75rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+
+    && .user-basic{
+        gap: 0.5rem;
+
+        && .name{
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+    
+        && .joined-date{
+            color: #71797E;
+            font-style: italic;
+    
+            && span{
+                font-style: normal;
+    
+            }
+        }
+    
+        && .role{
+            font-style: italic;
+            color: #71797E;
+        }
+
+    }
+    && .city {
+        color: #71797E;
+    }
+    
+
+}
