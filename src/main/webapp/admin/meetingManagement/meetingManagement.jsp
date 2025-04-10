@@ -182,6 +182,7 @@
                         <td>Date</td>
                         <td>Time</td>
                         <td>Duration</td>
+                        <td>Action</td> <!-- New Column for Button -->
                     </tr>
                     </thead>
                     <tbody>
@@ -194,6 +195,21 @@
                             <td>${meeting.proposaldate}</td>
                             <td>${meeting.proposaltime}</td>
                             <td>${meeting.estimatedduration}</td>
+                            <td>
+                                <button
+                                        class="view-button"
+                                        onclick="openPopup(
+                                                '${meeting.meetingrequestid}',
+                                                '${meeting.politician_id}',
+                                                '${meeting.topic}',
+                                                '${meeting.purposeofmeeting}',
+                                                '${meeting.proposaldate}',
+                                                '${meeting.proposaltime}',
+                                                '${meeting.estimatedduration}')"
+                                >
+                                    View
+                                </button>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -208,9 +224,44 @@
         </div>
     </div>
 </div>
+<!-- Main Meeting Details Popup -->
+<div id="popup-container" style="display: none;">
+    <div class="popup-box">
+        <h2>Meeting Details</h2>
+        <p><strong>Meeting ID:</strong> <span id="popup-id"></span></p>
+        <p><strong>User:</strong> <span id="popup-user"></span></p>
+        <p><strong>Title:</strong> <span id="popup-title"></span></p>
+        <p><strong>Purpose:</strong> <span id="popup-purpose"></span></p>
+        <p><strong>Date:</strong> <span id="popup-date"></span></p>
+        <p><strong>Time:</strong> <span id="popup-time"></span></p>
+        <p><strong>Duration:</strong> <span id="popup-duration"></span></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+
 
 <script>
-    document.querySelectorAll('.actbtn button').forEach(button => {
+    // Helper: open and close popups
+        function openPopup(id, user, title, purpose, date, time, duration) {
+        // Fill in your modal or popup fields here
+        document.getElementById("popup-id").innerText = id;
+        document.getElementById("popup-user").innerText = user;
+        document.getElementById("popup-title").innerText = title;
+        document.getElementById("popup-purpose").innerText = purpose;
+        document.getElementById("popup-date").innerText = date;
+        document.getElementById("popup-time").innerText = time;
+        document.getElementById("popup-duration").innerText = duration;
+
+        document.getElementById("popup-container").style.display = "block";
+    }
+
+        function closePopup() {
+        document.getElementById("popup-container").style.display = "none";
+    }
+
+
+document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
                 if (menu !== button.nextElementSibling) {

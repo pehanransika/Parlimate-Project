@@ -24,7 +24,7 @@
                 <label for="nav-survey" onclick="navigate(this)"><i class="fa-solid fa-clipboard"></i>Surveys</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-discusRoom" value="http://localhost:8080/Parlimate/DiscussionRoom/discussion-room.jsp" />
+                <input type="radio" name="nav" id="nav-discusRoom" value="http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet" />
                 <label for="nav-discusRoom" onclick="navigate(this)"><i class="fa-solid fa-people-group"></i>Meeting Room</label>
             </li>
             <li>
