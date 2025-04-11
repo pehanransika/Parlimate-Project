@@ -102,6 +102,10 @@
                         >
                             Your surveys
                         </div>
+                        <button >
+                            <i class="fa-sharp fa-solid fa-plus"></i>
+                            <span>Create Your Survey</span>
+                        </button>
                     </div>
                 </div>
                 <div class="contents">

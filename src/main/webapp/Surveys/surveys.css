@@ -77,7 +77,7 @@ input[type="radio"] ~ label {
 }
 .survey-card {
 	background: #fff;
-	padding: 1rem 1.5rem;
+	padding: 1rem 2.5rem;
 	width: 100%;
 	gap: 1rem;
 	border-radius: 1rem;
@@ -214,4 +214,125 @@ input[type="radio"] ~ label {
 
 .contents{
 	width:100%;
+	justify-content: center;
 }
+
+.content{
+	justify-content: center;
+}
+
+
+
+     /*pop css*/
+
+
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.4s ease;
+	z-index: 1000;
+}
+.popup.show {
+	display: flex;
+	opacity: 1;
+	pointer-events: auto;
+}
+.popup-content {
+	background: white;
+	padding: 2rem;
+	border-radius: 10px;
+	transform: scale(0.9);
+	transition: transform 0.4s ease;
+	width: 700px;
+	height: 385px;
+	justify-content: center;
+}
+.close-btn {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 24px;
+	cursor: pointer;
+}
+.popup-multi-step {
+	position: relative;
+	width: 640px;
+	height: 350px;
+	overflow: hidden;
+}
+.step {
+	position: absolute;
+	top: 28px;
+	left: 20px;
+	width: 100%;
+	transition: all 0.5s ease;
+	opacity: 0;
+	pointer-events: none;
+	justify-content: center;
+	height: 210px;
+}
+.step.active {
+	left: 0;
+	opacity: 1;
+	pointer-events: auto;
+}
+.popup-multi-step input {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+}
+.next-btn, .ok-btn {
+	position: absolute;
+	bottom: -85px;
+	right: 2px;
+	background: black;
+	color: white;
+	border: none;
+	padding: 10px 16px;
+	border-radius: 2rem;
+	cursor: pointer;
+}
+.next-btn:hover, .ok-btn:hover {
+	background: #333;
+}
+.img-view {
+	flex: 1;
+	height: 25%;
+	border-radius: 1rem;
+	border: 2px dashed #93a8ff;
+	padding: 0.8rem;
+	background: #f1fcff;
+	gap: 1rem;
+	align-items: center;
+	font-weight: 600;
+}
+.row {
+	display: flex;
+	align-items: center;
+}
+.custom-input {
+	font-size: 16px !important;
+	padding: 8px;
+}
+.custom-input::placeholder {
+	font-size: 14px;
+	color: #999;
+}
+.success-message {
+	margin-top: 100px;
+	text-align: center;
+	font-size: 27px;
+	font-weight: 600;
+	color: #000000;
+}
+
+/* pop css ends */

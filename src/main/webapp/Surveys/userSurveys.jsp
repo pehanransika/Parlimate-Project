@@ -19,12 +19,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surveys</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="survey.css" rel="stylesheet">
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="../index/sidebar1.css" />
@@ -71,10 +76,15 @@
     />
 
 </head>
+
+
+
+
 <body class="">
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
 
 <div class="container col">
     <div class="pageTitles">
@@ -103,8 +113,26 @@
                 >
                     Your surveys
                 </div>
+
+
+           <%--                             pop up                                          --%>
+
+
+                <button id="open-popup-btn">
+                    <i class="fa-sharp fa-solid fa-plus"></i>
+                    <span>Create Your Survey</span>
+                </button>
+
+                <%@ include file="../Surveys/createSurveypopup.jsp" %>
+
+
+            <%--                            Pop ends                                               --%>
+
             </div>
         </div>
+
+
+
         <div class="contents">
 
             <%--              			content loop                       --%>
@@ -231,6 +259,5 @@
         
     });
 </script>
-
 
 </html>
