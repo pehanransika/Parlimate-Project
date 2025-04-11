@@ -124,5 +124,34 @@ public class MeetingController {
 
         return meeting;
     }
+    public static List<MeetingModel> getTodaysMeetings() {
+        String query = "SELECT * FROM meetings WHERE date = CURRENT_DATE";
+        List<MeetingModel> todaysMeetings = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                MeetingModel meeting = new MeetingModel();
+                meeting.setMeetingId(rs.getInt("meetingId"));
+                meeting.setPoliticianId(rs.getInt("politicianId"));
+                meeting.setTopic(rs.getString("topic"));
+                meeting.setDescription(rs.getString("description"));
+                meeting.setDate(rs.getDate("date"));
+                meeting.setTime(rs.getTime("time"));
+                meeting.setTypeofthemeeting(rs.getString("typeofthemeeting"));
+                meeting.setHost(rs.getString("host"));
+                meeting.setPlatform(rs.getString("platform"));
+                meeting.setDeadlinetoregister(rs.getDate("deadlinetoregister"));
+
+                todaysMeetings.add(meeting);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return todaysMeetings;
+    }
 }
 

@@ -322,6 +322,14 @@
     <servlet-name>JoinMeetingServlet</servlet-name>
     <url-pattern>/DiscussionRoom/JoinMeetingServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>GetOngoingMeetingsServlet</servlet-name>
+    <servlet-class>meetings.GetOngoingMeetingsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetOngoingMeetingsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetOngoingMeetingsServlet</url-pattern>
+  </servlet-mapping>
 <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
