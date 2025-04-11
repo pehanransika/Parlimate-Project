@@ -337,3 +337,14 @@ button.confirm {
     color: white;
     border-color: var(--primary-color);
 }
+.gmail-input {
+    margin: 10px 0;
+}
+
+.gmail-input input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}

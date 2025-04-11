@@ -1,9 +1,20 @@
-<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
-    if (session1 == null || session.getAttribute("user") == null) {
-// User is not logged in, redirect to login page
+<%@ page import="UserPackage.UserModel" %>
+
+<%
+    HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+    if (session1 == null || session1.getAttribute("user") == null) {
+        // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
-    }%>
+    }
+
+    // Session exists and user is logged in
+    UserModel user = (UserModel) session1.getAttribute("user");
+    int userId = user.getUserId();
+
+    // You can now use this userId as needed
+%>
+
 <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
     response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
@@ -12,8 +23,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="../index/sidebar1.css" rel="stylesheet" />
-    <link href="../index/header/header.css" rel="stylesheet" />
+    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
+    <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting room | Parlimate</title>
@@ -226,18 +237,18 @@
     <div class="discussions col">
         <div class="navigations row">
             <div class="nav-btn">
-                <button value="recent" class="capitalize nav-active">
-                    recent
+                <button value="upcoming" class="capitalize nav-active">
+                    Upcoming
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="today" class="capitalize">
-                    ongoing
+                <button value="ongoing" class="capitalize">
+                    Ongoing
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="upcoming" class="capitalize">
-                    upcoming
+                <button value="registered" class="capitalize">
+                    Registered
                 </button>
             </div>
         </div>
@@ -263,6 +274,7 @@
                 <c:forEach var="allmeetings" items="${allMeetingsUser}">
                     <div class="item live row"
                          style="animation-delay: 0.25s"
+                         data-meetingid="${allmeetings.meetingId}"
                          data-topic="${allmeetings.topic}"
                          data-date="${allmeetings.date}"
                          data-description="${allmeetings.description}"
@@ -301,11 +313,12 @@
                                     <i class="fa-brands fa-spotify"></i>
                                         ${allmeetings.platform}
                                 </a>
-                                <span class="small-text item-live">
-                                            <i class="fa-solid fa-signal-stream"></i>
-                                            Request to Join
-                                        </span>
-                </span>
+                                <span class="small-text item-live request-join-btn">
+                                    <i class="fa-solid fa-signal-stream"></i>
+                                        Request to Join
+                                </span>
+
+                                </span>
                                 <div class="body" style="color: #ea2f07">Registration Deadline - ${allmeetings.deadlinetoregister}</div>
                             </div>
                         </div>
@@ -322,7 +335,7 @@
     </div>
 </div>
 
-<div class="live-meeting-popup">
+<div class="live-meeting-popup" style="display: flex; background: rgba(0,0,0,0.6);">
     <div class="popup-container">
         <div class="head row">
             <div class="title">Request to Join</div>
@@ -332,17 +345,21 @@
         </div>
         <div class="content">
             <!-- These will be dynamically updated -->
+            <div class="body" id="meetingid">MeetingID</div>
             <div class="meeting-title">Topic</div>
             <div class="date capitalize">Date</div>
             <div class="body" id="description">Description</div>
             <div class="body" id="time">Time</div>
-            <div class="body" id="duration">Duration</div>
             <div class="profs row">
                 <div class="prof-img"></div>
                 <div class="prof-img"></div>
             </div>
             <div class="seats">
                 <span>12</span> more seats available
+            </div>
+            <div class="gmail-input">
+                <label for="gmail">Enter your Gmail address:</label>
+                <input type="email" id="gmail" name="gmail" placeholder="yourname@gmail.com" required>
             </div>
             <div class="conf">
                 Are you sure you want to join the live meeting via Zoom?
@@ -364,9 +381,135 @@
 </body>
 <script src="../script.js"></script>
 <script src="../loadSidebar.js"></script>
-<script src="http://localhost:8080/Parlimate/DiscussionRoom/discussin.js"></script>
+<%--<script src="http://localhost:8080/Parlimate/DiscussionRoom/discussin.js"></script>--%>
 <script src="./reqPop.js"></script>
 <script>
+    const loggedInUserId = <%= userId %>;
+    console.log("User ID from session:", loggedInUserId);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".item-live");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                console.log("✅ Button clicked");
+
+                const item = button.closest(".item");
+                if (!item) return;
+
+                const meetingid = item.dataset.meetingid;
+                const topic = item.dataset.topic;
+                const date = item.dataset.date;
+                const description = item.dataset.description;
+                const time = item.dataset.time;
+
+                console.log("📦 Data:", { topic, date, description, time });
+
+                const popup = document.querySelector(".live-meeting-popup");
+                popup.querySelector("#meetingid").textContent= meetingid;
+                popup.querySelector(".meeting-title").textContent = topic;
+                popup.querySelector(".date").textContent = date;
+                popup.querySelector("#description").textContent = description;
+                popup.querySelector("#time").textContent = "Time: " + time;
+
+                body.classList.add("overlay-active");
+            });
+        });
+
+        document.querySelector(".live-meeting-popup .close").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        document.querySelector(".live-meeting-popup .close").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        document.querySelector(".live-meeting-popup .btns .confirm").addEventListener("click", () => {
+            const email = document.getElementById("gmail").value.trim();
+            const meetingId = document.querySelector("#meetingid").textContent.trim();
+
+
+            // Basic email validation regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Check if email is empty, invalid, or missing required fields
+            if (!email || !emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            if (!meetingId || !loggedInUserId) {
+                alert("Missing required fields.");
+                return;
+            }
+
+            console.log("Meeting ID:", meetingId);
+            console.log("User ID:", loggedInUserId);
+            console.log("Email:", email);
+
+            const params = new URLSearchParams();
+            params.append("meetingId", meetingId);
+            params.append("userId", loggedInUserId);
+            params.append("email", email);
+
+            fetch("/Parlimate/JoinMeetingServlet", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params.toString()
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Server returned error");
+                    return res.text(); // try reading raw text
+                })
+                .then(text => {
+                    try {
+                        const result = JSON.parse(text);  // safely parse
+                        console.log("✅ Server Response:", result);
+
+                        // Check if the response indicates an error (duplicate registration)
+                        if (result.status === "error" && result.message) {
+                            alert(result.message); // Show error message (e.g., "You have already registered for this meeting.")
+                        } else {
+                            displayNotification("Your invitation has been sent!");
+                        }
+
+                        document.body.classList.remove("overlay-active");
+                    } catch (e) {
+                        console.error("❌ JSON Parse Error:", e, "Raw response:", text);
+                    }
+                })
+                .catch(err => {
+                    console.error("❌ Error:", err);
+                });
+        });
+
+
+
+
+        function displayNotification(msg, timeout = 3000) {
+            console.log("notification is called");
+            const notificationMsg = document.querySelector("#notification"); // Make sure this exists in your HTML
+            if (notificationMsg) {
+                notificationMsg.innerHTML = msg;
+                body.classList.add("noti-active");
+
+                setTimeout(() => {
+                    body.classList.remove("noti-active");
+                }, timeout);
+            }
+        }
+    });
+
     document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
     const navBtns = document.querySelectorAll(".nav-btn button");
 

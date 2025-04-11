@@ -314,6 +314,14 @@
     <servlet-name>DeleteMeetingRequestServlet</servlet-name>
     <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>JoinMeetingServlet</servlet-name>
+    <servlet-class>meetings.JoinMeetingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JoinMeetingServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/JoinMeetingServlet</url-pattern>
+  </servlet-mapping>
 <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
