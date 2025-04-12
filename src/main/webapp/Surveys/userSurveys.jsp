@@ -118,7 +118,7 @@
            <%--                             pop up                                          --%>
 
 
-                <button id="open-popup-btn">
+                <button id="open-popup-btn" class="create-survey">
                     <i class="fa-sharp fa-solid fa-plus"></i>
                     <span>Create Your Survey</span>
                 </button>
@@ -137,72 +137,6 @@
 
             <%--              			content loop                       --%>
 
-            <div class="content">
-                <div class="survey-card f-col">
-                    <div class="top f-row">
-                        <div class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="surv-details f-col">
-                                <div class="name">Manuja ransara</div>
-                                <div class="date">April 1</div>
-                            </div>
-                        </div>
-                        <button id="share-btn" class="f-row">
-                            Share <i class="fa-solid fa-share"></i>
-                        </button>
-                    </div>
-                    <div class="content f-col">
-                        <div class="current-question">
-                            <div class="pg-no f-row">
-                                <div class="cur-pg">1</div>
-                                of
-                                <div class="all-pgs">3</div>
-                            </div>
-                            <div class="question">
-                                Should Sri Lanka adopt a new constitution?
-                            </div>
-                        </div>
-                        <div class="responses f-col">
-                            <div class="response">
-                                <input
-                                        type="radio"
-                                        name="response-1"
-                                        id="response-1"
-                                />
-                                <label for="response-1"
-                                >Yes, we need a completely new
-                                    constitution</label
-                                >
-                            </div>
-                        </div>
-                        <div class="survey-details caps f-row">
-                            <div class="tot-votes">
-                                total votes
-                                <span>42</span>
-                            </div>
-                            <span>·</span>
-                            <div class="deadline">
-                                <span class="count">7</span>
-                                days left
-                            </div>
-                        </div>
-                        <div class="surv-btns caps f-row">
-                            <button id="analytics-btn" class="analytics-btn">
-                                View analytics
-                            </button>
-                            <div class="navigate-btns f-row">
-                                <button id="prev-btn" class="prev">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </button>
-                                <button id="next-btn" class="next">
-                                    Next
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <%--	                 content loop finish                        --%>
