@@ -37,6 +37,7 @@ public class CreateRequestServlet extends HttpServlet {
             String contact_no = request.getParameter("contact_no");
             String userIdStr = request.getParameter("userid");
             String username = request.getParameter("username");
+            String status=request.getParameter("status");
 
             // Convert userId with default
             int userId = (userIdStr != null && !userIdStr.isEmpty())
@@ -107,6 +108,8 @@ public class CreateRequestServlet extends HttpServlet {
                     datetime,
                     attachmentUrl,
                     username
+
+
             );
 
             // Response handling

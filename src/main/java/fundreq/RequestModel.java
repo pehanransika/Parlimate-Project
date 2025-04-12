@@ -17,6 +17,7 @@ public class RequestModel {
     private String photos;
     private String name;
 
+
     // Constructor
     public RequestModel(Integer requestId, Integer userId, String title, String description,
                         String category, BigDecimal targetamount, String currency, String contact_no,String photos,Timestamp datetime, String  attachment_url , String name) {
@@ -32,6 +33,7 @@ public class RequestModel {
         this.contact_no=contact_no;
         this.photos=photos;
         this.name = name;
+
     }
 
     // Getters and Setters
@@ -122,4 +124,6 @@ public class RequestModel {
     public void setName(String  name) {
         this. name =  name;
     }
+
+
 }

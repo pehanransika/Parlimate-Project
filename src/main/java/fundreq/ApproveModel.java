@@ -14,10 +14,12 @@ public class ApproveModel {
     private String photos;
     private String status;
     private Timestamp approvalDate;
+    private String name;
+
 
     public ApproveModel(int requestid, String title, String description,
                         String contact_no, String category, double targetamount,
-                        String attachment_url, String photos, Timestamp approvalDate) {
+                        String attachment_url, String photos, Timestamp approvalDate,String name) {
         this.requestid = requestid;
 
         this.title = title;
@@ -29,6 +31,7 @@ public class ApproveModel {
         this.photos = photos;
         this.status = "APPROVED";
         this.approvalDate = approvalDate;
+        this.name=name;
     }
 
     // Getters
@@ -45,6 +48,7 @@ public class ApproveModel {
     public String getPhotos() { return photos; }
     public String getStatus() { return status; }
     public Timestamp getApprovalDate() { return approvalDate; }
+    public String getName(){return name;}
 
     // Setters
     public void setRequestId(int requestid) { this.requestid = requestid; }
@@ -61,4 +65,5 @@ public class ApproveModel {
     public void setPhotos(String photos) { this.photos = photos; }
     public void setStatus(String status) { this.status = status; }
     public void setApprovalDate(Timestamp approvalDate) { this.approvalDate = approvalDate; }
+    public void setName(String name){this.name=name;}
 }

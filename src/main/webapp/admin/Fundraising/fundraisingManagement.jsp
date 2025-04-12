@@ -197,6 +197,7 @@
                         <td>Contact Number</td>
                         <td>Category</td>
                         <td>Fund Target</td>
+
                         <td>Attachment</td>
                         <td>Photos</td>
                         <td>Action</td>
@@ -210,6 +211,7 @@
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
                             <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
+
                             <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
                             <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
                             <td class="actbtn">
@@ -219,12 +221,15 @@
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                     <button type="submit" class="approve-btn">Approve</button>
                                 </form>
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
-                                      method="post"
-                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
-                                      style="display:inline;">
-                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
-                                <button class="reject-btn" data-fund-id="${fund.requestId}">Reject</button>
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/RejectRequestServlet" method="post">
+                                    <input type="hidden" name="requestId" value="${fund.requestId}">
+                                    <div class="form-group">
+                                        <label for="reason">Reason for Rejection:</label>
+                                        <textarea id="reason" name="reason" class="form-control" required
+                                                  minlength="10" placeholder="Please provide detailed reason for rejection"></textarea>
+                                        <small class="text-muted">Minimum 10 characters required</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Reject Request</button>
                                 </form>
                             </td>
                         </tr>
@@ -443,7 +448,76 @@
             })
             .catch(error => console.error('Error fetching email:', error));
     }
+    // Function to update the UI based on status
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusElement = document.getElementById('requestStatus');
+        const approveBtn = document.querySelector('.approve-btn');
+        const rejectBtn = document.querySelector('.reject-btn');
+        const rejectForm = document.getElementById('rejectForm');
+        const actionButtons = document.querySelector('.action-buttons');
 
+        // Check if status is "Rejected"
+        if (statusElement && statusElement.textContent.trim().toLowerCase() === 'rejected') {
+            // 1. Style status in red
+            statusElement.style.color = '#dc3545';
+            statusElement.style.fontWeight = 'bold';
+
+            // 2. Remove Approve and Reject buttons
+            if (actionButtons) {
+                actionButtons.remove();
+            } else {
+                if (approveBtn) approveBtn.remove();
+                if (rejectBtn) rejectBtn.remove();
+            }
+
+            // 3. Remove rejection form if exists
+            if (rejectForm) rejectForm.remove();
+
+            // 4. Add Reactivate button
+            const reactivateBtn = document.createElement('button');
+            reactivateBtn.className = 'reactivate-btn';
+            reactivateBtn.textContent = 'Reactivate Request';
+
+            // Style the button (green color)
+            reactivateBtn.style.backgroundColor = '#28a745';
+            reactivateBtn.style.color = 'white';
+            reactivateBtn.style.border = 'none';
+            reactivateBtn.style.padding = '8px 16px';
+            reactivateBtn.style.borderRadius = '4px';
+            reactivateBtn.style.cursor = 'pointer';
+            reactivateBtn.style.marginTop = '10px';
+
+            // Add click handler
+            reactivateBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reactivate this request?')) {
+                    // Submit reactivation request
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `${pageContext.request.contextPath}/admin/Fundraising/ReactivateRequestServlet`;
+
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'requestId';
+                    input.value = '${fund.requestId}';
+
+                    form.appendChild(input);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+
+            // Insert the reactivate button after the status
+            statusElement.insertAdjacentElement('afterend', reactivateBtn);
+        }
+    });
+    function validateRejection() {
+        const reason = document.getElementById('reason').value.trim();
+        if (reason.length < 10) {
+            alert('Please provide a detailed rejection reason (at least 10 characters)');
+            return false;
+        }
+        return true;
+    }
 </script>
 </body>
 </html>

@@ -256,7 +256,30 @@
     <servlet-name>ApprovedTransferRequestServlet</servlet-name>
     <url-pattern>/admin/BankTransferManagement/ApprovedTransferRequestServlet</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>GetApprovedTransfersToUserServlet</servlet-name>
+    <servlet-class>bankreq.GetApprovedTransfersToUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovedTransfersToUserServlet</servlet-name>
+    <url-pattern>/Fundraising/GetApprovedTransfersToUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetApprovedFundraisersByUser</servlet-name>
+    <servlet-class>fundreq.GetApprovedFundraisersByUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovedFundraisersByUser</servlet-name>
+    <url-pattern>/Fundraising/GetApprovedFundraisersByUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RejectRequestServlet</servlet-name>
+    <servlet-class>fundreq.RejectRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RejectRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/RejectRequestServlet</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>UserDetailsServlet</servlet-name>

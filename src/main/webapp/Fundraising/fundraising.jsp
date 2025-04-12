@@ -283,7 +283,7 @@
                 </div>
             </div>
             <div class="fund-btns row">
-                <a href="GetAllApprovedTransfersServlet">
+                <a href="AcceptBankTransfers.jsp">
                     <button class="my-accept-trans">
                         <i class="fa-solid fa-wallet"></i>
                         <span>Approved Bank Transfers</span>
@@ -295,7 +295,7 @@
                         <span>my fundraises</span>
                     </button>
                 </a>
-                <a href="GetAllFundraisingApprovelServlet">
+                <a href="GetApprovedFundraisersByUser">
                     <button class="my-accept-fund">
                         <i class="fa-solid fa-wallet"></i>
                         <span>my Approved fundraises</span>
@@ -308,14 +308,43 @@
             </div>
 
             <div class="fundraising-container">
-                <h1>My Fundraises</h1>
 
+                <div class="filter-container">
+
+                    <div class="filter-dropdown">
+                        <button class="filter-toggle" aria-expanded="false" aria-controls="dropdownMenu">
+                            <span id="filter-label">All Categories</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="filter-label">
+                            <div class="filter-option">
+                                <input type="checkbox" id="all-categories" checked>
+                                <label for="all-categories">All Categories</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="education" class="category-checkbox" checked>
+                                <label for="education">Education</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="social" class="category-checkbox" checked>
+                                <label for="social">Social</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="community" class="category-checkbox" checked>
+                                <label for="community">Community Service</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="funds-container">
                     <c:forEach var="approveModel" items="${fundraisingRequests}">
                         <div class="fund col">
                             <div class="top col">
                                 <div class="head row">
                                     <div class="title">${approveModel.title}</div>
+                                </div>
+                                <div class="username">
+                                  Owner-  <c:out value="${not empty approveModel.name ? approveModel.name : 'Anonymous'}" />
                                 </div>
                                 <div class="category">${approveModel.category}</div>
                             </div>
@@ -550,9 +579,108 @@
         }
     });
 
-    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+        // UI Elements
+        const filterToggle = document.querySelector('.filter-toggle');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const allCategoriesCheckbox = document.getElementById('all-categories');
+        const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
 
+        // Toggle dropdown
+        filterToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            dropdownMenu.classList.toggle('show', !isExpanded);
+        });
 
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            filterToggle.setAttribute('aria-expanded', 'false');
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Prevent dropdown close when clicking inside
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Handle "All Categories" checkbox
+        allCategoriesCheckbox.addEventListener('change', function() {
+            const isChecked = this.checked;
+            categoryCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+            filterProjects();
+        });
+
+        // Handle individual category checkboxes
+        categoryCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (!this.checked) {
+                    allCategoriesCheckbox.checked = false;
+                } else if (Array.from(categoryCheckboxes).every(cb => cb.checked)) {
+                    allCategoriesCheckbox.checked = true;
+                }
+                filterProjects();
+            });
+        });
+
+        // Keyboard navigation
+        filterToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+
+        // Main filtering function
+        function filterProjects() {
+            const allChecked = allCategoriesCheckbox.checked;
+            const selectedCategories = getSelectedCategories();
+
+            updateFilterLabel(selectedCategories, allChecked);
+            filterProjectElements(selectedCategories, allChecked);
+        }
+
+        // Get selected categories
+        function getSelectedCategories() {
+            if (allCategoriesCheckbox.checked) return [];
+
+            return Array.from(categoryCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => {
+                    switch(cb.id) {
+                        case 'education': return 'Education';
+                        case 'social': return 'Social';
+                        case 'community': return 'Community Service';
+                        default: return '';
+                    }
+                })
+                .filter(Boolean);
+        }
+
+        // Update the filter label
+        function updateFilterLabel(selectedCategories, allChecked) {
+            const filterLabel = document.getElementById('filter-label');
+            filterLabel.textContent = allChecked ? 'All Categories' :
+                selectedCategories.length ? selectedCategories.join(', ') : 'Select Categories';
+        }
+
+        // Filter project elements
+        function filterProjectElements(selectedCategories, allChecked) {
+            document.querySelectorAll('.fund').forEach(project => {
+                const categoryElement = project.querySelector('.category');
+                const category = categoryElement ? categoryElement.textContent.trim() : '';
+
+                const shouldShow = allChecked || selectedCategories.includes(category);
+                project.style.display = shouldShow ? 'flex' : 'none';
+            });
+        }
+
+        // Initial filter on page load
+        filterProjects();
+    });
 </script>
 </body>
 </html>
