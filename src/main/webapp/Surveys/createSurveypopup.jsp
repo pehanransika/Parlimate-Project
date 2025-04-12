@@ -6,7 +6,7 @@
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <div class="popup-multi-step">
             <!-- Step 1: Survey Info -->
-            <div class="step step-1 active">
+            <div class="step step-11 active">
                 <h2>Create Survey</h2> <br>
                 <label>Survey Topic:</label>
                 <input type="text" id="survey-topic" placeholder="Enter Topic" class="custom-input"/>
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Step 2: Question Info -->
-            <div class="step step-2">
+            <div class="step step-22">
                 <h2>Question 1 Details</h2> <br>
                 <label>Question:</label>
                 <input type="text" id="question-text" placeholder="Enter Question" class="custom-input"/>
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Step 3: Answers (Updated to show file name instead of image) -->
-            <div class="step step-3">
+            <div class="step step-33">
                 <h2>Question 1 Answer 1 Details</h2> <br>
                 <label>Answer:</label>
                 <input type="text" id="answer-text" placeholder="Enter Answer" class="custom-input"/> <br>
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Step 4: Success Message -->
-            <div class="step step-4">
+            <div class="step step-44">
                 <h2 class="success-message">Survey Created Successfully!</h2> <br><br>
                 <button class="ok-btn" onclick="closePopup()">OK</button>
             </div>
@@ -60,7 +60,7 @@
        <!--          JavaScript to handle the popup logic        -->
 
 
-<script>
+<script type="text/javascript">
     // State variables
     let surveyData = {
         topic: '',
@@ -72,23 +72,31 @@
 
     // Show a specific step
     function showStep(stepClass) {
-        document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-        document.querySelector(`.${stepClass}`).classList.add('active');
+        document.querySelectorAll('.step').forEach(function(step) {
+            step.classList.remove('active');
+        });
+        // Adds the 'active' class to the targeted element
+        var target = document.querySelector('.' + stepClass);
+        if (target) {
+            target.classList.add('active');
+        } else {
+            console.warn("Element with class " + stepClass + " not found.");
+        }
     }
 
     // Update the question title
     function updateQuestionTitle() {
-        const questionNumber = currentQuestionIndex + 1;
-        document.querySelector('.step-2 h2').textContent = `Question ${questionNumber} Details`;
+        document.querySelector('.step-22 h2').textContent = "Question " + (currentQuestionIndex + 1) + " Details";
     }
 
     // Update the answer title and button
     function updateAnswerTitle() {
-        const questionNumber = currentQuestionIndex + 1;
-        const answerNumber = currentAnswerIndex + 1;
-        document.querySelector('.step-3 h2').textContent = `Question ${questionNumber} Answer ${answerNumber} Details`;
+        document.querySelector('.step-33 h2').textContent =
+            "Question " + (currentQuestionIndex + 1) +
+            " Answer " + (currentAnswerIndex + 1) +
+            " Details";
 
-        const nextBtn = document.querySelector('.step-3 .next-btn');
+        const nextBtn = document.querySelector('.step-33 .next-btn');
         const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
         const isLastAnswer = currentAnswerIndex + 1 === surveyData.questions[currentQuestionIndex].numAnswers;
         if (isLastQuestion && isLastAnswer) {
@@ -134,7 +142,7 @@
     function goToStep() {
         const currentStep = document.querySelector('.step.active');
 
-        if (currentStep.classList.contains('step-1')) {
+        if (currentStep.classList.contains('step-11')) {
             surveyData.topic = document.getElementById('survey-topic').value;
             totalQuestions = parseInt(document.getElementById('question-count').value, 10);
             if (!surveyData.topic || isNaN(totalQuestions) || totalQuestions < 1 || totalQuestions > 30) {
@@ -142,11 +150,11 @@
                 return;
             }
             currentQuestionIndex = 0;
-            showStep('step-2');
+            showStep('step-22');
             updateQuestionTitle();
             clearQuestionInputs();
 
-        } else if (currentStep.classList.contains('step-2')) {
+        } else if (currentStep.classList.contains('step-22')) {
             const questionText = document.getElementById('question-text').value;
             const numAnswers = parseInt(document.getElementById('answer-count').value, 10);
             if (!questionText || isNaN(numAnswers) || numAnswers < 1 || numAnswers > 5) {
@@ -155,11 +163,11 @@
             }
             surveyData.questions.push({ text: questionText, numAnswers: numAnswers, answers: [] });
             currentAnswerIndex = 0;
-            showStep('step-3');
+            showStep('step-33');
             updateAnswerTitle();
             clearAnswerInputs();
 
-        } else if (currentStep.classList.contains('step-3')) {
+        } else if (currentStep.classList.contains('step-33')) {
             const answerText = document.getElementById('answer-text').value;
             const answerImage = document.getElementById('answer-image').files[0] || null;
             if (!answerText) {
@@ -175,11 +183,11 @@
             } else {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < totalQuestions) {
-                    showStep('step-2');
+                    showStep('step-22');
                     updateQuestionTitle();
                     clearQuestionInputs();
                 } else {
-                    showStep('step-4');
+                    showStep('step-44');
                 }
             }
         }
