@@ -103,6 +103,13 @@ input[type="radio"] ~ label {
 
      /*            survey prototype css styles                   */
 
+
+
+:root {
+	--purple-selected: #b896df;
+	--purple-unselected: rgba(173, 146, 253, 0.3);
+}
+
 .survey-container {
 	background: white;
 	padding: 20px;
@@ -208,10 +215,11 @@ input[type="radio"] ~ label {
 
 .option.selected {
 	border:2px solid var(--purple-selected);
+	border-radius: 8px;
 }
 
 .option.selected::before {
-	background: rgb(214, 205, 250);
+	background: rgb(189, 176, 250);
 }
 
 .nav-buttons {
@@ -260,11 +268,14 @@ button:disabled {
 	align-items: center;
 }
 
-.popup-content {
+.popup-content1{
 	background: white;
 	padding: 20px;
 	border-radius: 5px;
 	text-align: center;
+	height:150px;
+	width:350px;
+
 }
 
 #ok-btn {
@@ -274,6 +285,8 @@ button:disabled {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	height:40px;
+	width:60px;
 }
 .f-row {
 	display: flex;
@@ -338,7 +351,7 @@ button:disabled {
 	transition: opacity 0.4s ease;
 	z-index: 1000;
 }
-
+      /*this show is used by also ok pop  up content at last in survey submission*/
 .analytics-popup.show {
 	display: flex;
 	opacity: 1;
@@ -450,6 +463,8 @@ canvas {
 
 
 /*             create survey pop css           */
+
+
 
 
 .popup {

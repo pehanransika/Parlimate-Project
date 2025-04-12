@@ -7,7 +7,7 @@
         <div class="popup-multi-step">
             <!-- Step 1: Survey Info -->
             <div class="step step-11 active">
-                <h2>Create Survey</h2> <br>
+                <h2>Create Survey</h2>
                 <label>Survey Topic:</label>
                 <input type="text" id="survey-topic" placeholder="Enter Topic" class="custom-input"/>
                 <label>Number of Questions:</label>
@@ -19,7 +19,7 @@
 
             <!-- Step 2: Question Info -->
             <div class="step step-22">
-                <h2>Question 1 Details</h2> <br>
+                <h2>Question 1 Details</h2>
                 <label>Question:</label>
                 <input type="text" id="question-text" placeholder="Enter Question" class="custom-input"/>
                 <label>Number of Answers (max 5):</label>
@@ -31,7 +31,7 @@
 
             <!-- Step 3: Answers (Updated to show file name instead of image) -->
             <div class="step step-33">
-                <h2>Question 1 Answer 1 Details</h2> <br>
+                <h2>Question 1 Answer 1 Details</h2>
                 <label>Answer:</label>
                 <input type="text" id="answer-text" placeholder="Enter Answer" class="custom-input"/> <br>
                 <label>Image of Answer:</label> <br>

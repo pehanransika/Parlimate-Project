@@ -28,8 +28,8 @@
 
 <!-- submit ok Popup HTML -->
 <div id="popup" class="popup">
-  <div class="popup-content">
-    <p>Your vote has been successfully recorded.</p>
+  <div class="popup-content1">
+    <p style="font-size: 15px;">Your vote has been successfully recorded.</p> <br>
     <button id="ok-btn">OK</button>
   </div>
 </div>
@@ -100,21 +100,23 @@
   function renderQuestion(index) {
     const q = questions[index];
     const totalVotes = q.votes.reduce((a, b) => a + b, 0);
-    let html = `<div class="question">${index + 1}. ${q.question}</div>`;
+    let html = "<div class=\"question\">" + (index + 1) + ". " + q.question + "</div>";
 
     q.options.forEach((opt, optIndex) => {
       const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
       const isSelected = selectedAnswers[index] === optIndex;
 
-      html += `
-        <div class="option ${isSelected ? 'selected' : ''}" style="--percent: ${percent}%" onclick="vote(${optIndex})">
-          ${empty opt.img ? '' : '<img src="' + opt.img + '" alt="' + opt.text + '" />'}
-          <div class="text">
-            <div><strong>${opt.text}</strong></div>
-            ${selectedAnswers[index] != null ? '<small>' + percent + '%</small>' : ''}
-          </div>
-        </div>
-      `;
+      html +=  '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote(' + optIndex + ')">' +
+              (opt.img && opt.img !== ''
+                      ? '<img src="' + opt.img + '" alt="' + opt.text + '" />'
+                      : '') +
+              '<div class="text">' +
+              '<div><strong>' + opt.text + '</strong></div>' +
+              (selectedAnswers[index] != null
+                      ? '<small>' + percent + '%</small>'
+                      : '') +
+              '</div>' +
+              '</div>';
     });
 
     return html;
@@ -181,7 +183,11 @@
       currentQuestion++;
       showSlide(currentQuestion, 1);
     } else if (nextBtn.classList.contains('btn-finish')) {
-      document.getElementById('popup').style.display = 'flex';
+      console.log("manua");
+      const popupup = document.getElementById('popup');
+      popupup.style.display = 'flex';
+      popupup.classList.add("show");
+
     }
   });
 
@@ -248,7 +254,7 @@
           answers: ['Yes'],
           percentages: [100],
           votes: [1000],
-          totalVotes: 1000
+          totalVotes: 900
         }
       },
       bc: {
@@ -270,7 +276,7 @@
         datasets: [{
           label: 'Percentage',
           data: [],
-          backgroundColor: '#6a1b9a', // Purple
+          backgroundColor: '#8952c5', // Purple
           borderColor: '#000',
           borderWidth: 1
         }]
@@ -374,7 +380,7 @@
 
       totalVotesEl.textContent = data.totalVotes;
       answerVotesEl.innerHTML = data.answers.map((answer, index) =>
-              `<li>${answer}: ${data.votes[index]} votes</li>`
+              "<li>" + answer + ": " + data.votes[index] + " votes</li>"
       ).join('');
     }
   });

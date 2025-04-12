@@ -137,7 +137,7 @@
 
             <%--              			content loop                       --%>
 
-
+                <%@ include file="../Surveys/surveyPrototype.jsp" %>
 
             <%--	                 content loop finish                        --%>
         </div>
