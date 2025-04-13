@@ -1,3 +1,5 @@
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 <div class="survey-container">
   <div class="top f-row">
     <div class="profile f-row">
@@ -8,12 +10,16 @@
       </div>
     </div>
     <div style="display: flex;">
+      <button id="deleteSurveyBtn" style='font-size:12px;background-color:white;'>
+        <i class='fas fa-trash' style='font-size:20px'></i></button>&nbsp;
+      <button id="editSurveyBtn" style='font-size:12px;background-color:white;'>
+        <i class='fas fa-edit' style='font-size:20px'></i></button>&nbsp;
       <button id="viewAnalyticsBtn">View Analytics</button>&nbsp;
       <button id="share-btn" class="f-row">
         Share  &nbsp; <i class="fa-solid fa-share"></i>
       </button>
     </div>
-
+    <%@ include file="../Surveys/editSurveypopup.jsp" %>
 
   </div> <br>
   <div class="survey-topic" style="justify-content: center;font-size: larger;">
@@ -33,6 +39,39 @@
     <button id="ok-btn">OK</button>
   </div>
 </div>
+
+<!-- Delete Popup HTML -->
+<div id="deletepopup" class="popup">
+    <div  style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
+          class="popup-content">
+      <span class="close-btn" onclick="closeDeletePopup()">&times;</span> <br>
+
+        <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
+        <button onclick="deleteSurvey()" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
+
+    </div>
+</div>
+
+
+<script>
+  function closeDeletePopup() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('deletepopup').classList.remove('show');
+      });
+    });
+    document.body.style.overflow = "hidden";
+
+  }
+  function deleteSurvey(){
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('deletepopup').classList.remove('show');
+      });
+    });
+    document.body.style.overflow = "hidden";
+  }
+</script>
 
 <!-- Analytics popup -->
 <div id="analyticsPopup" class="analytics-popup">
@@ -95,6 +134,8 @@
   const questionSlider = document.getElementById('question-slider');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
+  const deleteBtn = document.getElementById('deleteSurveyBtn');
+  const editBtn = document.getElementById('editSurveyBtn');
   let isTransitioning = false;
 
   function renderQuestion(index) {
@@ -183,13 +224,24 @@
       currentQuestion++;
       showSlide(currentQuestion, 1);
     } else if (nextBtn.classList.contains('btn-finish')) {
-      console.log("manua");
       const popupup = document.getElementById('popup');
       popupup.style.display = 'flex';
       popupup.classList.add("show");
 
     }
   });
+
+  deleteBtn.addEventListener('click',() => {
+      const deletepopup = document.getElementById('deletepopup');
+      deletepopup.style.displaly = 'flex';
+      deletepopup.classList.add("show");
+  })
+
+  editBtn.addEventListener('click',() => {
+     const editpopup  = document.getElementById('editpopup');
+     editpopup.style.display='flex';
+     editpopup.classList.add("show");
+  })
 
   // Popup close functionality
   document.getElementById('ok-btn').addEventListener('click', () => {

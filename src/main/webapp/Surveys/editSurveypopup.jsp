@@ -1,7 +1,7 @@
 
-                 <%--         creat survey   pop up content             --%>
+<%--            edit survey pop up content             --%>
 
-<div id="popup" class="popup">
+<div id="editpopup" class="popup">
     <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <div class="popup-multi-step">
@@ -49,15 +49,15 @@
 
             <!-- Step 4: Success Message -->
             <div class="step step-44">
-                <h2 class="success-message">Survey Created Successfully!</h2> <br><br>
+                <h2 class="success-message">Survey Edited Successfully!</h2> <br><br>
                 <button class="ok-btn" onclick="closePopup()">OK</button>
             </div>
         </div>
     </div>
 </div>
-       <%--             pop up content  ends                    --%>
+<%--             pop up content  ends                    --%>
 
-       <!--          JavaScript to handle the popup logic        -->
+<!--          JavaScript to handle the popup logic        -->
 
 
 <script type="text/javascript">
@@ -221,6 +221,6 @@
     });
 </script>
 
-    <!--                 JavaScript to handle the popup logic ends               -->
+<!--                 JavaScript to handle the popup logic ends               -->
 
 
