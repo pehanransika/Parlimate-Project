@@ -16,11 +16,11 @@ public class RequestModel {
     private String contact_no;
     private String photos;
     private String name;
-
+private String status;
 
     // Constructor
     public RequestModel(Integer requestId, Integer userId, String title, String description,
-                        String category, BigDecimal targetamount, String currency, String contact_no,String photos,Timestamp datetime, String  attachment_url , String name) {
+                        String category, BigDecimal targetamount, String currency, String contact_no,String photos,Timestamp datetime, String  attachment_url , String name,String status) {
         this.requestId = requestId;
         this.userId = userId;
         this.title = title;
@@ -33,6 +33,7 @@ public class RequestModel {
         this.contact_no=contact_no;
         this.photos=photos;
         this.name = name;
+        this.status=status;
 
     }
 
@@ -124,6 +125,10 @@ public class RequestModel {
     public void setName(String  name) {
         this. name =  name;
     }
+
+    public String getStatus(){return status;}
+
+    public void setStatus(String status){this.status=status;}
 
 
 }

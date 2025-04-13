@@ -10,9 +10,9 @@ public class RejectedRequestController {
 
     // Method to add a new rejected request
     public static boolean rejectAndDeleteRequest(RejectedRequest rejectedRequest) throws SQLException {
-        // Validate input first
-        if (rejectedRequest.getReasonForReject() == null ||
-                rejectedRequest.getReasonForReject().trim().isEmpty()) {
+        // Validate input
+        if (rejectedRequest == null || rejectedRequest.getReasonForReject() == null
+                || rejectedRequest.getReasonForReject().trim().isEmpty()) {
             throw new IllegalArgumentException("Rejection reason cannot be null or empty");
         }
 
@@ -21,41 +21,53 @@ public class RejectedRequestController {
             conn = DBConnection.getConnection();
             conn.setAutoCommit(false); // Start transaction
 
-            // 1. Add to rejected_requests table
-            String insertQuery = "INSERT INTO rejected_requests (request_id, reason_for_reject, rejection_date) " +
+            // Debug logging
+            System.out.println("Attempting to reject request ID: " + rejectedRequest.getRequestId());
+
+            // 1. First INSERT into rejected_requests
+            String insertSQL = "INSERT INTO rejected_requests (request_id, reason_for_reject, rejection_date) " +
                     "VALUES (?, ?, ?)";
-            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
                 insertStmt.setInt(1, rejectedRequest.getRequestId());
                 insertStmt.setString(2, rejectedRequest.getReasonForReject());
                 insertStmt.setTimestamp(3, rejectedRequest.getRejectionDate());
 
-                int rowsInserted = insertStmt.executeUpdate();
-                if (rowsInserted <= 0) {
+                int insertedRows = insertStmt.executeUpdate();
+                if (insertedRows != 1) {
                     conn.rollback();
-                    return false;
+                    throw new SQLException("Failed to insert into rejected_requests (no rows affected)");
                 }
+                System.out.println("Successfully inserted into rejected_requests");
             }
 
-            // 2. Delete from fundraisingrequests table
-            String deleteQuery = "DELETE FROM fundraisingrequests WHERE requestid = ?";
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+            // 2. Then DELETE from fundraisingrequests
+           /* String deleteSQL = "DELETE FROM fundraisingrequests WHERE requestid = ?";
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL)) {
                 deleteStmt.setInt(1, rejectedRequest.getRequestId());
 
-                int rowsDeleted = deleteStmt.executeUpdate();
-                if (rowsDeleted <= 0) {
+                int deletedRows = deleteStmt.executeUpdate();
+                if (deletedRows != 1) {
                     conn.rollback();
-                    return false;
+                    throw new SQLException("Failed to delete from fundraisingrequests (no rows affected)");
                 }
-            }
+                System.out.println("Successfully deleted from fundraisingrequests");
+            }*/
 
-            conn.commit(); // Commit transaction if both operations succeed
+            // If we get here, both operations succeeded
+            conn.commit();
             return true;
 
         } catch (SQLException e) {
+            System.err.println("Transaction failed: " + e.getMessage());
             if (conn != null) {
-                conn.rollback(); // Rollback on error
+                try {
+                    conn.rollback();
+                    System.err.println("Transaction rolled back");
+                } catch (SQLException ex) {
+                    System.err.println("Rollback failed: " + ex.getMessage());
+                }
             }
-            System.err.println("Error in rejectAndDeleteRequest: " + e.getMessage());
             throw e;
         } finally {
             if (conn != null) {
@@ -68,16 +80,21 @@ public class RejectedRequestController {
             }
         }
     }
-
     // Method to get all rejected requests
     public static List<RejectedRequest> getAllRejectedRequests() throws SQLException {
+        System.out.println("Fetching rejected requests from DB..."); // Debug 3
+
         List<RejectedRequest> rejectedRequests = new ArrayList<>();
-        String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date " +
-                "FROM rejected_requests";
+        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date, "
+                + "f.title, f.description, f.contact_no, f.category, f.targetamount "
+                + "FROM rejected_requests r "
+                + "LEFT JOIN fundraisingrequests f ON r.request_id = f.requestid";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("Executed query: " + query); // Debug 4
 
             while (rs.next()) {
                 RejectedRequest request = new RejectedRequest();
@@ -86,12 +103,15 @@ public class RejectedRequestController {
                 request.setReasonForReject(rs.getString("reason_for_reject"));
                 request.setRejectionDate(rs.getTimestamp("rejection_date"));
 
+                // Additional fields from join
+
+
                 rejectedRequests.add(request);
+                System.out.println("Added request: " + request.getRequestId()); // Debug 5
             }
         }
         return rejectedRequests;
     }
-
     // Method to get rejected request by ID
     public static RejectedRequest getRejectedRequestById(int rejectionId) throws SQLException {
         String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date " +

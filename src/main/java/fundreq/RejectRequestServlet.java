@@ -22,15 +22,14 @@ public class RejectRequestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         try {
             // Get and validate requestId
             String requestIdParam = request.getParameter("requestId");
             if (requestIdParam == null || requestIdParam.trim().isEmpty()) {
-                out.println("<script>alert('Request ID cannot be empty!'); "
-                        + "window.history.back();</script>");
+                sendErrorResponse(out, "Request ID cannot be empty!", "fundraisingManagement.jsp");
                 return;
             }
 
@@ -38,50 +37,76 @@ public class RejectRequestServlet extends HttpServlet {
             try {
                 requestId = Integer.parseInt(requestIdParam);
             } catch (NumberFormatException e) {
-                out.println("<script>alert('Invalid Request ID format!'); "
-                        + "window.history.back();</script>");
+                sendErrorResponse(out, "Invalid Request ID format!", "fundraisingManagement.jsp");
                 return;
             }
 
-            // Get and validate reason
-            String reason = request.getParameter("reason");
-            if (reason == null || reason.trim().isEmpty()) {
-                out.println("<script>alert('Rejection reason cannot be empty!'); "
-                        + "window.history.back();</script>");
+            // Get and validate rejection reason
+            String rejectionReason = request.getParameter("rejectionReason");
+            if (rejectionReason == null || rejectionReason.trim().isEmpty()) {
+                sendErrorResponse(out, "Rejection reason cannot be empty!", "fundraisingManagement.jsp");
                 return;
             }
 
-            // Validate minimum length
-            if (reason.trim().length() < 10) {
-                out.println("<script>alert('Rejection reason must be at least 10 characters long!'); "
-                        + "window.history.back();</script>");
+            // Validate reason length
+            rejectionReason = rejectionReason.trim();
+            if (rejectionReason.length() < 10) {
+                sendErrorResponse(out, "Rejection reason must be at least 10 characters long!",
+                        "fundraisingManagement.jsp");
                 return;
             }
 
-            // Create and populate rejected request object
+            // Create rejected request object
             RejectedRequest rejectedRequest = new RejectedRequest();
             rejectedRequest.setRequestId(requestId);
-            rejectedRequest.setReasonForReject(reason);
+            rejectedRequest.setReasonForReject(rejectionReason);
             rejectedRequest.setRejectionDate(new Timestamp(System.currentTimeMillis()));
 
-            // Add to database
+            // Process rejection
             boolean success = RejectedRequestController.rejectAndDeleteRequest(rejectedRequest);
 
             if (success) {
-                out.println("<script>alert('Request rejected successfully!'); "
-                        + "window.location.href='viewRequests.jsp';</script>");
+                sendSuccessResponse(out, "Request rejected successfully!", "fundraisingManagement.jsp");
             } else {
-                out.println("<script>alert('Failed to reject request.'); "
-                        + "window.history.back();</script>");
+                sendErrorResponse(out, "Failed to reject request. Please try again.",
+                        "fundraisingManagement.jsp");
             }
 
         } catch (Exception e) {
-            out.println("<script>alert('An unexpected error occurred. Please try again later.'); "
-                    + "window.location.href='error.jsp';</script>");
-            System.err.println("Error in RejectRequestServlet: " + e.getMessage());
-            e.printStackTrace();
+            logError("Error in RejectRequestServlet", e);
+            sendErrorResponse(out, "An unexpected error occurred. Please try again later.",
+                    "error.jsp");
         } finally {
             out.close();
         }
+    }
+
+    private void sendSuccessResponse(PrintWriter out, String message, String redirectPage) {
+        out.println("<script type='text/javascript'>");
+        out.println("alert('" + escapeJavaScript(message) + "');");
+        out.println("window.location.href='" + redirectPage + "';");
+        out.println("</script>");
+    }
+
+    private void sendErrorResponse(PrintWriter out, String message, String redirectPage) {
+        out.println("<script type='text/javascript'>");
+        out.println("alert('" + escapeJavaScript(message) + "');");
+        out.println("window.location.href='" + redirectPage + "';");
+        out.println("</script>");
+    }
+
+    private String escapeJavaScript(String input) {
+        if (input == null) {
+            return "";
+        }
+        return input.replace("'", "\\'")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r");
+    }
+
+    private void logError(String message, Exception e) {
+        System.err.println(message);
+        e.printStackTrace();
     }
 }

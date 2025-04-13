@@ -225,6 +225,14 @@
     <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>FinalDeleteFundraisingRequestServlet </servlet-name>
+    <servlet-class>fundreq.FinalDeleteFundraisingRequestServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FinalDeleteFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/FinalDeleteFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>CreateTransferServlet </servlet-name>
     <servlet-class>bankreq.CreateTransferServlet </servlet-class>
   </servlet>
@@ -279,6 +287,22 @@
   <servlet-mapping>
     <servlet-name>RejectRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/RejectRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllRejectRequestServlet</servlet-name>
+    <servlet-class>fundreq.GetAllRejectRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllRejectRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/GetAllRejectRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RestoreFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.RestoreFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestoreFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/RestoreFundraisingRequestServlet</url-pattern>
   </servlet-mapping>
 
   <servlet>

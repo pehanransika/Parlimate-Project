@@ -107,7 +107,8 @@ public class CreateRequestServlet extends HttpServlet {
                     photos,
                     datetime,
                     attachmentUrl,
-                    username
+                    username,
+                    status
 
 
             );
