@@ -40,7 +40,7 @@ public class AdminController {
         AdminModel admin = null;
         try {
             Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM Admins WHERE userid = ?";
+            String query = "SELECT * FROM admins WHERE userid = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();

@@ -34,5 +34,7 @@ public class AdminModel {
     public void setPhone_number(String phoneNumber){
         this.phone_number=phone_number;
     }
+    public int getUserid(){ return userid;}
+    public void setUserid(int userid){this.userid=userid;}
 
 }

@@ -1,0 +1,224 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.caps{
+    text-transform: capitalize !important;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: #ebedf5;
+    padding: 1rem;
+}
+.contentpage{
+     width:1000px;
+     padding-left: 18rem;
+
+}
+.tabs {
+    display: flex;
+    position: relative;
+    margin: 1.5rem 0;
+    justify-content: center;
+    gap: 1rem;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.tab-container{
+    width:100%;
+    justify-content: center;
+}
+.tab {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    z-index: 1;
+    text-align: center;
+    border-radius: 10px;
+    transition: color 0.3s ease, background 0.3s ease;
+    background-color: black;
+
+}
+.tab:not(.active) {
+    background: white;
+}
+.tab:hover:not(.active) {
+    color: white;
+    background: black;
+}
+.slider {
+    height: 100%;
+    background-color: #000000;
+    transition: all 0.3s ease;
+    z-index: 0;
+    border-radius: 2rem;
+}
+button {
+    height: fit-content;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 2rem;
+    border: 0;
+    font-weight: 600;
+    font-family: inherit;
+    text-transform: capitalize;
+}
+button:active{
+    scale: 0.95;
+}
+button,
+input[type="radio"] ~ label {
+    cursor: pointer;
+}
+.tab.active {
+    color: #fff;
+}
+
+
+.pageTitles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align title and subtitle to the left */
+    width:100%;
+}
+
+.title {
+    margin: 0;
+}
+
+.subTitle {
+    margin: 0;
+    color: gray;
+}
+
+.contents{
+    width:100%;
+    justify-content: center;
+}
+
+.content{
+    justify-content: center;
+}
+
+.create-survey{
+    background-color:  #ebedf5;
+    border:none;
+}
+
+/*             create survey pop css           */
+
+
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 1000;
+}
+.popup.show {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+    width: 700px;
+    height: 400px;
+    justify-content: center;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.popup-multi-step {
+    position: relative;
+    width: 640px;
+    height: 360px;
+    overflow: hidden;
+}
+.step {
+    position: absolute;
+    top: 28px;
+    left: 20px;
+    width: 100%;
+    transition: all 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+    justify-content: center;
+    height: 210px;
+}
+.step.active {
+    left: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+.popup-multi-step input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+.next-btn, .ok-btn {
+    position: absolute;
+    bottom: -85px;
+    right: 2px;
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+.next-btn:hover, .ok-btn:hover {
+    background: #333;
+}
+.img-view {
+    flex: 1;
+    height: 25%;
+    border-radius: 1rem;
+    border: 2px dashed #93a8ff;
+    padding: 0.8rem;
+    background: #f1fcff;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
+.custom-input {
+    font-size: 16px !important;
+    padding: 8px;
+}
+.custom-input::placeholder {
+    font-size: 14px;
+    color: #999;
+}
+.success-message {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 600;
+    color: #000000;
+}
+
+/*             create survey pop css ends            */
+
+

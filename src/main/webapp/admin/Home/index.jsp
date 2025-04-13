@@ -76,7 +76,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-item f-row">
+						<a href="../SurveyManagement/ParlimateSurveys.jsp" class="nav-item f-row">
 							<i class="fa-regular fa-check-to-slot"></i>
 							<span>survey management</span>
 						</a>
