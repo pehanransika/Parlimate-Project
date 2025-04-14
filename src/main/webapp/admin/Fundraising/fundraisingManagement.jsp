@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* Additional styles for tabbed interface */
         .fundraising-tabs {
@@ -167,6 +168,7 @@
             <div class="page-desc">Manage fundraising campaigns, approvals, and targets.</div>
         </div>
 
+
         <!-- Fundraising Tabs -->
         <div class="fundraising-tabs">
             <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')">Fundraising Request</div>
@@ -198,8 +200,8 @@
                         <td>Fund Target</td>
                         <td>Attachment</td>
                         <td>Photos</td>
-                        <td>Action</td>
                         <td>Status</td>
+                        <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -231,7 +233,7 @@
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
                                       method="post"
                                       id="delete-form-${fund.requestId}"
-                                      onsubmit="return confirm('Are you sure you want to permanently delete this request?');"
+                                      onsubmit="return confirm('Are you sure you want to  delete this request?');"
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                     <button type="submit" class="reject-btn">Delete</button>
@@ -290,6 +292,7 @@
                         <td>Fund Target</td>
                         <td>Attachment</td>
                         <td>Photos</td>
+                        <td>Status</td>
                         <td>Action</td>
                     </tr>
                     </thead>
@@ -315,15 +318,33 @@
                                     View
                                 </a>
                             </td>
+                            <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
+                                <c:if test="${fund.status != 'HOLD'}">
                                 <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteApproveRequestServlet"
+                                <form action="${pageContext.request.contextPath}/admin/Fundraising/HoldApprovedRequestServlet"
                                       method="post"
-                                      onsubmit="return confirm('Are you sure you want to delete this request?');"
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
-                                    <button class="suspend-btn" data-fund-id="${fund.requestId}">Suspend</button>
+                                    <button class="suspend-btn" data-fund-id="${fund.requestId}">Hold</button>
                                 </form>
+                                </c:if>
+                                <c:if test="${fund.status == 'HOLD'}">
+                                    <form action="${pageContext.request.contextPath}/admin/Fundraising/RestoreApprovedFundraisingRequestServlet"
+                                          method="POST"
+                                          onsubmit="return confirm('Are you sure you want to restore this request?');"
+                                          style="display:inline;">
+                                        <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                        <button type="submit" class="approve-btn">Restore</button>
+                                    </form>
+                                    <form action="${pageContext.request.contextPath}/admin/Fundraising/FinalDeleteApprovedFundraisingRequestServlet"
+                                          method="POST"
+                                          onsubmit="return confirm('Are you sure you want to Permenantly delete this request?');"
+                                          style="display:inline;">
+                                        <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                        <button type="submit" class="approve-btn"> delete</button>
+                                    </form>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -331,6 +352,7 @@
                 </table>
             </div>
         </div>
+    </div>
         <div id="emailModal" class="modal" style="display:none;">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
@@ -353,7 +375,7 @@
                 </form>
             </div>
         </div>
-
+</div>
         <script>
             // Tab switching functionality
             function openFundraisingTab(evt, tabName) {
@@ -403,21 +425,23 @@
                     alert("Suspend Fundraising ID: " + fundId);
                 });
             });
+
             function refreshFundraisingTable() {
                 $.get('${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet',
-                    function(data) {
+                    function (data) {
                         $('#approval-fundraisers').html($(data).find('#approval-fundraisers').html());
                     }
                 );
             }
-            document.addEventListener('DOMContentLoaded', function() {
+
+            document.addEventListener('DOMContentLoaded', function () {
                 // Get modal elements
                 const modal = document.getElementById('emailModal');
                 const closeBtn = document.querySelector('.close-btn');
 
                 // Handle edit button clicks
                 document.querySelectorAll('.edit-btn').forEach(button => {
-                    button.addEventListener('click', function() {
+                    button.addEventListener('click', function () {
                         const requestId = this.getAttribute('data-fund-id');
                         document.getElementById('fundRequestId').value = requestId;
 
@@ -429,19 +453,19 @@
                 });
 
                 // Close modal when X is clicked
-                closeBtn.addEventListener('click', function() {
+                closeBtn.addEventListener('click', function () {
                     modal.style.display = 'none';
                 });
 
                 // Close modal when clicking outside
-                window.addEventListener('click', function(event) {
+                window.addEventListener('click', function (event) {
                     if (event.target === modal) {
                         modal.style.display = 'none';
                     }
                 });
 
                 // Handle form submission
-                document.getElementById('emailForm').addEventListener('submit', function(e) {
+                document.getElementById('emailForm').addEventListener('submit', function (e) {
                     e.preventDefault();
 
                     const formData = new FormData(this);
@@ -478,14 +502,15 @@
                     })
                     .catch(error => console.error('Error fetching email:', error));
             }
+
             const rejectModal = document.getElementById('rejectModal');
             const closeBtn = document.querySelector('.close');
             const rejectForm = document.getElementById('rejectForm');
             const rejectRequestId = document.getElementById('rejectRequestId');
 
             // Handle reject button clicks
-            document.querySelectorAll('.reject-btn').forEach(button => {
-                button.addEventListener('click', function() {
+           document.querySelectorAll('.reject-btn').forEach(button => {
+                button.addEventListener('click', function () {
                     const requestId = this.getAttribute('data-fund-id');
                     rejectRequestId.value = requestId;
                     rejectModal.style.display = 'block';
@@ -493,19 +518,19 @@
             });
 
             // Close modal when X is clicked
-            closeBtn.addEventListener('click', function() {
+            closeBtn.addEventListener('click', function () {
                 rejectModal.style.display = 'none';
             });
 
             // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
+            window.addEventListener('click', function (event) {
                 if (event.target === rejectModal) {
                     rejectModal.style.display = 'none';
                 }
             });
 
             // Handle form submission
-            rejectForm.addEventListener('submit', function(e) {
+            rejectForm.addEventListener('submit', function (e) {
                 const reason = document.getElementById('rejectionReason').value;
                 if (!reason) {
                     e.preventDefault();
@@ -517,7 +542,7 @@
 
             // Refresh the page after form submissions to see updated status
             document.querySelectorAll('form').forEach(form => {
-                form.addEventListener('submit', function() {
+                form.addEventListener('submit', function () {
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
@@ -573,6 +598,7 @@
                         });
                 }
             }
+
             function confirmRejection(requestId) {
                 if (confirm('Are you sure you want to reject this request?')) {
                     // Submit the rejection form
@@ -583,6 +609,7 @@
                     document.getElementById(`restore-form-${requestId}`).style.display = 'inline';
                 }
             }
+
             let currentDeleteForm = null;
 
             function handleDelete(event, requestId) {
@@ -611,7 +638,36 @@
                 // Hide modal
                 document.getElementById('reasonModal').style.display = 'none';
             }
+
+
+            $(document).ready(function() {
+                // Replace form submission with AJAX
+                $(document).on('click', '.suspend-btn', function(e) {
+                    e.preventDefault();
+                    var form = $(this).closest('form');
+                    var row = form.closest('tr');
+
+                    if(confirm('Are you sure you want to hold this request?')) {
+                        $.ajax({
+                            type: 'POST',
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            success: function(response) {
+                                // Update the status cell in the same row
+                                row.find('td:nth-child(8)').text('HOLD');
+
+                                // Optional: Change button appearance
+                                $(this).text('Held').prop('disabled', true);
+                            },
+                            error: function() {
+                                alert('Error occurred while updating status');
+                            }
+                        });
+                    }
+                });
+            });
         </script>
+
 
 </body>
 </html>

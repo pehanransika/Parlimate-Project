@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 public class ApproveModel {
     private int requestid;
-
     private String title;
     private String description;
     private String contact_no;
@@ -18,7 +17,7 @@ public class ApproveModel {
 
 
     public ApproveModel(int requestid, String title, String description,
-                        String contact_no, String category, double targetamount,
+                        String contact_no, String category, double targetamount,String status,
                         String attachment_url, String photos, Timestamp approvalDate,String name) {
         this.requestid = requestid;
 
@@ -29,7 +28,7 @@ public class ApproveModel {
         this.targetamount = targetamount;
         this.attachment_url = attachment_url;
         this.photos = photos;
-        this.status = "APPROVED";
+        this.status = status;
         this.approvalDate = approvalDate;
         this.name=name;
     }

@@ -233,6 +233,14 @@
     <url-pattern>/admin/Fundraising/FinalDeleteFundraisingRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>HoldApprovedRequestServlet </servlet-name>
+    <servlet-class>fundreq.HoldApprovedRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HoldApprovedRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/HoldApprovedRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>CreateTransferServlet </servlet-name>
     <servlet-class>bankreq.CreateTransferServlet </servlet-class>
   </servlet>

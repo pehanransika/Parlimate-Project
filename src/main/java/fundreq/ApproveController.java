@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApproveController {
-    // Get all approved requests
+
+    // Get all approved fundraising requests
     public static List<ApproveModel> getAllApprovedRequests() {
-        List<ApproveModel> approvedRequests = new ArrayList<>();
+        List<ApproveModel> requests = new ArrayList<>();
         String sql = "SELECT * FROM approved_requests ORDER BY approval_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
@@ -22,18 +23,19 @@ public class ApproveController {
                         rs.getString("contact_no"),
                         rs.getString("category"),
                         rs.getDouble("targetamount"),
+                        rs.getString("status"),
                         rs.getString("attachment_url"),
                         rs.getString("photos"),
                         rs.getTimestamp("approval_date"),
                         rs.getString("name")
                 );
-                approvedRequests.add(request);
+                requests.add(request);
             }
         } catch (SQLException e) {
             System.err.println("Error fetching approved requests: " + e.getMessage());
             e.printStackTrace();
         }
-        return approvedRequests;
+        return requests;
     }
 
     // Get single approved request by ID
@@ -47,12 +49,13 @@ public class ApproveController {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new ApproveModel(
-                            rs.getInt("requestid"),  // Fixed from request_id to requestid
+                            rs.getInt("requestid"),
                             rs.getString("title"),
                             rs.getString("description"),
                             rs.getString("contact_no"),
                             rs.getString("category"),
                             rs.getDouble("targetamount"),
+                            rs.getString("status"),
                             rs.getString("attachment_url"),
                             rs.getString("photos"),
                             rs.getTimestamp("approval_date"),
@@ -67,100 +70,37 @@ public class ApproveController {
         return null;
     }
 
-    // Approve a fundraising request - MAIN FIX APPLIED HERE
+    // Approve a fundraising request
     public static boolean approveFundraisingRequest(int requestId) {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            conn.setAutoCommit(false); // Start transaction
+            conn.setAutoCommit(false);
 
-            // 1. Get the request to be approved along with user name
-            String selectSql = "SELECT fr.*, " +
-                    "COALESCE(p.name, c.name) AS name " +
-                    "FROM fundraisingrequests fr " +
-                    "LEFT JOIN politician p ON fr.userid = p.user_id AND fr.userid IN (SELECT user_id FROM politician) " +
-                    "LEFT JOIN citizen c ON fr.userid = c.user_id AND fr.userid IN (SELECT user_id FROM citizen) " +
-                    "WHERE fr.requestid = ?";
-
-            ApproveModel requestToApprove;
-            String requesterName = null;
-
-            try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-                selectStmt.setInt(1, requestId);
-                try (ResultSet rs = selectStmt.executeQuery()) {
-                    if (!rs.next()) {
-                        System.err.println("No request found with ID: " + requestId);
-                        return false;
-                    }
-
-                    requesterName = rs.getString("name");
-                    if (requesterName == null) {
-                        requesterName = "Anonymous"; // Default value if name is null
-                    }
-
-                    requestToApprove = new ApproveModel(
-                            rs.getInt("requestid"),
-                            rs.getString("title"),
-                            rs.getString("description"),
-                            rs.getString("contact_no"),
-                            rs.getString("category"),
-                            rs.getDouble("targetamount"),
-                            rs.getString("attachment_url"),
-                            rs.getString("photos"),
-                            new Timestamp(System.currentTimeMillis()),
-                            requesterName
-                    );
-                }
+            // 1. Get request details
+            ApproveModel request = getRequestDetails(conn, requestId);
+            if (request == null) {
+                return false;
             }
 
             // 2. Insert into approved_requests
-            String insertSql = "INSERT INTO approved_requests " +
-                    "(requestid, title, description, contact_no, category, " +
-                    "targetamount, attachment_url, photos, approval_date, name) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-                insertStmt.setInt(1, requestToApprove.getRequestId());
-                insertStmt.setString(2, requestToApprove.getTitle());
-                insertStmt.setString(3, requestToApprove.getDescription());
-                insertStmt.setString(4, requestToApprove.getContact_no());
-                insertStmt.setString(5, requestToApprove.getCategory());
-                insertStmt.setDouble(6, requestToApprove.getTargetamount());
-                insertStmt.setString(7, requestToApprove.getAttachmentUrl());
-                insertStmt.setString(8, requestToApprove.getPhotos());
-                insertStmt.setTimestamp(9, requestToApprove.getApprovalDate());
-                insertStmt.setString(10, requestToApprove.getName());
-
-                if (insertStmt.executeUpdate() == 0) {
-                    conn.rollback();
-                    System.err.println("Failed to insert into approved_requests");
-                    return false;
-                }
+            if (!insertApprovedRequest(conn, request)) {
+                conn.rollback();
+                return false;
             }
 
-
             // 3. Delete from original table
-            String deleteSql = "DELETE FROM fundraisingrequests WHERE requestid = ?";
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
-                deleteStmt.setInt(1, requestId);
-                if (deleteStmt.executeUpdate() == 0) {
-                    conn.rollback();
-                    System.err.println("Failed to delete from fundraisingrequests");
-                    return false;
-                }
+            if (!deleteOriginalRequest(conn, requestId)) {
+                conn.rollback();
+                return false;
             }
 
             conn.commit();
             return true;
         } catch (SQLException e) {
             System.err.println("Error approving request: " + e.getMessage());
-            e.printStackTrace();
             if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    System.err.println("Rollback failed: " + ex.getMessage());
-                }
+                try { conn.rollback(); } catch (SQLException ex) {}
             }
             return false;
         } finally {
@@ -168,10 +108,69 @@ public class ApproveController {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
-                } catch (SQLException e) {
-                    System.err.println("Error closing connection: " + e.getMessage());
+                } catch (SQLException e) {}
+            }
+        }
+    }
+
+    private static ApproveModel getRequestDetails(Connection conn, int requestId) throws SQLException {
+        String sql = "SELECT fr.*, COALESCE(p.name, c.name) AS name " +
+                "FROM fundraisingrequests fr " +
+                "LEFT JOIN politician p ON fr.userid = p.user_id " +
+                "LEFT JOIN citizen c ON fr.userid = c.user_id " +
+                "WHERE fr.requestid = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, requestId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new ApproveModel(
+                            rs.getInt("requestid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("contact_no"),
+                            rs.getString("category"),
+                            rs.getDouble("targetamount"),
+                            rs.getString("status"),
+                            rs.getString("attachment_url"),
+                            rs.getString("photos"),
+                            new Timestamp(System.currentTimeMillis()),
+                            rs.getString("name")
+                    );
                 }
             }
+        }
+        return null;
+    }
+
+    private static boolean insertApprovedRequest(Connection conn, ApproveModel request) throws SQLException {
+        String sql = "INSERT INTO approved_requests " +
+                "(requestid, title, description, contact_no, category, " +
+                "targetamount, attachment_url, photos, approval_date, status, name) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, request.getRequestId());
+            stmt.setString(2, request.getTitle());
+            stmt.setString(3, request.getDescription());
+            stmt.setString(4, request.getContact_no());
+            stmt.setString(5, request.getCategory());
+            stmt.setDouble(6, request.getTargetamount());
+            stmt.setString(7, request.getAttachmentUrl());
+            stmt.setString(8, request.getPhotos());
+            stmt.setTimestamp(9, request.getApprovalDate());
+            stmt.setString(10, request.getStatus());
+            stmt.setString(11, request.getName());
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    private static boolean deleteOriginalRequest(Connection conn, int requestId) throws SQLException {
+        String sql = "DELETE FROM fundraisingrequests WHERE requestid = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, requestId);
+            return stmt.executeUpdate() > 0;
         }
     }
 
@@ -179,7 +178,7 @@ public class ApproveController {
     public static boolean updateApprovedRequest(ApproveModel request) {
         String sql = "UPDATE approved_requests SET " +
                 "title = ?, description = ?, contact_no = ?, category = ?, " +
-                "targetamount = ?, attachment_url = ?, photos = ?, name = ? " +
+                "targetamount = ?, attachment_url = ?, photos = ?, status = ?, name = ? " +
                 "WHERE requestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -192,8 +191,9 @@ public class ApproveController {
             stmt.setDouble(5, request.getTargetamount());
             stmt.setString(6, request.getAttachmentUrl());
             stmt.setString(7, request.getPhotos());
-            stmt.setString(8, request.getName());
-            stmt.setInt(9, request.getRequestId());
+            stmt.setString(8, request.getStatus());
+            stmt.setString(9, request.getName());
+            stmt.setInt(10, request.getRequestId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -204,13 +204,13 @@ public class ApproveController {
     }
 
     // Delete an approved request
-    public static boolean deleteApprovedRequest(int requestid) {
+    public static boolean deleteApprovedRequest(int requestId) {
         String sql = "DELETE FROM approved_requests WHERE requestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, requestid);
+            stmt.setInt(1, requestId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error deleting request: " + e.getMessage());
@@ -218,18 +218,36 @@ public class ApproveController {
             return false;
         }
     }
+
+    // Hold an approved request
+    public static boolean holdApprovedRequest(int requestId) {
+        String sql = "UPDATE approved_requests SET status = 'HOLD' WHERE requestid = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, requestId);
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Rows updated by hold: " + rowsUpdated);
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.err.println("Error holding request: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Get approved fundraisers by user ID
     public static List<ApproveModel> getApprovedFundraisersByUser(int userId) {
-        List<ApproveModel> approvedRequests = new ArrayList<>();
+        List<ApproveModel> requests = new ArrayList<>();
         String sql = "SELECT ar.* FROM approved_requests ar " +
                 "JOIN fundraisingrequests fr ON ar.requestid = fr.requestid " +
-                "WHERE fr.userid = ? " +
-                "ORDER BY ar.approval_date DESC";
+                "WHERE fr.userid = ? ORDER BY ar.approval_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
-
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     ApproveModel request = new ApproveModel(
@@ -239,27 +257,19 @@ public class ApproveController {
                             rs.getString("contact_no"),
                             rs.getString("category"),
                             rs.getDouble("targetamount"),
+                            rs.getString("status"),
                             rs.getString("attachment_url"),
                             rs.getString("photos"),
                             rs.getTimestamp("approval_date"),
                             rs.getString("name")
                     );
-                    approvedRequests.add(request);
+                    requests.add(request);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error fetching user's approved requests: " + e.getMessage());
+            System.err.println("Error fetching user requests: " + e.getMessage());
             e.printStackTrace();
         }
-        return approvedRequests;
-    }
-    // Helper method to load JDBC driver (call this once at application startup)
-    public static void initialize() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("MySQL JDBC Driver not found");
-            e.printStackTrace();
-        }
+        return requests;
     }
 }
