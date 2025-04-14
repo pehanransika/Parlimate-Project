@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- Check for session and user --%>
 <%
-    HttpSession session1 = request.getSession(false);
+    HttpSession session1 = (HttpSession) request.getSession(false);
     if (session1 == null || session.getAttribute("user") == null) {
         response.sendRedirect("../index.jsp");
         return;
@@ -38,6 +39,8 @@
             align-items: center;
         }
     </style>
+
+    <script src="./profile.js" defer></script>
 </head>
 <body>
 
@@ -162,7 +165,7 @@
     <div class="profile-container f-col">
         <div class="profile-imgs">
             <div class="cover-photo">
-                <img src="./bg.jpg" alt=""/>
+                <img src="bg.png" alt="bg"/>
             </div>
             <div class="profile-photo">
                 <img src="https://i.pravatar.cc/200" alt="" srcset=""/>
@@ -205,12 +208,12 @@
         </div>
     </div>
     <div class="recent-posts f-col">
+
         <div class="title caps f-row">
-            <!-- <div class="line-flex">&nbsp;</div> -->
             <span>recent posts</span>
-            <!-- <div class="line-flex">&nbsp;</div> -->
         </div>
-        <div class="post-container">
+        <div class="post-container" id="posts-container" data-user-id="${userProfile.userId}">
+            <%--            sample Recent post--%>
             <div class="post-card">
                 <div class="post-header">
                     <img
@@ -265,7 +268,8 @@
                     </button>
                 </div>
             </div>
-        </div>
+
+        </div
     </div>
 </div>
 
@@ -393,5 +397,154 @@
             citySelect.add(new Option("-- First select a province --", ""));
         }
     }
+</script>
+<%--<script>--%>
+<%--    document.addEventListener('DOMContentLoaded', function() {--%>
+<%--        console.log("DOM fully loaded and parsed");--%>
+
+<%--        // Debug output--%>
+<%--        console.log("UserProfile data:", {--%>
+<%--            exists: ${not empty userProfile},--%>
+<%--            userId: '${userProfile.userId}',--%>
+<%--            name: '${userProfile.name}'--%>
+<%--        });--%>
+
+<%--        const userId = '${userProfile.userId}';--%>
+<%--        if (!userId || userId === 'null' || userId === '') {--%>
+<%--            console.error("Invalid user ID:", userId);--%>
+<%--            showError("User profile not properly loaded");--%>
+<%--            return;--%>
+<%--        }--%>
+
+<%--        // Show loading state--%>
+<%--        document.getElementById('posts-container').innerHTML =--%>
+<%--            '<div class="loading-spinner">Loading posts...</div>';--%>
+
+<%--        fetchPosts(userId);--%>
+<%--    });--%>
+
+<%--    async function fetchPosts(userId) {--%>
+<%--        try {--%>
+<%--            console.log("Initiating fetch for user:", userId);--%>
+<%--            const startTime = performance.now();--%>
+
+<%--            const response = await fetch(`GetUserPostsServlet?userId=${encodeURIComponent(userId)}&t=${Date.now()}`);--%>
+<%--            const responseTime = performance.now() - startTime;--%>
+
+<%--            console.log(`Received response in ${responseTime.toFixed(2)}ms`, response);--%>
+
+<%--            if (!response.ok) {--%>
+<%--                const errorText = await response.text();--%>
+<%--                throw new Error(`HTTP ${response.status}: ${errorText}`);--%>
+<%--            }--%>
+
+<%--            const responseData = await response.text();--%>
+<%--            console.log("Raw response:", responseData);--%>
+
+<%--            const posts = JSON.parse(responseData);--%>
+<%--            console.log("Parsed posts:", posts);--%>
+
+<%--            if (!Array.isArray(posts)) {--%>
+<%--                throw new Error("Invalid response format");--%>
+<%--            }--%>
+
+<%--            if (posts.length === 0) {--%>
+<%--                showMessage("No posts found for this user");--%>
+<%--            } else {--%>
+<%--                renderPosts(posts);--%>
+<%--            }--%>
+
+<%--        } catch (error) {--%>
+<%--            console.error("Fetch error details:", {--%>
+<%--                error: error.message,--%>
+<%--                stack: error.stack--%>
+<%--            });--%>
+<%--            showError(`Failed to load posts. ${error.message}`);--%>
+<%--        }--%>
+<%--    }--%>
+
+<%--    function renderPosts(posts) {--%>
+<%--        const container = document.getElementById('posts-container');--%>
+<%--        container.innerHTML = posts.map(post => `--%>
+<%--            <div class="post-card">--%>
+<%--                <div class="post-header">--%>
+<%--                    <img src="https://i.pravatar.cc/50?u=${post.userId}"--%>
+<%--                         class="post-avatar">--%>
+<%--                    <div class="post-user-info">--%>
+<%--                        <h4>${escapeHtml(post.name || 'Unknown User')}</h4>--%>
+<%--                        <span>${formatDate(post.datetime)}</span>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="post-content">--%>
+<%--                    <p>${escapeHtml(post.content || '')}</p>--%>
+<%--                </div>--%>
+<%--                <div class="post-footer">--%>
+<%--                    <button class="action-btn like-btn">--%>
+<%--                        <i class="fa-regular fa-thumbs-up"></i>--%>
+<%--                        <span>0</span>--%>
+<%--                    </button>--%>
+<%--                    <button class="action-btn comment-btn">--%>
+<%--                        <i class="far fa-comment"></i> <span>0</span>--%>
+<%--                    </button>--%>
+<%--                    <button class="action-btn share-btn">--%>
+<%--                        <i class="fas fa-share"></i> <span>Share</span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        `).join('');--%>
+<%--    }--%>
+
+<%--    // Helper functions--%>
+<%--    function escapeHtml(unsafe) {--%>
+<%--        return unsafe ? unsafe.toString()--%>
+<%--            .replace(/&/g, "&amp;")--%>
+<%--            .replace(/</g, "&lt;")--%>
+<%--            .replace(/>/g, "&gt;")--%>
+<%--            .replace(/"/g, "&quot;")--%>
+<%--            .replace(/'/g, "&#039;") : '';--%>
+<%--    }--%>
+
+<%--    function formatDate(timestamp) {--%>
+<%--        if (!timestamp) return "Recently";--%>
+<%--        try {--%>
+<%--            const date = new Date(timestamp);--%>
+<%--            return date.toLocaleString();--%>
+<%--        } catch (e) {--%>
+<%--            console.error("Error formatting date:", e);--%>
+<%--            return "Recently";--%>
+<%--        }--%>
+<%--    }--%>
+
+<%--    function showMessage(message) {--%>
+<%--        document.getElementById('posts-container').innerHTML =--%>
+<%--            `<div class="info-message">${message}</div>`;--%>
+<%--    }--%>
+
+<%--    function showError(message) {--%>
+<%--        document.getElementById('posts-container').innerHTML = `--%>
+<%--            <div class="error-message">--%>
+<%--                ${message}--%>
+<%--                <button onclick="window.location.reload()">Retry</button>--%>
+<%--            </div>--%>
+<%--        `;--%>
+<%--    }--%>
+<%--</script>--%>
+
+<%--test script--%>
+<script>
+    console.log("UserProfile data:", {
+        exists: ${not empty userProfile},
+        userId: '${userProfile.userId}',
+        typeUserId : typeof '${userProfile.userId}',
+        name: '${userProfile.name}'
+    });
+
+    if (typeof '${userProfile.userId}' === 'undefined' || '${userProfile.userId}' === '') {
+        console.error("userProfile.userId is missing or empty");
+        document.getElementById('posts-container').innerHTML =
+            '<div class="error">User profile not loaded</div>';
+    }
+
+
 </script>
 </html>
