@@ -29,7 +29,7 @@ public class PostController {
     }
 
     // Method to publish a post
-    public static boolean PublishPost(int userId, String content,String name) throws SQLException {
+    public static boolean PublishPost(int userId, String content, String name) throws SQLException {
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
@@ -95,7 +95,7 @@ public class PostController {
                 //   String username= rs.getString("username");
 
 
-                PostModel post = new PostModel(userId, postId, datetime,content,name);
+                PostModel post = new PostModel(userId, postId, datetime, content, name);
                 posts.add(post);
             }
         }
@@ -163,6 +163,40 @@ public class PostController {
             System.err.println("Error deleting post: " + e.getMessage());
         }
         return false;
+    }
+
+    // GET POST BY USERID
+    public static List<PostModel> getPostByID(String userId) {
+        System.out.println("DEBUG: Executing query for user: " + userId);
+        List<PostModel> posts = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection()) {
+            System.out.println("DEBUG: Connection established");
+            String query = "SELECT postid, userid, content, datetime, name FROM post WHERE userid = ? ORDER BY datetime DESC";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, Integer.parseInt(userId));
+                System.out.println("DEBUG: Executing query: " + stmt.toString());
+
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    System.out.println("DEBUG: Found post: " + rs.getInt("postid"));
+                    posts.add(new PostModel(
+                            rs.getInt("userid"),
+                            rs.getInt("postid"),
+                            rs.getTimestamp("datetime"),
+                            rs.getString("content"),
+                            rs.getString("name")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR in getPostByID: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        System.out.println("DEBUG: Returning " + posts.size() + " posts");
+        return posts;
     }
 }
 

@@ -19,6 +19,43 @@
           <artifactId>postgresql</artifactId>
           <version>42.7.4</version> <!-- or another version -->
       </dependency>
+
+<!--      naleeka included this s### here-->
+      <!-- Jackson Core -->
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.15.2</version>
+      </dependency>
+
+      <!-- Jackson Databind -->
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.1.4</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>3.0-rc2</version>
+      </dependency>
+
+      <!-- Jackson Annotations -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.15.2</version>
+      </dependency>
+<!--      -->
+      <dependency>
+          <groupId>jakarta.servlet.jsp.jstl</groupId>
+          <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+          <version>2.0.0</version>
+      </dependency>
   </dependencies>
   <build>
     <finalName>Parlimate</finalName>
