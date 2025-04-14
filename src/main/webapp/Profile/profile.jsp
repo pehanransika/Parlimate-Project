@@ -10,6 +10,11 @@
         return;
     }
 %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +42,12 @@
         .f-row {
             display: flex;
             align-items: center;
+        }
+        .post-card{
+            width: 100%;
+        }
+        .post-container{
+            width: 100%;
         }
     </style>
 
@@ -76,6 +87,7 @@
                                     name="email"
                                     id="email-input"
                                     placeholder="${user.email}"
+                                    disabled
                             />
                         </div>
                         <div class="full-name">
@@ -165,7 +177,7 @@
     <div class="profile-container f-col">
         <div class="profile-imgs">
             <div class="cover-photo">
-                <img src="bg.png" alt="bg"/>
+                <img src="bg.jpg" alt="bg"/>
             </div>
             <div class="profile-photo">
                 <img src="https://i.pravatar.cc/200" alt="" srcset=""/>
@@ -209,8 +221,9 @@
     </div>
     <div class="recent-posts f-col">
 
-        <div class="title caps f-row">
+        <div class="title caps f-col">
             <span>recent posts</span>
+            <span class="desc">recently added posts and insights.</span>
         </div>
         <div class="post-container" id="posts-container" data-user-id="${userProfile.userId}">
             <%--            sample Recent post--%>

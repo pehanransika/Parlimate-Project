@@ -47,6 +47,8 @@ public class profileServlet extends HttpServlet {
             req.getSession().setAttribute("politician",politician);
         }
 
+
+
         // Forward to the profile.jsp page
         req.getRequestDispatcher("Profile/profile.jsp").forward(req, resp);
     }
