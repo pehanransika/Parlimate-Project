@@ -24,6 +24,10 @@ public class surveyController {
                     LocalDateTime createdAt = timestamp.toLocalDateTime();
 
                     SurveyModel survey = new SurveyModel(surveyId, surveyTopic, numberOfQuestions, userId,createdAt);
+                    SurveyUserProfileModel surveyowner = SurveyUserProfileController.getSurveyUserProfile(userId);
+                    List<SurveyUserProfileModel> ownner = new ArrayList<>();
+                    ownner.add(surveyowner);
+                    survey.setUser(ownner);
 
                     // Fetch the questions for this survey
                     String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
@@ -54,8 +58,10 @@ public class surveyController {
                                     String answerText = answerRs.getString("answer");
                                     int answerNumber = answerRs.getInt("answer_number");
                                     String imageUrl = answerRs.getString("image_url");
+                                    int numberOfVotes = answerRs.getInt("number_of_votes");
 
                                     AnswerModel answer = new AnswerModel(answerId, answerText, answerNumber, imageUrl);
+                                    answer.setNumberOfVotes(numberOfVotes);
                                     answers.add(answer);
                                 }
 

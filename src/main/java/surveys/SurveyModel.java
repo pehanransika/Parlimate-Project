@@ -8,7 +8,8 @@ public class SurveyModel {
     private String surveyTopic;
     private int numberOfQuestions;
     private int userId;
-    private List<QuestionModel> questions; // List to hold questions
+    private List<QuestionModel> questions;// List to hold questions
+    private List<SurveyUserProfileModel> user;
     private LocalDateTime createdAt;  // Field for created_at
 
     // Constructor, including created_at
@@ -61,6 +62,11 @@ public class SurveyModel {
         this.questions = questions;
     }
 
+    public List<SurveyUserProfileModel> getUser() {return user;}
+
+    public void setUser(List<SurveyUserProfileModel> user) {
+        this.user = user;
+    }
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

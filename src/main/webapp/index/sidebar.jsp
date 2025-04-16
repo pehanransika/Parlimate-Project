@@ -20,7 +20,7 @@
                 <label for="nav-noti" onclick="navigate(this)"><i class="fa-solid fa-scale-balanced"></i>Search & Compare</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-survey" value="http://localhost:8080/Parlimate/Surveys/surveys.jsp" />
+                <input type="radio" name="nav" id="nav-survey" value="http://localhost:8080/Parlimate/Surveys/GetParlimateSurveysServlet" />
                 <label for="nav-survey" onclick="navigate(this)"><i class="fa-solid fa-clipboard"></i>Surveys</label>
             </li>
             <li>

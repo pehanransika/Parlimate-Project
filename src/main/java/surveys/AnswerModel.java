@@ -5,6 +5,7 @@ public class AnswerModel {
     private String answerText;
     private int answerNumber;
     private String imageUrl;
+    private int numberOfVotes;
 
     // Constructor, getters, and setters
     public AnswerModel(int answerId, String answerText, int answerNumber, String imageUrl) {
@@ -45,4 +46,9 @@ public class AnswerModel {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public int getNumberOfVotes() {return numberOfVotes;}
+
+    public void setNumberOfVotes(int numberOfVotes) {this.numberOfVotes = numberOfVotes;}
+
 }

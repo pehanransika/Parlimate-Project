@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
                 int userid = user.getUserId();
                 Object userProfile = null;
                 String redirectUrl = "GetPostListServlet"; // Default redirect
+                String redirectUrl2 = "GetUserSurveysServlet";
 
                 switch (usertype) {
                     case "Citizen":
@@ -59,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 
                 // Redirect to the appropriate page
                 resp.sendRedirect(redirectUrl);
+
             } else {
                 // Handle failed login properly
                 resp.getWriter().println("<script>alert('Login failed, please try again'); window.location.href='index.jsp';</script>");

@@ -88,21 +88,21 @@
                     <div class="tabs">
                         <div class="tab"
                              id="parliament-tab"
-                             onclick="window.location.href='../Surveys/surveys.jsp'">
+                             onclick="window.location.href='../Surveys/GetParlimateSurveysServlet'">
                             Parlimate surveys
                         </div>
 
                         <div
                                 class="tab"
                                 id="user-tab"
-                                onclick="window.location.href='../Surveys/userSurveys.jsp'"
+                                onclick="window.location.href='../Surveys/GetUserSurveysServlet'"
                         >
                             User surveys
                         </div>
                         <div
                                 class="tab"
                                 id="your-tab"
-                                onclick="window.location.href='../Surveys/yourSurveys.jsp'"
+                                onclick="window.location.href='../Surveys/GetYourSurveysServlet'"
                         >
                             Your surveys
                         </div>
@@ -162,13 +162,13 @@
     document.addEventListener('DOMContentLoaded', function() {
         const currentPath = window.location.pathname;
         let activeTab;
-        
-        if (currentPath.includes('/surveys')) {
-            activeTab = document.getElementById('parliament-tab');
-        } else if (currentPath.includes('/userSurveys')) {
-            activeTab = document.getElementById('user-tab');
-        } else if (currentPath.includes('/yourSurveys')) {
-            activeTab = document.getElementById('your-tab');
+
+        if (currentPath.includes("/GetParlimateSurveysServlet")) {
+            activeTab = document.getElementById("parliament-tab");
+        } else if (currentPath.includes("/GetUserSurveysServlet")) {
+            activeTab = document.getElementById("user-tab");
+        } else if (currentPath.includes("/GetYourSurveysServlet")) {
+            activeTab = document.getElementById("your-tab");
         }
 
         if (!activeTab) {
