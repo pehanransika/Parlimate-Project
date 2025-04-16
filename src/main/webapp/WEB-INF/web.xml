@@ -468,6 +468,8 @@
     <servlet-name>DeleteMeetingRequestServlet</servlet-name>
     <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
   </servlet-mapping>
+
+
 <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>

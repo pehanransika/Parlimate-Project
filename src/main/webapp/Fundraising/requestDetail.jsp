@@ -113,25 +113,37 @@
                     <p>Target Amount: <span class="cap"> ${request.currency} ${request.targetAmount}</span></p>
                     <p>Attachment:
                         <span>
-    <c:if test="${not empty request.attachmentUrl}">
-        <a href="${pageContext.request.contextPath}/uploads/${request.attachmentUrl}" target="_blank">View Attachment</a>
-    </c:if>
-    <c:if test="${empty request.attachmentUrl}">
-        No attachment available
-    </c:if>
-  </span>
-                    </p>
+        <c:if test="${not empty request.attachmentUrl}">
+            <a href="${pageContext.request.contextPath}/uploads/${request.attachmentUrl}" target="_blank">
+                View Attachment
+            </a>
+        </c:if>
+        <p>Attachment:
+    <span>
+        <c:if test="${not empty request.attachmentUrl}">
+            <!-- If there's an attachment URL, show the link -->
+            <a href="${pageContext.request.contextPath}/${request.attachmentUrl}" target="_blank">View Attachment</a>
+        </c:if>
+        <c:if test="${empty request.attachmentUrl}">
+            <!-- If there's no attachment, show this message -->
+            No attachment available
+        </c:if>
+    </span>
+</p>
 
-                    <p>Photos:
-                        <span>
-    <c:if test="${not empty request.photos}">
-        <a href="${pageContext.request.contextPath}/uploads/${request.photos}" target="_blank">View Photos</a>
-    </c:if>
-    <c:if test="${empty request.photos}">
-        No photos available
-    </c:if>
-  </span>
-                    </p>
+<p>Photos:
+    <span>
+        <c:if test="${not empty request.photos}">
+            <a href="${pageContext.request.contextPath}/${request.photos}" target="_blank">
+                View Photos
+            </a>
+        </c:if>
+        <c:if test="${empty request.photos}">
+            No photos available
+        </c:if>
+    </span>
+</p>
+
                 <div class="seperator"></div>
                 </div>
                 <div class="request-actions row">
