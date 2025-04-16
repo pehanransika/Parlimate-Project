@@ -224,20 +224,22 @@
                                       onsubmit="return confirm('Are you sure you want to approve this request?');"
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
+
                                     <button type="submit" class="approve-btn">Approve</button>
                                 </form>
 
                                 <!-- Reject Button (will permanently delete) -->
                             <td class="actbtn">
                                 <!-- Simple Delete Form with Confirmation -->
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/DeleteAdminRequestServlet"
-                                      method="post"
-                                      id="delete-form-${fund.requestId}"
-                                      onsubmit="return confirm('Are you sure you want to  delete this request?');"
-                                      style="display:inline;">
-                                    <input type="hidden" name="requestId" value="${fund.requestId}"/>
-                                    <button type="submit" class="reject-btn">Delete</button>
-                                </form>
+                            <form action="${pageContext.request.contextPath}/admin/Fundraising/RejectRequestServlet"
+                                  method="post"  onsubmit="return confirmDeleteWithReason(this)"
+
+                                  style="display:inline;">
+                                <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                <button type="submit" class="delete-btn">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </form>
                             </td>
                             </td>
                             </c:if>
@@ -251,7 +253,7 @@
                             </form>
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/FinalDeleteFundraisingRequestServlet"
                                       method="POST"
-                                      onsubmit="return confirm('Are you sure you want to Permenantly delete this request?');"
+
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
                                     <button type="submit" class="approve-btn"> delete</button>
@@ -263,14 +265,15 @@
                 </table>
             </div>
         </div>
-        <div id="reasonModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; z-index:1000; border:1px solid #ccc;">
-            <h3>Reason for Deletion</h3>
-            <textarea id="reasonInput" rows="4" style="width:100%; margin:10px 0;"></textarea>
-            <div style="display:flex; justify-content:flex-end; gap:10px;">
-                <button onclick="document.getElementById('reasonModal').style.display='none'">Cancel</button>
-                <button onclick="confirmReason()" style="background:#e74c3c; color:white;">Submit</button>
-            </div>
-        </div>
+        <form action="RejectRequestServlet" method="post" onsubmit="return confirmDeleteWithReason(this)">
+            <input type="hidden" name="requestId" value="${request.requestId}">
+
+
+            <!-- The reason input will be added by JavaScript -->
+
+
+        </form>
+
         <!-- Approval Fundraisers Tab -->
         <div id="approval-fundraisers" class="fundraising-content">
             <div class="actions f-row">
@@ -353,30 +356,81 @@
             </div>
         </div>
     </div>
-        <div id="emailModal" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h3>Send Email to User</h3>
-                <form id="emailForm">
-                    <input type="hidden" id="fundRequestId" name="requestId">
-                    <div class="form-group">
-                        <label for="userEmail">User Email:</label>
-                        <input type="email" id="userEmail" name="userEmail" required class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailSubject">Subject:</label>
-                        <input type="text" id="emailSubject" name="subject" required class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailMessage">Message:</label>
-                        <textarea id="emailMessage" name="message" rows="5" required class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Email</button>
-                </form>
-            </div>
+    <!-- Email Modal -->
+    <div id="emailModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Send Email to User</h3>
+            <form id="emailForm">
+                <input type="hidden" id="fundRequestId" name="requestId">
+                <div class="form-group">
+                    <label for="userEmail">User Email:</label>
+                    <input type="email" id="userEmail" name="userEmail" required class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject">Subject:</label>
+                    <input type="text" id="emailSubject" name="subject" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="emailMessage">Message:</label>
+                    <textarea id="emailMessage" name="message" rows="5" required class="form-control"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Email</button>
+            </form>
         </div>
+    </div>
+
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
+
+
+            function confirmDeleteWithReason(form) {
+                // First confirmation
+                if (!confirm('Are you sure you want to reject this request?')) {
+                    return false;
+                }
+
+                // Prompt for reason
+                const reason = prompt('Please specify the reason for rejection (minimum 10 characters):');
+
+                // Validate reason
+                if (reason === null) {
+                    alert('Rejection cancelled.');
+                    return false;
+                }
+
+                if (reason.trim() === '') {
+                    alert('A reason is required for rejection.');
+                    return false;
+                }
+
+                if (reason.length < 10) {
+                    alert('Reason must be at least 10 characters long.');
+                    return false;
+                }
+
+                // Create hidden input for reason if it doesn't exist
+                let reasonInput = form.querySelector('input[name="rejectionReason"]');
+                if (!reasonInput) {
+                    reasonInput = document.createElement('input');
+                    reasonInput.type = 'hidden';
+                    reasonInput.name = 'rejectionReason';
+                    form.appendChild(reasonInput);
+                }
+                reasonInput.value = reason;
+
+                return true;
+            }
+
+
+                // Create custom prompt for reason
+
+
+
+
+
             // Tab switching functionality
             function openFundraisingTab(evt, tabName) {
                 // Hide all tab content
@@ -407,7 +461,7 @@
             document.querySelectorAll(".reject-btn").forEach(button => {
                 button.addEventListener("click", function () {
                     let fundId = this.getAttribute("data-fund-id");
-                    alert("Rejected Fundraising ID: " + fundId);
+                    alert("Rejected Fundraising ID: " + requestId);
                 });
             });
 
@@ -666,6 +720,9 @@
                     }
                 });
             });
+
+
+
         </script>
 
 

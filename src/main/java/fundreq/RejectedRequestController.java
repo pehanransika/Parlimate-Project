@@ -27,7 +27,6 @@ public class RejectedRequestController {
             // 1. First INSERT into rejected_requests
             String insertSQL = "INSERT INTO rejected_requests (request_id, reason_for_reject, rejection_date) " +
                     "VALUES (?, ?, ?)";
-
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
                 insertStmt.setInt(1, rejectedRequest.getRequestId());
                 insertStmt.setString(2, rejectedRequest.getReasonForReject());
@@ -41,18 +40,18 @@ public class RejectedRequestController {
                 System.out.println("Successfully inserted into rejected_requests");
             }
 
-            // 2. Then DELETE from fundraisingrequests
-           /* String deleteSQL = "DELETE FROM fundraisingrequests WHERE requestid = ?";
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSQL)) {
-                deleteStmt.setInt(1, rejectedRequest.getRequestId());
+            // 2. Update the status column in fundraisingrequests to 'DELETED'
+            String updateSQL = "UPDATE fundraisingrequests SET status = 'DELETED' WHERE requestid = ?";
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+                updateStmt.setInt(1, rejectedRequest.getRequestId());
 
-                int deletedRows = deleteStmt.executeUpdate();
-                if (deletedRows != 1) {
+                int updatedRows = updateStmt.executeUpdate();
+                if (updatedRows != 1) {
                     conn.rollback();
-                    throw new SQLException("Failed to delete from fundraisingrequests (no rows affected)");
+                    throw new SQLException("Failed to update status in fundraisingrequests (no rows affected)");
                 }
-                System.out.println("Successfully deleted from fundraisingrequests");
-            }*/
+                System.out.println("Successfully updated status in fundraisingrequests");
+            }
 
             // If we get here, both operations succeeded
             conn.commit();
@@ -82,19 +81,15 @@ public class RejectedRequestController {
     }
     // Method to get all rejected requests
     public static List<RejectedRequest> getAllRejectedRequests() throws SQLException {
-        System.out.println("Fetching rejected requests from DB..."); // Debug 3
-
         List<RejectedRequest> rejectedRequests = new ArrayList<>();
-        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date, "
-                + "f.title, f.description, f.contact_no, f.category, f.targetamount "
-                + "FROM rejected_requests r "
-                + "LEFT JOIN fundraisingrequests f ON r.request_id = f.requestid";
+        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date, " +
+                "f.title " +
+                "FROM rejected_requests r " +
+                "LEFT JOIN fundraisingrequests f ON r.request_id = f.requestid";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
-
-            System.out.println("Executed query: " + query); // Debug 4
 
             while (rs.next()) {
                 RejectedRequest request = new RejectedRequest();
@@ -102,12 +97,9 @@ public class RejectedRequestController {
                 request.setRequestId(rs.getInt("request_id"));
                 request.setReasonForReject(rs.getString("reason_for_reject"));
                 request.setRejectionDate(rs.getTimestamp("rejection_date"));
-
-                // Additional fields from join
-
+                request.setTitle(rs.getString("title"));  // Set the title from joined table
 
                 rejectedRequests.add(request);
-                System.out.println("Added request: " + request.getRequestId()); // Debug 5
             }
         }
         return rejectedRequests;

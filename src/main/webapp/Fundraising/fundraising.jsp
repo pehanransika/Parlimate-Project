@@ -251,7 +251,7 @@
                 <div class="att-container-photo">
                     <div class="action row-photo">
                         <label for="fund-photo" class="photo-btn">Select Photo</label>
-                        <input type="file" name="photoUrl" id="fund-photo" multiple>
+                        <input type="file" name="photos" id="fund-photo" multiple >
                         <div class="sep"></div>
                     </div>
                     <div class="photo-content">
@@ -298,7 +298,13 @@
                 <a href="GetApprovedFundraisersByUser">
                     <button class="my-accept-fund">
                         <i class="fa-solid fa-wallet"></i>
-                        <span>my Approved fundraises</span>
+                        <span> Approved fundraises</span>
+                    </button>
+                </a>
+                <a href="GetAllRejectedRequestServlet">
+                    <button class="my-funds row">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Rejected Fundraisers</span>
                     </button>
                 </a>
                 <button class="req-funds row">

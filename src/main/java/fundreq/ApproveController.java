@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static fundreq.DBConnection.getConnection;
+
 public class ApproveController {
 
     // Get all approved fundraising requests
@@ -11,7 +13,7 @@ public class ApproveController {
         List<ApproveModel> requests = new ArrayList<>();
         String sql = "SELECT * FROM approved_requests ORDER BY approval_date DESC";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -27,7 +29,8 @@ public class ApproveController {
                         rs.getString("attachment_url"),
                         rs.getString("photos"),
                         rs.getTimestamp("approval_date"),
-                        rs.getString("name")
+                        rs.getString("name"),
+                        rs.getInt("userid")
                 );
                 requests.add(request);
             }
@@ -41,14 +44,16 @@ public class ApproveController {
     // Get single approved request by ID
     public static ApproveModel getApprovedRequestById(int requestId) {
         String sql = "SELECT * FROM approved_requests WHERE requestid = ?";
+        ApproveModel approvedRequest = null;
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, requestId);
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new ApproveModel(
+                    approvedRequest = new ApproveModel(
                             rs.getInt("requestid"),
                             rs.getString("title"),
                             rs.getString("description"),
@@ -59,22 +64,24 @@ public class ApproveController {
                             rs.getString("attachment_url"),
                             rs.getString("photos"),
                             rs.getTimestamp("approval_date"),
-                            rs.getString("name")
+                            rs.getString("name"),
+                            rs.getInt("userid")
                     );
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error fetching request by ID: " + e.getMessage());
+            System.err.println("Database error in getApprovedRequestById: " + e.getMessage());
             e.printStackTrace();
         }
-        return null;
+
+        return approvedRequest;
     }
 
     // Approve a fundraising request
     public static boolean approveFundraisingRequest(int requestId) {
         Connection conn = null;
         try {
-            conn = DBConnection.getConnection();
+            conn = getConnection();
             conn.setAutoCommit(false);
 
             // 1. Get request details
@@ -135,7 +142,8 @@ public class ApproveController {
                             rs.getString("attachment_url"),
                             rs.getString("photos"),
                             new Timestamp(System.currentTimeMillis()),
-                            rs.getString("name")
+                            rs.getString("name"),
+                            rs.getInt("userid")
                     );
                 }
             }
@@ -146,8 +154,8 @@ public class ApproveController {
     private static boolean insertApprovedRequest(Connection conn, ApproveModel request) throws SQLException {
         String sql = "INSERT INTO approved_requests " +
                 "(requestid, title, description, contact_no, category, " +
-                "targetamount, attachment_url, photos, approval_date, status, name) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "targetamount, attachment_url, photos, approval_date, status, name,userid) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, request.getRequestId());
@@ -161,6 +169,7 @@ public class ApproveController {
             stmt.setTimestamp(9, request.getApprovalDate());
             stmt.setString(10, request.getStatus());
             stmt.setString(11, request.getName());
+            stmt.setInt(12,request.getUserid());
 
             return stmt.executeUpdate() > 0;
         }
@@ -181,7 +190,7 @@ public class ApproveController {
                 "targetamount = ?, attachment_url = ?, photos = ?, status = ?, name = ? " +
                 "WHERE requestid = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, request.getTitle());
@@ -207,7 +216,7 @@ public class ApproveController {
     public static boolean deleteApprovedRequest(int requestId) {
         String sql = "DELETE FROM approved_requests WHERE requestid = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, requestId);
@@ -223,7 +232,7 @@ public class ApproveController {
     public static boolean holdApprovedRequest(int requestId) {
         String sql = "UPDATE approved_requests SET status = 'HOLD' WHERE requestid = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, requestId);
@@ -244,13 +253,14 @@ public class ApproveController {
                 "JOIN fundraisingrequests fr ON ar.requestid = fr.requestid " +
                 "WHERE fr.userid = ? ORDER BY ar.approval_date DESC";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
+
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    ApproveModel request = new ApproveModel(
+                    requests.add(new ApproveModel(
                             rs.getInt("requestid"),
                             rs.getString("title"),
                             rs.getString("description"),
@@ -261,9 +271,9 @@ public class ApproveController {
                             rs.getString("attachment_url"),
                             rs.getString("photos"),
                             rs.getTimestamp("approval_date"),
-                            rs.getString("name")
-                    );
-                    requests.add(request);
+                            rs.getString("name"),
+                            rs.getInt("userid")
+                    ));
                 }
             }
         } catch (SQLException e) {
@@ -271,5 +281,49 @@ public class ApproveController {
             e.printStackTrace();
         }
         return requests;
+    }
+    public static boolean restorerequest(int requestId) throws SQLException{
+        String query="UPDATE approved_requests SET status='APPROVED' WHERE requestid=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, requestId);
+            return stmt.executeUpdate() > 0; // Will return true if a row is deleted
+        } catch (SQLException e) {
+            System.err.println("Error restoring fundraising request: " + e.getMessage());
+            throw e;
+        }
+
+    }
+    public static String getRequesterEmail(int requestId) throws EmailRetrievalException {
+        String sql = "SELECT u.email FROM users u " +
+                "JOIN approved_requests ar ON u.user_id = ar.userid " +
+                "WHERE ar.requestid = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, requestId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return String.valueOf(Boolean.parseBoolean(rs.getString("email")));
+                }
+                throw new EmailRetrievalException("No requester found for fundraising request ID: " + requestId);
+            }
+
+        } catch (SQLException e) {
+            throw new EmailRetrievalException("Database error while retrieving requester email", e);
+        }
+    }
+
+    // Custom exception class
+    public static class EmailRetrievalException extends Exception {
+        public EmailRetrievalException(String message) {
+            super(message);
+        }
+        public EmailRetrievalException(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 }

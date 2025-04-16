@@ -4,11 +4,8 @@
     <PreResources base="E:/Parlimate/Parlimate-Project/target/classes" className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/WEB-INF/classes"/>
     <PostResources base="E:/javax.servlet-3.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/javax.servlet-3.1.jar"/>
     <PostResources base="E:/javax.mail-1.6.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/javax.mail-1.6.0.jar"/>
-    <PostResources base="E:/javax.servlet-api-4.0.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/javax.servlet-api-4.0.1.jar"/>
     <PostResources base="E:/jstl-1.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jstl-1.2.jar"/>
-    <PostResources base="E:/jstl-api-1.2 (1).jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jstl-api-1.2 (1).jar"/>
     <PostResources base="E:/jstl-impl-1.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jstl-impl-1.2.jar"/>
-    <PostResources base="E:/postgresql-42.7.4 (2).jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/postgresql-42.7.4 (2).jar"/>
-    <PostResources base="E:/servlet-api (2).jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/servlet-api (2).jar"/>
+    <PostResources base="C:/Users/Himasha/Downloads/javax.activation-1.2.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/javax.activation-1.2.0.jar"/>
   </Resources>
 </Context>

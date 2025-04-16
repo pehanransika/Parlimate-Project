@@ -111,8 +111,27 @@
                     <p>Category: <span> ${request.category}</span></p>
                     <p>Contact Number: <span> ${request.contact_no}</span></p>
                     <p>Target Amount: <span class="cap"> ${request.currency} ${request.targetAmount}</span></p>
-                    <p>Attachment: <span> <a href="${request.attachmentUrl}" target="_blank">View Attachment</a> </span></p>
-                    <p>Photos: <span> <a href="${request.photos}" target="_blank">View Photos</a> </span></p>
+                    <p>Attachment:
+                        <span>
+    <c:if test="${not empty request.attachmentUrl}">
+        <a href="${pageContext.request.contextPath}/uploads/${request.attachmentUrl}" target="_blank">View Attachment</a>
+    </c:if>
+    <c:if test="${empty request.attachmentUrl}">
+        No attachment available
+    </c:if>
+  </span>
+                    </p>
+
+                    <p>Photos:
+                        <span>
+    <c:if test="${not empty request.photos}">
+        <a href="${pageContext.request.contextPath}/uploads/${request.photos}" target="_blank">View Photos</a>
+    </c:if>
+    <c:if test="${empty request.photos}">
+        No photos available
+    </c:if>
+  </span>
+                    </p>
                 <div class="seperator"></div>
                 </div>
                 <div class="request-actions row">

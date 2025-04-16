@@ -28,7 +28,7 @@ public class DeleteRequestServlet extends HttpServlet {
             int requestId = Integer.parseInt(requestIdParam);
 
             // Attempt deletion
-            boolean isDeleted = RequestController.deleteFundraisingRequest(requestId);
+            boolean isDeleted = RequestController.deleteRequest(requestId);
 
             if (isDeleted) {
                 // Redirect with success alert

@@ -39,20 +39,20 @@ public class RequestController {
             String name,
             String status
     ) throws SQLException {
-        // Validate required fields at controller level too
+        // Validate required fields
         if (isEmpty(title) || isEmpty(description) || isEmpty(category) ||
                 targetamount == null || isEmpty(currency) || isEmpty(contact_no)) {
             throw new IllegalArgumentException("Missing required fields");
         }
 
         String query = "INSERT INTO fundraisingrequests (userid, title, description, category, " +
-                "targetamount, currency, contact_no, photos, datetime, attachment_url, name,status) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                "targetamount, currency, contact_no, photos, datetime, attachment_url, name, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Set all parameters in correct order
+            // Set all parameters
             stmt.setInt(1, userId);
             stmt.setString(2, title);
             stmt.setString(3, description);
@@ -60,9 +60,22 @@ public class RequestController {
             stmt.setBigDecimal(5, targetamount);
             stmt.setString(6, currency);
             stmt.setString(7, contact_no);
-            stmt.setString(8, photos);
+
+            // Handle NULL photos and attachments
+            if (photos != null) {
+                stmt.setString(8, photos);
+            } else {
+                stmt.setNull(8, Types.VARCHAR);
+            }
+
             stmt.setTimestamp(9, datetime);
-            stmt.setString(10, attachment_url);
+
+            if (attachment_url != null) {
+                stmt.setString(10, attachment_url);
+            } else {
+                stmt.setNull(10, Types.VARCHAR);
+            }
+
             stmt.setString(11, name);
             stmt.setString(12, status);
 

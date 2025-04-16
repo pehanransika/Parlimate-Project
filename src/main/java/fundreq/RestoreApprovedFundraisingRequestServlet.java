@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/DeleteAdminRequestServlet")
-public class DeleteAdminRequestServlet extends HttpServlet {
+@WebServlet("/RestoreApprovedFundraisingRequestServlet")
+public class RestoreApprovedFundraisingRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -28,30 +28,12 @@ public class DeleteAdminRequestServlet extends HttpServlet {
             int requestId = Integer.parseInt(requestIdParam);
 
             // Attempt deletion
-            boolean isDeleted = RequestController.deleteFundraisingRequest(requestId);
+            boolean isAdded = ApproveController.restorerequest(requestId);
 
-            if (isDeleted) {
+            if (isAdded) {
                 // Redirect with success alert
-                String reason = request.getParameter("deletionReason");
-
-                // Prepare the alert message with reason
-                String alertMessage;
-                if (reason != null && !reason.trim().isEmpty()) {
-                    // Escape single quotes for JavaScript
-                    String escapedReason = reason.replace("'", "\\'");
-                    alertMessage = "Request Deleted Successfully\\n\\nReason: " + escapedReason;
-                } else {
-                    alertMessage = "Request Deleted Successfully";
-                }
-
-                // Send response with alert and redirect
                 response.setContentType("text/html");
-                response.getWriter().println(
-                        "<script>" +
-                                "alert('" + alertMessage + "');" +
-                                "window.location.href = '" + request.getContextPath() + "/admin/Fundraising/FundraisingManagementServlet';" +
-                                "</script>"
-                );
+                response.getWriter().println("<script>alert('Request Restore Successfully'); window.history.back();</script>");
             } else {
                 // If the request is not found
                 response.setContentType("text/html");

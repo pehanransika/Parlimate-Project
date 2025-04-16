@@ -6,14 +6,17 @@ public class RejectedRequest {
     private int requestId;
     private String reasonForReject;
     private Timestamp rejectionDate;
+    private String title;
 
 
     // Constructors
     public RejectedRequest() {}
 
-    public RejectedRequest(int requestId, String reasonForReject) {
+    public RejectedRequest(int requestId, String reasonForReject,String title) {
         this.requestId = requestId;
         this.reasonForReject = reasonForReject;
+        this.title=title;
+
 
     }
 
@@ -30,5 +33,7 @@ public class RejectedRequest {
     public Timestamp getRejectionDate() { return rejectionDate; }
     public void setRejectionDate(Timestamp rejectionDate) { this.rejectionDate = rejectionDate; }
 
+    public String getTitle(){return title;}
+public void setTitle(String title){this.title=title;}
 
 }
