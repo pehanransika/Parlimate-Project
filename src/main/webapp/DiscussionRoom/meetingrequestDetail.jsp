@@ -68,7 +68,7 @@
                     <p><strong>Proposed Date:</strong> ${fn:escapeXml(request.proposaldate)}</p>
                     <p><strong>Proposed Time:</strong> ${fn:escapeXml(request.proposaltime)}</p>
                     <p><strong>Type of Meeting:</strong> ${fn:escapeXml(request.discussionformat)}</p>
-                    <p><strong>Host:</strong> ${fn:escapeXml(request.discussionformat)}</p>
+                    <p><strong>Host:</strong> ${fn:escapeXml(request.preferredhost)}</p>
                     <p><strong>No of Participants:</strong> ${fn:escapeXml(request.participantcount)}</p>
 
                 </div>

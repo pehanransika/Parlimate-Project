@@ -182,6 +182,8 @@
                         <td>Date</td>
                         <td>Time</td>
                         <td>Duration</td>
+                        <td>No of Participants</td>
+
                         <td>Action</td> <!-- New Column for Button -->
                     </tr>
                     </thead>
@@ -195,6 +197,7 @@
                             <td>${meeting.proposaldate}</td>
                             <td>${meeting.proposaltime}</td>
                             <td>${meeting.estimatedduration}</td>
+                            <td>${meeting.participantcount}</td>
                             <td>
                                 <button
                                         class="view-button"
@@ -205,7 +208,10 @@
                                                 '${meeting.purposeofmeeting}',
                                                 '${meeting.proposaldate}',
                                                 '${meeting.proposaltime}',
-                                                '${meeting.estimatedduration}')"
+                                                '${meeting.estimatedduration}',
+                                                '${meeting.participantcount}',
+                                                '${meeting.discussionformat}',
+                                                '${meeting.preferredhost}')"
                                 >
                                     View
                                 </button>
@@ -228,6 +234,7 @@
 <div id="popup-container" style="display: none;">
     <div class="popup-box">
         <h2>Meeting Details</h2>
+
         <p><strong>Meeting ID:</strong> <span id="popup-id"></span></p>
         <p><strong>User:</strong> <span id="popup-user"></span></p>
         <p><strong>Title:</strong> <span id="popup-title"></span></p>
@@ -235,31 +242,107 @@
         <p><strong>Date:</strong> <span id="popup-date"></span></p>
         <p><strong>Time:</strong> <span id="popup-time"></span></p>
         <p><strong>Duration:</strong> <span id="popup-duration"></span></p>
+        <p><strong>No of Participants:</strong> <span id="popup-participants"></span></p>
+        <p><strong>Type of the Meeting:</strong> <span id="popup-typeofthemeeting"></span></p>
+        <p><strong>Host :</strong> <span id="popup-host"></span></p>
+
+        <!-- Buttons -->
+        <div id="response-buttons">
+            <button onclick="showAcceptFields()">Accept</button>
+            <button onclick="rejectMeeting()">Reject</button>
+        </div>
+
+        <!-- Extra fields shown when Accept is clicked -->
+        <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
+            <h3>Confirm and Provide Details</h3>
+
+            <form method="post" action="CreateMeetingServlet">
+                <p><strong>ID:</strong><br>
+                    <input type="text" name="politicianId" id="accepted-politicianId" readonly required />
+                </p>
+                <p><strong>Final Topic:</strong><br>
+                    <input type="text" name="topic" id="accepted-topic" required />
+                </p>
+
+                <p><strong>Description:</strong><br>
+                    <textarea name="description" id="accepted-description" rows="3" required></textarea>
+                </p>
+
+                <p><strong>Date:</strong><br>
+                    <input type="date" name="date" id="accepted-date" required />
+                </p>
+
+                <p><strong>Final Time:</strong><br>
+                    <input type="time" name="time" id="accepted-time" required />
+                </p>
+
+                <p><strong>Type of the Meeting:</strong><br>
+                    <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required />
+                </p>
+
+                <p><strong>Platform:</strong><br>
+                    <input type="text" name="platform" id="accepted-platform" required />
+                </p>
+
+                <p><strong>Host:</strong><br>
+                    <input type="text" name="host" id="accepted-host" required />
+                </p>
+
+                <p><strong>Deadline to Register:</strong><br>
+                    <input type="date" name="deadlinetoregister" id="accepted-deadline" required />
+                </p>
+
+                <p><strong>Number of Slots:</strong><br>
+                    <input type="number" name="slots" id="accepted-slots" required />
+                </p>
+
+                <button type="submit">Submit</button>
+            </form>
+
+
+
+
+        </div>
+
+        <br>
         <button onclick="closePopup()">Close</button>
     </div>
 </div>
 
 
-
 <script>
-    // Helper: open and close popups
-        function openPopup(id, user, title, purpose, date, time, duration) {
-        // Fill in your modal or popup fields here
-        document.getElementById("popup-id").innerText = id;
-        document.getElementById("popup-user").innerText = user;
-        document.getElementById("popup-title").innerText = title;
-        document.getElementById("popup-purpose").innerText = purpose;
-        document.getElementById("popup-date").innerText = date;
-        document.getElementById("popup-time").innerText = time;
-        document.getElementById("popup-duration").innerText = duration;
+    function openPopup(id, user, title, purpose, date, time, duration, participants, typeofthemeeting, host) {
+        document.getElementById("popup-id").innerText = id || "Not Specified";
+        document.getElementById("popup-user").innerText = user || "Not Specified";
+        document.getElementById("popup-title").innerText = title || "Not Specified";
+        document.getElementById("popup-purpose").innerText = purpose || "Not Specified";
+        document.getElementById("popup-date").innerText = date || "Not Specified";
+        document.getElementById("popup-time").innerText = time || "Not Specified";
+        document.getElementById("popup-duration").innerText = duration || "Not Specified";
+        document.getElementById("popup-participants").innerText = participants || "Not Specified";
+        document.getElementById("popup-typeofthemeeting").innerText = typeofthemeeting || "Not Specified";
+        document.getElementById("popup-host").innerText = host || "Not Specified";
+        document.getElementById("accepted-politicianId").value = document.getElementById("popup-id").textContent;
+        document.getElementById("accepted-topic").value = document.getElementById("popup-title").textContent;
+        document.getElementById("accepted-description").value = document.getElementById("popup-purpose").textContent;
+        document.getElementById("accepted-date").value = document.getElementById("popup-date").textContent;
+        document.getElementById("accepted-time").value = document.getElementById("popup-time").textContent;
+        document.getElementById("accepted-typeofthemeeting").value = document.getElementById("popup-typeofthemeeting").textContent;
+        document.getElementById("accepted-host").value = document.getElementById("popup-host").textContent;
+
+        // Optional: Set placeholders for platform, deadline, and slots if not in popup
+        document.getElementById("accepted-platform").placeholder = "Enter platform (e.g. Zoom, Google Meet)";
+        document.getElementById("accepted-deadline").value = ""; // Let user pick
+        document.getElementById("accepted-slots").value = ""; // Let user enter
+
 
         document.getElementById("popup-container").style.display = "block";
     }
 
-        function closePopup() {
+
+    function closePopup() {
         document.getElementById("popup-container").style.display = "none";
     }
-
 
 document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
@@ -286,6 +369,90 @@ document.querySelectorAll('.actbtn button').forEach(button => {
             });
         });
     });
+
+    function showAcceptFields() {
+        document.getElementById("accept-extra-fields").style.display = "block";
+        document.getElementById("response-buttons").style.display = "none";
+    }
+
+    function rejectMeeting() {
+        alert("Meeting Rejected.");
+        // Send rejection to servlet here if needed
+        closePopup();
+    }
+
+    function submitAcceptedDetails() {
+        // Get values from the popup labels (view-only data)
+        const politicianId = document.getElementById('accepted-politicianId').value;
+        const typeofthemeeting = document.getElementById('accepted-typeofthemeeting').value;
+        const topic = document.getElementById('accepted-topic').value;
+        const description = document.getElementById('accepted-description').value;
+        const date = document.getElementById('accepted-date').value;
+        const time = document.getElementById('accepted-time').value;
+        const platform = document.getElementById('accepted-platform').value;
+        const host = document.getElementById('accepted-host').value;
+        const deadline = document.getElementById('accepted-deadline').value;
+        const slots = document.getElementById('accepted-slots').value;
+
+        console.log("=== Debug Values Before Form Submission ===");
+        console.log("politicianId:", politicianId);
+        console.log("topic:", topic);
+        console.log("description:", description);
+        console.log("date:", date);
+        console.log("time:", time);
+        console.log("typeofthemeeting:", typeofthemeeting);
+        console.log("platform:", platform);
+        console.log("host:", host);
+        console.log("deadline:", deadline);
+        console.log("slots:", slots);
+        console.log("===========================================");
+
+        // Create FormData to send data via POST
+        const formData = new FormData();
+        formData.append("politicianId", politicianId);
+        formData.append("topic", topic);
+        formData.append("description", description);
+        formData.append("date", date);
+        formData.append("time", time);
+        formData.append("typeofthemeeting", typeofthemeeting);
+        formData.append("host", host);
+        formData.append("platform", platform);
+        formData.append("deadlinetoregister", deadline);
+        formData.append("slots", slots);
+        formData.append("availableSlots", slots); // Optional: keep if needed
+
+        // Submit to backend
+        fetch("CreateMeetingServlet", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Meeting accepted and sent to servlet.");
+                    closePopup(); // Assuming this closes the popup
+                } else {
+                    alert("Error submitting meeting details.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong while submitting.");
+            });
+    }
+
+
+
+    function closePopup() {
+        document.getElementById("popup-container").style.display = "none";
+        document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("response-buttons").style.display = "block";
+
+        // Clear inputs
+        document.getElementById("accepted-topic").value = "";
+        document.getElementById("accepted-description").value = "";
+        document.getElementById("accepted-time").value = "";
+    }
+
 </script>
 </body>
 </html>

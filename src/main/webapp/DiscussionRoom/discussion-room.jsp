@@ -247,7 +247,7 @@
             </button>
             </div>
             <div class="nav-btn">
-                <button value="registered" class="capitalize">
+                <button value="registered" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
                     Registered
                 </button>
             </div>

@@ -3,7 +3,6 @@ package meetings;
 public class MeetingModel {
     private int meetingId;
     private int politicianId;
-    private String politicianName;
     private String topic;
     private String description;
     private java.sql.Date date;
@@ -12,13 +11,15 @@ public class MeetingModel {
     private String host;
     private String platform;
     private java.sql.Date deadlinetoregister;
+    private int slots;
+    private int availableSlots; // ✅ Newly added
 
-    // Constructor
-    public MeetingModel(int meetingId, int politicianId, String politicianName, String topic, String description, java.sql.Date date,
-                        java.sql.Time time, String typeofthemeeting, String host, String platform, java.sql.Date deadlinetoregister) {
+    // Constructor with all fields
+    public MeetingModel(int meetingId, int politicianId, String topic, String description, java.sql.Date date,
+                        java.sql.Time time, String typeofthemeeting, String host, String platform,
+                        java.sql.Date deadlinetoregister, int slots, int availableSlots) {
         this.meetingId = meetingId;
         this.politicianId = politicianId;
-        this.politicianName = politicianName;
         this.topic = topic;
         this.description = description;
         this.date = date;
@@ -27,6 +28,8 @@ public class MeetingModel {
         this.host = host;
         this.platform = platform;
         this.deadlinetoregister = deadlinetoregister;
+        this.slots = slots;
+        this.availableSlots = availableSlots;
     }
 
     // Default constructor
@@ -114,12 +117,28 @@ public class MeetingModel {
         this.deadlinetoregister = deadlinetoregister;
     }
 
-    // Optional: Override toString() method to display object details
+    public int getSlots() {
+        return slots;
+    }
+
+    public void setSlots(int slots) {
+        this.slots = slots;
+    }
+
+    public int getAvailableSlots() {
+        return availableSlots;
+    }
+
+    public void setAvailableSlots(int availableSlots) {
+        this.availableSlots = availableSlots;
+    }
+
+    // toString method
     @Override
     public String toString() {
-        return "MeetingModel [meetingId=" + meetingId + ", politicianId=" + politicianId + ",topic=" + topic + ", description=" + description + ", date=" + date + ", time="
-                + time + ", typeofthemeeting=" + typeofthemeeting + ", host=" + host + ", platform=" + platform
-                + ", deadlinetoregister=" + deadlinetoregister + "]";
+        return "MeetingModel [meetingId=" + meetingId + ", politicianId=" + politicianId + ", topic=" + topic
+                + ", description=" + description + ", date=" + date + ", time=" + time
+                + ", typeofthemeeting=" + typeofthemeeting + ", host=" + host + ", platform=" + platform
+                + ", deadlinetoregister=" + deadlinetoregister + ", slots=" + slots + ", availableSlots=" + availableSlots + "]";
     }
 }
-

@@ -315,6 +315,14 @@
     <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>CreateMeetingServlet</servlet-name>
+    <servlet-class>meetings.CreateMeetingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMeetingServlet</servlet-name>
+    <url-pattern>/admin/meetingManagement/CreateMeetingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>JoinMeetingServlet</servlet-name>
     <servlet-class>meetings.JoinMeetingServlet</servlet-class>
   </servlet>
@@ -329,6 +337,14 @@
   <servlet-mapping>
     <servlet-name>GetOngoingMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetOngoingMeetingsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
+    <servlet-class>meetings.GetRegisteredMeetingsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetRegisteredMeetingsServlet</url-pattern>
   </servlet-mapping>
 <filter>
     <filter-name>UserSessionFilter</filter-name>

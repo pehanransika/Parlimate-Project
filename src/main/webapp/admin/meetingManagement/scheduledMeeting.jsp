@@ -54,7 +54,7 @@
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="<%= request.getContextPath() %>/admin/assets/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
@@ -185,6 +185,8 @@
                         <td>Host</td>
                         <td>Platform</td>
                         <td>Deadline</td>
+                        <td>Slots</td>
+                        <td>Available Slots</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -200,6 +202,8 @@
                             <td>${meetings.host}</td>
                             <td>${meetings.platform}</td>
                             <td>${meetings.deadlinetoregister}</td>
+                            <td>${meetings.slots}</td>
+                            <td>${meetings.availableSlots}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -32,7 +32,8 @@ public class CreateMeetingRequestServlet extends HttpServlet {
             String proposaldateString = request.getParameter("proposaldate");
             String proposaltimeString = request.getParameter("proposaltime");
             String estimatedduration = request.getParameter("estimatedduration");
-            String participantcountStr = request.getParameter("participantcount");
+            System.out.println(estimatedduration);
+            String participantcountStr = request.getParameter("participantCount");
 
             int participantcount = 0;
             if (participantcountStr != null && !participantcountStr.isEmpty()) {

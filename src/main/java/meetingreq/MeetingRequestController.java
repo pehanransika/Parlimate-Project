@@ -76,14 +76,29 @@ public class MeetingRequestController {
                 int participantcount = rs.getInt("participantcount");
 
                 MeetingRequestModel request = new MeetingRequestModel(
-                        meetingrequestid, topic,politician_id, purposeofmeeting, proposaldate, proposaltime,opponentname,partyaffiliation,discussionformat, preferredhost,estimatedduration , participantcount
+                        meetingrequestid,
+                        topic,
+                        politician_id,
+                        purposeofmeeting,
+                        proposaldate,
+                        proposaltime,
+                        estimatedduration,
+                        opponentname,
+                        partyaffiliation,
+                        discussionformat,
+                        preferredhost,
+                        participantcount
                 );
+
                 requests.add(request);
             }
+
         }
 
         return requests;
     }
+
+
     public static MeetingRequestModel getMeetingRequestById(int meetingrequestid) throws SQLException {
         String query = "SELECT topic, purposeofmeeting, opponentname, partyaffiliation, " +
                 "discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration , participantcount" +
