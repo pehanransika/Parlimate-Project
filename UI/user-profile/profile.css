@@ -111,6 +111,12 @@ body {
 
 			&& .follow-btn {
 				border: 1px solid rgb(213, 213, 213);
+				border-radius: 2rem;
+				background: #fff;
+
+				&&:hover{
+					background: #f3f3f3;
+				}
 			}
 		}
 		&& .scndry-btns {

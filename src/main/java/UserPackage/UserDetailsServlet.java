@@ -19,6 +19,7 @@ public class UserDetailsServlet extends HttpServlet {
             return;
         }
 
+
         try {
             int userId = Integer.parseInt(userIdParam);
             UserController userController = new UserController();

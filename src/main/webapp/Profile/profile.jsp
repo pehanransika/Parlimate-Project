@@ -43,10 +43,12 @@
             display: flex;
             align-items: center;
         }
-        .post-card{
+
+        .post-card {
             width: 100%;
         }
-        .post-container{
+
+        .post-container {
             width: 100%;
         }
     </style>
@@ -59,6 +61,118 @@
 <%@ include file="../index/header/header.jsp" %>
 
 <div class="container">
+    <div id="interestsModal" class="modal">
+        <div class="modal-content">
+            <div class="top f-row caps">
+                <div class="title">Political interests</div>
+                <div class="close-btn f-row">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="center f-col">
+                <div class="desc">
+                    These are the political topics and parties this
+                    person has shown interest on Parlimate. This might
+                    reflects their personal views and helps connect them
+                    with relevant discussions and representatives
+                </div>
+                <div class="politicians-pref table-cont f-col">
+                    <div class="title f-row">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>Top Supported Leaders</span>
+                    </div>
+                    <table>
+                        <thead class="caps">
+                        <tr>
+                            <td>preference rank</td>
+                            <td>politician name</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>#1</td>
+                            <td
+                                    data-options="test1,test2,test3,Ms. Anjali Karunaratne"
+                            >
+                                Ms. Anjali Karunaratne
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#2</td>
+                            <td
+                                    data-options="test1,test2,test3,Ms. Dr. Niroshan Wijegunawardena"
+                            >
+                                Dr. Niroshan Wijegunawardena
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#3</td>
+                            <td
+                                    data-options="test1,test2,test3, Maj. Gen. (Retd.) Sarath Bandara"
+                            >
+                                Maj. Gen. (Retd.) Sarath Bandara
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="party-pref table-cont f-col">
+                    <div class="title f-row">
+                        <i class="fa-solid fa-landmark"></i>
+                        <span>Preferred Political Parties</span>
+                    </div>
+                    <table>
+                        <thead class="caps">
+                        <tr>
+                            <td>preference rank</td>
+                            <td>political party name</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>#1</td>
+                            <td
+                                    data-options="test1,test2,test3,United Progressive Front (UPF)"
+                            >
+                                United Progressive Front (UPF)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#2</td>
+                            <td
+                                    data-options="test1,test2,test3,Ms. People's Power Alliance (PPA)"
+                            >
+                                People's Power Alliance (PPA)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#3</td>
+                            <td
+                                    data-options="test1,test2,test3,National Unity Party (NUP)"
+                            >
+                                National Unity Party (NUP)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="footer f-row caps">
+                <div class="edit f-row">
+                    <button id="pref-edit" class="pref-edit-btn f-row">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Edit
+                    </button>
+                </div>
+                <div class="pref-action f-row">
+                    <button class="pref-cancel">Cancel</button>
+                    <button id="pref-save" class="save-btn">
+                        save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="editModal" class="modal">
         <div class="modal-content f-col">
             <div class="top f-row caps">
@@ -108,7 +222,7 @@
                             <label
                                     for="province-drop"
                                     class="input-head"
-                            >city</label
+                            >location</label
                             >
                             <div class="dropdown f-row">
                                 <select
@@ -157,8 +271,16 @@
                     </div>
                 </div>
                 <div class="profile-pic f-col">
-                    <div class="image"></div>
-                    <button id="change">Change image</button>
+                    <div class="banner">
+                        <img src="./bg.jpg" alt="banner"/>
+                    </div>
+                    <div class="profile f-col">
+                        <div class="image"></div>
+                        <div class="btns f-row">
+                            <button id="change-pp">Change profile</button>
+                            <button id="change-banner">Change banner</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="footer f-row">
@@ -204,15 +326,15 @@
             </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
-                    <button class="follow-btn">
-                        <i class="fa-solid fa-plus"></i>follow
+                    <button class="intrst-btn">
+                        About me
                     </button>
-                    <button class="message-btn">
-                        <i class="fa-solid fa-messages"></i>message
-                    </button>
+<%--                    <button class="message-btn">--%>
+<%--                        <i class="fa-solid fa-messages"></i>message--%>
+<%--                    </button>--%>
                 </div>
                 <div class="scndry-btns">
-                    <button class="edit-btn">
+                    <button class="user-edit-btn">
                         <i class="fa-solid fa-pen-to-square"></i>edit
                     </button>
                 </div>
@@ -289,33 +411,180 @@
 </body>
 <script src="../script.js"></script>
 <script>
-    const editBtn = document.querySelector(".edit-btn");
+    const userEditBtn = document.querySelector(".user-edit-btn");
     const modal = document.getElementById("editModal");
-    const closeBtn = document.querySelector(".close-btn");
-    const modalCancelBtn = document.getElementById("cancel-btn");
+    const closeBtns = document.querySelectorAll('.close-btn');
+    const modalCancelBtns = document.querySelectorAll('.cancel-btn');
+    const interestsModal = document.getElementById('interestsModal');
+    const intrstBtn = document.querySelector('.intrst-btn');
+    const prefCancelBtn = document.querySelector('.pref-cancel');
+
+
+    interestsModal.style.display = "none";
+
+    intrstBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        interestsModal.style.display = "flex";
+        document.querySelector(".pref-action").style.display= "none";
+    });
+
 
     // Initially hide the modal
     modal.style.display = "none";
 
     // Open modal on button click
-    editBtn.addEventListener("click", () => {
+    userEditBtn.addEventListener("click", () => {
         modal.style.display = "flex";
     });
 
     // Close modal on close button click
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            interestsModal.style.display = "none";
+            modal.style.display = "none";
+        });
     });
-    modalCancelBtn.addEventListener("click", () => {
-        modal.style.display = "none";
+
+
+    modalCancelBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.closest('.modal-content') === interestsModal.querySelector('.modal-content')) {
+                // This is the cancel button in interestsModal
+                revertToOriginalValues();
+            }
+            interestsModal.style.display = "none";
+            modal.style.display = "none";
+        });
     });
 
     // Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
+    window.addEventListener('click', (event) => {
+        if (event.target === interestsModal || event.target === editModal) {
+            interestsModal.style.display = "none";
             modal.style.display = "none";
         }
     });
+
+    // user interests functions
+    // Table editing functionality
+    const prefEditBtn = document.getElementById('pref-edit');
+    const prefSaveBtn = document.getElementById('pref-save');
+
+    let originalValues = [];
+
+    prefEditBtn.addEventListener('click', function () {
+        prefEditBtn.style.display = 'none';
+        document.querySelector('.pref-action').style.display = 'flex';
+
+        originalValues = [];
+        const tables = document.querySelectorAll('.table-cont table');
+
+        tables.forEach(table => {
+            const tableData = [];
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cell = row.querySelector('td:nth-child(2)');
+                tableData.push({
+                    value: cell.textContent,
+                    options: cell.getAttribute('data-options')
+                });
+            });
+
+            originalValues.push(tableData);
+        });
+
+        convertCellsToDropdowns();
+    });
+
+    prefSaveBtn.addEventListener('click', function () {
+        prefEditBtn.style.display = 'flex';
+        document.querySelector('.pref-action').style.display = 'none';
+        convertDropdownsToCells();
+        console.log("Data saved:", getCurrentValues());
+    });
+
+    // Add event listener for pref-cancel button
+    prefCancelBtn.addEventListener('click', function () {
+        prefEditBtn.style.display = 'flex';
+        document.querySelector('.pref-action').style.display = 'none';
+        revertToOriginalValues();
+        convertDropdownsToCells(); // Ensure dropdowns are converted back to cells
+    });
+
+    function convertCellsToDropdowns() {
+        const tables = document.querySelectorAll('.table-cont table');
+
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cell = row.querySelector('td:nth-child(2)');
+                const currentValue = cell.textContent.trim();
+                const options = cell.getAttribute('data-options').split(',');
+
+                let selectHtml = '<select>';
+                options.forEach(option => {
+                    const selected = option.trim() === currentValue ? ' selected' : '';
+                    selectHtml += `<option value="${option.trim()}"${selected}>${option.trim()}</option>`;
+                });
+                selectHtml += '</select>';
+
+                cell.innerHTML = selectHtml;
+            });
+        });
+    }
+
+    function convertDropdownsToCells() {
+        const tables = document.querySelectorAll('.table-cont table');
+
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cell = row.querySelector('td:nth-child(2)');
+                const select = cell.querySelector('select');
+
+                if (select) {
+                    cell.textContent = select.value;
+                }
+            });
+        });
+    }
+
+    function revertToOriginalValues() {
+        const tables = document.querySelectorAll('.table-cont table');
+
+        tables.forEach((table, tableIndex) => {
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach((row, rowIndex) => {
+                const cell = row.querySelector('td:nth-child(2)');
+                if (originalValues[tableIndex] && originalValues[tableIndex][rowIndex]) {
+                    cell.textContent = originalValues[tableIndex][rowIndex].value;
+                }
+            });
+        });
+    }
+
+    function getCurrentValues() {
+        const values = [];
+        const tables = document.querySelectorAll('.table-cont table');
+
+        tables.forEach(table => {
+            const tableData = [];
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cell = row.querySelector('td:nth-child(2)');
+                tableData.push(cell.textContent);
+            });
+
+            values.push(tableData);
+        });
+
+        return values;
+    }
 
     const citiesByProvince = {
         western: [
@@ -411,144 +680,12 @@
         }
     }
 </script>
-<%--<script>--%>
-<%--    document.addEventListener('DOMContentLoaded', function() {--%>
-<%--        console.log("DOM fully loaded and parsed");--%>
 
-<%--        // Debug output--%>
-<%--        console.log("UserProfile data:", {--%>
-<%--            exists: ${not empty userProfile},--%>
-<%--            userId: '${userProfile.userId}',--%>
-<%--            name: '${userProfile.name}'--%>
-<%--        });--%>
-
-<%--        const userId = '${userProfile.userId}';--%>
-<%--        if (!userId || userId === 'null' || userId === '') {--%>
-<%--            console.error("Invalid user ID:", userId);--%>
-<%--            showError("User profile not properly loaded");--%>
-<%--            return;--%>
-<%--        }--%>
-
-<%--        // Show loading state--%>
-<%--        document.getElementById('posts-container').innerHTML =--%>
-<%--            '<div class="loading-spinner">Loading posts...</div>';--%>
-
-<%--        fetchPosts(userId);--%>
-<%--    });--%>
-
-<%--    async function fetchPosts(userId) {--%>
-<%--        try {--%>
-<%--            console.log("Initiating fetch for user:", userId);--%>
-<%--            const startTime = performance.now();--%>
-
-<%--            const response = await fetch(`GetUserPostsServlet?userId=${encodeURIComponent(userId)}&t=${Date.now()}`);--%>
-<%--            const responseTime = performance.now() - startTime;--%>
-
-<%--            console.log(`Received response in ${responseTime.toFixed(2)}ms`, response);--%>
-
-<%--            if (!response.ok) {--%>
-<%--                const errorText = await response.text();--%>
-<%--                throw new Error(`HTTP ${response.status}: ${errorText}`);--%>
-<%--            }--%>
-
-<%--            const responseData = await response.text();--%>
-<%--            console.log("Raw response:", responseData);--%>
-
-<%--            const posts = JSON.parse(responseData);--%>
-<%--            console.log("Parsed posts:", posts);--%>
-
-<%--            if (!Array.isArray(posts)) {--%>
-<%--                throw new Error("Invalid response format");--%>
-<%--            }--%>
-
-<%--            if (posts.length === 0) {--%>
-<%--                showMessage("No posts found for this user");--%>
-<%--            } else {--%>
-<%--                renderPosts(posts);--%>
-<%--            }--%>
-
-<%--        } catch (error) {--%>
-<%--            console.error("Fetch error details:", {--%>
-<%--                error: error.message,--%>
-<%--                stack: error.stack--%>
-<%--            });--%>
-<%--            showError(`Failed to load posts. ${error.message}`);--%>
-<%--        }--%>
-<%--    }--%>
-
-<%--    function renderPosts(posts) {--%>
-<%--        const container = document.getElementById('posts-container');--%>
-<%--        container.innerHTML = posts.map(post => `--%>
-<%--            <div class="post-card">--%>
-<%--                <div class="post-header">--%>
-<%--                    <img src="https://i.pravatar.cc/50?u=${post.userId}"--%>
-<%--                         class="post-avatar">--%>
-<%--                    <div class="post-user-info">--%>
-<%--                        <h4>${escapeHtml(post.name || 'Unknown User')}</h4>--%>
-<%--                        <span>${formatDate(post.datetime)}</span>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="post-content">--%>
-<%--                    <p>${escapeHtml(post.content || '')}</p>--%>
-<%--                </div>--%>
-<%--                <div class="post-footer">--%>
-<%--                    <button class="action-btn like-btn">--%>
-<%--                        <i class="fa-regular fa-thumbs-up"></i>--%>
-<%--                        <span>0</span>--%>
-<%--                    </button>--%>
-<%--                    <button class="action-btn comment-btn">--%>
-<%--                        <i class="far fa-comment"></i> <span>0</span>--%>
-<%--                    </button>--%>
-<%--                    <button class="action-btn share-btn">--%>
-<%--                        <i class="fas fa-share"></i> <span>Share</span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        `).join('');--%>
-<%--    }--%>
-
-<%--    // Helper functions--%>
-<%--    function escapeHtml(unsafe) {--%>
-<%--        return unsafe ? unsafe.toString()--%>
-<%--            .replace(/&/g, "&amp;")--%>
-<%--            .replace(/</g, "&lt;")--%>
-<%--            .replace(/>/g, "&gt;")--%>
-<%--            .replace(/"/g, "&quot;")--%>
-<%--            .replace(/'/g, "&#039;") : '';--%>
-<%--    }--%>
-
-<%--    function formatDate(timestamp) {--%>
-<%--        if (!timestamp) return "Recently";--%>
-<%--        try {--%>
-<%--            const date = new Date(timestamp);--%>
-<%--            return date.toLocaleString();--%>
-<%--        } catch (e) {--%>
-<%--            console.error("Error formatting date:", e);--%>
-<%--            return "Recently";--%>
-<%--        }--%>
-<%--    }--%>
-
-<%--    function showMessage(message) {--%>
-<%--        document.getElementById('posts-container').innerHTML =--%>
-<%--            `<div class="info-message">${message}</div>`;--%>
-<%--    }--%>
-
-<%--    function showError(message) {--%>
-<%--        document.getElementById('posts-container').innerHTML = `--%>
-<%--            <div class="error-message">--%>
-<%--                ${message}--%>
-<%--                <button onclick="window.location.reload()">Retry</button>--%>
-<%--            </div>--%>
-<%--        `;--%>
-<%--    }--%>
-<%--</script>--%>
-
-<%--test script--%>
 <script>
     console.log("UserProfile data:", {
         exists: ${not empty userProfile},
         userId: '${userProfile.userId}',
-        typeUserId : typeof '${userProfile.userId}',
+        typeUserId: typeof '${userProfile.userId}',
         name: '${userProfile.name}'
     });
 

@@ -44,7 +44,6 @@ public class UpdateUserServlet extends HttpServlet {
                     String phoneNumber = req.getParameter("phoneNumber");
                     String district = req.getParameter("district");
 
-
                     isTypeUpdated = CitizenController.updateCitizen(userId, name, address, phoneNumber, district);
                     break;
                 }
@@ -52,7 +51,6 @@ public class UpdateUserServlet extends HttpServlet {
                     String name = req.getParameter("name");
                     String address = req.getParameter("address");
                     String phoneNumber = req.getParameter("phoneNumber");
-
 
                     isTypeUpdated = PoliticianController.updatePolitician(userId, name, address, phoneNumber);
                     break;
