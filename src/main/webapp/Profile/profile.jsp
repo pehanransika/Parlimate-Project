@@ -273,10 +273,15 @@
                                         Sabaragamuwa Province
                                     </option>
                                 </select>
-                                <select id="city" name="district" disabled>
-                                    <option value="">
-                                        -- First select a province --
-                                    </option>
+                                <select id="city" name="district" ${empty userProfile.province ? 'disabled' : ''}>
+                                    <c:choose>
+                                        <c:when test="${not empty userProfile.district}">
+                                            <option value="${userProfile.district}" selected>${userProfile.district}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="">-- First select a province --</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </select>
                             </div>
                         </div>
@@ -437,6 +442,48 @@
             '<div class="error">User profile not loaded</div>';
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize city dropdown if province is already selected
+        const savedProvince = document.getElementById('province-drop').value;
+        const savedDistrict = '${userProfile.district}'; // This comes from JSP
 
+        if (savedProvince) {
+            updateCities();
+            // Set the saved district after a small delay to ensure dropdown is populated
+            setTimeout(() => {
+                const citySelect = document.getElementById("city");
+                if (savedDistrict) {
+                    citySelect.value = savedDistrict;
+                }
+            }, 100);
+        }
+    });
+
+    function updateCities() {
+        const provinceSelect = document.getElementById("province-drop");
+        const citySelect = document.getElementById("city");
+        const selectedProvince = provinceSelect.value;
+        const savedDistrict = `${userProfile.district}`; // Get from JSP
+
+        // Clear previous options but keep the first empty option if province not selected
+        citySelect.innerHTML = selectedProvince ? "" : "<option value='' disabled>-- First select a province --</option>";
+
+        if (selectedProvince) {
+            citySelect.disabled = false;
+            citySelect.add(new Option("-- Select City --", ""));
+
+            // Add cities for selected province
+            citiesByProvince[selectedProvince].forEach((city) => {
+                const option = new Option(city, city);
+                // Select the option if it matches the saved district
+                if (city === savedDistrict) {
+                    option.selected = true;
+                }
+                citySelect.add(option);
+            });
+        } else {
+            citySelect.disabled = true;
+        }
+    }
 </script>
 </html>

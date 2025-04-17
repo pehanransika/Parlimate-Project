@@ -1,3 +1,7 @@
+
+
+
+
 const userEditBtn = document.querySelector(".user-edit-btn");
 const modal = document.getElementById("editModal");
 const closeBtns = document.querySelectorAll('.close-btn');
@@ -20,8 +24,15 @@ intrstBtn.addEventListener('click', (e) => {
 modal.style.display = "none";
 
 // Open modal on button click
+// Update the modal opening event
 userEditBtn.addEventListener("click", () => {
     modal.style.display = "flex";
+
+    // Reinitialize cities when modal opens
+    const provinceSelect = document.getElementById("province-drop");
+    if (provinceSelect.value) {
+        updateCities();
+    }
 });
 
 // Close modal on close button click
@@ -246,26 +257,3 @@ const citiesByProvince = {
     ],
 };
 
-function updateCities() {
-    const provinceSelect = document.getElementById("province-drop");
-    const citySelect = document.getElementById("city");
-    const selectedProvince = provinceSelect.value;
-
-    // Clear previous options
-    citySelect.innerHTML = "";
-
-    if (selectedProvince) {
-        citySelect.disabled = false;
-        citySelect.add(new Option("-- Select City --", ""));
-
-        // Add cities for selected province
-        citiesByProvince[selectedProvince].forEach((city) => {
-            citySelect.add(
-                new Option(city, city.toLowerCase().replace(" ", "-"))
-            );
-        });
-    } else {
-        citySelect.disabled = true;
-        citySelect.add(new Option("-- First select a province --", ""));
-    }
-}
