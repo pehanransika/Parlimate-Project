@@ -9,8 +9,6 @@ body {
     /* font-family: "SF Pro","Satoshi", sans-serif; */
     font-family: "Satoshi", sans-serif;
     /* remove padding on jsp */
-    padding: 2rem;
-    background: rgb(235, 237, 245);
 }
 a,
 button,
