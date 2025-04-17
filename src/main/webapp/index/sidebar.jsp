@@ -16,7 +16,7 @@
                 <label for="nav-fundraise" onclick="navigate(this)"><i class="fa-solid fa-coins"></i>Fundraises</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-noti" value="http://localhost:8080/Parlimate/Notification/notification.jsp" />
+                <input type="radio" name="nav" id="nav-noti" value="http://localhost:8080/Parlimate/SearchCompare/searchCompare.jsp" />
                 <label for="nav-noti" onclick="navigate(this)"><i class="fa-solid fa-scale-balanced"></i>Search & Compare</label>
             </li>
             <li>

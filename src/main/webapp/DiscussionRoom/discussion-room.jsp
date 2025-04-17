@@ -23,8 +23,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<%--    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />--%>
     <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
     <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting room | Parlimate</title>
@@ -52,6 +54,7 @@
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
 <div class="reqPop">
     <div class="bg"></div>
@@ -237,7 +240,7 @@
     <div class="discussions col">
         <div class="navigations row">
             <div class="nav-btn">
-                <button value="upcoming" class="capitalize nav-active">
+                <button value="upcoming" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet'">
                     Upcoming
                 </button>
             </div>
@@ -278,7 +281,9 @@
                          data-topic="${allmeetings.topic}"
                          data-date="${allmeetings.date}"
                          data-description="${allmeetings.description}"
-                         data-time="${allmeetings.time}">
+                         data-time="${allmeetings.time}"
+                         data-available-slots="${allmeetings.availableSlots}"
+                    >
                         <div class="panelists">
                             <div class="pImgs row">
                                 <div class="prof-img">
@@ -354,8 +359,8 @@
                 <div class="prof-img"></div>
                 <div class="prof-img"></div>
             </div>
-            <div class="seats">
-                <span>12</span> more seats available
+            <div class="slots">
+                [slot count]
             </div>
             <div class="gmail-input">
                 <label for="gmail">Enter your Gmail address:</label>
@@ -402,15 +407,147 @@
                 const date = item.dataset.date;
                 const description = item.dataset.description;
                 const time = item.dataset.time;
+                const slots = item.dataset.availableSlots;
 
-                console.log("📦 Data:", { topic, date, description, time });
+                console.log("📦 Data:", { topic, date, description, time, slots });
 
                 const popup = document.querySelector(".live-meeting-popup");
-                popup.querySelector("#meetingid").textContent= meetingid;
+                popup.querySelector("#meetingid").textContent = meetingid;
                 popup.querySelector(".meeting-title").textContent = topic;
                 popup.querySelector(".date").textContent = date;
                 popup.querySelector("#description").textContent = description;
                 popup.querySelector("#time").textContent = "Time: " + time;
+
+                const slotsElement = popup.querySelector(".slots");
+                const confirmBtn = popup.querySelector(".confirm");
+                const confMessage = popup.querySelector(".conf");
+
+                if (parseInt(slots) === 0) {
+                    slotsElement.textContent = "No slots available";
+                    confirmBtn.innerHTML = 'Add to Wishlist <i class="fa-solid fa-heart"></i>';
+                    confMessage.textContent = "Sorry, no slots available. You can add this meeting to your wishlist.";
+
+                    confirmBtn.onclick = () => {
+                        const email = popup.querySelector("#gmail").value.trim();
+                        const meetingId = document.querySelector("#meetingid").textContent.trim();
+
+                        if (!email) {
+                            alert("Please enter a valid email to add to wishlist.");
+                            return;
+                        }
+
+                        // Validate email format
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(email)) {
+                            alert("Please enter a valid email format.");
+                            return;
+                        }
+
+                        console.log("Meeting ID:", meetingId);
+                        console.log("User ID:", loggedInUserId);
+                        console.log("Email:", email);
+
+                        const params = new URLSearchParams();
+                        params.append("meetingId", meetingId);
+                        params.append("userId", loggedInUserId);
+                        params.append("email", email);
+
+                        fetch("/Parlimate/AddToWishlistServlet", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: params.toString()
+                        })
+                            .then(res => {
+                                if (!res.ok) throw new Error("Server error during wishlist submission");
+                                return res.text();
+                            })
+                            .then(responseText => {
+                                try {
+                                    const result = JSON.parse(responseText);
+                                    console.log("✅ Wishlist Response:", result);
+
+                                    if (result.status === "success") {
+                                        displayNotification("Meeting added to wishlist!");
+                                    } else if (result.message) {
+                                        alert(result.message);
+                                    } else {
+                                        alert("Something went wrong while adding to wishlist.");
+                                    }
+
+                                    document.body.classList.remove("overlay-active");
+                                } catch (e) {
+                                    console.error("❌ Failed to parse JSON response:", e, "Raw text:", responseText);
+                                }
+                            })
+                            .catch(err => {
+                                console.error("❌ Error adding to wishlist:", err);
+                            });
+                    };
+                }
+                else {
+                    slotsElement.innerHTML = slots + " more seats available";
+                    confirmBtn.innerHTML = 'Confirm <i class="fa-solid fa-check"></i>';
+                    confMessage.textContent = "Are you sure you want to join the live meeting via Zoom?";
+
+                    confirmBtn.onclick = () => {
+                        const email = document.getElementById("gmail").value.trim();
+                        const meetingId = document.querySelector("#meetingid").textContent.trim();
+
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if (!email || !emailRegex.test(email)) {
+                            alert("Please enter a valid email address.");
+                            return;
+                        }
+
+                        if (!meetingId || !loggedInUserId) {
+                            alert("Missing required fields.");
+                            return;
+                        }
+
+                        console.log("Meeting ID:", meetingId);
+                        console.log("User ID:", loggedInUserId);
+                        console.log("Email:", email);
+
+                        const params = new URLSearchParams();
+                        params.append("meetingId", meetingId);
+                        params.append("userId", loggedInUserId);
+                        params.append("email", email);
+
+                        fetch("/Parlimate/JoinMeetingServlet", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: params.toString()
+                        })
+                            .then(res => {
+                                if (!res.ok) throw new Error("Server returned error");
+                                return res.text();
+                            })
+                            .then(text => {
+                                try {
+                                    const result = JSON.parse(text);
+                                    console.log("✅ Server Response:", result);
+
+                                    if (result.status === "error" && result.message) {
+                                        alert(result.message);
+                                    } else {
+                                        displayNotification("Your invitation has been sent!");
+                                    }
+
+                                    document.body.classList.remove("overlay-active");
+                                } catch (e) {
+                                    console.error("❌ JSON Parse Error:", e, "Raw response:", text);
+                                }
+                            })
+                            .catch(err => {
+                                console.error("❌ Error:", err);
+                            });
+                    };
+                }
 
                 body.classList.add("overlay-active");
             });
@@ -424,81 +561,9 @@
             body.classList.remove("overlay-active");
         });
 
-        document.querySelector(".live-meeting-popup .close").addEventListener("click", () => {
-            body.classList.remove("overlay-active");
-        });
-
-        document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
-            body.classList.remove("overlay-active");
-        });
-
-        document.querySelector(".live-meeting-popup .btns .confirm").addEventListener("click", () => {
-            const email = document.getElementById("gmail").value.trim();
-            const meetingId = document.querySelector("#meetingid").textContent.trim();
-
-
-            // Basic email validation regex
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            // Check if email is empty, invalid, or missing required fields
-            if (!email || !emailRegex.test(email)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
-
-            if (!meetingId || !loggedInUserId) {
-                alert("Missing required fields.");
-                return;
-            }
-
-            console.log("Meeting ID:", meetingId);
-            console.log("User ID:", loggedInUserId);
-            console.log("Email:", email);
-
-            const params = new URLSearchParams();
-            params.append("meetingId", meetingId);
-            params.append("userId", loggedInUserId);
-            params.append("email", email);
-
-            fetch("/Parlimate/JoinMeetingServlet", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: params.toString()
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Server returned error");
-                    return res.text(); // try reading raw text
-                })
-                .then(text => {
-                    try {
-                        const result = JSON.parse(text);  // safely parse
-                        console.log("✅ Server Response:", result);
-
-                        // Check if the response indicates an error (duplicate registration)
-                        if (result.status === "error" && result.message) {
-                            alert(result.message); // Show error message (e.g., "You have already registered for this meeting.")
-                        } else {
-                            displayNotification("Your invitation has been sent!");
-                        }
-
-                        document.body.classList.remove("overlay-active");
-                    } catch (e) {
-                        console.error("❌ JSON Parse Error:", e, "Raw response:", text);
-                    }
-                })
-                .catch(err => {
-                    console.error("❌ Error:", err);
-                });
-        });
-
-
-
-
         function displayNotification(msg, timeout = 3000) {
             console.log("notification is called");
-            const notificationMsg = document.querySelector("#notification"); // Make sure this exists in your HTML
+            const notificationMsg = document.querySelector("#notification");
             if (notificationMsg) {
                 notificationMsg.innerHTML = msg;
                 body.classList.add("noti-active");
@@ -508,36 +573,29 @@
                 }, timeout);
             }
         }
-    });
 
-    document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
-    const navBtns = document.querySelectorAll(".nav-btn button");
+        document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
 
-    navBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            navBtns.forEach((btn) => {
-                btn.classList.remove("nav-active");
+        const navBtns = document.querySelectorAll(".nav-btn button");
+        navBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                navBtns.forEach((btn) => btn.classList.remove("nav-active"));
+                btn.classList.add("nav-active");
             });
-            btn.classList.add("nav-active");
+        });
+
+        const discussionFormat = document.getElementById('disc-pref');
+        const opponentFields = document.getElementById('opponent-fields');
+        discussionFormat.addEventListener('change', function () {
+            opponentFields.style.display = this.value === 'Open-debate' ? 'block' : 'none';
+        });
+
+        const allowParticipantsCheckbox = document.getElementById('allow-participants');
+        const participantFields = document.getElementById('participant-fields');
+        allowParticipantsCheckbox.addEventListener('change', function () {
+            participantFields.style.display = this.checked ? 'block' : 'none';
         });
     });
-
-    const discussionFormat = document.getElementById('disc-pref');
-    const opponentFields = document.getElementById('opponent-fields');
-
-    discussionFormat.addEventListener('change', function () {
-        if (this.value === 'Open-debate') {
-            opponentFields.style.display = 'block';
-        } else {
-            opponentFields.style.display = 'none';
-        }
-    });
-
-    const allowParticipantsCheckbox = document.getElementById('allow-participants');
-    const participantFields = document.getElementById('participant-fields');
-
-    allowParticipantsCheckbox.addEventListener('change', function () {
-        participantFields.style.display = this.checked ? 'block' : 'none';
-    });
 </script>
+
 </html>

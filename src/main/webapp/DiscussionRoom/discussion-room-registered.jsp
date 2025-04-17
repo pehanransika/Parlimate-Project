@@ -242,12 +242,12 @@
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="ongoing" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetOngoingMeetingUserServlet'">
+                <button value="ongoing" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetOngoingMeetingsServlet'">
                     Ongoing
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="registered" class="capitalize nav-active">
+                <button value="registered" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
                     Registered
                 </button>
             </div>
@@ -315,7 +315,7 @@
                                 </a>
                                 <span class="small-text item-live request-join-btn" aria-disabled="true">
                                     <i class="fa-solid fa-signal-stream"></i>
-                                        Registrations Closed
+                                        Withdraw Registration
                                 </span>
 
                                 </span>
@@ -342,6 +342,54 @@
 <%--<script src="http://localhost:8080/Parlimate/DiscussionRoom/discussin.js"></script>--%>
 <script src="./reqPop.js"></script>
 <script>
+    const loggedInUserId = <%= userId %>;
+    console.log("User ID from session:", loggedInUserId);
+    document.addEventListener("DOMContentLoaded", () => {
+        const withdrawButtons = document.querySelectorAll(".request-join-btn");
+
+        withdrawButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const item = button.closest(".item");
+                const meetingId = item.getAttribute("data-meetingid");
+
+                console.log("Meeting ID:", meetingId);
+                console.log("User ID:", loggedInUserId);
+
+                if (!meetingId || !loggedInUserId) {
+                    alert("Missing meeting or user ID.");
+                    return;
+                }
+
+                // Optional: Confirmation
+                if (!confirm("Are you sure you want to withdraw your registration?")) return;
+
+                const params = new URLSearchParams();
+                params.append("meetingId", meetingId);
+                params.append("userId", loggedInUserId);
+
+                fetch("/Parlimate/WithdrawRegistrationServlet", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: params.toString()
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Server error");
+                        return res.text(); // or .json() depending on your backend
+                    })
+                    .then(response => {
+                        alert("Successfully withdrawn from the meeting.");
+                        // Optionally remove the item or update its appearance
+                        item.remove(); // or item.style.display = "none";
+                    })
+                    .catch(err => {
+                        console.error("Error:", err);
+                        alert("Something went wrong while withdrawing.");
+                    });
+            });
+        });
+    });
     document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
     const navBtns = document.querySelectorAll(".nav-btn button");
 

@@ -35,5 +35,53 @@ public class JoinMeetingController {
             }
         }
     }
+    public static boolean addUserToWishlist(String meetingId, String userId, String email) throws SQLException {
+        // Assuming you have a method for DB connection and executing the SQL query
+        String query = "INSERT INTO meetingwishlist (meetingid, userid, email) VALUES (?, ?, ?)";
+
+        // Check if the user is already registered for the meeting
+        String checkQuery = "SELECT COUNT(*) FROM meetingwishlist WHERE meetingid = ? AND userid = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(checkQuery)) {
+
+            stmt.setInt(1, Integer.parseInt(meetingId));
+            stmt.setInt(2, Integer.parseInt(userId));
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                // If user is already in the meeting
+                return false;  // Indicating failure due to duplicate
+            }
+
+            // If no duplicate, proceed to insert the user into the meeting
+            try (PreparedStatement insertStmt = conn.prepareStatement(query)) {
+                insertStmt.setInt(1, Integer.parseInt(meetingId));
+                insertStmt.setInt(2, Integer.parseInt(userId));
+                insertStmt.setString(3, email);
+                insertStmt.executeUpdate();
+                return true;  // Successfully inserted
+            }
+        }
+    }
+    public static boolean withdrawRegistration(String meetingId, String userId) {
+        String query = "DELETE FROM meetingusers WHERE meetingId = ? AND userId = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, Integer.parseInt(meetingId)); // Cast to int
+            stmt.setInt(2, Integer.parseInt(userId));    // Cast to int
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // return true if at least one row was deleted
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
+
 

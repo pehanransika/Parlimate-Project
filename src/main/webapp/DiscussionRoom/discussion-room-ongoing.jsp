@@ -242,12 +242,12 @@
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="ongoing" class="capitalize nav-active">
+                <button value="ongoing" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/GetOngoingMeetingsServlet'">
                     Ongoing
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="registered" class="capitalize">
+                <button value="registered" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
                     Registered
                 </button>
             </div>

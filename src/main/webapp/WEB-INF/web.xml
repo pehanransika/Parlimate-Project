@@ -331,6 +331,14 @@
     <url-pattern>/DiscussionRoom/JoinMeetingServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>AddToWishlistServlet</servlet-name>
+    <servlet-class>meetings.AddToWishlistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddToWishlistServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/AddToWishlistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>GetOngoingMeetingsServlet</servlet-name>
     <servlet-class>meetings.GetOngoingMeetingsServlet</servlet-class>
   </servlet>
