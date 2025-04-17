@@ -485,5 +485,13 @@
             citySelect.disabled = true;
         }
     }
+    document.getElementById('save-btn').addEventListener('click', function(e) {
+        const citySelect = document.getElementById("city");
+        if (citySelect.value === "") {
+            // If no district selected, keep the original value
+            citySelect.value = '${userProfile.district}';
+        }
+        // Proceed with form submission
+    });
 </script>
 </html>
