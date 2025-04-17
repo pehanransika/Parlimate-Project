@@ -15,25 +15,26 @@ public class CitizenController {
     private static ResultSet rs = null;
 
 
-        public static boolean insertCitizen(int userId, String name, String address, String phoneNumber, String district) {
-            String insertQuery = "INSERT INTO citizen (user_id, name, address, phone_number, district) VALUES (?, ?, ?, ?, ?)";
-            try (Connection connection = DBConnection.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(insertQuery)) {
+    public static boolean insertCitizen(int userId, String name, String address, String phoneNumber, String district) {
+        String insertQuery = "INSERT INTO citizen (user_id, name, address, phone_number, district) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(insertQuery)) {
 
-                statement.setInt(1, userId);
-                statement.setString(2, name);
-                statement.setString(3, address);
-                statement.setString(4, phoneNumber);
-                statement.setString(5, district);
-   // Use image_url here
+            statement.setInt(1, userId);
+            statement.setString(2, name);
+            statement.setString(3, address);
+            statement.setString(4, phoneNumber);
+            statement.setString(5, district);
+            // Use image_url here
 
-                int rowsInserted = statement.executeUpdate();
-                return rowsInserted > 0;  // Returns true if insertion is successful
-            } catch (SQLException e) {
-                System.err.println("Error inserting data into citizen table: " + e.getMessage());
-            }
-            return false;
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;  // Returns true if insertion is successful
+        } catch (SQLException e) {
+            System.err.println("Error inserting data into citizen table: " + e.getMessage());
         }
+        return false;
+    }
+
     public CitizenModel getUserById(int userId) {
         CitizenModel citizen = null;
         try {
@@ -50,10 +51,11 @@ public class CitizenController {
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
                         rs.getString("name"),
-                        rs.getString("district")
+                        rs.getString("district"),
+                        rs.getString("province")
                 );
             }
-            conn.close();
+//            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,11 +64,9 @@ public class CitizenController {
 
     public static List<CitizenModel> CitizenProfile(int id) {
         List<CitizenModel> citizens = new ArrayList<>();
-        String sql = "SELECT * FROM citizen WHERE user_id = '"+id+"'";
+        String sql = "SELECT * FROM citizen WHERE user_id = '" + id + "'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-
 
             // Execute the query and process the ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
@@ -77,8 +77,9 @@ public class CitizenController {
                     String phoneNumber = rs.getString("phone_number");
                     String name = rs.getString("name");
                     String district = rs.getString("district");
+                    String province = rs.getString("province");
 
-                    CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district);
+                    CitizenModel citizen = new CitizenModel(citizenid, userid, address, phoneNumber, name, district, province);
                     citizens.add(citizen);
                 }
             }
@@ -101,6 +102,7 @@ public class CitizenController {
             statement.setString(4, district);
 
             statement.setInt(5, userId);  // Set the user_id for WHERE clause
+            System.out.println("Update Citizen: " +statement.executeUpdate());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;  // Returns true if the update is successful
@@ -110,31 +112,34 @@ public class CitizenController {
         return false;
     }
 
-    public static boolean updateCitizenUser(int userId, String name, String district){
-            boolean isSuccessful = true;
-            String sql = "Update citizen set name=? , district=? where user_id=? ";
+    public static boolean updateCitizenUser(int userId, String name, String district, String province) {
+        boolean isSuccessful = true;
+        String sql = "Update citizen set name=? , district=?, province=? where user_id=? ";
 
-            try{
-                conn = DBConnection.getConnection();
-                pst = conn.prepareStatement(sql);
+        try {
+            conn = DBConnection.getConnection();
+            pst = conn.prepareStatement(sql);
 
-                System.out.println("Executing update query for user: " + userId);
+            System.out.println("Executing update query for user: " + userId);
+            System.out.println("[DEBUG] New name: " + name);
+            System.out.println("[DEBUG] New district: " + district);
+            System.out.println("[DEBUG] New province: " + province);
 
-                pst.setString(1, name);
-                pst.setString(2, district);
-                pst.setInt(3, userId);
+            pst.setString(1, name);
+            pst.setString(2, district);
+            pst.setString(3, province);
+            pst.setInt(4, userId);
 
-                int rowsUpdated = pst.executeUpdate();
+            int rowsUpdated = pst.executeUpdate();
 
-                isSuccessful = rowsUpdated > 0;
-                System.out.println("Rows updated: " + rowsUpdated);
-            }
-            catch(Exception e){
-                System.err.println("Error updating data in citizen table: " + e.getMessage());
-                e.printStackTrace();
-            }
+            isSuccessful = rowsUpdated > 0;
 
-            return isSuccessful;
+        } catch (Exception e) {
+            System.err.println("Error updating data in citizen table: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return isSuccessful;
     }
 
     public static boolean deleteCitizen(int userId) {

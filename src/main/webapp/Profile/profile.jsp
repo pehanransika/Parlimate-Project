@@ -240,38 +240,36 @@
                             >
                             <div class="dropdown f-row">
                                 <select
-<%--                                        name="province"--%>
+                                        name="province"
                                         id="province-drop"
                                         onchange="updateCities()"
                                 >
-                                    <option value="" disabled selected>
-                                        -- Select Province --
-                                    </option>
-                                    <option value="western" >
+                                    <option value="" disabled selected>-- Select Province --</option>
+                                    <option value="western" ${userProfile.province eq 'western' ? 'selected' : ''}>
                                         Western Province
                                     </option>
-                                    <option value="central" >
+                                    <option value="central" ${userProfile.province eq 'central' ? 'selected' : ''}>
                                         Central Province
                                     </option>
-                                    <option value="southern" >
+                                    <option value="southern" ${userProfile.province eq 'southern' ? 'selected' : ''}>
                                         Southern Province
                                     </option>
-                                    <option value="northern">
+                                    <option value="northern" ${userProfile.province eq 'northern' ? 'selected' : ''}>
                                         Northern Province
                                     </option>
-                                    <option value="eastern">
+                                    <option value="eastern" ${userProfile.province eq 'eastern' ? 'selected' : ''}>
                                         Eastern Province
                                     </option>
-                                    <option value="north-western">
+                                    <option value="north-western" ${userProfile.province eq 'north-western' ? 'selected' : ''}>
                                         North Western Province
                                     </option>
-                                    <option value="north-central" >
+                                    <option value="north-central" ${userProfile.province eq 'north-central' ? 'selected' : ''}>
                                         North Central Province
                                     </option>
-                                    <option value="uva">
+                                    <option value="uva" ${userProfile.province eq 'uva' ? 'selected' : ''}>
                                         Uva Province
                                     </option>
-                                    <option value="sabaragamuwa">
+                                    <option value="sabaragamuwa" ${userProfile.province eq 'sabaragamuwa' ? 'selected' : ''}>
                                         Sabaragamuwa Province
                                     </option>
                                 </select>
@@ -336,7 +334,7 @@
             </div>
             <div class="profession">Product Designer at Senica</div>
             <div class="city caps">
-                ${userProfile.district}  , Southern Province &#127473;&#127472;
+                ${userProfile.district}  , ${userProfile.province} &#127473;&#127472;
             </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">

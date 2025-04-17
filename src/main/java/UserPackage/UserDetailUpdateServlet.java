@@ -30,6 +30,9 @@ public class UserDetailUpdateServlet extends HttpServlet {
         String userType = user.getUserType();
         String name = request.getParameter("full-name");
         String district = request.getParameter("district");
+        String province = request.getParameter("province");
+
+        System.out.println("DEBUG province: "+ province);
 
         boolean isUpdated = false;
         Object userProfile = null;
@@ -37,7 +40,7 @@ public class UserDetailUpdateServlet extends HttpServlet {
         try {
             switch (userType.toLowerCase()) {
                 case "citizen":
-                    isUpdated = CitizenController.updateCitizenUser(userId, name, district);
+                    isUpdated = CitizenController.updateCitizenUser(userId, name, district, province);
                     if (isUpdated) {
                         List<CitizenModel> updatedCitizen = CitizenController.CitizenProfile(userId);
                         if (!updatedCitizen.isEmpty()) {
@@ -53,13 +56,14 @@ public class UserDetailUpdateServlet extends HttpServlet {
             if (isUpdated) {
                 // Redirect to profile page with success message
                 session.setAttribute("updateSuccess", "Profile updated successfully!");
-                response.sendRedirect("../Parlimate/Profile/profile.jsp");
+                response.getWriter().println("<script>window.location.href='./Profile/profile.jsp';</script>");
             } else {
                 // Redirect back with error message
                 session.setAttribute("updateError", "Failed to update profile");
                 response.sendRedirect("../Parlimate/Profile/profile.jsp");
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
             session.setAttribute("updateError", "An error occurred: " + e.getMessage());
             response.sendRedirect("../Profile/profile.jsp");

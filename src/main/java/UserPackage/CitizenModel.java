@@ -7,9 +7,10 @@ public class CitizenModel  {
     private String phoneNumber;
     private String name;
     private String district;
+    private String province;
 
 
-    public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name,  String district) {
+    public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name,  String district, String province) {
 
         this.citizenId = citizenId;
         this.userId = userId;
@@ -17,6 +18,7 @@ public class CitizenModel  {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.district = district;
+        this.province = province;
 
     }
 
@@ -37,6 +39,9 @@ public class CitizenModel  {
 
     public String getDistrict() { return district; }
     public void setDistrict(String district) { this.district = district; }
+
+    public String getProvince() { return province; }
+    public void setProvince(String province) { this.province = province; }
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }

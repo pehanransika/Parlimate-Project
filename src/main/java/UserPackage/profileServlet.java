@@ -38,6 +38,7 @@ public class profileServlet extends HttpServlet {
         }
         if (citizen != null) {
             req.getSession().setAttribute("citizen", citizen);
+            req.getSession().setAttribute("userProfile", citizen);
         }
 
         // Politician profile: If a politician is found in the session, retrieve their profile
