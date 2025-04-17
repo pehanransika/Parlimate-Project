@@ -15,6 +15,9 @@ button:active {
 .caps {
     text-transform: capitalize;
 }
+.wrap{
+    flex-wrap: wrap;
+}
 body {
     font-family: "Poppins", sans-serif;
     position: relative;
@@ -346,6 +349,7 @@ body {
     padding: 1rem 1.5rem;
     border-radius: 1.25rem;
     min-width: 35vw;
+    max-width: 55rem;
 }
 .modal {
     && .top {
@@ -457,8 +461,8 @@ body {
             position: absolute;
             content: "";
             width: 1px;
-            top: -1rem;
-            bottom: -1rem;
+            top: -2.2rem;
+            bottom: -2.25rem;
             right: 0;
             background: #e3e3e3;
         }

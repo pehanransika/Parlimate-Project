@@ -134,6 +134,7 @@ public class UserController {
 
                         UserModel user = new UserModel(id, gmail, storedHash, userType, created_at);
                         users.add(user);
+
                     }
                 }
             }
@@ -207,6 +208,7 @@ public class UserController {
 
         return isSuccess;
     }
+
 
     public static boolean deleteUser(int userId) {
         String sql = "DELETE FROM users WHERE user_id = ?";

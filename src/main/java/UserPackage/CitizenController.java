@@ -9,6 +9,12 @@ import java.util.List;
 
 
 public class CitizenController {
+
+    private static Connection conn = null;
+    private static PreparedStatement pst = null;
+    private static ResultSet rs = null;
+
+
         public static boolean insertCitizen(int userId, String name, String address, String phoneNumber, String district) {
             String insertQuery = "INSERT INTO citizen (user_id, name, address, phone_number, district) VALUES (?, ?, ?, ?, ?)";
             try (Connection connection = DBConnection.getConnection();
@@ -72,7 +78,6 @@ public class CitizenController {
                     String name = rs.getString("name");
                     String district = rs.getString("district");
 
-
                     CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district);
                     citizens.add(citizen);
                 }
@@ -103,6 +108,33 @@ public class CitizenController {
             System.err.println("Error updating data in citizen table: " + e.getMessage());
         }
         return false;
+    }
+
+    public static boolean updateCitizenUser(int userId, String name, String district){
+            boolean isSuccessful = true;
+            String sql = "Update citizen set name=? , district=? where user_id=? ";
+
+            try{
+                conn = DBConnection.getConnection();
+                pst = conn.prepareStatement(sql);
+
+                System.out.println("Executing update query for user: " + userId);
+
+                pst.setString(1, name);
+                pst.setString(2, district);
+                pst.setInt(3, userId);
+
+                int rowsUpdated = pst.executeUpdate();
+
+                isSuccessful = rowsUpdated > 0;
+                System.out.println("Rows updated: " + rowsUpdated);
+            }
+            catch(Exception e){
+                System.err.println("Error updating data in citizen table: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            return isSuccessful;
     }
 
     public static boolean deleteCitizen(int userId) {

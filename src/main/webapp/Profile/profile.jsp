@@ -60,7 +60,19 @@
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
 
+<%-- Display update messages --%>
+<c:if test="${not empty updateSuccess}">
+    <div class="alert alert-success">
+            ${updateSuccess}
+    </div>
+</c:if>
+<c:if test="${not empty updateError}">
+    <div class="alert alert-danger">
+            ${updateError}
+    </div>
+</c:if>
 <div class="container">
+
     <div id="interestsModal" class="modal">
         <div class="modal-content">
             <div class="top f-row caps">
@@ -171,7 +183,7 @@
             </div>
         </div>
     </div>
-    <div id="editModal" class="modal">
+    <form id="editModal" class="modal" action="../UserDetailUpdateServlet" method="post">
         <div class="modal-content f-col">
             <div class="top f-row caps">
                 <div class="title">Account settings</div>
@@ -179,8 +191,8 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <div class="center f-row">
-                <form class="details f-col" action="#" method="get">
+            <div class="center f-row" >
+                <div class="details f-col">
                     <div class="info f-col">
                         <div class="title">User information</div>
                         <div class="desc">
@@ -189,7 +201,7 @@
                             other users as well.
                         </div>
                     </div>
-                    <div class="inputs f-col">
+                    <div class="inputs f-row wrap">
                         <div class="email f-col">
                             <label for="email-input" class="input-head"
                             >Email address</label
@@ -216,6 +228,10 @@
                                     value="${userProfile.name}"
                             />
                         </div>
+                        <div class="phone-number">
+                            <label for="phoneNumber" class="input-head">phone number</label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" value="${userProfile.phoneNumber}">
+                        </div>
                         <div class="city">
                             <label
                                     for="province-drop"
@@ -224,20 +240,20 @@
                             >
                             <div class="dropdown f-row">
                                 <select
-                                        name="province"
+<%--                                        name="province"--%>
                                         id="province-drop"
                                         onchange="updateCities()"
                                 >
                                     <option value="" disabled selected>
                                         -- Select Province --
                                     </option>
-                                    <option value="western">
+                                    <option value="western" >
                                         Western Province
                                     </option>
-                                    <option value="central">
+                                    <option value="central" >
                                         Central Province
                                     </option>
-                                    <option value="southern">
+                                    <option value="southern" >
                                         Southern Province
                                     </option>
                                     <option value="northern">
@@ -249,7 +265,7 @@
                                     <option value="north-western">
                                         North Western Province
                                     </option>
-                                    <option value="north-central">
+                                    <option value="north-central" >
                                         North Central Province
                                     </option>
                                     <option value="uva">
@@ -259,7 +275,7 @@
                                         Sabaragamuwa Province
                                     </option>
                                 </select>
-                                <select id="city" name="city" disabled>
+                                <select id="city" name="district" disabled>
                                     <option value="">
                                         -- First select a province --
                                     </option>
@@ -267,7 +283,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
                 <div class="profile-pic f-col">
                     <div class="banner">
                         <img src="./bg.jpg" alt="banner"/>
@@ -293,7 +309,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <div class="profile-container f-col">
         <div class="profile-imgs">
             <div class="cover-photo">
@@ -320,7 +336,7 @@
             </div>
             <div class="profession">Product Designer at Senica</div>
             <div class="city caps">
-                Galle, Southern Province &#127473;&#127472;
+                ${userProfile.district}  , Southern Province &#127473;&#127472;
             </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
