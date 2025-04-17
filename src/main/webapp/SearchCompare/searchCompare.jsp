@@ -12,7 +12,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search & Compare</title>
 
-  <link rel="stylesheet" href="searchCompare.css" />
+  <link rel="stylesheet" href="./searchCompare.css" />
+
+  <link rel="stylesheet" href="index/sidebar1.css" />
+  <link rel="stylesheet" href="index/header/header.css" />
+  <link rel="stylesheet" href="../index.css" />
+
   <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
   <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
 
