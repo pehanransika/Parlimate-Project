@@ -8,6 +8,7 @@ public class QuestionModel {
     private int questionNumber;
     private int numberOfAnswers; // <-- New field
     private List<AnswerModel> answers;
+    private List<UserVoteModel> userVotes;
 
     // Updated constructor including numberOfAnswers
     public QuestionModel(int questionId, String questionText, int questionNumber, int numberOfAnswers) {
@@ -56,5 +57,11 @@ public class QuestionModel {
 
     public void setAnswers(List<AnswerModel> answers) {
         this.answers = answers;
+    }
+
+    public List<UserVoteModel> getUserVotes() {return userVotes;}
+
+    public void setUserVotes(List<UserVoteModel> userVotes) {
+        this.userVotes = userVotes;
     }
 }

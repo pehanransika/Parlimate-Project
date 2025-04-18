@@ -72,6 +72,7 @@
         if (okBtn && popup) {
           okBtn.addEventListener("click", function() {
             // Hide the popup by setting display to 'none'
+            window.location.reload();
             popup.style.display = "none";
           });
         }
@@ -122,10 +123,12 @@
       const questions${status.index} = [
         <c:forEach items="${survey.questions}" var="question" varStatus="qStatus">
         {
+          questionId: "${question.questionId}",
           question: "${question.questionText}",
           options: [
             <c:forEach items="${question.answers}" var="answer" varStatus="aStatus">
             {
+              answerId: "${answer.answerId}",
               text: "${answer.answerText}",
               img: "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg"
             }<c:if test="${!aStatus.last}">,</c:if>
@@ -136,7 +139,17 @@
                   ${answer.numberOfVotes}
             <c:if test="${!aStatus.last}">, </c:if>
             </c:forEach>
-          ]
+          ],
+          userVote: <c:choose>
+                  <c:when test="${not empty question.userVotes}">
+                  [${question.userVotes[0].userId},
+                    ${question.userVotes[0].answerId}]
+                    </c:when>
+                    <c:otherwise>
+                    "null"
+                    </c:otherwise>
+                    </c:choose>
+
         }<c:if test="${!qStatus.last}">, </c:if>
         </c:forEach>
           ];
@@ -157,10 +170,17 @@
           const q = questions${status.index}[index];
           const totalVotes = q.votes.reduce((a, b) => a + b, 0);
           let html = "<div class=\"question\">" + (index + 1) + ". " + q.question + "</div>";
+          const userVotedAnswerId = q.userVote && q.userVote[1];
 
           q.options.forEach((opt, optIndex) => {
             const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
-            const isSelected = selectedAnswers[index] === optIndex;
+            let answerIdId = Number(q.options[optIndex].answerId);
+            console.log("user vote:",q.userVote[0],",",q.userVote[1]);
+            console.log("answerId",answerIdId);
+            console.log("selected answerid:",q.userVote[1]);
+            const isSelected = answerIdId === q.userVote[1] ;
+            console.log("isSelected:",isSelected);
+
 
             html += '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote' + ${status.index} + '(' + optIndex + ')">' +
                     (opt.img && opt.img !== ''
@@ -168,7 +188,7 @@
                             : '') +
                     '<div class="text">' +
                     '<div><strong>' + opt.text + '</strong></div>' +
-                    (selectedAnswers[index] != null
+                    (selectedAnswers[index] != null || userVotedAnswerId
                             ? '<small>' + percent + '%</small>'
                             : '') +
                     '</div>' +
@@ -213,17 +233,108 @@
           }, 500);
         }
 
-        window['vote' + ${status.index}] = function(optIndex) {
-          const q = questions${status.index}[currentQuestion];
-          const prev = selectedAnswers[currentQuestion];
+        const userId = ${user.userId != null ? user.userId : 'null'};
+        console.log("User ID:", userId);
 
+        const surveyId = ${survey.surveyId};
+        console.log("Survey ID:", surveyId);
+
+        window['vote' + ${status.index}] = function(optIndex) {
+          console.log("Vote function called for option:", optIndex);
+          if (!userId) {
+            console.log("User ID is null or undefined");
+            alert('Please log in to vote.');
+            return;
+          }
+
+          const q = questions${status.index}[currentQuestion];
+          console.log("Question:", q);
+          const answerId = q.options[optIndex].answerId;
+          const questionId = q.questionId;
+          console.log("Sending vote - Survey ID:", surveyId, "Question ID:", questionId, "Answer ID:", answerId, "User ID:", userId);
+
+          const prev = selectedAnswers[currentQuestion]; // Store the previously selected option
+          if (prev !== null) q.votes[prev]--; // Decrease vote count for previous selection
+          q.votes[optIndex]++; // Increase vote count for new selection
+          selectedAnswers[currentQuestion] = optIndex; // Update the selected answer
+          const slide = document.querySelector('#question-slider${status.index} .question-slide');
+          slide.innerHTML = renderQuestion(currentQuestion);
+
+          fetch('<%= request.getContextPath() %>/vote', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              survey_id: surveyId,
+              question_id: questionId,
+              answer_id: answerId,
+              user_id: userId
+            })
+          })
+                  .then(response => {
+                    console.log("Vote response status:", response.status);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                  })
+                  .then(data => {
+                    console.log("Vote response data:", data);
+                    console.log("user vote:",q.userVote[0],",",q.userVote[1])
+                    if (data.success) {
+                      // Fetch the latest user vote for this question and update userVote
+                      fetch('<%= request.getContextPath() %>/getUserVote?question_id=' + questionId + '&user_id=' + userId)
+                              .then(response => response.json())
+                              .then(latestAnswerId => {
+                                q.userVote = [${user.userId},latestAnswerId]; // Update userVote with the latest vote from the server
+                                console.log("new user vote:",q.userVote[1]);
+                                console.log("latest answer id:",latestAnswerId)
+                                console.log("hello im manuja");
+                                // Fetch updated vote counts
+                                fetch('<%= request.getContextPath() %>/getVotes?question_id=' + questionId)
+                                        .then(response => {
+                                          console.log("GetVotes response status:", response.status);
+                                          if (!response.ok) throw new Error('GetVotes response was not ok');
+                                          return response.json();
+                                        })
+                                        .then(votes => {
+                                          console.log("Updated votes:", votes);
+                                          q.votes = votes;
+                                          const slide = document.querySelector('#question-slider${status.index} .question-slide');
+                                          slide.innerHTML = renderQuestion(currentQuestion);
+                                        })
+                                        .catch(error => console.error('Error fetching votes:', error));
+                              })
+                              .catch(error => console.error('Error fetching user vote:', error));
+                    } else {
+                      console.log("Vote failed:", data);
+                      alert('Failed to record vote');
+                      if (prev !== null) q.votes[prev]++; // Restore previous vote count
+                      q.votes[optIndex]--; // Remove the failed vote
+                      selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                      const slide = document.querySelector('#question-slider${status.index} .question-slide');
+                      slide.innerHTML = renderQuestion(currentQuestion);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error sending vote:', error);
+                    if (prev !== null) q.votes[prev]++; // Restore previous vote count
+                    q.votes[optIndex]--; // Remove the failed vote
+                    selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                    const slide = document.querySelector('#question-slider${status.index} .question-slide');
+                    slide.innerHTML = renderQuestion(currentQuestion);
+                  });
+        };
+
+     /*   window["vote" + "{status.index}"] = function(optIndex) {
+          const q = questions[currentQuestion];
+          const prev = selectedAnswers[currentQuestion];
           if (prev !== null) q.votes[prev]--;
           q.votes[optIndex]++;
           selectedAnswers[currentQuestion] = optIndex;
 
           const slide = questionSlider.querySelector('.question-slide');
           slide.innerHTML = renderQuestion(currentQuestion);
-        };
+        }     */
 
         prevBtn.addEventListener('click', () => {
           if (currentQuestion > 0) {
@@ -426,7 +537,7 @@
           analyticsPopup.classList.remove("show");
           setTimeout(() => {
             analyticsPopup.style.display = "none";
-            location.reload();
+
           }, 300);
           document.body.style.overflow = "auto";
           analyticsPopup.style.display = 'none';

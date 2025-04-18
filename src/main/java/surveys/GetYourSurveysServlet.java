@@ -17,15 +17,15 @@ public class GetYourSurveysServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Create an instance of your controller
-        surveyController controller = new surveyController();
+        // Fetch user votes for this question and
         HttpSession session = request.getSession(false);
         // Get the user object from session
         UserModel user = (UserModel) session.getAttribute("user");
 
         // Extract the userId
         int userId = user.getUserId();
+        // Create an instance of your controller
+        surveyController controller = new surveyController(userId);
 
         // Retrieve all surveys with questions and answers
         List<SurveyModel> surveys = controller.getSurveysOfUser(userId) ;

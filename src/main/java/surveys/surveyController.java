@@ -1,4 +1,7 @@
 package surveys;
+import UserPackage.UserModel;
+
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,6 +9,11 @@ import java.util.List;
 
 
 public class surveyController {
+        private final int sessionUserId;
+
+        public surveyController(int sessionUserId) {
+            this.sessionUserId = sessionUserId;
+        }
 
         public List<SurveyModel> getAllSurveysWithQuestionsAndAnswers() {
             List<SurveyModel> surveys = new ArrayList<>();
@@ -68,6 +76,24 @@ public class surveyController {
                                 question.setAnswers(answers);
                             }
 
+                             // get user voting
+                            String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
+                            try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
+                                userVoteStmt.setInt(1, surveyId);
+                                userVoteStmt.setInt(2, questionId);
+                                userVoteStmt.setInt(3, sessionUserId);
+                                ResultSet userVoteRs = userVoteStmt.executeQuery();
+
+                                List<UserVoteModel> userVotes = new ArrayList<>();
+                                while (userVoteRs.next()) {
+                                    int answerId = userVoteRs.getInt("answer_id");
+                                    int answerNumber = getAnswerNumberById(answerId);
+                                    UserVoteModel userVote = new UserVoteModel(sessionUserId, answerId, answerNumber);
+                                    userVotes.add(userVote);
+                                }
+                                question.setUserVotes(userVotes);
+                            }
+
                             questions.add(question);
                         }
 
@@ -82,6 +108,22 @@ public class surveyController {
 
             return surveys;
         }
+    // Helper method to get answerNumber by answerId
+    private int getAnswerNumberById(int answerId) {
+        String query = "SELECT answer_number FROM answer WHERE answer_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, answerId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("answer_number");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if not found
+    }
 
     public List<SurveyModel> getSurveysOfUser(int userId) {
         // Get all surveys (including questions and answers)

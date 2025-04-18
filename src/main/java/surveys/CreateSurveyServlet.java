@@ -1,13 +1,12 @@
 package surveys;
 
+import UserPackage.UserModel;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,11 +21,21 @@ import java.util.List;
         maxRequestSize = 1024 * 1024 * 50    // 50 MB
 )
 public class CreateSurveyServlet extends HttpServlet {
+
     private static final String UPLOAD_DIR = "uploads"; // Directory to store uploaded images
-    private surveyController controller = new surveyController();
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Fetch user votes for this question and
+        HttpSession session = request.getSession(false);
+        // Get the user object from session
+        UserModel user = (UserModel) session.getAttribute("user");
+
+        // Extract the userId
+        int userid = user.getUserId();
+        surveyController controller = new surveyController(userid);
+
         try {
             // Retrieve form data
             String surveyTopic = request.getParameter("surveyTopic");

@@ -367,6 +367,38 @@
     <url-pattern>/Surveys/GetYourSurveysServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>vote</servlet-name>
+    <servlet-class>surveys.VoteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vote</servlet-name>
+    <url-pattern>/Surveys/vote</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <servlet-class>surveys.GetVotesServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <url-pattern>/Surveys/getVotes</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <servlet-class>surveys.GetUserVoteServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <url-pattern>/Surveys/getUserVote</url-pattern>
+  </servlet-mapping>
+
 <!--      survey servlets end  -->
 
 

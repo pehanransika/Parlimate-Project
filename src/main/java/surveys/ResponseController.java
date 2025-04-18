@@ -6,44 +6,53 @@ import java.sql.ResultSet;
 
 public class ResponseController {
     public boolean createResponse(ResponseModel response) {
-        String sql = "INSERT INTO response (survey_id, question_id, answer_id, user_id) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, response.getSurveyId());
-            stmt.setInt(2, response.getQuestionId());
-            stmt.setInt(3, response.getAnswerId());
-            stmt.setInt(4, response.getUserId());
-
-            int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0;
-
+        String checkSql = "SELECT COUNT(*) FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
+        String updateSql = "UPDATE response SET answer_id = ? WHERE survey_id = ? AND question_id = ? AND user_id = ?";
+        String insertSql = "INSERT INTO response (survey_id, question_id, answer_id, user_id) VALUES (?, ?, ?, ?)";
+        String voteUpdateSql = "UPDATE answer SET number_of_votes = (SELECT COUNT(*) FROM response WHERE response.answer_id = answer.answer_id) WHERE answer.question_id = ?";
+        boolean success = false;
+        try (Connection conn = DBConnection.getConnection()) {
+            // Check if a response already exists
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, response.getSurveyId());
+                checkStmt.setInt(2, response.getQuestionId());
+                checkStmt.setInt(3, response.getUserId());
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        // Response exists, update it
+                        try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                            updateStmt.setInt(1, response.getAnswerId());
+                            updateStmt.setInt(2, response.getSurveyId());
+                            updateStmt.setInt(3, response.getQuestionId());
+                            updateStmt.setInt(4, response.getUserId());
+                            int rowsUpdated = updateStmt.executeUpdate();
+                            success = rowsUpdated > 0;
+                        }
+                    } else {
+                        // Response does not exist, insert a new one
+                        try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                            insertStmt.setInt(1, response.getSurveyId());
+                            insertStmt.setInt(2, response.getQuestionId());
+                            insertStmt.setInt(3, response.getAnswerId());
+                            insertStmt.setInt(4, response.getUserId());
+                            int rowsInserted = insertStmt.executeUpdate();
+                            success = rowsInserted > 0;
+                        }
+                    }
+                }
+            }
+            if (success) {
+                // Update vote counts for all answers related to the question
+                try (PreparedStatement voteUpdateStmt = conn.prepareStatement(voteUpdateSql)) {
+                    voteUpdateStmt.setInt(1, response.getQuestionId());
+                    voteUpdateStmt.executeUpdate();
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;
-    }
-
-    // Method to update an existing response (e.g., changing the selected answer)
-    public boolean updateResponse(ResponseModel response) {
-        String sql = "UPDATE response SET answer_id = ? WHERE response_id = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, response.getAnswerId());
-            stmt.setInt(2, response.getResponseId());
-
-            int rowsUpdated = stmt.executeUpdate();
-            return rowsUpdated > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+        return success;
     }
 
 
