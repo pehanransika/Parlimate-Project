@@ -50,7 +50,8 @@ public class PoliticianController {
                         rs.getString("phoneNumber"),
                         rs.getInt("politicalPartyId"),
                         rs.getString("district"),
-                        rs.getString("province")
+                        rs.getString("province"),
+                        rs.getString("political_view")
                 );
             }
             conn.close();
@@ -78,8 +79,9 @@ public class PoliticianController {
                     int politicalPartyId = rs.getInt("political_party_id");
                     String district = rs.getString("district");
                     String province = rs.getString("province");
+                    String political_view = rs.getString("political_view");
 
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province, political_view);
                     politicians.add(politician);
                 }
             }
@@ -118,8 +120,8 @@ public class PoliticianController {
         }
     }
 
-    public static boolean updatePoliticianProfile(int userId, String name, String address, String phoneNumber, String district, String province){
-        String query = "UPDATE politician SET name='"+name+"', address='"+address+"', phone_number='"+phoneNumber+"', district='"+district+"', province='"+province+"' WHERE user_id='"+userId+"'" ;
+    public static boolean updatePoliticianProfile(int userId, String name, String address, String phoneNumber, String district, String province, String political_view){
+        String query = "UPDATE politician SET name='"+name+"', address='"+address+"', phone_number='"+phoneNumber+"', district='"+district+"', province='"+province+"', political_view='"+political_view+"'  WHERE user_id='"+userId+"'" ;
 
         try {
             Connection conn = DBConnection.getConnection();
@@ -161,7 +163,17 @@ public class PoliticianController {
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
-                PoliticianModel politician = new PoliticianModel(rs.getInt("user_id"),rs.getInt("politician_id"),rs.getString("name"),rs.getString("address"),rs.getString("phone_number"),rs.getInt("political_party_id"), rs.getString("district"), rs.getString("province"));
+                int userId = rs.getInt("user_id");
+                int politicianId = rs.getInt("politician_id");
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phone_number");
+                int politicalPartyId = rs.getInt("political_party_id");
+                String district = rs.getString("district");
+                String province = rs.getString("province");
+                String political_view = rs.getString("political_view");
+
+                PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province, political_view);
                 politicians.add(politician);
             }
 

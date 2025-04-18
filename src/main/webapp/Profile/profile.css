@@ -1,29 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
 button {
     font-family: inherit;
     cursor: pointer;
     transition: scale 0.15s ease;
 }
+
 button:active {
     scale: 0.9;
 }
+
 .caps {
     text-transform: capitalize;
 }
-.wrap{
+
+.wrap {
     flex-wrap: wrap;
 }
+
 body {
     font-family: "Poppins", sans-serif;
     position: relative;
 }
+
 .profile-imgs {
     position: relative;
+
     && .cover-photo {
         width: 100%;
         height: 15rem;
@@ -52,7 +60,7 @@ body {
     }
 }
 
-.profile-container{
+.profile-container {
     border: 1px solid #dedede;
     border-radius: 0.75rem;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
@@ -69,6 +77,7 @@ body {
     && .user-basic {
         gap: 0.5rem;
         margin-bottom: 0.5rem;
+        align-items: center;
 
         && .name {
             font-weight: 600;
@@ -89,8 +98,18 @@ body {
             color: #71797e;
         }
     }
+
     && .city {
         color: #71797e;
+    }
+
+    && .political-view {
+        margin-top: 0.5rem;
+
+        && .content {
+            width: 100%;
+            font-style: italic;
+        }
     }
 
     && .buttons {
@@ -104,7 +123,7 @@ body {
             background: #fff;
             transition: background 0.1s ease, scale 0.1s ease;
 
-            &&:hover{
+            &&:hover {
                 background: #f3f3f3;
             }
         }
@@ -133,6 +152,7 @@ body {
                 border: 1px solid rgb(213, 213, 213);
             }
         }
+
         && .scndry-btns {
             button {
                 color: white;
@@ -150,12 +170,12 @@ body {
     && .title {
         width: 100%;
 
-        && span:not(.desc){
+        && span:not(.desc) {
             font-size: 1.5rem;
             font-weight: 600;
         }
 
-        && .desc{
+        && .desc {
             margin-top: -0.5rem;
             color: grey;
             font-style: italic;
@@ -177,10 +197,11 @@ body {
     background: #fff;
     border-radius: 10px;
     margin-bottom: 20px;
-       overflow: hidden;
+    overflow: hidden;
     transition: transform 0.3s ease;
     border: 1px solid #dedede;
 }
+
 .post-header {
     display: flex;
     align-items: center;
@@ -328,6 +349,7 @@ body {
 .like-btn.active {
     color: #e74c3c;
 }
+
 /* end template */
 
 .modal {
@@ -343,22 +365,30 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .modal-content {
     background: #fff;
     border: 1px solid #f2f2f2;
-    padding: 1rem 1.5rem;
     border-radius: 1.25rem;
     min-width: 35vw;
     max-width: 55rem;
+    &&>div{
+        padding: 1rem 1.5rem;
+    }
 }
+
 .modal {
+
     && .top {
+        padding-bottom:  0.15rem;
         position: relative;
         justify-content: space-between;
+
         && .title {
             font-weight: 600;
             font-size: 1.1rem;
         }
+
         && .close-btn {
             padding: 0.25rem;
             width: 1.5rem;
@@ -373,35 +403,50 @@ body {
             cursor: pointer;
             transition: scale 0.15s ease;
         }
+
         && .close-btn:hover {
             background: #f2f2f2;
         }
+
         && .close-btn:active {
             scale: 0.9;
         }
     }
+
     && .top::after {
         position: absolute;
         content: "";
         bottom: -1rem;
-        left: -1.5rem;
-        right: -1.5rem;
+        left: 0;
+        right: 0;
         height: 1px;
         background: #e3e3e3;
     }
+
     && .center {
         margin-top: 2rem;
         gap: 1.5rem;
+        padding-block: 0;
 
         && .details {
+            border-right: 1px solid #e3e3e3;
             position: relative;
-            padding-right: 0.5rem;
+            padding-right: 1rem;
+            margin-block: -1rem;
+            padding-block: 1rem;
             flex: 1;
             gap: 2rem;
+            overflow: auto;
+            max-height: 20rem;
+            height: 100%;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+
             && .info {
                 && .title {
                     font-weight: 500;
                 }
+
                 && .desc {
                     color: #888888;
                     font-size: 0.8rem;
@@ -415,8 +460,8 @@ body {
             align-items: center;
             gap: 1rem;
 
-            && .banner{
-                && img{
+            && .banner {
+                && img {
                     border-radius: 1rem;
                     margin-bottom: -4rem;
                     width: 15rem;
@@ -428,12 +473,12 @@ body {
                 gap: 1rem;
                 align-items: center;
 
-                && .btns{
+                && .btns {
                     gap: 0.25rem;
                 }
             }
 
-            && button{
+            && button {
                 text-transform: capitalize;
                 padding: 0.3rem 0.75rem;
                 font-size: 0.75rem;
@@ -444,11 +489,12 @@ body {
                 border: 1px solid #CACACA;
                 transition: all 0.15s ease;
             }
-            && button:hover{
+
+            && button:hover {
                 background: #f3f3f3;
             }
 
-            && .image{
+            && .image {
                 width: 7.5rem;
                 height: 7.5rem;
                 background: #e2e2e2;
@@ -457,36 +503,32 @@ body {
             }
         }
 
-        && .details::after {
-            position: absolute;
-            content: "";
-            width: 1px;
-            top: -1rem;
-            bottom: -1rem;
-            right: 0;
-            background: #e3e3e3;
-        }
-
         && .inputs {
             gap: 1rem;
             padding-bottom: 1rem;
+
             && div {
                 display: flex;
                 flex-direction: column;
                 gap: 0.25rem;
-                && input{
+
+                && input {
                     font-weight: 500;
                 }
+
                 && label {
                     font-size: 0.9rem;
                 }
+
                 && label.input-head {
                     font-weight: 500;
                     width: fit-content;
                     text-transform: capitalize;
                 }
+
                 && input,
-                select {
+                select,
+                textarea{
                     padding: 0.5rem 0.75rem;
                     border: 1px solid #e3e3e3;
                     border-radius: 0.5rem;
@@ -498,6 +540,13 @@ body {
                     outline: none;
                     transition: 0.25s ease border;
                 }
+                && textarea{
+                    width: 100%;
+                    min-height: 8rem;
+                    max-width: 100%;
+                    resize: none;
+                    scrollbar-width: none;
+                }
                 && input:focus,
                 select:focus {
                     border: 1px solid #323232;
@@ -505,29 +554,32 @@ body {
 
             }
         }
+
         && .city {
             padding-right: 1rem;
-            && .dropdown{
+
+            && .dropdown {
                 display: flex;
                 flex-direction: row !important;
                 align-items: center;
                 gap: 1rem !important;
 
-                && select{
+                && select {
                     flex: 1;
                 }
             }
         }
     }
-    && .footer{
+
+    && .footer {
         margin-top: 1rem;
         position: relative;
         padding-top: 1rem;
         justify-content: space-between;
         gap: 0.5rem;
 
-        && .change-pw{
-            a{
+        && .change-pw {
+            a {
                 color: white;
                 background: black;
                 border-radius: 0.5rem;
@@ -539,11 +591,12 @@ body {
             }
         }
 
-        && .action{
+        && .action {
             gap: 0.5rem;
         }
+
         && button,
-        input[type='submit']{
+        input[type='submit'] {
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: 500;
@@ -554,26 +607,27 @@ body {
             border: 1px solid #e3e3e3;
         }
 
-        && #save-btn{
+        && #save-btn {
             background: black;
             color: white;
             border: 1px solid black;
         }
     }
-    && .footer::before{
+
+    && .footer::before {
         position: absolute;
         content: "";
         height: 1px;
         background: #e3e3e3;
-        left: -1.5rem;
-        right: -1.5rem;
+        left: 0;
+        right: 0;
         top: 0;
     }
 }
 
-.post-card{
-    && .post-user-info{
-        && span{
+.post-card {
+    && .post-user-info {
+        && span {
             color: grey;
         }
     }
@@ -583,8 +637,10 @@ body {
 #interestsModal {
     && .modal-content {
         width: 30rem;
+
         && .center {
             gap: 1rem;
+
             && .desc {
                 color: #888888;
                 font-size: 0.8rem;
@@ -595,6 +651,7 @@ body {
             && .table-cont {
                 margin-top: 0.5rem;
                 gap: 0.05rem;
+
                 && .title {
                     font-weight: 600;
                     margin-left: 0.5rem;
@@ -602,12 +659,14 @@ body {
                     font-size: 1rem;
                     color: #4d4d4d;
                 }
+
                 table {
                     border: 1px solid #e9e9e9;
                     border-radius: 0.75rem;
                     background: #f6f6f6;
                     width: 100%;
                     overflow: hidden;
+
                     && thead {
                         tr {
                             td {
@@ -616,14 +675,16 @@ body {
                                 color: #727272;
                                 font-size: 0.9rem;
 
-                                &&.rank::before{
+                                &&.rank::before {
                                     content: "#";
                                 }
                             }
                         }
                     }
+
                     && tbody {
                         background: #ffffff;
+
                         tr {
                             && td {
                                 padding: 0.5rem 1rem;
@@ -633,32 +694,36 @@ body {
                                 border: 0;
                                 outline: 0;
 
-                                && select{
+                                && select {
                                     padding: 0.2rem 0.75rem;
                                     border-radius: 0.5rem;
                                     background: #f5f5f5;
-                                    transition: background 0.15s ease,outline 0.15s ease;
+                                    transition: background 0.15s ease, outline 0.15s ease;
                                     font-weight: 500;
                                     text-transform: capitalize;
                                     border: 1px solid #d0d0d0;
                                 }
-                                && select:hover{
+
+                                && select:hover {
                                     background: #e8e8e8;
                                 }
 
-                                && select:focus{
+                                && select:focus {
                                     outline: 1px solid #4d4d4d;
                                 }
 
                             }
-                            && td:has( select){
+
+                            && td:has( select) {
                                 padding: 0.05rem 1rem;
                             }
-                            && td:last-child{
+
+                            && td:last-child {
                                 flex: 1;
                             }
 
                         }
+
                         && tr:not(:last-child) {
                             td {
                                 border-bottom: 1px solid #e9e9e9 !important;
@@ -678,19 +743,22 @@ body {
                 gap: 0.25rem;
                 transition: background 0.15s ease;
 
-                &&:hover{
+                &&:hover {
                     background: #303030;
                 }
             }
-            && .pref-action{
+
+            && .pref-action {
                 gap: 0.5rem;
-                && #pref-save{
+
+                && #pref-save {
                     font-weight: 600;
                     background: black;
                     color: white;
                     border: 1px solid black;
                 }
-                && .pref-cancel{
+
+                && .pref-cancel {
                     font-weight: 600;
                 }
             }
@@ -698,6 +766,7 @@ body {
         }
     }
 }
+
 table {
     width: 100%;
     border-collapse: separate; /* Changed from collapse to separate */
@@ -717,16 +786,18 @@ th,
 td {
     border: none !important;
 }
-select{
+
+select {
     font-family: inherit;
     cursor: pointer;
     font-size: inherit;
 
-    && option{
+    && option {
         font-family: inherit;
         font-size: inherit;
     }
 }
-button{
+
+button {
     font-weight: inherit;
 }

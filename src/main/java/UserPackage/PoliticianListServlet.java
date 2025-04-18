@@ -9,23 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/PoliticianListServlet")
+@WebServlet("/load-politicians") // Use a unique URL, NOT profile.jsp
 public class PoliticianListServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Servlet reached!");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         try {
             List<PoliticianModel> politicians = PoliticianController.getPoliticianList();
-
             System.out.println("Politicians found: " + politicians.size());
             request.setAttribute("politicians", politicians);
-            System.out.println("Attribute set!");
-            RequestDispatcher dis = request.getRequestDispatcher(request.getContextPath() + "/Profile/profile.jsp");
-            dis.forward(request, response);
 
-            System.out.println("Servlet called! Politicians count: " + politicians.size());
+            // Forward to the actual JSP
+//            request.getRequestDispatcher("/Profile/profile.jsp").forward(request, response);
+
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

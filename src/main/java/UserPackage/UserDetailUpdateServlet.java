@@ -33,7 +33,7 @@ public class UserDetailUpdateServlet extends HttpServlet {
         String address = request.getParameter("address");
         String p_no = request.getParameter("phoneNumber");
         String province = request.getParameter("province");
-
+        String political_view = request.getParameter("political_view");
 
         boolean isUpdated = false;
         Object userProfile = null;
@@ -42,7 +42,7 @@ public class UserDetailUpdateServlet extends HttpServlet {
             System.out.println(userType);
             switch (userType.toLowerCase()) {
                 case "citizen":
-                    isUpdated = CitizenController.updateCitizenUser(userId, name, district, province, address, p_no);
+                    isUpdated = CitizenController.updateCitizenUser(userId, name, district, province, address, p_no, political_view);
                     if (isUpdated) {
                         List<CitizenModel> updatedCitizen = CitizenController.CitizenProfile(userId);
                         if (!updatedCitizen.isEmpty()) {
@@ -53,7 +53,7 @@ public class UserDetailUpdateServlet extends HttpServlet {
                     break;
                 case "politician":
                     System.out.println("in Politician");
-                  isUpdated = PoliticianController.updatePoliticianProfile(userId, name, address,p_no,district,province);
+                  isUpdated = PoliticianController.updatePoliticianProfile(userId, name, address,p_no,district,province,political_view);
                   if(isUpdated) {
                       List<PoliticianModel> updatedPolitician = PoliticianController.PoliticianProfile(userId);
                       if (!updatedPolitician.isEmpty()) {

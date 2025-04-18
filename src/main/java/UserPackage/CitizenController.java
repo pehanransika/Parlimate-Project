@@ -52,7 +52,8 @@ public class CitizenController {
                         rs.getString("phoneNumber"),
                         rs.getString("name"),
                         rs.getString("district"),
-                        rs.getString("province")
+                        rs.getString("province"),
+                        rs.getString("political_view")
                 );
             }
 //            conn.close();
@@ -78,8 +79,9 @@ public class CitizenController {
                     String name = rs.getString("name");
                     String district = rs.getString("district");
                     String province = rs.getString("province");
+                    String political_view = rs.getString("political_view");
 
-                    CitizenModel citizen = new CitizenModel(citizenid, userid, address, phoneNumber, name, district, province);
+                    CitizenModel citizen = new CitizenModel(citizenid, userid, address, phoneNumber, name, district, province,political_view);
                     citizens.add(citizen);
                 }
             }
@@ -112,9 +114,9 @@ public class CitizenController {
         return false;
     }
 
-    public static boolean updateCitizenUser(int userId, String name, String district, String province, String address, String p_no) {
+    public static boolean updateCitizenUser(int userId, String name, String district, String province, String address, String p_no, String political_view) {
         boolean isSuccessful = true;
-        String sql = "Update citizen set name=? , district=?, province=? , address=? ,phone_number=? where user_id=? ";
+        String sql = "Update citizen set name=? , district=?, province=? , address=? ,phone_number=?, political_view=? where user_id=? ";
 
         try {
             conn = DBConnection.getConnection();
@@ -125,7 +127,8 @@ public class CitizenController {
             pst.setString(3, province);
             pst.setString(4, address);
             pst.setString(5, p_no);
-            pst.setInt(6, userId);
+            pst.setString(6, political_view);
+            pst.setInt(7, userId);
 
             int rowsUpdated = pst.executeUpdate();
 

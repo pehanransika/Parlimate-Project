@@ -3,6 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- Check for session and user --%>
+
 <%
     HttpSession session1 = (HttpSession) request.getSession(false);
     if (session1 == null || session.getAttribute("user") == null) {
@@ -15,8 +16,7 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
 %>
-<%@ page isErrorPage="true" %>
-<%@ page errorPage="../invalidPage.jsp" %>
+<jsp:include page="/load-politicians" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,26 +105,25 @@
                         <tr>
                             <td class="rank">1</td>
                             <td
-<%--                                    data-options="test1,test2,test3,Ms. Anjali Karunaratne"--%>
                                     data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
                             >
-                                Ms. Anjali Karunaratne
+                                <c:if test="${not empty politicians}">${politicians[1].name}</c:if>
                             </td>
                         </tr>
                         <tr>
                             <td class="rank">2</td>
                             <td
-                                    data-options="test1,test2,test3,Ms. Dr. Niroshan Wijegunawardena"
+                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
                             >
-                                Dr. Niroshan Wijegunawardena
+                                <c:if test="${not empty politicians}">${politicians[2].name}</c:if>
                             </td>
                         </tr>
                         <tr>
                             <td class="rank">3</td>
                             <td
-                                    data-options="test1,test2,test3, Maj. Gen. (Retd.) Sarath Bandara"
+                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
                             >
-                                Maj. Gen. (Retd.) Sarath Bandara
+                                <c:if test="${not empty politicians}">${politicians[3].name}</c:if>
                             </td>
                         </tr>
                         </tbody>
@@ -289,6 +288,10 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="political-view-field max-width f-col">
+                            <label for="political-view-field" class="input-head">Political view</label>
+                            <textarea name="political_view" id="political-view-field">${(userProfile.politicalView)}</textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="profile-pic f-col">
@@ -345,7 +348,11 @@
             <div class="city caps">
                 ${userProfile.district}  , ${userProfile.province} province &#127473;&#127472;
             </div>
-
+            <div class="political-view f-col">
+                <span class="content">
+                    ${userProfile.politicalView}
+                </span>
+            </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
                     <button class="intrst-btn">
