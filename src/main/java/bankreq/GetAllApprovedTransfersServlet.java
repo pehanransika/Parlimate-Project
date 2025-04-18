@@ -14,20 +14,24 @@ public class GetAllApprovedTransfersServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // Get all approved transfers
+            // Retrieve all approved transfers from the controller
             List<ApprovedTransferModel> approvedTransfers =
                     ApprovedTransferController.getAllApprovedTransfers();
 
-            // Set as request attribute
+            // Set the data as a request attribute
             request.setAttribute("approvedTransfers", approvedTransfers);
 
-            // Forward to JSP page
-            request.getRequestDispatcher("/admin/BankTransferManagement/GetAllApprovedTransfersServlet")
+            // Forward to the actual JSP that displays the approved transfers
+            request.getRequestDispatcher("/admin/BankTransferManagement/BankTransferManagement.jsp")
                     .forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Set the error message to show in the JSP
             request.setAttribute("error", "Error retrieving approved transfers: " + e.getMessage());
+
+            // Forward to the same JSP even on error
             request.getRequestDispatcher("/admin/BankTransferManagement/BankTransferManagement.jsp")
                     .forward(request, response);
         }

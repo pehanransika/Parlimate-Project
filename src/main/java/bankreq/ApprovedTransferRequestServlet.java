@@ -27,8 +27,14 @@ public class ApprovedTransferRequestServlet extends HttpServlet {
             boolean success = ApprovedTransferController.approveTransferRequest(transferId);
 
             if (success) {
-                response.sendRedirect(request.getContextPath() +
-                        "/admin/BankTransferManagement/GetAllApprovedTransfersServlet?success=true");
+                response.setContentType("text/html");
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('Approve transfer successfully');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/BankTransferManagement/GetAllApprovedTransfersServlet';" +
+                                "</script>"
+                );
+
             } else {
                 request.setAttribute("error", "Failed to approve request");
                 request.getRequestDispatcher("/admin/BankTransferManagement/BankTransferManagement.jsp")

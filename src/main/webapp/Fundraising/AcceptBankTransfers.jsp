@@ -176,24 +176,31 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${approvedTransfers}" var="transfer">
-      <tr>
-        <td>${transfer.transfer_id}</td>
-        <td><fmt:formatDate value="${transfer.transfer_date}" pattern="MMM dd, yyyy hh:mm a"/></td>
-        <td>${transfer.account_holder_name}</td>
-        <td>${transfer.bank_name}</td>
-        <td><fmt:formatNumber value="${transfer.amount}" type="currency" currencySymbol="${transfer.currency}"/></td>
-        <td><span class="status-badge status-approved">Approved</span></td>
-        <td>
-          <button class="action-btn view-btn" onclick="viewDetails(${transfer.transfer_id})">
-            <i class="fas fa-eye"></i> View
-          </button>
-          <button class="action-btn download-btn" onclick="downloadReceipt('${transfer.receipt_image_path}')">
-            <i class="fas fa-download"></i> Receipt
-          </button>
-        </td>
-      </tr>
-    </c:forEach>
+    <c:choose>
+      <c:when test="${empty approvedTransferstouser}">
+        <tr><td colspan="7">No approved transfers found.</td></tr>
+      </c:when>
+      <c:otherwise>
+        <c:forEach items="${approvedTransferstouser}" var="transfer">
+          <tr>
+            <td>${transfer.transfer_id}</td>
+            <td><fmt:formatDate value="${transfer.transfer_date}" pattern="MMM dd, yyyy hh:mm a"/></td>
+            <td>${transfer.account_holder_name}</td>
+            <td>${transfer.bank_name}</td>
+            <td><fmt:formatNumber value="${transfer.amount}" type="currency" currencySymbol="${transfer.currency}"/></td>
+            <td><span class="status-badge status-approved">Approved</span></td>
+            <td>
+              <button class="action-btn view-btn" onclick="viewDetails(${transfer.transfer_id})">
+                <i class="fas fa-eye"></i> View
+              </button>
+              <button class="action-btn download-btn" onclick="downloadReceipt('${transfer.receipt_image_path}')">
+                <i class="fas fa-download"></i> Receipt
+              </button>
+            </td>
+          </tr>
+        </c:forEach>
+      </c:otherwise>
+    </c:choose>
     </tbody>
   </table>
 </div>
@@ -210,21 +217,13 @@
     });
   });
 
-  // View transfer details
   function viewDetails(transferId) {
     window.location.href = `ViewTransferDetailsServlet?transferId=${transferId}`;
   }
 
-  // Download receipt
   function downloadReceipt(receiptPath) {
     window.location.href = `DownloadReceiptServlet?receiptPath=${encodeURIComponent(receiptPath)}`;
   }
-
-  // Initialize page
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('Approved transfers page loaded');
-    // Additional initialization can go here
-  });
 </script>
 </body>
 </html>

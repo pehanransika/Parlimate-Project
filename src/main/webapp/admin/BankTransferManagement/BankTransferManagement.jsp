@@ -300,25 +300,7 @@
     });
 
     // Transfer approval functions
-    function approveTransfer(transferId) {
-        if (confirm('Are you sure you want to approve this transfer?')) {
-            // Send AJAX request to approve the transfer
-            fetch(`/approveTransfer?transferId=${transferId}`, {
-                method: 'POST'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Transfer approved successfully!');
-                        location.reload();
-                    } else {
-                        alert('Failed to approve transfer.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while approving the transfer.');
-                });
-        }
+
 
 
     /*function rejectTransfer(transferId) {

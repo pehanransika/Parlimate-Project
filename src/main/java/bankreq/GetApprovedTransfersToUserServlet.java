@@ -8,18 +8,19 @@ import java.util.List;
 
 @WebServlet("/GetApprovedTransfersToUserServlet")
 public class GetApprovedTransfersToUserServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-            // 1. Get approved transfers from service layer
-            List<ApprovedTransferModel> approvedTransfers = ApprovedTransferController.getAllApprovedTransfers();
+            // Get all approved transfers (assumes controller method works)
+            List<ApprovedTransferModel> approvedTransferstouser = ApprovedTransferController.getAllApprovedTransfers();
 
-            // 2. Set data in request scope
-            request.setAttribute("approvedTransfers", approvedTransfers);
+            // Set data to request scope
+            request.setAttribute("approvedTransferstouser", approvedTransferstouser);
 
-            // 3. Forward to JSP view
+            // Forward to JSP page
             request.getRequestDispatcher("/Fundraising/AcceptBankTransfer.jsp").forward(request, response);
 
         } catch (Exception e) {
