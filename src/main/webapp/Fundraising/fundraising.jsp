@@ -358,7 +358,9 @@
                             <div class="content col">
                                 <div class="imgs row">
                                     <c:if test="${not empty approveModel.photos}">
-                                        <div class="img" style="background-image: url('${approveModel.photos}')"></div>
+                                        <div class="img"
+                                             style="background-image: url('${pageContext.request.contextPath}/${approveModel.photos}')">
+                                        </div>
                                     </c:if>
                                 </div>
 
@@ -473,7 +475,9 @@
                                 <!-- Receipt Upload -->
                                 <div class="form-group">
                                     <label for="receipt">Upload Transfer Receipt*</label>
-                                    <input type="file" id="receipt" name="receipt_image_path" accept="image/*,.pdf" required>
+
+
+                                    <input type="file" name="receipt_image_path" id="receipt" multiple >
                                     <small>Upload clear image/PDF of your bank transfer receipt</small>
                                 </div>
 

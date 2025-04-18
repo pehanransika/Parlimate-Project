@@ -468,6 +468,30 @@
     <servlet-name>DeleteMeetingRequestServlet</servlet-name>
     <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AuthorizePaymentServlet</servlet-name>
+    <servlet-class>cardreq.AuthorizePaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthorizePaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/AuthorizePaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ReviewPaymentServlet</servlet-name>
+    <servlet-class>cardreq.ReviewPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewPaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/ReviewPaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ConfirmPaymentServlet</servlet-name>
+    <servlet-class>cardreq.ConfirmPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmPaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/ConfirmPaymentServlett</url-pattern>
+  </servlet-mapping>
 
 
 <filter>

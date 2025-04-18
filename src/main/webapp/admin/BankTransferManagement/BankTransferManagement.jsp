@@ -165,7 +165,17 @@
                                     <div class="info-row f-row">
                                         <div class="info-label">Receipt:</div>
                                         <div class="info-value">
-                                            <img src="${transfer.receipt_image_path}" alt="Receipt" class="receipt-img" onclick="showReceipt('${transfer.receipt_image_path}')">
+
+                                            <span>
+        <c:if test="${not empty transfer.receipt_image_path}">
+            <a href="${pageContext.request.contextPath}/${transfer.receipt_image_path}" target="_blank">
+                View Receipt
+            </a>
+        </c:if>
+        <c:if test="${empty transfer.receipt_image_path}">
+            No Receipt available
+        </c:if>
+    </span>
                                         </div>
                                     </div>
                                 </div>

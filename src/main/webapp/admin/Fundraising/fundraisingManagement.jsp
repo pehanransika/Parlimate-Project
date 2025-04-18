@@ -212,8 +212,28 @@
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
                             <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
-                            <td><a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}" target="_blank">View</a></td>
-                            <td><a href="${fund.photos != null ? fund.photos : '#'}" target="_blank">View</a></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty fund.attachmentUrl}">
+                                        <a href="${pageContext.request.contextPath}/${fund.attachmentUrl}"
+                                           target="_blank">View Attachment</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>No attachment</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty fund.photos}">
+                                        <a href="${pageContext.request.contextPath}/${fund.photos}"
+                                           target="_blank">View Photo</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>No photo</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td>${fund.status}</td>
 
                             <td class="actbtn">
@@ -308,18 +328,26 @@
                             <td>${fund.category != null ? fund.category : 'N/A'}</td>
                             <td>${fund.targetamount != 0 ? fund.targetamount : 'N/A'}</td>
                             <td>
-                                <a href="${fund.attachmentUrl != null ? fund.attachmentUrl : '#'}"
-                                   target="_blank"
-                                    ${fund.attachmentUrl == null ? 'style="pointer-events: none; color: gray;"' : ''}>
-                                    View
-                                </a>
+                                <c:choose>
+                                    <c:when test="${not empty fund.attachmentUrl}">
+                                        <a href="${pageContext.request.contextPath}/${fund.attachmentUrl}"
+                                           target="_blank">View Attachment</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>No attachment</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td>
-                                <a href="${fund.photos != null ? fund.photos : '#'}"
-                                   target="_blank"
-                                    ${fund.photos == null ? 'style="pointer-events: none; color: gray;"' : ''}>
-                                    View
-                                </a>
+                                <c:choose>
+                                    <c:when test="${not empty fund.photos}">
+                                        <a href="${pageContext.request.contextPath}/${fund.photos}"
+                                           target="_blank">View Photo</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>No photo</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
