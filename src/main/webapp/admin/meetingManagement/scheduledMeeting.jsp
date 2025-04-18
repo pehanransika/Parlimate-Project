@@ -187,6 +187,7 @@
                         <td>Deadline</td>
                         <td>Slots</td>
                         <td>Available Slots</td>
+                        <td>Registered Users</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -204,6 +205,10 @@
                             <td>${meetings.deadlinetoregister}</td>
                             <td>${meetings.slots}</td>
                             <td>${meetings.availableSlots}</td>
+                            <td><form action="GetRegisteredUserServlet" method="get">
+                                <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
+                                <button type="submit">View</button>
+                            </form></td>
                         </tr>
                     </c:forEach>
                     </tbody>

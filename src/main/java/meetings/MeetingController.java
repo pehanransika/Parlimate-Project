@@ -75,7 +75,7 @@ public class MeetingController {
     }
 
     public static List<MeetingModel> getAllMeetings() {
-        String query = "SELECT * FROM meetings";
+        String query = "SELECT  * FROM meetings ORDER BY CASE WHEN availableslots >0 THEN 0 ELSE 1 END, CASE WHEN date >= CURRENT_DATE THEN 0 ELSE 1 END, date ASC;";
         List<MeetingModel> meetings = new ArrayList<>();
 
         try (Connection connection = DBConnection.getConnection(); Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
@@ -177,7 +177,7 @@ public class MeetingController {
         try (Connection con = DBConnection.getConnection()) {
             String sql = "SELECT m.* FROM meetings m " +
                     "JOIN meetingusers mu ON m.meetingId = mu.meetingId " +
-                    "WHERE mu.userId = ?";
+                    "WHERE mu.userId = ? ORDER BY CASE WHEN date >= CURRENT_DATE THEN 0 ELSE 1 END, date ASC;";
 
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, userId);

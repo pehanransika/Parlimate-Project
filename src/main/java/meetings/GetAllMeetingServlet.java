@@ -19,6 +19,7 @@ public class GetAllMeetingServlet extends HttpServlet {
         try {
             // Fetch all meetings from MeetingController
             System.out.println("Trying to get all meetings");
+
             List<MeetingModel> allMeetings = MeetingController.getAllMeetings();
 
             // Set the list as a request attribute
