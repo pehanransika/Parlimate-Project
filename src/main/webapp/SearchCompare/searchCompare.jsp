@@ -12,12 +12,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search & Compare</title>
 
-  <link rel="stylesheet" href="./searchCompare.css" />
-
+  <link rel="stylesheet" href="searchCompare.css" />
   <link rel="stylesheet" href="index/sidebar1.css" />
   <link rel="stylesheet" href="index/header/header.css" />
-  <link rel="stylesheet" href="../index.css" />
-
+  <link rel="stylesheet" href="../index.css"/>
   <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
   <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
 
@@ -66,186 +64,415 @@
   </div>
   <div class="scContainer">
     <table>
-      <tr>
-        <td>
-          <select
-                  name="role"
-                  id="roleSelect"
-                  class="roleType caps"
-          >
-            <option value="politician">politician</option>
-            <option value="political-party">
-              <i class="fa-solid fa-landmark"></i
-              >political party
-            </option>
-          </select>
-        </td>
-        <td class="column-head f-col">
-          <div class="content f-col">
-            <div class="search">
-              <input
-                      type="text"
-                      name="col1-search"
-                      placeholder="Mahinda Rajapaksha"
-                      class="search-2"
-                      id="col1-search"
-                      autocomplete="off"
-              />
-              <div
-                      class="suggestions-dropdown"
-                      id="suggestions"
-              ></div>
-              <label for="col1-search">
-                <i
-                        class="fa-regular fa-magnifying-glass"
-                ></i>
-              </label>
-            </div>
-            <div class="image"></div>
-            <div class="name-shown">
-              Ms. Anjali Karunaratne
-            </div>
-          </div>
-        </td>
-        <td class="column-head f-col">
-          <div class="content f-col">
-            <div class="search">
-              <input
-                      type="text"
-                      name="col2-search"
-                      placeholder="Mahinda Rajapaksha"
-                      class="search-2"
-                      id="col2-search"
-                      autocomplete="off"
-              />
+      <form action="GetPoliticianProfileDetailsServlet" method="get">
+        <tr>
+          <td>
+            <select name="role" id="roleSelect" class="roleType caps">
+              <option value="politician">politician</option>
+              <option value="political-party">political party</option>
+            </select>
+          </td>
 
-              <label for="col2-search">
-                <i
-                        class="fa-regular fa-magnifying-glass"
-                ></i>
-              </label>
+          <!-- Politician 1 -->
+          <td class="column-head f-col">
+            <div class="content f-col">
+              <div class="search">
+                <input
+                        type="text"
+                        name="politicianName1"
+                        placeholder="Enter Politician Name"
+                        class="search-2"
+                        id="col1-search"
+                        autocomplete="off"
+                        required
+                />
+                <ul id="col1-suggestions" class="suggestion-box"></ul>
+                <label for="col1-search">
+                  <i class="fa-regular fa-magnifying-glass"></i>
+                </label>
+              </div>
+              <div class="image"></div>
+              <div class="name-shown">Politician 1</div>
             </div>
-            <div class="image"></div>
-            <div class="name-shown">
-              Dr. Niroshan Wijegunawardena
+          </td>
+
+          <!-- Politician 2 -->
+          <td class="column-head f-col">
+            <div class="content f-col">
+              <div class="search">
+                <input
+                        type="text"
+                        name="politicianName2"
+                        placeholder="Enter Politician Name  (optional)"
+                        class="search-2"
+                        id="col2-search"
+                        autocomplete="off"
+                />
+                <ul id="col2-suggestions" class="suggestion-box"></ul>
+                <label for="col2-search">
+                  <i class="fa-regular fa-magnifying-glass"></i>
+                </label>
+              </div>
+              <div class="image"></div>
+              <div class="name-shown">Politician 2</div>
             </div>
-          </div>
-        </td>
-      </tr>
+          </td>
+        </tr>
+
+        <!-- Submit button row -->
+        <tr>
+          <td colspan="3" style="text-align: center; padding-top: 10px;">
+            <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
+            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>
+            <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Profiles</button>
+          </td>
+        </tr>
+      </form>
       <tr style="border: 0">
         <td colspan="3">
           <div class="select-attributes f-row">
-            <input
-                    type="radio"
-                    name="select-attr"
-                    id="all-attr"
-                    checked
-            />
+            <input type="radio" name="select-attr" id="all-attr" data-target="" checked />
             <label for="all-attr">All</label>
-            <input
-                    type="radio"
-                    name="select-attr"
-                    id="gen-info-attr"
-            />
-            <label for="gen-info-attr"
-            >General Information</label
-            >
-            <input
-                    type="radio"
-                    name="select-attr"
-                    id="key-attr"
-            />
+
+            <input type="radio" name="select-attr" id="gen-info-attr" data-target="general-info" />
+            <label for="gen-info-attr">General Information</label>
+
+            <input type="radio" name="select-attr" id="edu-attr" data-target="educational-background" />
+            <label for="edu-attr">Educational Background</label>
+
+            <input type="radio" name="select-attr" id="prof-attr" data-target="professional-background" />
+            <label for="prof-attr">Professional Background</label>
+
+            <input type="radio" name="select-attr" id="pol-details-attr" data-target="political-details" />
+            <label for="pol-details-attr">Political Details</label>
+
+            <input type="radio" name="select-attr" id="key-attr" data-target="key-policies" />
             <label for="key-attr">Key Policies</label>
-            <input
-                    type="radio"
-                    name="select-attr"
-                    id="edu-attr"
-            />
-            <label for="edu-attr">Education</label>
+
+            <input type="radio" name="select-attr" id="socialmedia-attr" data-target="social-media" />
+            <label for="socialmedia-attr">Social Media</label>
+
+            <input type="radio" name="select-attr" id="election-results-attr" data-target="election-results" />
+            <label for="election-results-attr">Latest Election Results</label>
           </div>
+
         </td>
       </tr>
+
       <!-- from here we will update details :) -->
       <div class="gen-inf detail-section">
         <tr class="detail-begin row-title">
           <td colspan="3">
-            <div class="details-title">
-              General Information
-            </div>
+            <div class="details-title" id="general-info">General Information</div>
           </td>
         </tr>
+
         <tr>
-          <td class="row-head">party</td>
-          <td>Progressive Party</td>
-          <td>Conservation alliance</td>
+          <td class="row-head">Full Name</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.fullName}</td>
+          </c:forEach>
         </tr>
+
         <tr>
           <td class="row-head">age</td>
-          <td>38</td>
-          <td>45</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.age}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Position</td>
-          <td>Senetor</td>
-          <td>governor</td>
+          <td class="row-head">Gender</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.gender}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Profession before politics</td>
-          <td>Teacher</td>
-          <td>lecturer</td>
+          <td class="row-head">Public Contact Number</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.publicContactNumber}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Years in politics</td>
-          <td>8</td>
-          <td>13</td>
+          <td class="row-head">Public Email Address</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.publicEmailAddress}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Constituency</td>
-          <td>colombo central</td>
-          <td>Kandy south</td>
+          <td class="row-head">District</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.district}</td>
+          </c:forEach>
         </tr>
-        <tr>
-          <td class="row-head">rank on the platform</td>
-          <td>300</td>
-          <td>256</td>
-        </tr>
-      </div>
-      <div class="key-pol detail-section">
-        <tr class="row-title">
+
+
+        <tr class="detail-begin row-title">
           <td colspan="3">
-            <div class="details-title">key policies</div>
+            <div class="details-title" id="educational-background">Background</div>
           </td>
         </tr>
+
         <tr>
-          <td class="row-head">Economic Policy</td>
-          <td>Raise minimum wage, tax the rich</td>
-          <td>-</td>
+          <td class="row-head">Schools Attended</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.schoolsAttended}</td>
+          </c:forEach>
         </tr>
+
+        <tr>
+          <td class="row-head">University</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.university}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Highest Educational Qualification</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.highestEducationQualification}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Field of Study</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.fieldOfStudy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Educational Qualifications</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.educationalQualifications}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="professional-background">Professional Background</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Profession</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.profession}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Work Experience Summary</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.workExperienceSummary}</td>
+          </c:forEach>
+        </tr>
+
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="political-details">Political Details</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">party</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.party}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Level</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralLevel}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Province</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralProvince}</td>
+          </c:forEach>
+        </tr>
+
+
+        <tr>
+          <td class="row-head">Electoral District</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralDistrict}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Division</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralDivision}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Current Position</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.currentPosition}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Current Position Held in Party</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.currentPositionInParty}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Years active in Politics</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.yearsActiveInPolitics}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="election-results">Latest Election Results</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Year</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electionYear}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Type of Election</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.typeOfElection}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">No of Votes</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.numberOfVotes}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Result</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electionResult}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="key-policies">Policies</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Vision / Slogan </td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.visionOrSlogan}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Economic</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.economicPolicy}</td>
+          </c:forEach>
+        </tr>
+
         <tr>
           <td class="row-head">healthcare</td>
-          <td>Universal healthcare</td>
-          <td>Private market-based healthcare</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.healthcarePolicy}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Climate Policy</td>
-          <td>100% renewables by 2040</td>
-          <td>Support oil & gas, carbon capture</td>
+          <td class="row-head">Infrastructure</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.infrastructurePolicy}</td>
+          </c:forEach>
         </tr>
+
         <tr>
           <td class="row-head">Education</td>
-          <td>Free public college</td>
-          <td>School choice & vocational ed</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.educationPolicy}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Notable Quotes</td>
-          <td>“Healthcare is a human right.”</td>
-          <td>“Freedom begins with less gov’t.”</td>
+          <td class="row-head">Youth Development</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.youthDevelopmentPolicy}</td>
+          </c:forEach>
         </tr>
+
         <tr>
-          <td class="row-head">Immigration</td>
+          <td class="row-head">Agriculture</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.agriculturePolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Other</td>
           <td>-</td>
-          <td>Stricter border control</td>
+          <td>-</td>
         </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="social-media">Social Media</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Facebook</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.facebook}" target="_blank">${politician.facebook}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">X</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.x}" target="_blank">${politician.x}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">LinkedIn</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.linkedin}" target="_blank">${politician.linkedin}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Instagram</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.instagram}" target="_blank">${politician.instagram}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+
       </div>
     </table>
   </div>
@@ -337,6 +564,68 @@
       suggestionsContainer.style.display = "none";
     }
   });
+
+  document.querySelectorAll('input[name="select-attr"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const targetId = radio.getAttribute('data-target');
+      if (targetId) {
+        const section = document.getElementById(targetId);
+        if (section) {
+          const yOffset = -70; // adjust based on your header height
+          const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+  function setupAutoSuggest(inputId, suggestionBoxId) {
+    const input = document.getElementById(inputId);
+    const suggestionBox = document.getElementById(suggestionBoxId);
+
+    input.addEventListener("input", function () {
+      const query = input.value.trim();
+
+      if (query.length === 0) {
+        suggestionBox.innerHTML = "";
+        return;
+      }
+
+      fetch("NameSuggestionsServlet?query=" + encodeURIComponent(query))
+              .then(response => response.text())
+              .then(text => {
+                const names = text.trim().split("\n");
+                suggestionBox.innerHTML = "";
+                names.forEach(name => {
+                  const option = document.createElement("div");
+                  option.className = "suggestion-item";
+                  option.textContent = name;
+                  option.onclick = function () {
+                    input.value = name;
+                    suggestionBox.innerHTML = "";
+                  };
+                  suggestionBox.appendChild(option);
+                });
+              })
+              .catch(err => {
+                console.error("Error fetching suggestions:", err);
+              });
+    });
+
+    // Optional: hide suggestions when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!suggestionBox.contains(e.target) && e.target !== input) {
+        suggestionBox.innerHTML = "";
+      }
+    });
+  }
+
+  // Initialize for both input fields
+  setupAutoSuggest("col1-search", "col1-suggestions");
+  setupAutoSuggest("col2-search", "col2-suggestions");
+
 </script>
 
 <body>

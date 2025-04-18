@@ -236,10 +236,18 @@
         </div>
 
         <!-- Edit Profile Button -->
-        <a href="./editProfile/edit.jsp" class="edit-btn btn row capitalize">
-            <i class="fa-solid fa-pen-to-square"></i>
-            Edit Profile
-        </a>
+
+        <div class="edit-buttons-wrapper">
+            <c:if test="${not empty user && user.userType eq 'Politician'}">
+                <a href="./editPublicDetails/editPoliticianPublicDetails.jsp" class="btn edit-public capitalize row">
+                    <i class="fa-solid fa-user-pen"></i>&nbsp;Edit Public Details
+                </a>
+            </c:if>
+            <a href="./editProfile/edit.jsp" class="btn edit-btn capitalize row">
+                <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit Profile
+            </a>
+        </div>
+
 
         <!-- View My Posts -->
         <div class="bottom">

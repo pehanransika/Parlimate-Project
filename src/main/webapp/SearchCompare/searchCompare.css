@@ -221,3 +221,25 @@ tr.detail-begin td {
     font-size: 0.75rem;
     color: #5d5d5d;
 }
+
+.suggestion-box {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin-top: 2px;
+    z-index: 999;
+}
+
+.suggestion-box li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-box li:hover {
+    background-color: #f0f0f0;
+}

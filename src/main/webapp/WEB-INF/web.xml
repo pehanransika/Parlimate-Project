@@ -354,7 +354,23 @@
     <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetRegisteredMeetingsServlet</url-pattern>
   </servlet-mapping>
-<filter>
+  <servlet>
+    <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.GetPoliticianProfileDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
+    <url-pattern>/SearchCompare/GetPoliticianProfileDetailsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NameSuggestionsServlet</servlet-name>
+    <servlet-class>publicprofile.NameSuggestionsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NameSuggestionsServlet</servlet-name>
+    <url-pattern>/Parlimate/SearchCompare/NameSuggestionsServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
   </filter>
