@@ -7,16 +7,20 @@ public class PoliticianModel  {
     private String address;
     private String phoneNumber;
     private Integer politicalPartyId; // Nullable if no party
+    private String district;
+    private String province;
 
 
     public PoliticianModel(int userId,int politicianId, String name, String address, String phoneNumber,
-                      int politicalPartyId) {
+                      int politicalPartyId, String district, String province) {
         this.userId = userId;
         this.politicianId = politicianId;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.politicalPartyId = politicalPartyId;
+        this.district = district;
+        this.province = province;
 
     }
 
@@ -36,7 +40,11 @@ public class PoliticianModel  {
     public Integer getPoliticalPartyId() { return politicalPartyId; }
     public void setPoliticalPartyId(Integer politicalPartyId) { this.politicalPartyId = politicalPartyId; }
 
+    public String getDistrict() { return district; }
+    public void setDistrict(String district) { this.district = district; }
 
+    public String getProvince() { return province; }
+    public void setProvince(String province) { this.province = province; }
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }

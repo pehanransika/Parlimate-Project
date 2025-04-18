@@ -15,7 +15,8 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
 %>
-
+<%@ page isErrorPage="true" %>
+<%@ page errorPage="../invalidPage.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +29,8 @@
     <link rel="stylesheet" href="./profile.css">
     <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
+
+    <script src="../formatDate.js" ></script>
     <style>
         body {
             background: #f0f0f0;
@@ -72,7 +75,6 @@
     </div>
 </c:if>
 <div class="container">
-
     <div id="interestsModal" class="modal">
         <div class="modal-content">
             <div class="top f-row caps">
@@ -101,15 +103,16 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>#1</td>
+                            <td class="rank">1</td>
                             <td
-                                    data-options="test1,test2,test3,Ms. Anjali Karunaratne"
+<%--                                    data-options="test1,test2,test3,Ms. Anjali Karunaratne"--%>
+                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
                             >
                                 Ms. Anjali Karunaratne
                             </td>
                         </tr>
                         <tr>
-                            <td>#2</td>
+                            <td class="rank">2</td>
                             <td
                                     data-options="test1,test2,test3,Ms. Dr. Niroshan Wijegunawardena"
                             >
@@ -117,7 +120,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>#3</td>
+                            <td class="rank">3</td>
                             <td
                                     data-options="test1,test2,test3, Maj. Gen. (Retd.) Sarath Bandara"
                             >
@@ -140,7 +143,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>#1</td>
+                            <td class="rank">1</td>
                             <td
                                     data-options="test1,test2,test3,United Progressive Front (UPF)"
                             >
@@ -148,7 +151,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>#2</td>
+                            <td class="rank">2</td>
                             <td
                                     data-options="test1,test2,test3,Ms. People's Power Alliance (PPA)"
                             >
@@ -156,7 +159,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>#3</td>
+                            <td class="rank">3</td>
                             <td
                                     data-options="test1,test2,test3,National Unity Party (NUP)"
                             >
@@ -218,9 +221,6 @@
                             <label for="name-input" class="input-head"
                             >full name</label
                             >
-                            <span>
-                                ${posts.userId}
-                            </span>
                             <input
                                     type="text"
                                     name="full-name"
@@ -231,6 +231,10 @@
                         <div class="phone-number">
                             <label for="phoneNumber" class="input-head">phone number</label>
                             <input type="text" name="phoneNumber" id="phoneNumber" value="${userProfile.phoneNumber}">
+                        </div>
+                        <div class="address-input max-width">
+                            <label for="address" class="input-head">address</label>
+                            <input type="text" name="address" id="address" value="${userProfile.address}">
                         </div>
                         <div class="city">
                             <label
@@ -339,8 +343,9 @@
             </div>
             <div class="profession">Product Designer at Senica</div>
             <div class="city caps">
-                ${userProfile.district}  , ${userProfile.province} &#127473;&#127472;
+                ${userProfile.district}  , ${userProfile.province} province &#127473;&#127472;
             </div>
+
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
                     <button class="intrst-btn">
@@ -429,6 +434,11 @@
 <script src="../script.js"></script>
 <script src="./popupModals.js"></script>
 <script>
+    const dateField = document.querySelector(".joined-date .date");
+    const formatedDate = formatDate(dateField.innerHTML)
+    console.log(formatedDate);
+    dateField.innerHTML= formatedDate;
+
     console.log("UserProfile data:", {
         exists: ${not empty userProfile},
         userId: '${userProfile.userId}',

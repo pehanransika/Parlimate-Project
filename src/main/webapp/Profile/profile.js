@@ -80,7 +80,7 @@ function renderPosts(posts) {
                     <h4>${escapeHtml(post.name || 'Unknown User')}</h4>
                     <div class="f-row" style="gap: 0.5rem; color: grey">
                     <i class="fa-regular fa-clock"></i>
-                    <span>${formatDate(post.datetime)}</span>
+                    <span>${formatDateWithTime(post.datetime)}</span>
                     
 </div>
                 </div>

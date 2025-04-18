@@ -112,23 +112,20 @@ public class CitizenController {
         return false;
     }
 
-    public static boolean updateCitizenUser(int userId, String name, String district, String province) {
+    public static boolean updateCitizenUser(int userId, String name, String district, String province, String address, String p_no) {
         boolean isSuccessful = true;
-        String sql = "Update citizen set name=? , district=?, province=? where user_id=? ";
+        String sql = "Update citizen set name=? , district=?, province=? , address=? ,phone_number=? where user_id=? ";
 
         try {
             conn = DBConnection.getConnection();
             pst = conn.prepareStatement(sql);
 
-            System.out.println("Executing update query for user: " + userId);
-            System.out.println("[DEBUG] New name: " + name);
-            System.out.println("[DEBUG] New district: " + district);
-            System.out.println("[DEBUG] New province: " + province);
-
             pst.setString(1, name);
             pst.setString(2, district);
             pst.setString(3, province);
-            pst.setInt(4, userId);
+            pst.setString(4, address);
+            pst.setString(5, p_no);
+            pst.setInt(6, userId);
 
             int rowsUpdated = pst.executeUpdate();
 
@@ -155,7 +152,6 @@ public class CitizenController {
 
             // Log and return the result
             if (rowsAffected > 0) {
-                System.out.println("Citizen with user_id " + userId + " deleted successfully.");
                 return true; // Deletion was successful
             } else {
                 System.out.println("No citizen found with user_id " + userId + ".");

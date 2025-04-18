@@ -14,7 +14,6 @@ public class DBConnection {
         Connection con = null;
         try {
             Class.forName("org.postgresql.Driver"); // Ensure driver is loaded
-            System.out.println("Driver loaded successfully.");
             con = DriverManager.getConnection(url, username, password);
             if (con != null) {
                 System.out.println("Connection established successfully.");

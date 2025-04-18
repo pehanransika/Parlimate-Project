@@ -31,7 +31,6 @@ public class GetUserPostsServlet extends HttpServlet {
             System.out.println("Processing request for userId: " + userId);
 
             List<PostModel> posts = PostController.getPostByID(userId);
-            System.out.println("Found " + posts.size() + " posts");
 
             // Convert PostModel list to Map list
             List<Map<String, Object>> postMaps = new ArrayList<>();
@@ -47,7 +46,6 @@ public class GetUserPostsServlet extends HttpServlet {
 
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(postMaps);
-            System.out.println("Sending JSON: " + json);
 
             out.write(json);
             out.flush();

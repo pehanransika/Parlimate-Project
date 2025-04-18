@@ -461,8 +461,8 @@ body {
             position: absolute;
             content: "";
             width: 1px;
-            top: -2.2rem;
-            bottom: -2.25rem;
+            top: -1rem;
+            bottom: -1rem;
             right: 0;
             background: #e3e3e3;
         }
@@ -615,6 +615,10 @@ body {
                                 font-weight: 600;
                                 color: #727272;
                                 font-size: 0.9rem;
+
+                                &&.rank::before{
+                                    content: "#";
+                                }
                             }
                         }
                     }
