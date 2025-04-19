@@ -13,10 +13,12 @@ import java.util.List;
 public class GetAllRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Fetch all fundraising requests from FundraisingRequestController
+
+
             List<RequestModel> allRequests = RequestController.getAllFundraisingRequests();
 
             // Set the list as a request attribute

@@ -5,7 +5,9 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PaymentService{
@@ -18,7 +20,7 @@ public class PaymentService{
     public String authorizePayment(OrderDetail orderDetail) throws PayPalRESTException {
         try {
             Payer payer = getPayerInformation();
-            RedirectUrls redirectUrls = getRedirectURLs(orderDetail); // ✅ pass orderDetail here
+            RedirectUrls redirectUrls = getRedirectURLs(orderDetail);
             List<Transaction> listTransaction = getTransactionInformation(orderDetail);
 
             Payment requestPayment = new Payment();
@@ -75,7 +77,10 @@ public class PaymentService{
         // Create amount object
         Amount amount = new Amount();
         amount.setCurrency(orderDetail.getCurrency()); // Use currency from order
+
+        // Ensure the total amount is correctly represented for the selected currency (USD or LKR)
         amount.setTotal(String.valueOf(orderDetail.getAmount()));
+
         amount.setDetails(details);
 
         // Create transaction
@@ -83,27 +88,29 @@ public class PaymentService{
         transaction.setAmount(amount);
         transaction.setDescription("Payment #" + orderDetail.getTransactionId());
 
-        // Create item list (simplified with single item)
+        // Create item list (simplified with a single item)
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
 
         Item item = new Item();
-        item.setCurrency(orderDetail.getCurrency());
+        item.setCurrency(orderDetail.getCurrency()); // Use the same currency as the transaction
         item.setName("Payment");  // Generic name since no product info
-        item.setPrice(String.valueOf(orderDetail.getAmount()));
-        item.setTax(String.valueOf(BigDecimal.ZERO));
+        item.setPrice(String.valueOf(orderDetail.getAmount())); // Ensure price matches the amount
+        item.setTax(String.valueOf(BigDecimal.ZERO)); // No tax info available
         item.setQuantity("1");
 
         items.add(item);
         itemList.setItems(items);
         transaction.setItemList(itemList);
 
-        // Return as list with single transaction
+        // Return as list with a single transaction
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(transaction);
 
         return listTransaction;
     }
+
+
 
     private RedirectUrls getRedirectURLs(OrderDetail orderDetail) {
         RedirectUrls redirectUrls = new RedirectUrls();

@@ -11,7 +11,15 @@ public class ApproveController {
     // Get all approved fundraising requests
     public static List<ApproveModel> getAllApprovedRequests() {
         List<ApproveModel> requests = new ArrayList<>();
-        String sql = "SELECT * FROM approved_requests ORDER BY approval_date DESC";
+        String sql = "SELECT ar.*, COALESCE(SUM(cft.total_lkr), 0) AS total_lkr " +
+                "FROM approved_requests ar " +
+                "LEFT JOIN combined_fundraiser_totals cft " +
+                "  ON ar.requestid = cft.fundraiser_id OR ar.requestid = cft.approved_fundraiser_id " +
+                "GROUP BY ar.requestid, ar.title, ar.description, ar.contact_no, ar.category, " +
+                "         ar.targetamount, ar.attachment_url, ar.photos, ar.approval_date, " +
+                "         ar.status, ar.name, ar.userid " +
+                "ORDER BY ar.approval_date DESC";
+
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -32,6 +40,7 @@ public class ApproveController {
                         rs.getString("name"),
                         rs.getInt("userid")
                 );
+                request.setTotalLkr(rs.getDouble("total_lkr"));
                 requests.add(request);
             }
         } catch (SQLException e) {
@@ -152,10 +161,13 @@ public class ApproveController {
     }
 
     private static boolean insertApprovedRequest(Connection conn, ApproveModel request) throws SQLException {
+        // Set the status to "APPROVED" before inserting the request
+        request.setStatus("APPROVED");
+
         String sql = "INSERT INTO approved_requests " +
                 "(requestid, title, description, contact_no, category, " +
-                "targetamount, attachment_url, photos, approval_date, status, name,userid) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                "targetamount, attachment_url, photos, approval_date, status, name, userid) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, request.getRequestId());
@@ -167,13 +179,14 @@ public class ApproveController {
             stmt.setString(7, request.getAttachmentUrl());
             stmt.setString(8, request.getPhotos());
             stmt.setTimestamp(9, request.getApprovalDate());
-            stmt.setString(10, request.getStatus());
+            stmt.setString(10, request.getStatus());  // This will now be "APPROVED"
             stmt.setString(11, request.getName());
-            stmt.setInt(12,request.getUserid());
+            stmt.setInt(12, request.getUserid());
 
             return stmt.executeUpdate() > 0;
         }
     }
+
 
     private static boolean deleteOriginalRequest(Connection conn, int requestId) throws SQLException {
         String sql = "DELETE FROM fundraisingrequests WHERE requestid = ?";

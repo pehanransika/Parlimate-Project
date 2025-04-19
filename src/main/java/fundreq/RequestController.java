@@ -222,6 +222,37 @@ public class RequestController {
             throw e;
         }
     }
+    public static List<RequestModel> getRequestsByUserId(int userId) throws SQLException {
+        List<RequestModel> requests = new ArrayList<>();
+        String query = "SELECT requestid, userid, title, description, category, contact_no, targetamount, currency, datetime, photos, attachment_url FROM fundraisingrequests WHERE userid = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Set the userId parameter before executing the query
+            stmt.setInt(1, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int requestId = rs.getInt("requestid");
+                    int user_id = rs.getInt("userid");
+                    String title = rs.getString("title");
+                    String description = rs.getString("description");
+                    String category = rs.getString("category");
+                    String contactNo = rs.getString("contact_no");
+                    BigDecimal targetAmount = rs.getBigDecimal("targetamount");
+                    String currency = rs.getString("currency");
+                    Timestamp datetime = rs.getTimestamp("datetime");
+                    String photos = rs.getString("photos");
+                    String attachmentUrl = rs.getString("attachment_url");
+
+                    RequestModel request = new RequestModel(requestId, user_id, title, description, category, contactNo, targetAmount, currency, datetime, photos, attachmentUrl);
+                    requests.add(request);
+                }
+            }
+        }
+        return requests;
+    }
 
 
 }

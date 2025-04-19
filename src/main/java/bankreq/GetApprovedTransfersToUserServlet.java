@@ -21,7 +21,7 @@ public class GetApprovedTransfersToUserServlet extends HttpServlet {
             request.setAttribute("approvedTransferstouser", approvedTransferstouser);
 
             // Forward to JSP page
-            request.getRequestDispatcher("/Fundraising/AcceptBankTransfer.jsp").forward(request, response);
+            request.getRequestDispatcher("/Fundraising/AcceptBankTransfers.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

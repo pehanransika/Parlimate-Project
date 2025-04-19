@@ -16,6 +16,7 @@ public class ApproveModel {
     private Timestamp approvalDate;
     private String name;
     private int userid;
+    private double totalLkr;
 
 
     public ApproveModel(int requestid, String title, String description,
@@ -70,4 +71,13 @@ public class ApproveModel {
     public void setApprovalDate(Timestamp approvalDate) { this.approvalDate = approvalDate; }
     public void setName(String name){this.name=name;}
     public void setUserid(int userid){this.userid=userid;}
+
+
+    public double getTotalLkr() {
+        return totalLkr;
+    }
+
+    public void setTotalLkr(double totalLkr) {
+        this.totalLkr = totalLkr;
+    }
 }

@@ -37,6 +37,13 @@ private String status;
 
     }
 
+    public RequestModel() {
+
+    }
+
+    public RequestModel(int requestId, int user_id, String title, String description, String category, String contactNo, BigDecimal targetAmount, String currency, Timestamp datetime, String photos, String attachmentUrl) {
+    }
+
     // Getters and Setters
     public Integer getRequestId() {
         return requestId;

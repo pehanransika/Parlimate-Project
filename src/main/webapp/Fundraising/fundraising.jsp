@@ -283,7 +283,7 @@
                 </div>
             </div>
             <div class="fund-btns row">
-                <a href="AcceptBankTransfers.jsp">
+                <a href="GetApprovedTransfersToUserServlet">
                     <button class="my-accept-trans">
                         <i class="fa-solid fa-wallet"></i>
                         <span>Approved Bank Transfers</span>
@@ -350,7 +350,7 @@
                                     <div class="title">${approveModel.title}</div>
                                 </div>
                                 <div class="username">
-                                  Owner-  <c:out value="${not empty approveModel.name ? approveModel.name : 'Anonymous'}" />
+                                    Owner- <c:out value="${not empty approveModel.name ? approveModel.name : 'Anonymous'}" />
                                 </div>
                                 <div class="category">${approveModel.category}</div>
                             </div>
@@ -376,15 +376,36 @@
                             <div class="bottom">
                                 <div class="donation-progress row">
                                     <div class="seperator top"></div>
-                                </div>
 
-                                <div class="donate-btn" onclick="showPaymentPopup('${approveModel.requestId}')">
-                                    <i class="fa-sharp fa-solid fa-dollar-sign"></i>
-                                    <span>Donate</span>
+                                    <!-- Display total_lkr -->
+                                    <div class="total-lkr">
+                                        Total Raised:
+                                        <fmt:formatNumber value="${approveModel.totalLkr}" type="number" maxFractionDigits="0"/> LKR
+                                    </div>
+
+                                    <!-- Calculate and display percentage -->
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
+                                        </div>
+                                    </div>
+
+                                    <div class="percentage">
+                                            ${approveModel.targetamount > 0 ?
+                                                    (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}% Raised
+                                    </div>
                                 </div>
+                                <c:if test="${approveModel.status != 'HOLD'}">
+                                    <div class="donate-btn" onclick="showPaymentPopup('${approveModel.requestId}')">
+                                        <i class="fa-sharp fa-solid fa-dollar-sign"></i>
+                                        <span>Donate</span>
+                                    </div>
+                                </c:if>
+
+
                             </div>
                         </div>
                     </c:forEach>
+
                 </div>
 
                 <!-- Payment Popup -->
