@@ -372,7 +372,7 @@ public class surveyController {
     }
 
     public boolean deleteSurvey(int surveyId) {
-        String deletePercentage = "DELETE FROM percentage WHERE answer_id IN (SELECT answer_id FROM answer WHERE question_id IN (SELECT question_id FROM question WHERE survey_id = ?))";
+
         String deleteResponses = "DELETE FROM response WHERE survey_id = ?";
         String deleteAnswers = "DELETE FROM answer WHERE question_id IN (SELECT question_id FROM question WHERE survey_id = ?)";
         String deleteQuestions = "DELETE FROM question WHERE survey_id = ?";
@@ -380,32 +380,26 @@ public class surveyController {
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
-
-            try (PreparedStatement p1 = conn.prepareStatement(deletePercentage);
-                 PreparedStatement p2 = conn.prepareStatement(deleteResponses);
-                 PreparedStatement p3 = conn.prepareStatement(deleteAnswers);
-                 PreparedStatement p4 = conn.prepareStatement(deleteQuestions);
-                 PreparedStatement p5 = conn.prepareStatement(deleteSurvey)) {
-
-                p1.setInt(1, surveyId);
-                p1.executeUpdate();
-
-                p2.setInt(1, surveyId);
-                p2.executeUpdate();
-
-                p3.setInt(1, surveyId);
-                p3.executeUpdate();
-
-                p4.setInt(1, surveyId);
-                p4.executeUpdate();
-
-                p5.setInt(1, surveyId);
-                p5.executeUpdate();
-
-                conn.commit();
-                return true;
+            try (
+                    PreparedStatement p2 = conn.prepareStatement(deleteResponses);
+                    PreparedStatement p3 = conn.prepareStatement(deleteAnswers);
+                    PreparedStatement p4 = conn.prepareStatement(deleteQuestions);
+                    PreparedStatement p5 = conn.prepareStatement(deleteSurvey)) {
+                    p2.setInt(1, surveyId);
+                    p2.executeUpdate();
+                    p3.setInt(1, surveyId);
+                    p3.executeUpdate();
+                    p4.setInt(1, surveyId);
+                    p4.executeUpdate();
+                    p5.setInt(1, surveyId);
+                    p5.executeUpdate();
+                    conn.commit();
+                    return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                e.printStackTrace();
+                return false;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

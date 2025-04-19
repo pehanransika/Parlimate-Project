@@ -341,6 +341,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <servlet-class>surveys.DeleteSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <url-pattern>/Surveys/DeleteSurveyServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>GetUserSurveysServlet</servlet-name>
     <servlet-class>surveys.GetUserSurveysServlet</servlet-class>
   </servlet>

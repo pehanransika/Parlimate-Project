@@ -30,18 +30,24 @@
           });
         </script>
         <div style="display: flex;">
-          <button id="deleteSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
-            <i class='fas fa-trash' style='font-size:20px'></i>
-          </button> &nbsp
-          <button id="editSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
-            <i class='fas fa-edit' style='font-size:20px'></i>
-          </button> &nbsp
+
+          <c:if test="${user.userId == survey.user[0].userId}">
+            <button id="deleteSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
+              <i class='fas fa-trash' style='font-size:20px'></i>
+            </button> &nbsp;
+            <button id="editSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
+              <i class='fas fa-edit' style='font-size:20px'></i>
+            </button> &nbsp;
+          </c:if>
+
           <button id="viewAnalyticsBtn${status.index}">View Analytics</button> &nbsp
           <button id="share-btn${status.index}" class="f-row">
             Share <i class="fa-solid fa-share"></i>
           </button>
         </div>
+        <c:if test="${user.userId == survey.user[0].userId}">
         <%@ include file="../Surveys/editSurveypopup.jsp" %>
+        </c:if>
       </div> <br>
       <div class="survey-topic" style="justify-content: center;font-size: larger;">
         Survey Topic : ${survey.surveyTopic}
@@ -79,7 +85,7 @@
       });
     </script>
 
-
+    <c:if test="${user.userId == survey.user[0].userId}">
     <!-- Delete Popup HTML and Javascript -->
 
     <div id="deletepopup" class="popup">
@@ -104,18 +110,44 @@
 
       }
       function deleteSurvey(){
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            document.getElementById('deletepopup').classList.remove('show');
-          });
-        });
-        document.body.style.overflow = "hidden";
+
+                const params = new URLSearchParams();
+                params.append('surveyId', ${survey.surveyId});
+
+                fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                  },
+                  body: params
+                })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error("Server returned"+response.status);
+                  }
+                  return response.text();
+                })
+                .then(msg => {
+                  // on success, reload to reflect changes
+                  window.location.reload();
+                })
+                .catch(err => {
+                  console.error('Deletion error:', err);
+                  alert('Failed to delete survey: ' + err.message);
+                });
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    document.getElementById('deletepopup').classList.remove('show');
+                    window.location.reload();
+                  });
+                });
+                document.body.style.overflow = "hidden";
       }
     </script>
 
     <!-- Delete Popup HTML and Javascript End-->
 
-
+  </c:if>
     <%--      survey questions javascripts      --%>
 
     <script>
@@ -159,8 +191,11 @@
         const questionSlider = document.getElementById('question-slider${status.index}');
         const prevBtn = document.getElementById('prev-btn${status.index}');
         const nextBtn = document.getElementById('next-btn${status.index}');
+
+        <c:if test="${user.userId == survey.user[0].userId}">
         const deleteBtn = document.getElementById('deleteSurveyBtn${status.index}');
         const editBtn = document.getElementById('editSurveyBtn${status.index}');
+        </c:if>
 
         let currentQuestion = 0;
         const selectedAnswers = Array(questions${status.index}.length).fill(null);
@@ -175,14 +210,14 @@
           q.options.forEach((opt, optIndex) => {
             const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
             let answerIdId = Number(q.options[optIndex].answerId);
-            console.log("user vote:",q.userVote[0],",",q.userVote[1]);
-            console.log("answerId",answerIdId);
-            console.log("selected answerid:",q.userVote[1]);
-            const isSelected = answerIdId === q.userVote[1] ;
-            console.log("isSelected:",isSelected);
+            console.log("user vote:", q.userVote[0], ",", q.userVote[1]);
+            console.log("answerId", answerIdId);
+            console.log("selected answerid:", q.userVote[1]);
+            const isSelected = answerIdId === q.userVote[1];
+            console.log("isSelected:", isSelected);
 
 
-            html += '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote' + ${status.index} + '(' + optIndex + ')">' +
+            html += '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote' + ${status.index} +'(' + optIndex + ')">' +
                     (opt.img && opt.img !== ''
                             ? '<img src="' + opt.img + '" alt="' + opt.text + '" />'
                             : '') +
@@ -239,7 +274,7 @@
         const surveyId = ${survey.surveyId};
         console.log("Survey ID:", surveyId);
 
-        window['vote' + ${status.index}] = function(optIndex) {
+        window['vote' + ${status.index}] = function (optIndex) {
           console.log("Vote function called for option:", optIndex);
           if (!userId) {
             console.log("User ID is null or undefined");
@@ -279,15 +314,15 @@
                   })
                   .then(data => {
                     console.log("Vote response data:", data);
-                    console.log("user vote:",q.userVote[0],",",q.userVote[1])
+                    console.log("user vote:", q.userVote[0], ",", q.userVote[1])
                     if (data.success) {
                       // Fetch the latest user vote for this question and update userVote
                       fetch('<%= request.getContextPath() %>/getUserVote?question_id=' + questionId + '&user_id=' + userId)
                               .then(response => response.json())
                               .then(latestAnswerId => {
-                                q.userVote = [${user.userId},latestAnswerId]; // Update userVote with the latest vote from the server
-                                console.log("new user vote:",q.userVote[1]);
-                                console.log("latest answer id:",latestAnswerId)
+                                q.userVote = [${user.userId}, latestAnswerId]; // Update userVote with the latest vote from the server
+                                console.log("new user vote:", q.userVote[1]);
+                                console.log("latest answer id:", latestAnswerId)
                                 console.log("hello im manuja");
                                 // Fetch updated vote counts
                                 fetch('<%= request.getContextPath() %>/getVotes?question_id=' + questionId)
@@ -325,16 +360,16 @@
                   });
         };
 
-     /*   window["vote" + "{status.index}"] = function(optIndex) {
-          const q = questions[currentQuestion];
-          const prev = selectedAnswers[currentQuestion];
-          if (prev !== null) q.votes[prev]--;
-          q.votes[optIndex]++;
-          selectedAnswers[currentQuestion] = optIndex;
+        /*   window["vote" + "{status.index}"] = function(optIndex) {
+             const q = questions[currentQuestion];
+             const prev = selectedAnswers[currentQuestion];
+             if (prev !== null) q.votes[prev]--;
+             q.votes[optIndex]++;
+             selectedAnswers[currentQuestion] = optIndex;
 
-          const slide = questionSlider.querySelector('.question-slide');
-          slide.innerHTML = renderQuestion(currentQuestion);
-        }     */
+             const slide = questionSlider.querySelector('.question-slide');
+             slide.innerHTML = renderQuestion(currentQuestion);
+           }     */
 
         prevBtn.addEventListener('click', () => {
           if (currentQuestion > 0) {
@@ -354,8 +389,7 @@
           }
         });
 
-
-
+        <c:if test="${user.userId == survey.user[0].userId}">
         deleteBtn.addEventListener('click', () => {
           const deletepopup = document.getElementById('deletepopup');
           deletepopup.style.display = 'flex';
@@ -367,6 +401,7 @@
           editpopup.style.display = 'flex';
           editpopup.classList.add("show");
         });
+        </c:if>
 
         // Popup close functionality
         document.getElementById('ok-btn').addEventListener('click', () => {
@@ -374,13 +409,12 @@
         });
 
 
-
         // Initial render
         showSlide(currentQuestion, 0);
       })();
     </script>
 
-    <!-- Analytics popup  -->
+    <!-- Analytics popup -->
 
     <div id="analyticsPopup${status.index}" class="analytics-popup">
       <div class="analytics-popup-content">
