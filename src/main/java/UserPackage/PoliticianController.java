@@ -156,7 +156,7 @@ public class PoliticianController {
 
     public static List<PoliticianModel> getPoliticianList() {
         List<PoliticianModel> politicians = new ArrayList<>();
-        String sql = "SELECT * FROM politician";
+        String sql = "SELECT * FROM politician order by name ASC";
 
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){

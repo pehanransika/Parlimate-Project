@@ -21,6 +21,11 @@
       </dependency>
 
 <!--      naleeka included this s### here-->
+      <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20231013</version> <!-- Use latest version -->
+      </dependency>
       <!-- Jackson Core -->
       <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
       <dependency>

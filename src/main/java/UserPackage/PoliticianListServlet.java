@@ -16,7 +16,6 @@ public class PoliticianListServlet extends HttpServlet {
 
         try {
             List<PoliticianModel> politicians = PoliticianController.getPoliticianList();
-            System.out.println("Politicians found: " + politicians.size());
             request.setAttribute("politicians", politicians);
 
             // Forward to the actual JSP

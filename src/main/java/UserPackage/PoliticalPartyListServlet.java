@@ -15,7 +15,6 @@ public class PoliticalPartyListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<PoliticalPartyModel> polParties = PoliticalPartyController.getAllParties();
-            System.out.println("Political Parties Found :" + polParties.size());
             request.setAttribute("politicalParties", polParties);
 
         }

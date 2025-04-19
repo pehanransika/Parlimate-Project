@@ -138,4 +138,33 @@ public class PoliticalPartyController {
         return politicalParties;
 
     }
+
+    public static List<PoliticalPartyModel> getPartiesList() {
+        List<PoliticalPartyModel> politicalParties = new ArrayList<>();
+
+
+        String sql = "SELECT * FROM politicalparty order by name ASC";
+
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+        ){
+            try(ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int politicalPartyId = rs.getInt("political_party_id");
+                    int userid = rs.getInt("user_id");
+                    String name = rs.getString("name");
+                    String phoneNumber = rs.getString("phone_number");
+                    String address = rs.getString("address");
+                    String logoImg = rs.getString("logo_img");
+                    int noOfMembers = rs.getInt("no_of_members");
+
+                    PoliticalPartyModel party = new PoliticalPartyModel(politicalPartyId, userid, name, phoneNumber, address, logoImg, noOfMembers);
+                    politicalParties.add(party);
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return politicalParties;
+    }
 }

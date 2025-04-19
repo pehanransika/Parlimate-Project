@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Fundraisers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="sidebar.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="container.css" />
+    <link rel="stylesheet" href="details.css">
+</head>
+
+<body class="">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="logo">
+                <img src="logo.png" alt="Fundraiser Logo">
+                <h2>Fundraiser</h2>
+            </div>
+            <nav class="side-nav">
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-hand-holding-heart"></i> My Fundraisers</a></li>
+                    <li><a href="#"><i class="fas fa-plus-circle"></i> Create Fundraiser</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="sideMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Fundraiser Platform</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <img src="user-avatar.jpg" alt="User Profile">
+                    <span>John Doe</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="pageTitles">
+            <h2 class="title">My Fundraisers</h2>
+            <div class="subTitle">
+                Fueling Change Through Collective Action
+            </div>
+        </div>
+
+        <div class="search">
+            <label for="searchInput" class="icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </label>
+            <input type="text" id="searchInput" placeholder="Search fundraisers..." onkeyup="filterFundraisers()">
+        </div>
+
+        <ul class="fundraiser-list" id="fundraiserList">
+            <!-- Fundraiser items will be dynamically inserted here by JavaScript -->
+        </ul>
+    </div>
+
+    <!-- Update Fundraiser Popup Modal -->
+    <div class="popup-modal" id="editPopup">
+        <div class="popup">
+            <div class="title">
+                <span>Edit Fundraiser</span>
+                <button class="close-btn" onclick="closeEditPopup()">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <form id="editFundraiserForm" enctype="multipart/form-data">
+                <input type="hidden" name="fundraiserId" id="fundraiserId" />
+
+                <div class="formSection">
+                    <label for="editTitle">Fundraiser Title</label>
+                    <input type="text" id="editTitle" name="title" required placeholder="Enter fundraiser title" />
+                </div>
+
+                <div class="formSection">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" name="description" required placeholder="Describe your fundraiser purpose and goals"></textarea>
+                </div>
+
+                <div class="formSection">
+                    <label for="editContactNo">Contact Number</label>
+                    <input type="text" id="editContactNo" name="contact_no" required placeholder="Enter phone number for inquiries" />
+                </div>
+
+                <div class="formSection">
+                    <label for="editCategory">Category</label>
+                    <select id="editCategory" name="category" required>
+                        <option value="" disabled selected>--Select a Category--</option>
+                        <option value="Education">Education</option>
+                        <option value="Health">Health</option>
+                        <option value="Environment">Environment</option>
+                        <option value="Community">Community</option>
+                    </select>
+                </div>
+
+                <div class="formSection">
+                    <label for="editTargetAmount">Funding Goal</label>
+                    <input type="number" id="editTargetAmount" name="targetAmount" step="0.01" required placeholder="Enter target amount" />
+                </div>
+
+                <div class="formSection">
+                    <label for="editCurrency">Currency</label>
+                    <select id="editCurrency" name="currency" required>
+                        <option value="" disabled selected>--Select Currency--</option>
+                        <option value="LKR">Sri Lankan Rupees (LKR)</option>
+                        <option value="USD">US Dollars (USD)</option>
+                        <option value="EUR">Euros (EUR)</option>
+                        <option value="INR">Indian Rupees (INR)</option>
+                        <option value="GBP">British Pounds (GBP)</option>
+                    </select>
+                </div>
+
+                <div class="formSection">
+                    <label for="editAttachmentUrl">Supporting Document</label>
+                    <input type="text" id="editAttachmentUrl" name="attachmentUrl" placeholder="Enter document URL" />
+                    <input type="file" name="attachmentFile" accept=".pdf,.doc,.docx" />
+                </div>
+
+                <div class="formSection">
+                    <label for="editPhotoUrl">Campaign Images</label>
+                    <input type="text" id="editPhotoUrl" name="photoUrl" placeholder="Enter image URL" />
+                    <input type="file" name="photoFile" accept="image/*" multiple />
+                </div>
+
+                <div class="popbtns">
+                    <button type="submit" class="post-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
