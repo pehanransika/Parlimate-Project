@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePostLoading();
     setupModalHandlers();
     initializeCityDropdown();
+
 });
 
 // Main post loading functionality
@@ -77,7 +78,11 @@ function renderPosts(posts) {
                      class="post-avatar">
                 <div class="post-user-info">
                     <h4>${escapeHtml(post.name || 'Unknown User')}</h4>
-                    <span>${formatDate(post.datetime)}</span>
+                    <div class="f-row" style="gap: 0.5rem; color: grey">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>${formatDateWithTime(post.datetime)}</span>
+                    
+</div>
                 </div>
             </div>
             <div class="post-content">

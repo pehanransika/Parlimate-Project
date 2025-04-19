@@ -19,6 +19,7 @@ public class UserDetailsServlet extends HttpServlet {
             return;
         }
 
+
         try {
             int userId = Integer.parseInt(userIdParam);
             UserController userController = new UserController();
@@ -76,7 +77,6 @@ public class UserDetailsServlet extends HttpServlet {
                         + "\"created_at\":\"" + user.getCreated_at() + "\""
                         + additionalDetails
                         + "}";
-
                 response.getWriter().write(jsonResponse);
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

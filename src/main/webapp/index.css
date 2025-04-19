@@ -43,6 +43,15 @@ button:active{
     font-weight: 600;
     color: var(--black-2);
 }
+.max-width{
+    width: 100%;
+    && div:has( input){
+        && input{
+            width: 100% !important;
+        }
+    }
+
+}
 .btn {
     cursor: pointer;
     padding: 0.75rem 0.75rem;
@@ -134,7 +143,7 @@ span.tip::before {
     transform: rotate(45deg);
 }
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Satoshi", "Poppins", sans-serif;
     background: var(--bg);
     color: var(--black-1);
     position: relative;

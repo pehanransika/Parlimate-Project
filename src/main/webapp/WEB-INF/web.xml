@@ -390,6 +390,7 @@
         <url-pattern>/Profile/GetUserPostsServlet</url-pattern>
     </servlet-mapping>
     <!--  end getpost-->
+
     <filter>
         <filter-name>UserSessionFilter</filter-name>
         <filter-class>UserPackage.UserSessionFilter</filter-class>
@@ -398,6 +399,5 @@
         <filter-name>UserSessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
 
 </web-app>

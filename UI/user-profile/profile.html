@@ -3,62 +3,156 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>User Profile</title>
-
-		<link rel="stylesheet" href="profile.css" />
+		<title>Profile | Parlimate</title>
+		<link rel="stylesheet" href="../index/sidebar1.css" />
+		<link rel="stylesheet" href="../index/header/header.css" />
+		<link rel="stylesheet" href="../index.css" />
+		<link rel="stylesheet" href="./profile.css" />
+		<!-- icons -->
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+		/>
 		<style>
 			body {
 				background: #f0f0f0;
 				padding: 2rem;
 			}
+
 			.f-col {
 				display: flex;
 				flex-direction: column;
 			}
+
 			.f-row {
 				display: flex;
 				align-items: center;
 			}
+			.post-card {
+				width: 100%;
+			}
+			.post-container {
+				width: 100%;
+			}
 		</style>
-		<link
-			rel="stylesheet"
-			data-purpose="Layout StyleSheet"
-			title="Web Awesome"
-			href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
-		/>
 
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
-		/>
+		<script src="./profile.js" defer></script>
+		<script src="./prefModal.js" defer></script>
 	</head>
 	<body>
 		<div class="container">
+			<div id="interestsModal" class="modal">
+				<div class="modal-content">
+					<div class="top f-row caps">
+						<div class="title">Political interests</div>
+						<div class="close-btn f-row">
+							<i class="fa-solid fa-xmark"></i>
+						</div>
+					</div>
+					<div class="center f-col">
+						<div class="desc">
+							These are the political topics and parties this
+							person has shown interest on Parlimate. This might
+							reflects their personal views and helps connect them
+							with relevant discussions and representatives
+						</div>
+						<div class="politicians-pref table-cont f-col">
+							<div class="title f-row">
+								<i class="fa-solid fa-user-tie"></i>
+								<span>Top Supported Leaders</span>
+							</div>
+							<table>
+								<thead class="caps">
+									<tr>
+										<td>preference rank</td>
+										<td>politician name</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>#1</td>
+										<td
+											data-options="test1,test2,test3,Ms. Anjali Karunaratne"
+										>
+											Ms. Anjali Karunaratne
+										</td>
+									</tr>
+									<tr>
+										<td>#2</td>
+										<td
+											data-options="test1,test2,test3,Ms. Dr. Niroshan Wijegunawardena"
+										>
+											Dr. Niroshan Wijegunawardena
+										</td>
+									</tr>
+									<tr>
+										<td>#3</td>
+										<td
+											data-options="test1,test2,test3, Maj. Gen. (Retd.) Sarath Bandara"
+										>
+											Maj. Gen. (Retd.) Sarath Bandara
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="party-pref table-cont f-col">
+							<div class="title f-row">
+								<i class="fa-solid fa-landmark"></i>
+								<span>Preferred Political Parties</span>
+							</div>
+							<table>
+								<thead class="caps">
+									<tr>
+										<td>preference rank</td>
+										<td>political party name</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>#1</td>
+										<td
+											data-options="test1,test2,test3,United Progressive Front (UPF)"
+										>
+											United Progressive Front (UPF)
+										</td>
+									</tr>
+									<tr>
+										<td>#2</td>
+										<td
+											data-options="test1,test2,test3,Ms. People's Power Alliance (PPA)"
+										>
+											People's Power Alliance (PPA)
+										</td>
+									</tr>
+									<tr>
+										<td>#3</td>
+										<td
+											data-options="test1,test2,test3,National Unity Party (NUP)"
+										>
+											National Unity Party (NUP)
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="footer f-row caps">
+						<div class="edit f-row">
+							<button id="pref-edit" class="edit-btn f-row">
+								<i class="fa-solid fa-pen-to-square"></i>
+								Edit
+							</button>
+						</div>
+						<div class="action f-row">
+							<button class="pref-cancel">Cancel</button>
+							<button id="pref-save" class="save-btn">
+								save
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div id="editModal" class="modal">
 				<div class="modal-content f-col">
 					<div class="top f-row caps">
@@ -86,25 +180,27 @@
 										type="email"
 										name="email"
 										id="email-input"
-										placeholder="test@test.com"
+										placeholder="john.doe@example.com"
+										disabled
 									/>
 								</div>
 								<div class="full-name">
 									<label for="name-input" class="input-head"
 										>full name</label
 									>
+									<span> user123 </span>
 									<input
 										type="text"
 										name="full-name"
 										id="name-input"
-										placeholder="Nimali fonseka"
+										placeholder="John Doe"
 									/>
 								</div>
 								<div class="city">
 									<label
 										for="province-drop"
 										class="input-head"
-										>city</label
+										>location</label
 									>
 									<div class="dropdown f-row">
 										<select
@@ -153,8 +249,20 @@
 							</div>
 						</div>
 						<div class="profile-pic f-col">
-							<div class="image"></div>
-							<button id="change">Change image</button>
+							<div class="banner">
+								<img src="./bg.jpg" alt="banner" />
+							</div>
+							<div class="profile f-col">
+								<div class="image"></div>
+								<div class="btns f-row">
+									<button id="change-pp">
+										Change profile
+									</button>
+									<button id="change-banner">
+										Change banner
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="footer f-row">
@@ -162,8 +270,8 @@
 							<a href="#" target="_blank">change password</a>
 						</div>
 						<div class="action f-row">
-							<button id="cancel-btn">cancel</button
-								><button id="save-btn">save</button>
+							<button id="cancel-btn">cancel</button>
+							<button id="save-btn">save</button>
 						</div>
 					</div>
 				</div>
@@ -171,7 +279,7 @@
 			<div class="profile-container f-col">
 				<div class="profile-imgs">
 					<div class="cover-photo">
-						<img src="./bg.jpg" alt="" />
+						<img src="bg.jpg" alt="bg" />
 					</div>
 					<div class="profile-photo">
 						<img src="https://i.pravatar.cc/200" alt="" srcset="" />
@@ -179,13 +287,13 @@
 				</div>
 				<div class="profile-details f-col">
 					<div class="user-basic f-row">
-						<div class="name">Nimali Fonseka</div>
+						<div class="name">John Doe</div>
 						<span class="dot">·</span>
 						<div class="joined-date">
-							Joined on <span class="date">04 march 2025</span>
+							Joined on <span class="date">January 15, 2023</span>
 						</div>
 						<span class="dot">·</span>
-						<div class="role">Citizen</div>
+						<div class="role caps">Member</div>
 					</div>
 					<div class="profession">Product Designer at Senica</div>
 					<div class="city caps">
@@ -193,8 +301,7 @@
 					</div>
 					<div class="buttons f-row">
 						<div class="prmry-btns f-row">
-							<button class="follow-btn">
-								<i class="fa-solid fa-plus"></i>follow
+							<button class="follow-btn">About me
 							</button>
 							<button class="message-btn">
 								<i class="fa-solid fa-messages"></i>message
@@ -209,12 +316,15 @@
 				</div>
 			</div>
 			<div class="recent-posts f-col">
-				<div class="title caps f-row">
-					<!-- <div class="line-flex">&nbsp;</div> -->
+				<div class="title caps f-col">
 					<span>recent posts</span>
-					<!-- <div class="line-flex">&nbsp;</div> -->
+					<span class="desc">recently added posts and insights.</span>
 				</div>
-				<div class="post-container">
+				<div
+					class="post-container"
+					id="posts-container"
+					data-user-id="user123"
+				>
 					<div class="post-card">
 						<div class="post-header">
 							<img
@@ -223,7 +333,7 @@
 								class="post-avatar"
 							/>
 							<div class="post-user-info">
-								<h4 class="username">Nimali Fonseka</h4>
+								<h4 class="username">John Doe</h4>
 								<span class="post-time">2 hours ago</span>
 							</div>
 							<div class="post-actions">
@@ -272,128 +382,287 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>
-		const editBtn = document.querySelector(".edit-btn");
-		const modal = document.getElementById("editModal");
-		const closeBtn = document.querySelector(".close-btn");
-		const modalCancelBtn = document.getElementById("cancel-btn");
 
-		// Initially hide the modal
-		modal.style.display = "none";
+		<!-- <script>
+			// profile.js
+			document.addEventListener("DOMContentLoaded", function () {
+				// Get all necessary elements
+				const followBtn = document.querySelector(".follow-btn");
+				const profileEditBtn = document.querySelector(
+					".scndry-btns .edit-btn"
+				);
+				const interestsModal =
+					document.getElementById("interestsModal");
+				const editModal = document.getElementById("editModal");
+				const closeBtns = document.querySelectorAll(".close-btn");
+				const modalCancelBtns =
+					document.querySelectorAll(".cancel-btn");
 
-		// Open modal on button click
-		editBtn.addEventListener("click", () => {
-			modal.style.display = "flex";
-		});
+				// Initially hide both modals
+				interestsModal.style.display = "none";
+				editModal.style.display = "none";
 
-		// Close modal on close button click
-		closeBtn.addEventListener("click", () => {
-			modal.style.display = "none";
-		});
-		modalCancelBtn.addEventListener("click", () => {
-			modal.style.display = "none";
-		});
-
-		// Close modal when clicking outside the modal content
-		window.addEventListener("click", (event) => {
-			if (event.target === modal) {
-				modal.style.display = "none";
-			}
-		});
-
-		const citiesByProvince = {
-			western: [
-				"Colombo",
-				"Negombo",
-				"Moratuwa",
-				"Panadura",
-				"Kalutara",
-				"Gampaha",
-				"Horana",
-			],
-			central: [
-				"Kandy",
-				"Matale",
-				"Nuwara Eliya",
-				"Gampola",
-				"Dambulla",
-				"Hatton",
-			],
-			southern: [
-				"Galle",
-				"Matara",
-				"Hambantota",
-				"Weligama",
-				"Tangalle",
-				"Ambalangoda",
-			],
-			northern: [
-				"Jaffna",
-				"Vavuniya",
-				"Kilinochchi",
-				"Mullaitivu",
-				"Mannar",
-			],
-			eastern: [
-				"Batticaloa",
-				"Trincomalee",
-				"Kalmunai",
-				"Ampara",
-				"Akkaraipattu",
-			],
-			"north-western": [
-				"Kurunegala",
-				"Puttalam",
-				"Chilaw",
-				"Narammala",
-				"Wariyapola",
-			],
-			"north-central": [
-				"Anuradhapura",
-				"Polonnaruwa",
-				"Medawachchiya",
-				"Habarana",
-				"Kekirawa",
-			],
-			uva: [
-				"Badulla",
-				"Monaragala",
-				"Bandarawela",
-				"Haputale",
-				"Welimada",
-			],
-			sabaragamuwa: [
-				"Ratnapura",
-				"Kegalle",
-				"Balangoda",
-				"Embilipitiya",
-				"Kuruwita",
-			],
-		};
-
-		function updateCities() {
-			const provinceSelect = document.getElementById("province-drop");
-			const citySelect = document.getElementById("city");
-			const selectedProvince = provinceSelect.value;
-
-			// Clear previous options
-			citySelect.innerHTML = "";
-
-			if (selectedProvince) {
-				citySelect.disabled = false;
-				citySelect.add(new Option("-- Select City --", ""));
-
-				// Add cities for selected province
-				citiesByProvince[selectedProvince].forEach((city) => {
-					citySelect.add(
-						new Option(city, city.toLowerCase().replace(" ", "-"))
-					);
+				// Open interests modal when follow button is clicked
+				followBtn.addEventListener("click", (e) => {
+					e.preventDefault();
+					interestsModal.style.display = "flex";
 				});
-			} else {
-				citySelect.disabled = true;
-				citySelect.add(new Option("-- First select a province --", ""));
-			}
-		}
-	</script>
+
+				// Open edit modal when profile edit button is clicked
+				profileEditBtn.addEventListener("click", (e) => {
+					e.preventDefault();
+					editModal.style.display = "flex";
+				});
+
+				// Close modals when close buttons are clicked
+				closeBtns.forEach((btn) => {
+					btn.addEventListener("click", () => {
+						interestsModal.style.display = "none";
+						editModal.style.display = "none";
+					});
+				});
+
+				// Close modals when cancel buttons are clicked
+				modalCancelBtns.forEach((btn) => {
+					btn.addEventListener("click", () => {
+						interestsModal.style.display = "none";
+						editModal.style.display = "none";
+					});
+				});
+
+				// Close modals when clicking outside the modal content
+				window.addEventListener("click", (event) => {
+					if (
+						event.target === interestsModal ||
+						event.target === editModal
+					) {
+						interestsModal.style.display = "none";
+						editModal.style.display = "none";
+					}
+				});
+
+				// Table editing functionality for political interests modal
+				const prefEditBtn = document.getElementById("pref-edit");
+				const prefSaveBtn = document.getElementById("pref-save");
+
+				let originalValues = [];
+
+				prefEditBtn.addEventListener("click", function () {
+					// Hide edit button and show save/cancel buttons
+					prefEditBtn.style.display = "none";
+					document.querySelector(".action").style.display = "flex";
+
+					// Save original values
+					originalValues = [];
+					const tables =
+						document.querySelectorAll(".table-cont table");
+
+					tables.forEach((table) => {
+						const tableData = [];
+						const rows = table.querySelectorAll("tbody tr");
+
+						rows.forEach((row) => {
+							// Only get the second td (index 1) in each row
+							const cell = row.querySelector("td:nth-child(2)");
+							tableData.push({
+								value: cell.textContent,
+								options: cell.getAttribute("data-options"),
+							});
+						});
+
+						originalValues.push(tableData);
+					});
+
+					// Convert all second tds to dropdowns
+					convertCellsToDropdowns();
+				});
+
+				prefSaveBtn.addEventListener("click", function () {
+					// Show edit button and hide save/cancel buttons
+					prefEditBtn.style.display = "flex";
+					document.querySelector(".action").style.display = "none";
+
+					// Convert all dropdowns back to text
+					convertDropdownsToCells();
+
+					// Here you could add code to save the data to a server
+					console.log("Data saved:", getCurrentValues());
+				});
+
+				function convertCellsToDropdowns() {
+					const tables =
+						document.querySelectorAll(".table-cont table");
+
+					tables.forEach((table) => {
+						const rows = table.querySelectorAll("tbody tr");
+
+						rows.forEach((row) => {
+							// Only target the second td (index 1) in each row
+							const cell = row.querySelector("td:nth-child(2)");
+							const currentValue = cell.textContent.trim();
+							const options = cell
+								.getAttribute("data-options")
+								.split(",");
+
+							let selectHtml = "<select>";
+							options.forEach((option) => {
+								const selected =
+									option.trim() === currentValue
+										? " selected"
+										: "";
+								selectHtml += `<option value="${option.trim()}"${selected}>${option.trim()}</option>`;
+							});
+							selectHtml += "</select>";
+
+							cell.innerHTML = selectHtml;
+						});
+					});
+				}
+
+				function convertDropdownsToCells() {
+					const tables =
+						document.querySelectorAll(".table-cont table");
+
+					tables.forEach((table) => {
+						const rows = table.querySelectorAll("tbody tr");
+
+						rows.forEach((row) => {
+							const cell = row.querySelector("td:nth-child(2)");
+							const select = cell.querySelector("select");
+
+							if (select) {
+								cell.textContent = select.value;
+							}
+						});
+					});
+				}
+
+				function getCurrentValues() {
+					const values = [];
+					const tables =
+						document.querySelectorAll(".table-cont table");
+
+					tables.forEach((table) => {
+						const tableData = [];
+						const rows = table.querySelectorAll("tbody tr");
+
+						rows.forEach((row) => {
+							const cell = row.querySelector("td:nth-child(2)");
+							tableData.push(cell.textContent);
+						});
+
+						values.push(tableData);
+					});
+
+					return values;
+				}
+
+				// Location dropdown functionality for edit modal
+				const citiesByProvince = {
+					western: [
+						"Colombo",
+						"Negombo",
+						"Moratuwa",
+						"Panadura",
+						"Kalutara",
+						"Gampaha",
+						"Horana",
+					],
+					central: [
+						"Kandy",
+						"Matale",
+						"Nuwara Eliya",
+						"Gampola",
+						"Dambulla",
+						"Hatton",
+					],
+					southern: [
+						"Galle",
+						"Matara",
+						"Hambantota",
+						"Weligama",
+						"Tangalle",
+						"Ambalangoda",
+					],
+					northern: [
+						"Jaffna",
+						"Vavuniya",
+						"Kilinochchi",
+						"Mullaitivu",
+						"Mannar",
+					],
+					eastern: [
+						"Batticaloa",
+						"Trincomalee",
+						"Kalmunai",
+						"Ampara",
+						"Akkaraipattu",
+					],
+					"north-western": [
+						"Kurunegala",
+						"Puttalam",
+						"Chilaw",
+						"Narammala",
+						"Wariyapola",
+					],
+					"north-central": [
+						"Anuradhapura",
+						"Polonnaruwa",
+						"Medawachchiya",
+						"Habarana",
+						"Kekirawa",
+					],
+					uva: [
+						"Badulla",
+						"Monaragala",
+						"Bandarawela",
+						"Haputale",
+						"Welimada",
+					],
+					sabaragamuwa: [
+						"Ratnapura",
+						"Kegalle",
+						"Balangoda",
+						"Embilipitiya",
+						"Kuruwita",
+					],
+				};
+
+				function updateCities() {
+					const provinceSelect =
+						document.getElementById("province-drop");
+					const citySelect = document.getElementById("city");
+					const selectedProvince = provinceSelect.value;
+
+					// Clear previous options
+					citySelect.innerHTML = "";
+
+					if (selectedProvince) {
+						citySelect.disabled = false;
+						citySelect.add(new Option("-- Select City --", ""));
+
+						// Add cities for selected province
+						citiesByProvince[selectedProvince].forEach((city) => {
+							citySelect.add(
+								new Option(
+									city,
+									city.toLowerCase().replace(" ", "-")
+								)
+							);
+						});
+					} else {
+						citySelect.disabled = true;
+						citySelect.add(
+							new Option("-- First select a province --", "")
+						);
+					}
+				}
+
+				// Initialize the city dropdown
+				document
+					.getElementById("province-drop")
+					.addEventListener("change", updateCities);
+			});
+		</script> -->
+	</body>
 </html>

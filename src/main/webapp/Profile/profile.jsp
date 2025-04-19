@@ -3,6 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- Check for session and user --%>
+
 <%
     HttpSession session1 = (HttpSession) request.getSession(false);
     if (session1 == null || session.getAttribute("user") == null) {
@@ -15,7 +16,8 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
 %>
-
+<jsp:include page="/load-politicians" />
+<jsp:include page="/load-politicalParty" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +30,8 @@
     <link rel="stylesheet" href="./profile.css">
     <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
+
+    <script src="../formatDate.js" ></script>
     <style>
         body {
             background: #f0f0f0;
@@ -43,10 +47,12 @@
             display: flex;
             align-items: center;
         }
-        .post-card{
+
+        .post-card {
             width: 100%;
         }
-        .post-container{
+
+        .post-container {
             width: 100%;
         }
     </style>
@@ -58,8 +64,98 @@
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
 
+<%-- Display update messages --%>
+<c:if test="${not empty updateSuccess}">
+    <div class="alert alert-success">
+            ${updateSuccess}
+    </div>
+</c:if>
+<c:if test="${not empty updateError}">
+    <div class="alert alert-danger">
+            ${updateError}
+    </div>
+</c:if>
 <div class="container">
-    <div id="editModal" class="modal">
+    <div id="interestsModal" class="modal">
+        <div class="modal-content">
+            <div class="top f-row caps">
+                <div class="title">Political interests</div>
+                <div class="close-btn f-row">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <form action="test" method="get" class="center f-col">
+                <div class="desc">
+                    These are the political topics and parties this
+                    person has shown interest on Parlimate. This might
+                    reflects their personal views and helps connect them
+                    with relevant discussions and representatives
+                </div>
+                <div class="politicians-pref table-cont f-col">
+                    <div class="title f-row">
+                        <span>Top Supported Leaders</span>
+                    </div>
+                    <table>
+                        <thead class="caps">
+                        <tr>
+                            <td>preference rank</td>
+                            <td>politician name</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach begin="1" end="3" var="rank">
+                            <tr>
+                                <td class="rank">${rank}</td>
+                                <td data-options="<c:forEach var='pol' items='${politicians}'>${pol.name},</c:forEach>">
+                                    <c:if test="${not empty politicians and not empty politicians[rank]}">
+                                        ${politicians[rank].name}
+                                    </c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="party-pref table-cont f-col">
+                    <div class="title f-row">
+                        <span>Preferred Political Parties</span>
+                    </div>
+                    <table>
+                        <thead class="caps">
+                        <tr>
+                            <td>preference rank</td>
+                            <td>political party name</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach begin="1" end="3" var="Rank">
+                            <tr>
+                                <td class="rank">${Rank}</td>
+                                <td data-options="<c:forEach var="party" items="${politicalParties}">${party.name},</c:forEach>">
+                                    <c:if test="${not empty politicalParties}">${politicalParties[Rank].name}</c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="footer f-row caps">
+                <div class="edit f-row">
+                    <button id="pref-edit" class="pref-edit-btn f-row">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Edit
+                    </button>
+                </div>
+                <div class="pref-action f-row">
+                    <button class="pref-cancel">Cancel</button>
+                    <input type="submit" value="Save changes" id="pref-save" class="save-btn">
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="editModal" class="modal" action="../UserDetailUpdateServlet" method="post">
         <div class="modal-content f-col">
             <div class="top f-row caps">
                 <div class="title">Account settings</div>
@@ -67,7 +163,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <div class="center f-row">
+            <div class="center f-row" >
                 <div class="details f-col">
                     <div class="info f-col">
                         <div class="title">User information</div>
@@ -77,7 +173,7 @@
                             other users as well.
                         </div>
                     </div>
-                    <div class="inputs f-col">
+                    <div class="inputs f-row wrap">
                         <div class="email f-col">
                             <label for="email-input" class="input-head"
                             >Email address</label
@@ -86,7 +182,7 @@
                                     type="email"
                                     name="email"
                                     id="email-input"
-                                    placeholder="${user.email}"
+                                    value="${user.email}"
                                     disabled
                             />
                         </div>
@@ -94,21 +190,26 @@
                             <label for="name-input" class="input-head"
                             >full name</label
                             >
-                            <span>
-                                ${posts.userId}
-                            </span>
                             <input
                                     type="text"
                                     name="full-name"
                                     id="name-input"
-                                    placeholder="${userProfile.name}"
+                                    value="${userProfile.name}"
                             />
+                        </div>
+                        <div class="phone-number">
+                            <label for="phoneNumber" class="input-head">phone number</label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" value="${userProfile.phoneNumber}">
+                        </div>
+                        <div class="address-input max-width">
+                            <label for="address" class="input-head">address</label>
+                            <input type="text" name="address" id="address" value="${userProfile.address}">
                         </div>
                         <div class="city">
                             <label
                                     for="province-drop"
                                     class="input-head"
-                            >city</label
+                            >location</label
                             >
                             <div class="dropdown f-row">
                                 <select
@@ -116,49 +217,64 @@
                                         id="province-drop"
                                         onchange="updateCities()"
                                 >
-                                    <option value="" disabled selected>
-                                        -- Select Province --
-                                    </option>
-                                    <option value="western">
+                                    <option value="" disabled selected>-- Select Province --</option>
+                                    <option value="western" ${userProfile.province eq 'western' ? 'selected' : ''}>
                                         Western Province
                                     </option>
-                                    <option value="central">
+                                    <option value="central" ${userProfile.province eq 'central' ? 'selected' : ''}>
                                         Central Province
                                     </option>
-                                    <option value="southern">
+                                    <option value="southern" ${userProfile.province eq 'southern' ? 'selected' : ''}>
                                         Southern Province
                                     </option>
-                                    <option value="northern">
+                                    <option value="northern" ${userProfile.province eq 'northern' ? 'selected' : ''}>
                                         Northern Province
                                     </option>
-                                    <option value="eastern">
+                                    <option value="eastern" ${userProfile.province eq 'eastern' ? 'selected' : ''}>
                                         Eastern Province
                                     </option>
-                                    <option value="north-western">
+                                    <option value="north-western" ${userProfile.province eq 'north-western' ? 'selected' : ''}>
                                         North Western Province
                                     </option>
-                                    <option value="north-central">
+                                    <option value="north-central" ${userProfile.province eq 'north-central' ? 'selected' : ''}>
                                         North Central Province
                                     </option>
-                                    <option value="uva">
+                                    <option value="uva" ${userProfile.province eq 'uva' ? 'selected' : ''}>
                                         Uva Province
                                     </option>
-                                    <option value="sabaragamuwa">
+                                    <option value="sabaragamuwa" ${userProfile.province eq 'sabaragamuwa' ? 'selected' : ''}>
                                         Sabaragamuwa Province
                                     </option>
                                 </select>
-                                <select id="city" name="city" disabled>
-                                    <option value="">
-                                        -- First select a province --
-                                    </option>
+                                <select id="city" name="district" ${empty userProfile.province ? 'disabled' : ''}>
+                                    <c:choose>
+                                        <c:when test="${not empty userProfile.district}">
+                                            <option value="${userProfile.district}" selected>${userProfile.district}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="">-- First select a province --</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </select>
                             </div>
+                        </div>
+                        <div class="political-view-field max-width f-col">
+                            <label for="political-view-field" class="input-head">Political view</label>
+                            <textarea name="political_view" id="political-view-field">${(userProfile.politicalView)}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="profile-pic f-col">
-                    <div class="image"></div>
-                    <button id="change">Change image</button>
+                    <div class="banner">
+                        <img src="./bg.jpg" alt="banner"/>
+                    </div>
+                    <div class="profile f-col">
+                        <div class="image"></div>
+                        <div class="btns f-row">
+                            <button id="change-pp">Change profile</button>
+                            <button id="change-banner">Change banner</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="footer f-row">
@@ -169,11 +285,11 @@
                     <button id="cancel-btn">cancel
                     </button
                     >
-                    <button id="save-btn">save</button>
+                    <input type="submit" value="save changes" id="save-btn" class="caps"/>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <div class="profile-container f-col">
         <div class="profile-imgs">
             <div class="cover-photo">
@@ -200,19 +316,24 @@
             </div>
             <div class="profession">Product Designer at Senica</div>
             <div class="city caps">
-                Galle, Southern Province &#127473;&#127472;
+                ${userProfile.district}  , ${userProfile.province} province &#127473;&#127472;
+            </div>
+            <div class="political-view f-col">
+                <span class="content">
+                    ${userProfile.politicalView}
+                </span>
             </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
-                    <button class="follow-btn">
-                        <i class="fa-solid fa-plus"></i>follow
+                    <button class="intrst-btn">
+                        About me
                     </button>
-                    <button class="message-btn">
-                        <i class="fa-solid fa-messages"></i>message
-                    </button>
+<%--                    <button class="message-btn">--%>
+<%--                        <i class="fa-solid fa-messages"></i>message--%>
+<%--                    </button>--%>
                 </div>
                 <div class="scndry-btns">
-                    <button class="edit-btn">
+                    <button class="user-edit-btn">
                         <i class="fa-solid fa-pen-to-square"></i>edit
                     </button>
                 </div>
@@ -288,267 +409,17 @@
 
 </body>
 <script src="../script.js"></script>
+<script src="./popupModals.js"></script>
 <script>
-    const editBtn = document.querySelector(".edit-btn");
-    const modal = document.getElementById("editModal");
-    const closeBtn = document.querySelector(".close-btn");
-    const modalCancelBtn = document.getElementById("cancel-btn");
+    const dateField = document.querySelector(".joined-date .date");
+    const formatedDate = formatDate(dateField.innerHTML)
+    console.log(formatedDate);
+    dateField.innerHTML= formatedDate;
 
-    // Initially hide the modal
-    modal.style.display = "none";
-
-    // Open modal on button click
-    editBtn.addEventListener("click", () => {
-        modal.style.display = "flex";
-    });
-
-    // Close modal on close button click
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-    modalCancelBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    const citiesByProvince = {
-        western: [
-            "Colombo",
-            "Negombo",
-            "Moratuwa",
-            "Panadura",
-            "Kalutara",
-            "Gampaha",
-            "Horana",
-        ],
-        central: [
-            "Kandy",
-            "Matale",
-            "Nuwara Eliya",
-            "Gampola",
-            "Dambulla",
-            "Hatton",
-        ],
-        southern: [
-            "Galle",
-            "Matara",
-            "Hambantota",
-            "Weligama",
-            "Tangalle",
-            "Ambalangoda",
-        ],
-        northern: [
-            "Jaffna",
-            "Vavuniya",
-            "Kilinochchi",
-            "Mullaitivu",
-            "Mannar",
-        ],
-        eastern: [
-            "Batticaloa",
-            "Trincomalee",
-            "Kalmunai",
-            "Ampara",
-            "Akkaraipattu",
-        ],
-        "north-western": [
-            "Kurunegala",
-            "Puttalam",
-            "Chilaw",
-            "Narammala",
-            "Wariyapola",
-        ],
-        "north-central": [
-            "Anuradhapura",
-            "Polonnaruwa",
-            "Medawachchiya",
-            "Habarana",
-            "Kekirawa",
-        ],
-        uva: [
-            "Badulla",
-            "Monaragala",
-            "Bandarawela",
-            "Haputale",
-            "Welimada",
-        ],
-        sabaragamuwa: [
-            "Ratnapura",
-            "Kegalle",
-            "Balangoda",
-            "Embilipitiya",
-            "Kuruwita",
-        ],
-    };
-
-    function updateCities() {
-        const provinceSelect = document.getElementById("province-drop");
-        const citySelect = document.getElementById("city");
-        const selectedProvince = provinceSelect.value;
-
-        // Clear previous options
-        citySelect.innerHTML = "";
-
-        if (selectedProvince) {
-            citySelect.disabled = false;
-            citySelect.add(new Option("-- Select City --", ""));
-
-            // Add cities for selected province
-            citiesByProvince[selectedProvince].forEach((city) => {
-                citySelect.add(
-                    new Option(city, city.toLowerCase().replace(" ", "-"))
-                );
-            });
-        } else {
-            citySelect.disabled = true;
-            citySelect.add(new Option("-- First select a province --", ""));
-        }
-    }
-</script>
-<%--<script>--%>
-<%--    document.addEventListener('DOMContentLoaded', function() {--%>
-<%--        console.log("DOM fully loaded and parsed");--%>
-
-<%--        // Debug output--%>
-<%--        console.log("UserProfile data:", {--%>
-<%--            exists: ${not empty userProfile},--%>
-<%--            userId: '${userProfile.userId}',--%>
-<%--            name: '${userProfile.name}'--%>
-<%--        });--%>
-
-<%--        const userId = '${userProfile.userId}';--%>
-<%--        if (!userId || userId === 'null' || userId === '') {--%>
-<%--            console.error("Invalid user ID:", userId);--%>
-<%--            showError("User profile not properly loaded");--%>
-<%--            return;--%>
-<%--        }--%>
-
-<%--        // Show loading state--%>
-<%--        document.getElementById('posts-container').innerHTML =--%>
-<%--            '<div class="loading-spinner">Loading posts...</div>';--%>
-
-<%--        fetchPosts(userId);--%>
-<%--    });--%>
-
-<%--    async function fetchPosts(userId) {--%>
-<%--        try {--%>
-<%--            console.log("Initiating fetch for user:", userId);--%>
-<%--            const startTime = performance.now();--%>
-
-<%--            const response = await fetch(`GetUserPostsServlet?userId=${encodeURIComponent(userId)}&t=${Date.now()}`);--%>
-<%--            const responseTime = performance.now() - startTime;--%>
-
-<%--            console.log(`Received response in ${responseTime.toFixed(2)}ms`, response);--%>
-
-<%--            if (!response.ok) {--%>
-<%--                const errorText = await response.text();--%>
-<%--                throw new Error(`HTTP ${response.status}: ${errorText}`);--%>
-<%--            }--%>
-
-<%--            const responseData = await response.text();--%>
-<%--            console.log("Raw response:", responseData);--%>
-
-<%--            const posts = JSON.parse(responseData);--%>
-<%--            console.log("Parsed posts:", posts);--%>
-
-<%--            if (!Array.isArray(posts)) {--%>
-<%--                throw new Error("Invalid response format");--%>
-<%--            }--%>
-
-<%--            if (posts.length === 0) {--%>
-<%--                showMessage("No posts found for this user");--%>
-<%--            } else {--%>
-<%--                renderPosts(posts);--%>
-<%--            }--%>
-
-<%--        } catch (error) {--%>
-<%--            console.error("Fetch error details:", {--%>
-<%--                error: error.message,--%>
-<%--                stack: error.stack--%>
-<%--            });--%>
-<%--            showError(`Failed to load posts. ${error.message}`);--%>
-<%--        }--%>
-<%--    }--%>
-
-<%--    function renderPosts(posts) {--%>
-<%--        const container = document.getElementById('posts-container');--%>
-<%--        container.innerHTML = posts.map(post => `--%>
-<%--            <div class="post-card">--%>
-<%--                <div class="post-header">--%>
-<%--                    <img src="https://i.pravatar.cc/50?u=${post.userId}"--%>
-<%--                         class="post-avatar">--%>
-<%--                    <div class="post-user-info">--%>
-<%--                        <h4>${escapeHtml(post.name || 'Unknown User')}</h4>--%>
-<%--                        <span>${formatDate(post.datetime)}</span>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="post-content">--%>
-<%--                    <p>${escapeHtml(post.content || '')}</p>--%>
-<%--                </div>--%>
-<%--                <div class="post-footer">--%>
-<%--                    <button class="action-btn like-btn">--%>
-<%--                        <i class="fa-regular fa-thumbs-up"></i>--%>
-<%--                        <span>0</span>--%>
-<%--                    </button>--%>
-<%--                    <button class="action-btn comment-btn">--%>
-<%--                        <i class="far fa-comment"></i> <span>0</span>--%>
-<%--                    </button>--%>
-<%--                    <button class="action-btn share-btn">--%>
-<%--                        <i class="fas fa-share"></i> <span>Share</span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        `).join('');--%>
-<%--    }--%>
-
-<%--    // Helper functions--%>
-<%--    function escapeHtml(unsafe) {--%>
-<%--        return unsafe ? unsafe.toString()--%>
-<%--            .replace(/&/g, "&amp;")--%>
-<%--            .replace(/</g, "&lt;")--%>
-<%--            .replace(/>/g, "&gt;")--%>
-<%--            .replace(/"/g, "&quot;")--%>
-<%--            .replace(/'/g, "&#039;") : '';--%>
-<%--    }--%>
-
-<%--    function formatDate(timestamp) {--%>
-<%--        if (!timestamp) return "Recently";--%>
-<%--        try {--%>
-<%--            const date = new Date(timestamp);--%>
-<%--            return date.toLocaleString();--%>
-<%--        } catch (e) {--%>
-<%--            console.error("Error formatting date:", e);--%>
-<%--            return "Recently";--%>
-<%--        }--%>
-<%--    }--%>
-
-<%--    function showMessage(message) {--%>
-<%--        document.getElementById('posts-container').innerHTML =--%>
-<%--            `<div class="info-message">${message}</div>`;--%>
-<%--    }--%>
-
-<%--    function showError(message) {--%>
-<%--        document.getElementById('posts-container').innerHTML = `--%>
-<%--            <div class="error-message">--%>
-<%--                ${message}--%>
-<%--                <button onclick="window.location.reload()">Retry</button>--%>
-<%--            </div>--%>
-<%--        `;--%>
-<%--    }--%>
-<%--</script>--%>
-
-<%--test script--%>
-<script>
     console.log("UserProfile data:", {
         exists: ${not empty userProfile},
         userId: '${userProfile.userId}',
-        typeUserId : typeof '${userProfile.userId}',
+        typeUserId: typeof '${userProfile.userId}',
         name: '${userProfile.name}'
     });
 
@@ -558,6 +429,56 @@
             '<div class="error">User profile not loaded</div>';
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize city dropdown if province is already selected
+        const savedProvince = document.getElementById('province-drop').value;
+        const savedDistrict = '${userProfile.district}'; // This comes from JSP
 
+        if (savedProvince) {
+            updateCities();
+            // Set the saved district after a small delay to ensure dropdown is populated
+            setTimeout(() => {
+                const citySelect = document.getElementById("city");
+                if (savedDistrict) {
+                    citySelect.value = savedDistrict;
+                }
+            }, 100);
+        }
+    });
+
+    function updateCities() {
+        const provinceSelect = document.getElementById("province-drop");
+        const citySelect = document.getElementById("city");
+        const selectedProvince = provinceSelect.value;
+        const savedDistrict = `${userProfile.district}`; // Get from JSP
+
+        // Clear previous options but keep the first empty option if province not selected
+        citySelect.innerHTML = selectedProvince ? "" : "<option value='' disabled>-- First select a province --</option>";
+
+        if (selectedProvince) {
+            citySelect.disabled = false;
+            citySelect.add(new Option("-- Select City --", ""));
+
+            // Add cities for selected province
+            citiesByProvince[selectedProvince].forEach((city) => {
+                const option = new Option(city, city);
+                // Select the option if it matches the saved district
+                if (city === savedDistrict) {
+                    option.selected = true;
+                }
+                citySelect.add(option);
+            });
+        } else {
+            citySelect.disabled = true;
+        }
+    }
+    document.getElementById('save-btn').addEventListener('click', function(e) {
+        const citySelect = document.getElementById("city");
+        if (citySelect.value === "") {
+            // If no district selected, keep the original value
+            citySelect.value = '${userProfile.district}';
+        }
+        // Proceed with form submission
+    });
 </script>
 </html>
