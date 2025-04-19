@@ -84,7 +84,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <form action="test" method="get" class="center f-col">
+            <form action="SetPoliticsPreference" method="post" class="center f-col">
                 <div class="desc">
                     These are the political topics and parties this
                     person has shown interest on Parlimate. This might
@@ -106,10 +106,26 @@
                         <c:forEach begin="1" end="3" var="rank">
                             <tr>
                                 <td class="rank">${rank}</td>
-                                <td data-options="<c:forEach var='pol' items='${politicians}'>${pol.name},</c:forEach>">
-                                    <c:if test="${not empty politicians and not empty politicians[rank]}">
-                                        ${politicians[rank].name}
-                                    </c:if>
+                                <td class="politician-cell" data-rank="${rank}">
+                                    <span class="display-value">
+                                        <c:forEach var="pref" items="${userPreferences}">
+                                            <c:if test="${pref.rank == rank}">
+                                                <c:forEach var="pol" items="${politicians}">
+                                                    <c:if test="${pol.politicianId == pref.politicianId}">
+                                                        ${pol.name}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:if>
+                                        </c:forEach>
+                                    </span>
+                                    <select class="politician-select" style="display:none;" data-rank="${rank}">
+                                        <option value="">-- Select Politician --</option>
+                                        <c:forEach var="pol" items="${politicians}">
+                                            <option value="${pol.politicianId}">
+                                                    ${pol.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -290,7 +306,7 @@
             </div>
         </div>
     </form>
-    <div class="profile-container f-col">
+    <div class="profile-container f-col" data-user-id="${user.userId}">
         <div class="profile-imgs">
             <div class="cover-photo">
                 <img src="bg.jpg" alt="bg"/>

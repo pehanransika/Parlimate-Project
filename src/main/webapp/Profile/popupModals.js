@@ -84,50 +84,151 @@ window.addEventListener('click', (event) => {
 const prefEditBtn = document.getElementById('pref-edit');
 const prefSaveBtn = document.getElementById('pref-save');
 
-let originalValues = [];
+let originalPreferences = {};
 
 prefEditBtn.addEventListener('click', function() {
     // Hide edit button and show save/cancel buttons
     prefEditBtn.style.display = 'none';
     document.querySelector('.pref-action').style.display = 'flex';
 
-    // Save original values
-    originalValues = [];
-    const tables = document.querySelectorAll('.table-cont table');
+    // Store original values
+    originalPreferences = {};
+    document.querySelectorAll('.politician-cell').forEach(cell => {
+        const rank = cell.dataset.rank;
+        const displayValue = cell.querySelector('.display-value').textContent.trim();
+        const select = cell.querySelector('select');
 
-    tables.forEach(table => {
-        const tableData = [];
-        const rows = table.querySelectorAll('tbody tr');
+        originalPreferences[rank] = {
+            displayValue: displayValue,
+            selectedValue: select.value
+        };
 
-        rows.forEach(row => {
-            const cell = row.querySelector('td:nth-child(2)');
-            tableData.push({
-                value: cell.textContent.trim(),
-                options: cell.getAttribute('data-options')
+        // Show select and hide display value
+        cell.querySelector('.display-value').style.display = 'none';
+        select.style.display = 'block';
+    });
+});
+
+prefSaveBtn.addEventListener('click', function() {
+    // Validate selections first
+    let isValid = true;
+    const preferences = [];
+
+    document.querySelectorAll('.politician-select').forEach(select => {
+        if (!select.value) {
+            isValid = false;
+            select.style.border = '1px solid red';
+        } else {
+            select.style.border = '';
+            preferences.push({
+                rank: parseInt(select.dataset.rank),
+                politicianId: parseInt(select.value)
             });
-        });
-
-        originalValues.push(tableData);
+        }
     });
 
-    // Convert cells to dropdowns
-    convertCellsToDropdowns();
+    if (!isValid) {
+        alert('Please select a politician for each rank');
+        return;
+    }
+
+    // Prepare data for saving
+    const userId = document.querySelector('.profile-container').dataset.userId; // Make sure to set this in your HTML
+
+    // Send to server
+    savePreferences(preferences);
 });
 
-prefSaveBtn.addEventListener('click', function () {
+prefCancelBtn.addEventListener('click', function() {
+    // Revert to original values
+    document.querySelectorAll('.politician-cell').forEach(cell => {
+        const rank = cell.dataset.rank;
+        const original = originalPreferences[rank];
+
+        if (original) {
+            cell.querySelector('.display-value').textContent = original.displayValue;
+            cell.querySelector('select').value = original.selectedValue;
+
+            // Show display value and hide select
+            cell.querySelector('.display-value').style.display = 'inline';
+            cell.querySelector('select').style.display = 'none';
+        }
+    });
+
+    // Hide action buttons and show edit button
     prefEditBtn.style.display = 'flex';
     document.querySelector('.pref-action').style.display = 'none';
-    convertDropdownsToCells();
-    console.log("Data saved:", getCurrentValues());
 });
 
-// Add event listener for pref-cancel button
-prefCancelBtn.addEventListener('click', function () {
-    prefEditBtn.style.display = 'flex';
-    document.querySelector('.pref-action').style.display = 'none';
-    revertToOriginalValues();
-    convertDropdownsToCells(); // Ensure dropdowns are converted back to cells
-});
+function savePreferences(preferences) {
+    // Get user ID from HTML
+    const userId = document.querySelector('.profile-container').dataset.userId;
+    if (!userId) {
+        alert('User session expired. Please log in again.');
+        return;
+    }
+
+    // Prepare data
+    const preferenceData = {
+        userId: userId,
+        rank1PoliticianId: 0,
+        rank2PoliticianId: 0,
+        rank3PoliticianId: 0
+    };
+
+    preferences.forEach(pref => {
+        switch(pref.rank) {
+            case 1: preferenceData.rank1PoliticianId = pref.politicianId; break;
+            case 2: preferenceData.rank2PoliticianId = pref.politicianId; break;
+            case 3: preferenceData.rank3PoliticianId = pref.politicianId; break;
+        }
+    });
+
+    // Get context path (for proper URL)
+    const contextPath = window.location.pathname.split('/')[1];
+    const url = contextPath ? `/${contextPath}/SetPoliticsPreference` : '/SetPoliticsPreference';
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(preferenceData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Server error: ${response.status} ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Update UI on success
+                document.querySelectorAll('.politician-cell').forEach(cell => {
+                    const rank = cell.dataset.rank;
+                    const select = cell.querySelector('select');
+                    const selectedOption = select.options[select.selectedIndex];
+
+                    cell.querySelector('.display-value').textContent = selectedOption.text;
+                    select.style.display = 'none';
+                    cell.querySelector('.display-value').style.display = 'inline';
+                });
+
+                prefEditBtn.style.display = 'flex';
+                document.querySelector('.pref-action').style.display = 'none';
+                alert('Preferences saved successfully!');
+            } else {
+                throw new Error(data.message || 'Failed to save preferences');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error saving preferences: ' + error.message);
+            prefCancelBtn.click();
+        });
+}
 
 function convertCellsToDropdowns() {
     const tables = document.querySelectorAll('.table-cont table');
