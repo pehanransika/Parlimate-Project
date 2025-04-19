@@ -22,6 +22,7 @@ function setupModals() {
     intrstBtn.addEventListener('click', (e) => {
         e.preventDefault();
         interestsModal.style.display = "flex";
+        document.getElementById("pref-edit").style.display = 'flex';
         document.querySelector(".pref-action").style.display = "none";
     });
 
@@ -50,9 +51,9 @@ function setupModals() {
 
     window.addEventListener('click', (event) => {
         if (event.target === interestsModal || event.target === editModal) {
-            revertToOriginalValues();
             interestsModal.style.display = "none";
             modal.style.display = "none";
+
         }
     });
 }
@@ -62,6 +63,7 @@ function setupCombinedPreferences() {
     const prefEditBtn = document.getElementById('pref-edit');
     const prefSaveBtn = document.getElementById('pref-save');
     const prefCancelBtn = document.querySelector('.pref-cancel');
+    const interestsModal = document.getElementById('interestsModal');
 
     if (!prefEditBtn || !prefSaveBtn || !prefCancelBtn) return;
 
@@ -102,6 +104,14 @@ function setupCombinedPreferences() {
 
             displayValue.style.display = 'none';
             select.style.display = 'block';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === interestsModal ) {
+                interestsModal.style.display = "none";
+                revertValues(originalValues);
+
+            }
         });
     });
 
@@ -192,34 +202,38 @@ function setupCombinedPreferences() {
 
     prefCancelBtn.addEventListener('click', function() {
         // Revert politicians
-        document.querySelectorAll('.politician-cell').forEach(cell => {
-            const rank = cell.dataset.rank;
-            const original = originalValues.politicians[rank];
-
-            if (original) {
-                cell.querySelector('.display-value').textContent = original.displayValue;
-                cell.querySelector('select').value = original.selectedValue;
-                cell.querySelector('.display-value').style.display = 'inline';
-                cell.querySelector('select').style.display = 'none';
-            }
-        });
-
-        // Revert parties
-        document.querySelectorAll('.party-cell').forEach(cell => {
-            const rank = cell.dataset.rank;
-            const original = originalValues.parties[rank];
-
-            if (original) {
-                cell.querySelector('.display-value').textContent = original.displayValue;
-                cell.querySelector('select').value = original.selectedValue;
-                cell.querySelector('.display-value').style.display = 'inline';
-                cell.querySelector('select').style.display = 'none';
-            }
-        });
-
-        prefEditBtn.style.display = 'flex';
-        document.querySelector('.pref-action').style.display = 'none';
+        revertValues(originalValues);
     });
+}
+
+function revertValues(originalValues) {
+    document.querySelectorAll('.politician-cell').forEach(cell => {
+        const rank = cell.dataset.rank;
+        const original = originalValues.politicians[rank];
+
+        if (original) {
+            cell.querySelector('.display-value').textContent = original.displayValue;
+            cell.querySelector('select').value = original.selectedValue;
+            cell.querySelector('.display-value').style.display = 'inline';
+            cell.querySelector('select').style.display = 'none';
+        }
+    });
+
+    // Revert parties
+    document.querySelectorAll('.party-cell').forEach(cell => {
+        const rank = cell.dataset.rank;
+        const original = originalValues.parties[rank];
+
+        if (original) {
+            cell.querySelector('.display-value').textContent = original.displayValue;
+            cell.querySelector('select').value = original.selectedValue;
+            cell.querySelector('.display-value').style.display = 'inline';
+            cell.querySelector('select').style.display = 'none';
+        }
+    });
+
+    document.getElementById("pref-edit").style.display = 'flex';
+    document.querySelector('.pref-action').style.display = 'none';
 }
 
 // City dropdown functionality

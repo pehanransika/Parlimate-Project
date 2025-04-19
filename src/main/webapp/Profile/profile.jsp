@@ -350,7 +350,7 @@
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
                     <button class="intrst-btn">
-                        About me
+                        political interests
                     </button>
 <%--                    <button class="message-btn">--%>
 <%--                        <i class="fa-solid fa-messages"></i>message--%>
