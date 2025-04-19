@@ -28,6 +28,7 @@ public class PoliticianProfileModel {
     private String instagram;
     private String linkedin;
     private String x;
+    private String imagePath;
 
     // Getters and Setters
     public int getProfileId() {
@@ -312,4 +313,7 @@ public class PoliticianProfileModel {
 
     public String getX() { return x; }
     public void setX(String x) { this.x = x; }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 }

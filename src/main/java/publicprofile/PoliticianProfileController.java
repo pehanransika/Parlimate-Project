@@ -63,6 +63,8 @@ public class PoliticianProfileController {
                 profile.setInstagram(rs.getString("instagram"));
                 profile.setLinkedin(rs.getString("linkedin"));
                 profile.setX(rs.getString("x"));
+                profile.setImagePath(rs.getString("image_path"));
+
             }
 
             rs.close();

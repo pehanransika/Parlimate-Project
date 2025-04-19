@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%!
+  String baseURL = "http://localhost:8080/Parlimate/images"; // define base URL here
+%>
 <html>
 <head>
   <meta charset="UTF-8" />
@@ -68,8 +71,8 @@
         <tr>
           <td>
             <select name="role" id="roleSelect" class="roleType caps">
-              <option value="politician">politician</option>
-              <option value="political-party">political party</option>
+              <option value="politician">Politician</option>
+              <option value="political-party">Political Party</option>
             </select>
           </td>
 
@@ -91,7 +94,16 @@
                   <i class="fa-regular fa-magnifying-glass"></i>
                 </label>
               </div>
-              <div class="image"></div>
+<%--              <div class="image">--%>
+<%--                <!-- Displaying Image 1 -->--%>
+<%--                <c:forEach var="politician" items="${profiles}">--%>
+<%--                  <img--%>
+<%--                          id="img1"--%>
+<%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? politician.imagePath.split(',')[0] : ''}"--%>
+<%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? 'display:block;' : 'display:none;'}"--%>
+<%--                  />--%>
+<%--                </c:forEach>--%>
+<%--              </div>--%>
               <div class="name-shown">Politician 1</div>
             </div>
           </td>
@@ -103,7 +115,7 @@
                 <input
                         type="text"
                         name="politicianName2"
-                        placeholder="Enter Politician Name  (optional)"
+                        placeholder="Enter Politician Name (optional)"
                         class="search-2"
                         id="col2-search"
                         autocomplete="off"
@@ -113,7 +125,16 @@
                   <i class="fa-regular fa-magnifying-glass"></i>
                 </label>
               </div>
-              <div class="image"></div>
+<%--              <div class="image">--%>
+<%--                <!-- Displaying Image 2 -->--%>
+<%--                <c:forEach var="politician" items="${profiles}">--%>
+<%--                  <img--%>
+<%--                          id="img2"--%>
+<%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? politician.imagePath.split(',')[1] : ''}"--%>
+<%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? 'display:block;' : 'display:none;'}"--%>
+<%--                  />--%>
+<%--                </c:forEach>--%>
+<%--              </div>--%>
               <div class="name-shown">Politician 2</div>
             </div>
           </td>
@@ -128,6 +149,23 @@
           </td>
         </tr>
       </form>
+
+      <tr>
+        <td class="row-head">Photo</td>
+        <c:forEach var="politician" items="${profiles}">
+          <td>
+            <div class="image">
+              <!-- Check if the politician has an image path and display it -->
+              <img src="../images/${politician.imagePath}" alt="Photo" style="max-width: 100px; height: auto;">
+              <script>
+                // Log the image URL to the console to test
+                console.log('Image URL:', '../image${politician.imagePath}');
+              </script>
+            </div>
+          </td>
+        </c:forEach>
+      </tr>
+
       <tr style="border: 0">
         <td colspan="3">
           <div class="select-attributes f-row">
@@ -472,7 +510,6 @@
           </c:forEach>
         </tr>
 
-
       </div>
     </table>
   </div>
@@ -483,6 +520,7 @@
 
 <script>
   // Sample politician data (replace with your actual data source)
+
   const politicians = [
     {
       name: "Mahinda Rajapaksa",
