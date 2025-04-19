@@ -19,6 +19,7 @@
 <jsp:include page="/load-politicians" />
 <jsp:include page="/load-politicalParty" />
 <jsp:include page="/ViewPoliticsPreference" />
+<jsp:include page="/load-parties" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,17 +66,6 @@
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
 
-<%-- Display update messages --%>
-<c:if test="${not empty updateSuccess}">
-    <div class="alert alert-success">
-            ${updateSuccess}
-    </div>
-</c:if>
-<c:if test="${not empty updateError}">
-    <div class="alert alert-danger">
-            ${updateError}
-    </div>
-</c:if>
 <div class="container">
     <div id="interestsModal" class="modal">
         <div class="modal-content">
@@ -85,7 +75,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <form action="SetPoliticsPreference" method="post" class="center f-col">
+            <form action="${pageContext.request.contextPath}/SetPoliticsPreference" method="post" class="center f-col">
                 <div class="desc">
                     These are the political topics and parties this
                     person has shown interest on Parlimate. This might
@@ -108,16 +98,16 @@
                             <tr>
                                 <td class="rank">${i}</td>
                                 <td class="politician-cell" data-rank="${i}">
-                <span class="display-value">
-                    <c:choose>
-                        <c:when test="${not empty prefferedPoliticians and fn:length(prefferedPoliticians) >= i}">
-                            ${prefferedPoliticians[i-1].name}
-                        </c:when>
-                        <c:otherwise>
-                            -- Select Politician --
-                        </c:otherwise>
-                    </c:choose>
-                </span>
+                                    <span class="display-value">
+                                        <c:choose>
+                                            <c:when test="${not empty prefferedPoliticians and fn:length(prefferedPoliticians) >= i}">
+                                                ${prefferedPoliticians[i-1].name}
+                                            </c:when>
+                                            <c:otherwise>
+                                                -- Select Politician --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
                                     <select class="politician-select" data-rank="${i}" style="display: none;">
                                         <option value="">-- Select Politician --</option>
                                         <c:forEach var="pol" items="${politicians}">
@@ -145,15 +135,32 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach begin="1" end="3" var="Rank">
+                        <c:forEach begin="1" end="3" var="rank">
                             <tr>
-                                <td class="rank">${Rank}</td>
-                                <td data-options="<c:forEach var="party" items="${politicalParties}">${party.name},</c:forEach>">
-                                    <c:if test="${not empty politicalParties}">${politicalParties[Rank].name}</c:if>
+                                <td class="rank">${rank}</td>
+                                <td class="party-cell" data-rank="${rank}">
+                                    <span class="display-value">
+                                        <c:choose>
+                                            <c:when test="${not empty preferredParties and fn:length(preferredParties) >= rank}">
+                                                ${preferredParties[rank-1].name}
+                                            </c:when>
+                                            <c:otherwise>
+                                                -- Select Party --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <select class="party-select" data-rank="${rank}" style="display: none;">
+                                        <option value="">-- Select Party --</option>
+                                        <c:forEach var="party" items="${politicalPartyList}">
+                                            <option value="${party.politicalPartyId}"
+                                                    <c:if test="${not empty preferredParties and fn:length(preferredParties) >= rank and preferredParties[rank-1].politicalPartyId == party.politicalPartyId}">selected</c:if>>
+                                                    ${party.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
                                 </td>
                             </tr>
                         </c:forEach>
-
                         </tbody>
                     </table>
                 </div>
@@ -162,7 +169,7 @@
                 <div class="edit f-row">
                     <button id="pref-edit" class="pref-edit-btn f-row">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        Edit
+                        Edit prefferences
                     </button>
                 </div>
                 <div class="pref-action f-row">

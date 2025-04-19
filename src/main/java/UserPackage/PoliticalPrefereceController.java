@@ -17,7 +17,7 @@ public class PoliticalPrefereceController {
             conn = DBConnection.getConnection();
             conn.setAutoCommit(false);
 
-            isSuccess = (setPreference(conn, convertedUserId,1, rank1Id) && setPreference(conn, convertedUserId,2, rank2Id) && setPreference(conn, convertedUserId,3, rank3Id));
+            isSuccess = (executePoliticianPreference(conn, convertedUserId,1, rank1Id) && executePoliticianPreference(conn, convertedUserId,2, rank2Id) && executePoliticianPreference(conn, convertedUserId,3, rank3Id));
 
             if(isSuccess){
                 conn.commit();
@@ -33,7 +33,7 @@ public class PoliticalPrefereceController {
     }
 
 
-    public static boolean setPreference(Connection conn, int userId, int rank, int politicianId) {
+    public static boolean executePoliticianPreference(Connection conn, int userId, int rank, int politicianId) {
         String query = "UPDATE politicianpreference SET politician_id = ? WHERE user_id = ? AND rank = ?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(query)){
@@ -90,5 +90,64 @@ public class PoliticalPrefereceController {
             }
         }
         return list;
+    }
+
+
+//    Political party preference update
+
+    public static boolean setPartyPreference(String userId, int rank1Id, int rank2Id, int rank3Id) {
+        Connection conn = null;
+        boolean isSuccess = false;
+        int convertedUserId = Integer.parseInt(userId);
+
+        try{
+            conn = DBConnection.getConnection();
+            conn.setAutoCommit(false);
+
+            isSuccess = (executePartyPreference(conn, convertedUserId, 1, rank1Id) && executePartyPreference(conn, convertedUserId, 2, rank2Id) && executePartyPreference(conn, convertedUserId, 3, rank3Id));
+
+            if(isSuccess){
+                conn.commit();
+            } else {
+                conn.rollback();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return isSuccess;
+    }
+
+    public static boolean executePartyPreference(Connection conn, int userId, int rank, int partyId) {
+        String updateQuery = "UPDATE partypreference SET political_party_id = ? WHERE user_id = ? AND rank = ?";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(updateQuery)){
+            pstmt.setInt(1, partyId);
+            pstmt.setInt(2, userId);
+            pstmt.setInt(3, rank);
+
+            int isUpdate = pstmt.executeUpdate();
+
+            if(isUpdate == 0){
+                String insertQuery = "INSERT INTO partypreference VALUES(?,?,?)";
+
+                try(PreparedStatement pstmt2 = conn.prepareStatement(insertQuery)){
+                    pstmt2.setInt(1,userId);
+                    pstmt2.setInt(2,rank);
+                    pstmt2.setInt(3,partyId);
+
+                    return pstmt2.executeUpdate() > 0;
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
     }
 }

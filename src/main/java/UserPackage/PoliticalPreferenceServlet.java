@@ -13,10 +13,8 @@ import org.json.JSONObject;
 public class PoliticalPreferenceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         JSONObject jsonResponse = new JSONObject();
         PrintWriter out = response.getWriter();
 
@@ -33,12 +31,17 @@ public class PoliticalPreferenceServlet extends HttpServlet {
             int rank1Id = jsonRequest.getInt("rank1PoliticianId");
             int rank2Id = jsonRequest.getInt("rank2PoliticianId");
             int rank3Id = jsonRequest.getInt("rank3PoliticianId");
+            int partyRank1Id = jsonRequest.getInt("rank1PartyId");
+            int partyRank2Id = jsonRequest.getInt("rank2PartyId");
+            int partyRank3Id = jsonRequest.getInt("rank3PartyId");
 
             // Update database
-            boolean success = PoliticalPrefereceController.setPoliticianPreference(
+            boolean politicianSuccess = PoliticalPrefereceController.setPoliticianPreference(
                     userId, rank1Id, rank2Id, rank3Id);
+            boolean partySuccess = PoliticalPrefereceController.setPartyPreference(userId,partyRank1Id,partyRank2Id,partyRank3Id);
 
-            if (success) {
+
+            if (politicianSuccess && partySuccess) {
                 jsonResponse.put("success", true);
                 jsonResponse.put("message", "Preferences updated successfully");
             } else {
