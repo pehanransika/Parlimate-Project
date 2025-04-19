@@ -2,7 +2,10 @@ package UserPackage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PoliticalPrefereceController {
     public static boolean setPoliticianPreference(String userId, int rank1Id, int rank2Id, int rank3Id) {
@@ -55,4 +58,37 @@ public class PoliticalPrefereceController {
         return true;
     }
 
+    public static List<PoliticianModel> getPrefferedPoliticians(String userId) throws SQLException {
+        List<PoliticianModel> list = new ArrayList<>();
+        int convertedUserId = Integer.parseInt(userId);
+
+        String query = "SELECT p.* FROM politician p " +
+                "JOIN politicianpreference pp ON p.politician_id = pp.politician_id " +
+                "WHERE pp.user_id = ? " +
+                "ORDER BY pp.rank"; // Important: Order by rank
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, convertedUserId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    PoliticianModel politician = new PoliticianModel(
+                            rs.getInt("user_id"),
+                            rs.getInt("politician_id"),
+                            rs.getString("name"),
+                            rs.getString("address"),
+                            rs.getString("phone_number"),
+                            rs.getInt("political_party_id"),
+                            rs.getString("district"),
+                            rs.getString("province"),
+                            rs.getString("political_view")
+                    );
+                    list.add(politician);
+                }
+            }
+        }
+        return list;
+    }
 }

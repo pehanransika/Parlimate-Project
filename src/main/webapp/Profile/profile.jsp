@@ -18,6 +18,7 @@
 %>
 <jsp:include page="/load-politicians" />
 <jsp:include page="/load-politicalParty" />
+<jsp:include page="/ViewPoliticsPreference" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,25 +104,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach begin="1" end="3" var="rank">
+                        <c:forEach var="i" begin="1" end="3">
                             <tr>
-                                <td class="rank">${rank}</td>
-                                <td class="politician-cell" data-rank="${rank}">
-                                    <span class="display-value">
-                                        <c:forEach var="pref" items="${userPreferences}">
-                                            <c:if test="${pref.rank == rank}">
-                                                <c:forEach var="pol" items="${politicians}">
-                                                    <c:if test="${pol.politicianId == pref.politicianId}">
-                                                        ${pol.name}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:if>
-                                        </c:forEach>
-                                    </span>
-                                    <select class="politician-select" style="display:none;" data-rank="${rank}">
+                                <td class="rank">${i}</td>
+                                <td class="politician-cell" data-rank="${i}">
+                <span class="display-value">
+                    <c:choose>
+                        <c:when test="${not empty prefferedPoliticians and fn:length(prefferedPoliticians) >= i}">
+                            ${prefferedPoliticians[i-1].name}
+                        </c:when>
+                        <c:otherwise>
+                            -- Select Politician --
+                        </c:otherwise>
+                    </c:choose>
+                </span>
+                                    <select class="politician-select" data-rank="${i}" style="display: none;">
                                         <option value="">-- Select Politician --</option>
                                         <c:forEach var="pol" items="${politicians}">
-                                            <option value="${pol.politicianId}">
+                                            <option value="${pol.politicianId}"
+                                                    <c:if test="${not empty prefferedPoliticians and fn:length(prefferedPoliticians) >= i and prefferedPoliticians[i-1].politicianId == pol.politicianId}">selected</c:if>>
                                                     ${pol.name}
                                             </option>
                                         </c:forEach>
@@ -429,15 +430,8 @@
 <script>
     const dateField = document.querySelector(".joined-date .date");
     const formatedDate = formatDate(dateField.innerHTML)
-    console.log(formatedDate);
     dateField.innerHTML= formatedDate;
 
-    console.log("UserProfile data:", {
-        exists: ${not empty userProfile},
-        userId: '${userProfile.userId}',
-        typeUserId: typeof '${userProfile.userId}',
-        name: '${userProfile.name}'
-    });
 
     if (typeof '${userProfile.userId}' === 'undefined' || '${userProfile.userId}' === '') {
         console.error("userProfile.userId is missing or empty");

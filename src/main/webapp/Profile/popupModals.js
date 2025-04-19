@@ -91,23 +91,18 @@ prefEditBtn.addEventListener('click', function() {
     prefEditBtn.style.display = 'none';
     document.querySelector('.pref-action').style.display = 'flex';
 
-    // Store original values
-    originalPreferences = {};
+    // Store original values and show selects
     document.querySelectorAll('.politician-cell').forEach(cell => {
         const rank = cell.dataset.rank;
-        const displayValue = cell.querySelector('.display-value').textContent.trim();
+        const displayValue = cell.querySelector('.display-value');
         const select = cell.querySelector('select');
 
-        originalPreferences[rank] = {
-            displayValue: displayValue,
-            selectedValue: select.value
-        };
-
         // Show select and hide display value
-        cell.querySelector('.display-value').style.display = 'none';
+        displayValue.style.display = 'none';
         select.style.display = 'block';
     });
 });
+
 
 prefSaveBtn.addEventListener('click', function() {
     // Validate selections first
@@ -140,25 +135,21 @@ prefSaveBtn.addEventListener('click', function() {
 });
 
 prefCancelBtn.addEventListener('click', function() {
-    // Revert to original values
+    // Hide selects and show display values
     document.querySelectorAll('.politician-cell').forEach(cell => {
-        const rank = cell.dataset.rank;
-        const original = originalPreferences[rank];
+        const displayValue = cell.querySelector('.display-value');
+        const select = cell.querySelector('select');
 
-        if (original) {
-            cell.querySelector('.display-value').textContent = original.displayValue;
-            cell.querySelector('select').value = original.selectedValue;
-
-            // Show display value and hide select
-            cell.querySelector('.display-value').style.display = 'inline';
-            cell.querySelector('select').style.display = 'none';
-        }
+        // Show display value and hide select
+        displayValue.style.display = 'inline';
+        select.style.display = 'none';
     });
 
     // Hide action buttons and show edit button
     prefEditBtn.style.display = 'flex';
     document.querySelector('.pref-action').style.display = 'none';
-});
+}); // Only one closing brace here
+
 
 function savePreferences(preferences) {
     // Get user ID from HTML
@@ -230,45 +221,6 @@ function savePreferences(preferences) {
         });
 }
 
-function convertCellsToDropdowns() {
-    const tables = document.querySelectorAll('.table-cont table');
-
-    tables.forEach(table => {
-        const rows = table.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            const cell = row.querySelector("td:nth-child(2)");
-            const currentValue = cell.textContent.trim();
-            const options = cell.getAttribute('data-options').split(',');
-
-            let selectHtml = '<select>';
-            options.forEach(option => {
-                const selected = option.trim() === currentValue ? ' selected' : '';
-                selectHtml += `<option value='${option.trim()}'${selected}>${option.trim()}</option>`;
-            });
-            selectHtml += '</select>';
-            console.log(selectHtml);
-            cell.innerHTML = selectHtml;
-        });
-    });
-}
-
-function convertDropdownsToCells() {
-    const tables = document.querySelectorAll('.table-cont table');
-
-    tables.forEach(table => {
-        const rows = table.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            const cell = row.querySelector('td:nth-child(2)');
-            const select = cell.querySelector('select');
-
-            if (select) {
-                cell.textContent = select.value;
-            }
-        });
-    });
-}
 
 function revertToOriginalValues() {
     const tables = document.querySelectorAll('.table-cont table');
@@ -285,24 +237,6 @@ function revertToOriginalValues() {
     });
 }
 
-function getCurrentValues() {
-    const values = [];
-    const tables = document.querySelectorAll('.table-cont table');
-
-    tables.forEach(table => {
-        const tableData = [];
-        const rows = table.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            const cell = row.querySelector('td:nth-child(2)');
-            tableData.push(cell.textContent);
-        });
-
-        values.push(tableData);
-    });
-
-    return values;
-}
 
 const citiesByProvince = {
     western: [
