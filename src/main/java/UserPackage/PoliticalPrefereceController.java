@@ -1,9 +1,6 @@
 package UserPackage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,5 +146,38 @@ public class PoliticalPrefereceController {
         }
 
         return true;
+    }
+
+    public static List<PoliticalPartyModel> getPartyPreferences(int userId) throws SQLException {
+        List<PoliticalPartyModel> parties = new ArrayList<>();
+
+        String query = "Select p.* from politicalparty p "+
+                "JOIN partypreference pp ON p.political_party_id=pp.political_party_id "+
+                "WHERE pp.user_id=? ORDER BY pp.rank";
+
+        try(Connection conn = DBConnection.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(query)){
+
+            pstmt.setInt(1,userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                PoliticalPartyModel party = new PoliticalPartyModel(
+                        rs.getInt("political_party_id"),
+                        rs.getInt("user_id"),
+                        rs.getString("name"),
+                        rs.getString("phone_number"),
+                        rs.getString("address"),
+                        rs.getString("logo_img"),
+                        rs.getInt("no_of_members")
+                );
+
+                parties.add(party);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return parties;
     }
 }
