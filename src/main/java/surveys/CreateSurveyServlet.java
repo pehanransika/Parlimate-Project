@@ -31,6 +31,7 @@ public class CreateSurveyServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         // Get the user object from session
         UserModel user = (UserModel) session.getAttribute("user");
+        System.out.println("manuja is the god");
 
         // Extract the userId
         int userid = user.getUserId();

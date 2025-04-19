@@ -321,7 +321,7 @@ public class surveyController {
             try (PreparedStatement surveyStmt = conn.prepareStatement(insertSurvey)) {
                 surveyStmt.setString(1, survey.getSurveyTopic());
                 surveyStmt.setInt(2, survey.getNumberOfQuestions());
-                surveyStmt.setInt(3, survey.getUserId());
+                surveyStmt.setInt(3, sessionUserId);
 
                 ResultSet rs = surveyStmt.executeQuery();
                 if (rs.next()) {
