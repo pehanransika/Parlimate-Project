@@ -1,4 +1,20 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Clean up data-options by removing trailing commas
+    const cleanDataOptions = () => {
+        const optionCells = document.querySelectorAll('td[data-options]');
 
+        optionCells.forEach(cell => {
+            let options = cell.getAttribute('data-options');
+            // Remove trailing comma if it exists
+            if (options.endsWith(',')) {
+                options = options.slice(0, -1);
+                cell.setAttribute('data-options', options);
+            }
+        });
+    };
+
+    cleanDataOptions();
+});
 
 
 

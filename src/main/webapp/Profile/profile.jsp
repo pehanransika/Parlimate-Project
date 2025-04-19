@@ -17,6 +17,7 @@
     response.setDateHeader("Expires", 0); // Proxies
 %>
 <jsp:include page="/load-politicians" />
+<jsp:include page="/load-politicalParty" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +84,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <div class="center f-col">
+            <form action="test" method="get" class="center f-col">
                 <div class="desc">
                     These are the political topics and parties this
                     person has shown interest on Parlimate. This might
@@ -102,30 +103,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="rank">1</td>
-                            <td
-                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
-                            >
-                                <c:if test="${not empty politicians}">${politicians[1].name}</c:if>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rank">2</td>
-                            <td
-                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
-                            >
-                                <c:if test="${not empty politicians}">${politicians[2].name}</c:if>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rank">3</td>
-                            <td
-                                    data-options="<c:forEach var="pol" items="${politicians}">${pol.name},</c:forEach>"
-                            >
-                                <c:if test="${not empty politicians}">${politicians[3].name}</c:if>
-                            </td>
-                        </tr>
+                        <c:forEach begin="1" end="3" var="rank">
+                            <tr>
+                                <td class="rank">${rank}</td>
+                                <td data-options="<c:forEach var='pol' items='${politicians}'>${pol.name},</c:forEach>">
+                                    <c:if test="${not empty politicians and not empty politicians[rank]}">
+                                        ${politicians[rank].name}
+                                    </c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -141,34 +128,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="rank">1</td>
-                            <td
-                                    data-options="test1,test2,test3,United Progressive Front (UPF)"
-                            >
-                                United Progressive Front (UPF)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rank">2</td>
-                            <td
-                                    data-options="test1,test2,test3,Ms. People's Power Alliance (PPA)"
-                            >
-                                People's Power Alliance (PPA)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rank">3</td>
-                            <td
-                                    data-options="test1,test2,test3,National Unity Party (NUP)"
-                            >
-                                National Unity Party (NUP)
-                            </td>
-                        </tr>
+                        <c:forEach begin="1" end="3" var="Rank">
+                            <tr>
+                                <td class="rank">${Rank}</td>
+                                <td data-options="<c:forEach var="party" items="${politicalParties}">${party.name},</c:forEach>">
+                                    <c:if test="${not empty politicalParties}">${politicalParties[Rank].name}</c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </form>
             <div class="footer f-row caps">
                 <div class="edit f-row">
                     <button id="pref-edit" class="pref-edit-btn f-row">
@@ -178,9 +150,7 @@
                 </div>
                 <div class="pref-action f-row">
                     <button class="pref-cancel">Cancel</button>
-                    <button id="pref-save" class="save-btn">
-                        save
-                    </button>
+                    <input type="submit" value="Save changes" id="pref-save" class="save-btn">
                 </div>
             </div>
         </div>

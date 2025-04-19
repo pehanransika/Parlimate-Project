@@ -372,7 +372,7 @@ body {
     border-radius: 1.25rem;
     min-width: 35vw;
     max-width: 55rem;
-    &&>div{
+    &&>div, form{
         padding: 1rem 1.5rem;
     }
 }
@@ -639,7 +639,13 @@ body {
         width: 30rem;
 
         && .center {
+            margin-block: 1rem;
+            margin-bottom: -1rem;
+            padding-block: 1rem;
+            max-height: 35rem;
+            overflow-y: auto;
             gap: 1rem;
+            background: #f4f4f4;;
 
             && .desc {
                 color: #888888;
@@ -661,7 +667,7 @@ body {
                 }
 
                 table {
-                    border: 1px solid #e9e9e9;
+                    border: 1px solid #d9d9d9;
                     border-radius: 0.75rem;
                     background: #f6f6f6;
                     width: 100%;

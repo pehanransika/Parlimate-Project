@@ -1,9 +1,6 @@
 package UserPackage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,4 +110,32 @@ public class PoliticalPartyController {
         return isSuccess;
     }
 
+    public static List<PoliticalPartyModel> getAllParties() {
+        List<PoliticalPartyModel> politicalParties = new ArrayList<>();
+        String sql = "SELECT * FROM politicalparty";
+
+        try {
+            Connection conn = DBConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                int politicalPartyId = rs.getInt("political_party_id");
+                int userid = rs.getInt("user_id");
+                String name = rs.getString("name");
+                String phoneNumber = rs.getString("phone_number");
+                String address = rs.getString("address");
+                String logoImg = rs.getString("logo_img");
+                int noOfMembers = rs.getInt("no_of_members");
+
+                PoliticalPartyModel party = new PoliticalPartyModel(politicalPartyId, userid, name, phoneNumber, address, logoImg, noOfMembers);
+                politicalParties.add(party);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return politicalParties;
+
+    }
 }
