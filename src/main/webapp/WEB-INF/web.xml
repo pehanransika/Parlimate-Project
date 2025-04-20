@@ -61,7 +61,22 @@
     <servlet-name>DeleteCommentServlet</servlet-name>
     <url-pattern>/DeleteCommentServlet</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>CommentManagementServlet</servlet-name>
+    <servlet-class>comment.CommentManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentManagementServlet</servlet-name>
+    <url-pattern>/admin/CommentManagement/CommentManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CommentDeleteAdminServlet</servlet-name>
+    <servlet-class>comment.CommentDeleteAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentDeleteAdminServlet</servlet-name>
+    <url-pattern>/admin/CommentManagement/CommentDeleteAdminServlet</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>PublishPostServlet</servlet-name>

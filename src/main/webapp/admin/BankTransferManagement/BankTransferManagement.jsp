@@ -72,6 +72,12 @@
             </li>
             <li>
                 <a href="#" class="nav-item f-row">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Comment Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>requests</span>
                 </a>
