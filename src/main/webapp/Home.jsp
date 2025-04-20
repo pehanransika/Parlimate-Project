@@ -178,12 +178,15 @@ return;
 
 <div class="comment-popup">
   <div class="comment-container col-u">
+
+
     <div class="drop-cmnt"></div>
     <div class="post reactable reacted">
       <div class="top">
         <div class="post-details">
           <a href="#" class="img"></a>
           <div class="details">
+
             <a href="#" class="name">Himasha Chinthani</a>
             <div class="posted-date">
               <i class="fa-light fa-clock"></i>
@@ -203,6 +206,7 @@ return;
             <ul>
               <li><a href="#">report</a></li>
               <li><a href="#">copy link</a></li>
+
             </ul>
           </div>
         </div>
@@ -224,6 +228,7 @@ return;
                     </span>
           <span>share</span>
         </button>
+
       </div>
     </div>
 
@@ -231,13 +236,33 @@ return;
       <div class="curr-user row">
         <div class="prof-img"></div>
       </div>
-      <form action="PublishNewCommentServlet" method="POST">
-        <textarea name="content" id="add-cmnt" placeholder="Comment here" required></textarea>
-        <button type="submit" class="post-btn row btn capitalize">
-          Post
-          <i class="fa-sharp fa-regular fa-paper-plane-top"></i>
-        </button>
+
+      <form method="POST" action="PublishCommentServlet">
+        <div class="caption-box col content-pd">
+          <div class="title capitalize">Caption</div>
+          <input type="hidden" name="userid" id="userid" value="${user.userId}" />  <!-- User ID -->
+          <input type="hidden" name="postId" id="postId" value="" />
+          <input type="hidden" name="username" id="username" value="${userProfile.name}" />
+
+          <!-- Post ID -->
+
+          <textarea autocomplete="off" name="content" id="post-desc1" placeholder="Enter the caption of the discussion"></textarea>  <!-- Comment content -->
+        </div>
+        <div class="popbtns capitalize">
+          <div class="clear-btn" id="popup-clear-btnn">
+            Clear
+            <i class="fa-sharp fa-solid fa-rotate-left"></i>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="post-btn" id="popup-post-btnn" onclick="this.closest('form').submit();">
+            Post Discussion
+          </div>
+          <i class="fa-duotone fa-solid fa-check"></i>
+        </div>
       </form>
+
+
     </div>
   </div>
 </div>
@@ -345,7 +370,6 @@ return;
 
 
 
-
   <ul class="post-list" style="list-style-type: none; padding: 0; margin-right: 20px; gap: 1.5rem;">
     <c:forEach var="post" items="${allposts}">
       <div class="post reactable reacted">
@@ -376,28 +400,37 @@ return;
             </div>
           </div>
         </div>
+
         <div class="content">
             ${post.content}
         </div>
+
         <div class="reactions">
           <button class="like btn">
-                    <span class="reactIcon">
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    </span>
+          <span class="reactIcon">
+              <i class="fa-solid fa-thumbs-up"></i>
+          </span>
             <span>like</span>
             <span class="count">32k</span>
           </button>
-          <button class="comment btn" onclick="openCommentPopup('${post.content}', '${post.datetime}')">
-                    <span class="reactIcon">
-                        <i class="fa-solid fa-message"></i>
-                    </span>
+
+          <button class="comment btn"
+                  onclick="openCommentPopup('${post.content}', '${post.datetime}', '${post.postId}')">
+          <span class="reactIcon">
+              <i class="fa-solid fa-message"></i>
+          </span>
             <span>comment</span>
             <span class="count">1k</span>
           </button>
+
+          <a href="GetAllCommentServlet?postId=${post.postId}" class="btn view-comment" style="text-decoration: none; padding: 6px 14px; background-color: #007bff; color: white; border-radius: 6px;">
+            <i class="fa-solid fa-comments"></i> View Comments
+          </a>
+
           <button class="share btn">
-                    <span class="reactIcon">
-                        <i class="fa-duotone fa-solid fa-share-all"></i>
-                    </span>
+          <span class="reactIcon">
+              <i class="fa-duotone fa-solid fa-share-all"></i>
+          </span>
             <span>share</span>
           </button>
         </div>
@@ -408,11 +441,32 @@ return;
 
 </div>
 </body>
-<script>function openCommentPopup(content, datetime) {
-  // Update the popup content and datetime
+<script>function openCommentPopup(content, datetime, postId) {
   document.getElementById("popup-content").innerText = content;
   document.getElementById("popup-time").innerText = datetime;
+  document.getElementById("postId").value = postId;  // this was missing or wrong
+  document.querySelector(".comment-popup").style.display = "block";
 }
+
+function closeCommentPopup() {
+  document.body.classList.remove("cmnt-visible");
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const popupOverlay = document.querySelector(".comment-popup");
+  const popupContainer = document.querySelector(".comment-container");
+
+  popupOverlay.addEventListener("click", function (e) {
+    if (!popupContainer.contains(e.target)) {
+      closeCommentPopup();
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeCommentPopup();
+    }
+  });
+});
 </script>
 <script src="script.js"></script>
 <script src="home.js"></script>

@@ -47,42 +47,22 @@
     <servlet-name>PublishCommentServlet</servlet-name>
     <servlet-class>comment.PublishCommentServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>PublishCommentServlet</servlet-name>
     <url-pattern>/PublishCommentServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>ViewCommentServlet</servlet-name>
-    <servlet-class>comment.ViewCommentServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewCommentServlet</servlet-name>
-    <url-pattern>/ViewCommentServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ViewCommentListServlet</servlet-name>
-    <servlet-class>comment.ViewCommentListServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewCommentListServlet</servlet-name>
-    <url-pattern>/ViewCommentListServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>UpdateCommentServlet</servlet-name>
-    <servlet-class>comment.UpdateCommentServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpdateCommentServlet</servlet-name>
-    <url-pattern>/UpdateCommentServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>DeleteCommentServlet</servlet-name>
     <servlet-class>comment.DeleteCommentServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteCommentServlet</servlet-name>
     <url-pattern>/DeleteCommentServlet</url-pattern>
   </servlet-mapping>
+
+
   <servlet>
     <servlet-name>PublishPostServlet</servlet-name>
     <servlet-class>post.PublishPostServlet</servlet-class>
