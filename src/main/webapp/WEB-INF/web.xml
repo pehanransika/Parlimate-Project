@@ -87,7 +87,22 @@
     <url-pattern>/PublishPostServlet</url-pattern>
   </servlet-mapping>
 
-
+  <servlet>
+    <servlet-name>PostManagementServlet</servlet-name>
+    <servlet-class>post.PostManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostManagementServlet</servlet-name>
+    <url-pattern>/admin/PostManagement/PostManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteAdminPostServlet</servlet-name>
+    <servlet-class>post.DeleteAdminPostServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAdminPostServlet</servlet-name>
+    <url-pattern>/admin/PostManagement/DeleteAdminPostServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>

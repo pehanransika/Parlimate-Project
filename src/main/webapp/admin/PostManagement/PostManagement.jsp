@@ -12,9 +12,9 @@
   </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Comment Management | Admin Dashboard</title>
+  <title>Post Management | Admin Dashboard</title>
 
-  <link rel="stylesheet" href="./CommentManagement.css" />
+  <link rel="stylesheet" href="./PostManagement.css" />
   <link rel="stylesheet" href="../index.css" />
   <link rel="stylesheet" href="./profile.css"/>
 
@@ -91,13 +91,13 @@
         </a>
       </li>
       <li>
-        <a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row ">
+        <a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row active">
           <i class="fa-regular fa-cards-blank"></i>
           <span>post management</span>
         </a>
       </li>
       <li>
-        <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row active">
+        <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row ">
           <i class="fa-regular fa-comments"></i>
           <span>Comment Management</span>
         </a>
@@ -145,60 +145,60 @@
   <div class="container f-col">
     <div class="top f-row">
       <div class="page f-col">
-        <div class="page-title capitalize">Comment management</div>
+        <div class="page-title capitalize">Post management</div>
         <div class="page-desc">
-          Manage user comments
+          Manage user posts
         </div>
       </div>
 
     </div>
 
-      <div class="data f-col">
-        <table class="users">
-          <thead>
+    <div class="data f-col">
+      <table class="users">
+        <thead>
+        <tr>
+          <td>Post ID</td>
+          <td>User ID</td>
+          <td>User name </td>
+          <td>Post content</td>
+          <td class="head-row f-row">posted on</td>
+          <td>Delete Post</td>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="post" items="${alladminPosts}">
           <tr>
-            <td>Comment ID</td>
-            <td>Post ID</td>
-            <td>Post </td>
-            <td>Comment content</td>
-            <td class="head-row f-row">commented on</td>
-            <td>Delete Comment</td>
+            <td>${post.postId}</td>
+            <td>${post.userId}</td>
+            <td>${post.name}</td>
+            <td>${post.content}</td>
+            <td>${post.datetime}</td>
+
+            <td class="actbtn">
+
+              <li class="f-row del-comment">
+                <i class="fa-regular fa-trash"></i>
+
+                <form action="${pageContext.request.contextPath}/admin/PostManagement/DeleteAdminPostServlet"
+                      method="POST"
+                      onsubmit="return confirm('Are you sure you want to delete this post?');"
+                      style="display:inline;">
+                  <input type="hidden" name="postId" value="${post.postId}"/>
+
+                  <button type="submit" class="delete-btn">Delete</button>
+                </form>
+              </li>
+              </ul>
+            </td>
           </tr>
-          </thead>
-          <tbody>
-          <c:forEach var="comment" items="${alladminComment}">
-            <tr>
-              <td>${comment.commentid}</td>
-              <td>${comment.postid}</td>
-              <td>${comment.name}</td>
-              <td>${comment.content}</td>
-              <td>${comment.time}</td>
-
-              <td class="actbtn">
-
-                  <li class="f-row del-comment">
-                    <i class="fa-regular fa-trash"></i>
-
-                    <form action="${pageContext.request.contextPath}/admin/CommentManagement/CommentDeleteAdminServlet"
-                          method="POST"
-                          onsubmit="return confirm('Are you sure you want to delete this request?');"
-                          style="display:inline;">
-                      <input type="hidden" name="commentId" value="${comment.commentid}"/>
-
-                      <button type="submit" class="delete-btn">Delete</button>
-                    </form>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </c:forEach>
+        </c:forEach>
 
 
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </div>
 
