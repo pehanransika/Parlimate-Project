@@ -1,209 +1,262 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: HP
-  Date: 4/18/2025
-  Time: 7:56 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Update Profile</title>
-    <link rel="stylesheet" href="../../index/sidebar1.css" />
-    <link rel="stylesheet" href="../../index/header/header.css" />
-    <link rel="stylesheet" href="../../index.css" />
-    <link rel="stylesheet" href="../profile.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./editPoliticianPublicDetails.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
 
-        .container {
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 700px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            grid-column: span 2;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[readonly] {
-            background-color: #e9ecef;
-            cursor: not-allowed;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
-            background: #007bff;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-
-        /* Styling the left and right side forms */
-        .left-side {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .right-side {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Ensuring that the layout looks good on small screens */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                width: 90%;
-            }
-        }
-    </style>
 </head>
 <body>
-<%@ include file="../../index/sidebar.jsp" %>
-<%@ include file="../../index/header/header.jsp" %>
+<div class="modal">
+    <div class="details-modal">
+        <div class="top f-row">
+            <div class="title caps">personal details</div>
+            <button id="close-modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="center f-col">
+            <div class="detail-group f-col">
+                <div class="details f-col">
+                    <table class="detail" id="political-detail-table">
+                        <tr class="title caps">
+                            <td colspan="2">political</td>
+                        </tr>
+                        <tr>
+                            <td class="label">party</td>
+                            <td class="value">progressive party</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial level</td>
+                            <td class="value">1</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial province</td>
+                            <td class="value">western province</td>
+                        </tr>
+                        <tr>
+                            <td class="label">current position</td>
+                            <td class="value">parliment minister</td>
+                        </tr>
+                    </table>
+                    <table class="detail" id="latest-elec-table">
+                        <tr class="title caps">
+                            <td colspan="2">latest election</td>
+                        </tr>
+                        <tr>
+                            <td class="label">party</td>
+                            <td class="value">progressive party</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial level</td>
+                            <td class="value">1</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial province</td>
+                            <td class="value">western province</td>
+                        </tr>
+                        <tr>
+                            <td class="label">current position</td>
+                            <td class="value">parliment minister</td>
+                        </tr>
+                    </table>
+                    <table class="detail" id="policy-table">
+                        <tr class="title caps">
+                            <td colspan="2">policies</td>
+                        </tr>
+                        <tr>
+                            <td class="label">party</td>
+                            <td class="value">progressive party</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial level</td>
+                            <td class="value">1</td>
+                        </tr>
+                        <tr>
+                            <td class="label">electorial province</td>
+                            <td class="value">western province</td>
+                        </tr>
+                        <tr>
+                            <td class="label">current position</td>
+                            <td class="value">parliment minister</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer f-row">
+            <div class="edit caps">
+                <button id="edit-btn">edit</button>
+            </div>
+            <div class="action f-row">
+                <button id="cancel-btn">cancel</button>
+                <button id="save-btn">save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
-    <h1>Update Profile</h1>
-
-    <form action="updateProfile" method="post">
-        <!-- Left Side: Account Info -->
-        <div class="left-side">
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="text" name="email" placeholder="Enter your email" readonly>
-            </div>
-            <div class="form-group">
-                <label>User Type:</label>
-                <input type="text" name="userType" value="Politician" readonly>
-            </div>
-        </div>
-
-        <!-- Right Side: Personal Info -->
-        <div class="right-side">
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="form-group">
-                <label>Name:</label>
-                <input type="text" name="name" placeholder="Full name" required>
-            </div>
-            <div class="form-group">
-                <label>Address:</label>
-                <input type="text" name="address" placeholder="Your address" required>
-            </div>
-            <div class="form-group">
-                <label>Phone Number:</label>
-                <input type="text" name="phoneNumber" placeholder="Your phone number" required>
-            </div>
-            <div class="form-group">
-                <label>Profile Summary:</label>
-                <textarea name="profile" placeholder="Short description about yourself" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Image URL:</label>
-                <input type="text" name="img_url" placeholder="Link to profile image" required>
-            </div>
-        </div>
-
-        <hr>
-
-        <!-- Policy Section -->
-        <h2>Your Policy Descriptions</h2>
-        <p>Briefly describe your stance or plans under each topic:</p>
-
-        <div class="form-group">
-            <label>Education Policy:</label>
-            <textarea name="policy_education" placeholder="Describe your education policies..." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Healthcare Policy:</label>
-            <textarea name="policy_healthcare" placeholder="Describe your healthcare plans..." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Economy & Employment Policy:</label>
-            <textarea name="policy_economy" placeholder="Plans for job creation, economy, businesses..." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Youth & Sports Development:</label>
-            <textarea name="policy_youth" placeholder="Describe your ideas for empowering youth and sports..." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Infrastructure & Development:</label>
-            <textarea name="policy_infrastructure" placeholder="Your views on transport, roads, etc." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Law & Order / Justice:</label>
-            <textarea name="policy_law" placeholder="Your stance on justice system, police, law reforms..." rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Other Areas (Optional):</label>
-            <textarea name="policy_other" placeholder="Anything else you'd like to share..." rows="3"></textarea>
-        </div>
-
-        <button type="submit" class="btn">Update</button>
-    </form>
+    <button id="open-details-popup">edit details</button>
 </div>
 
-
-
 <script>
-    // Ensure readonly fields cannot be edited even through JavaScript console
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector('input[name="email"]').addEventListener("keydown", function (e) {
-            e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Get DOM elements
+        const modal = document.querySelector('.modal');
+        const openPopupBtn = document.getElementById('open-details-popup');
+        const closeModalBtn = document.getElementById('close-modal');
+        const editBtn = document.getElementById('edit-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const actionDiv = document.querySelector('.action');
+
+        // Political data options
+        const politicalData = {
+            parties: ['Progressive Party', 'Conservative Alliance', 'Liberal Democrats', 'Green Movement', 'Socialist Front'],
+            electoralLevels: ['1 - National', '2 - Regional', '3 - District', '4 - Local'],
+            electoralProvinces: ['Western Province', 'Eastern Province', 'Northern Territory', 'Southern Region', 'Central District'],
+            positions: ['Parliament Minister', 'Party Leader', 'Opposition Member', 'Committee Chair', 'Backbencher']
+        };
+
+        // Store original values
+        let originalValues = {};
+
+        // Open modal when edit details button is clicked
+        openPopupBtn.addEventListener('click', function() {
+            modal.style.display = 'flex';
+            resetToViewMode();
         });
-        document.querySelector('input[name="userType"]').addEventListener("keydown", function (e) {
-            e.preventDefault();
+
+        // Close modal when X is clicked
+        closeModalBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            // Reset to non-edit mode when closing
+            resetToViewMode();
         });
+
+        // Edit button functionality
+        editBtn.addEventListener('click', function() {
+            enterEditMode();
+        });
+
+        // Cancel button functionality
+        cancelBtn.addEventListener('click', function() {
+            resetToViewMode();
+        });
+
+        // Save button functionality
+        saveBtn.addEventListener('click', function() {
+            saveChanges();
+        });
+
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                resetToViewMode();
+            }
+        });
+
+        function enterEditMode() {
+            // Hide edit button and show action buttons
+            editBtn.style.display = 'none';
+            actionDiv.style.display = 'flex';
+
+            // Convert all value cells to dropdowns and store original values
+            const valueCells = document.querySelectorAll('td.value');
+            valueCells.forEach((cell, index) => {
+                // Store original value
+                originalValues[`cell${index}`] = cell.textContent.trim();
+
+                // Get the label from previous cell to determine what dropdown to show
+                const label = cell.previousElementSibling.textContent.trim().toLowerCase();
+
+                // Create select element
+                const select = document.createElement('select');
+
+                // Populate options based on label
+                if (label.includes('party')) {
+                    politicalData.parties.forEach(party => {
+                        const option = document.createElement('option');
+                        option.value = party;
+                        option.textContent = party;
+                        option.selected = (party.toLowerCase() === cell.textContent.trim().toLowerCase());
+                        select.appendChild(option);
+                    });
+                }
+                else if (label.includes('level')) {
+                    politicalData.electoralLevels.forEach(level => {
+                        const option = document.createElement('option');
+                        option.value = level;
+                        option.textContent = level;
+                        option.selected = (level.includes(cell.textContent.trim()));
+                        select.appendChild(option);
+                    });
+                }
+                else if (label.includes('province')) {
+                    politicalData.electoralProvinces.forEach(province => {
+                        const option = document.createElement('option');
+                        option.value = province;
+                        option.textContent = province;
+                        option.selected = (province.toLowerCase() === cell.textContent.trim().toLowerCase());
+                        select.appendChild(option);
+                    });
+                }
+                else if (label.includes('position')) {
+                    politicalData.positions.forEach(position => {
+                        const option = document.createElement('option');
+                        option.value = position;
+                        option.textContent = position;
+                        option.selected = (position.toLowerCase() === cell.textContent.trim().toLowerCase());
+                        select.appendChild(option);
+                    });
+                }
+
+                // Replace cell content with select
+                cell.textContent = '';
+                cell.appendChild(select);
+            });
+        }
+
+        function resetToViewMode() {
+            // Show edit button and hide action buttons
+            editBtn.style.display = 'block';
+            actionDiv.style.display = 'none';
+
+            // Revert all changes back to original values
+            const valueCells = document.querySelectorAll('td.value');
+            valueCells.forEach((cell, index) => {
+                // Remove any select elements
+                if (cell.querySelector('select')) {
+                    cell.removeChild(cell.querySelector('select'));
+                }
+                // Restore original value
+                cell.textContent = originalValues[`cell${index}`] || cell.textContent;
+            });
+        }
+
+        function saveChanges() {
+            // Update all values from dropdowns
+            const valueCells = document.querySelectorAll('td.value');
+            valueCells.forEach((cell, index) => {
+                if (cell.querySelector('select')) {
+                    const select = cell.querySelector('select');
+                    // Update the originalValues with the new selected value
+                    originalValues[`cell${index}`] = select.value;
+                    // Update the cell content
+                    cell.textContent = select.value;
+                }
+            });
+
+            // Now reset to view mode
+            resetToViewMode();
+
+            // Here you would typically send the updated data to your server
+            console.log("Saved changes:", originalValues);
+        }
     });
 </script>
 </body>

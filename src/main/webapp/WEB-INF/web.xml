@@ -370,6 +370,14 @@
     <servlet-name>NameSuggestionsServlet</servlet-name>
     <url-pattern>/Parlimate/SearchCompare/NameSuggestionsServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>GetProfileImageServlet</servlet-name>
+    <servlet-class>profileimage.GetProfileImageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetProfileImageServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetProfileImageServlet</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>

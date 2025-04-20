@@ -260,7 +260,7 @@
             <div class="meeting-btns row">
                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
                 <a href="GetAllMeetingRequestServlet" class="myMeetings row">
-                    <span> My meeting </span
+                    <span> My meeting requests </span
                     ><i class="fa-solid fa-clock"></i>
                 </a>   </c:if>
                 <div class="newmeeting row">
@@ -283,15 +283,16 @@
                          data-description="${allmeetings.description}"
                          data-time="${allmeetings.time}"
                          data-available-slots="${allmeetings.availableSlots}"
+                         data-image-url="GetProfileImageServlet?politicianId=${allmeetings.politicianId}"
                     >
                         <div class="panelists">
                             <div class="pImgs row">
                                 <div class="prof-img">
-                                    <img src="../assets/images/ranil.jpg" alt="" />
-                                </div>
-                                <div class="prof-img">
-                                    <img src="../assets/images/images.jpeg" alt="" />
-                                </div>
+                                <img src="GetProfileImageServlet?politicianId=${allmeetings.politicianId}" alt="Profile"
+                                     onerror="console.error('Error loading image: ' + this.src)"
+                                     onload="console.log('Image URL loaded: ' + this.src)" />
+                            </div>
+
                             </div>
                         </div>
 
@@ -356,8 +357,7 @@
             <div class="body" id="description">Description</div>
             <div class="body" id="time">Time</div>
             <div class="profs row">
-                <div class="prof-img"></div>
-                <div class="prof-img"></div>
+                <div class="prof-img"><img id="popup-profile-img" src="" alt="Profile" /></div>
             </div>
             <div class="slots">
                 [slot count]
@@ -408,6 +408,7 @@
                 const description = item.dataset.description;
                 const time = item.dataset.time;
                 const slots = item.dataset.availableSlots;
+                const imageUrl = item.dataset.imageUrl;
 
                 console.log("📦 Data:", { topic, date, description, time, slots });
 
@@ -417,6 +418,8 @@
                 popup.querySelector(".date").textContent = date;
                 popup.querySelector("#description").textContent = description;
                 popup.querySelector("#time").textContent = "Time: " + time;
+                popup.querySelector("#popup-profile-img").src = imageUrl;
+
 
                 const slotsElement = popup.querySelector(".slots");
                 const confirmBtn = popup.querySelector(".confirm");
