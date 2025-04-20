@@ -97,7 +97,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-comments"></i>
                     <span>Comment Management</span>
                 </a>
