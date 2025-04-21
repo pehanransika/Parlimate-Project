@@ -37,7 +37,7 @@ public class MeetingController {
     }
 
     public boolean deleteMeeting(int meetingId) {
-        String query = "DELETE FROM meetings WHERE meetingId = ?";
+        String query = "DELETE FROM meetings WHERE meetingid = ?";
 
         try (Connection connection = DBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, meetingId);
@@ -206,4 +206,5 @@ public class MeetingController {
 
         return registeredMeetings;
     }
+
 }

@@ -188,6 +188,7 @@
                         <td>Slots</td>
                         <td>Available Slots</td>
                         <td>Registered Users</td>
+                        <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -209,6 +210,13 @@
                                 <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
                                 <button type="submit">View</button>
                             </form></td>
+                            <td>
+                                <form action="SendDeleteEmailServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this meeting?');">
+                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
+                                    <button type="submit" style="color: red;">Delete</button>
+                                </form>
+                            </td>
+
                         </tr>
                     </c:forEach>
                     </tbody>
