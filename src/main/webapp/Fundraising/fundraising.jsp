@@ -311,7 +311,7 @@
                     </button>
                 </a>
 
-                <a href="GetApprovedFundraisersByUser">
+                <a href="GetApprovedFundraisersByUser?userid=${userProfile.userId}">
                     <button class="my-accept-fund">
                         <i class="fa-solid fa-wallet"></i>
                         <span> Approved fundraises</span>

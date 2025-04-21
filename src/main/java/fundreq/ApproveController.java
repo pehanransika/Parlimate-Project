@@ -260,16 +260,17 @@ public class ApproveController {
     }
 
     // Get approved fundraisers by user ID
-    public static List<ApproveModel> getApprovedFundraisersByUser(int userId) {
+    public static List<ApproveModel> getApprovedFundraisersByUser(int userid) {
         List<ApproveModel> requests = new ArrayList<>();
-        String sql = "SELECT ar.* FROM approved_requests ar " +
-                "JOIN fundraisingrequests fr ON ar.requestid = fr.requestid " +
-                "WHERE fr.userid = ? ORDER BY ar.approval_date DESC";
+        String sql = "SELECT * FROM approved_requests ar " +
+                "WHERE userid = ?" +
+                "ORDER BY ar.approval_date DESC";
+
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, userId);
+            stmt.setInt(1, userid);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

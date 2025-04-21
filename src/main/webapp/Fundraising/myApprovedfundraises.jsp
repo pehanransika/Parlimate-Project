@@ -37,18 +37,33 @@
             <div class="fundraiser-list">
                 <c:forEach var="fund" items="${fundraisingRequests}">
                     <div class="fundraiser-card">
-                        <div class="fundraiser-image"
-                             style="background-image: url('${not empty fund.photos ? fund.photos : pageContext.request.contextPath.concat('/images/default.jpg')}')">
-                        </div>
+
+
+
                         <div class="fundraiser-details">
                             <h3><c:out value="${fund.title}"/></h3>
                             <p><c:out value="${fund.description}"/></p>
                             <div class="fundraiser-meta">
                                 <span>$<fmt:formatNumber value="${fund.targetamount}" type="number"/></span>
-                                <a href="ViewFundraiserDetails?id=${fund.requestId}" class="view-button">
-                                    View Details
-                                </a>
+
                             </div>
+                            <br>
+                            <p>Attachment:
+                                <c:if test="${not empty fund.attachmentUrl}">
+                                    <a href="${pageContext.request.contextPath}/${fund.attachmentUrl}" target="_blank">View Attachment</a>
+                                </c:if>
+                                <c:if test="${empty fund.attachmentUrl}">
+                                    No attachment available
+                                </c:if>
+                            </p>
+                            <p>Photos:
+                                <c:if test="${not empty fund.photos}">
+                                    <a href="${pageContext.request.contextPath}/${fund.photos}" target="_blank">View Photos</a>
+                                </c:if>
+                                <c:if test="${empty fund.photos}">
+                                    No photos available
+                                </c:if>
+                            </p>
                         </div>
                     </div>
                 </c:forEach>

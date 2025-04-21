@@ -16,8 +16,16 @@ public class GetApprovedFundraisersByUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String userId = request.getParameter("userid");
+
+            // Check if postId is null or empty
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "Post ID is missing.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
             // Fetch all fundraising requests from FundraisingRequestController
-            List<ApproveModel> fundraisingRequests = ApproveController.getAllApprovedRequests();
+            List<ApproveModel> fundraisingRequests = ApproveController.getApprovedFundraisersByUser(Integer.parseInt(userId));
 
             // Set the list as a request attribute
             request.setAttribute("fundraisingRequests", fundraisingRequests);
