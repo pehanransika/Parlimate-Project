@@ -202,10 +202,23 @@
                 <label for="fund-desc" class="title">Description</label>
                 <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>
             </div>
-            <div class="fund-contact">
-                <label class="title">Contact Number</label>
-                <input type="tel" placeholder="Enter your contact number" name="contact_no">
+            <div class="fund-contact" style="margin-bottom: 20px; font-family: Arial, sans-serif;">
+                <label class="title" style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">
+                    Contact Number
+                </label>
+                <input
+                        type="tel"
+                        name="contact_no"
+                        required
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        placeholder="Enter your contact number"
+                        title="Contact number must be exactly 10 digits"
+                        style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"
+                >
             </div>
+
+
             <div class="multi-fields row">
                 <div class="fund-cat field">
                     <label for="fund-categ" class="title">Category</label>
@@ -225,8 +238,9 @@
                             </select>
                         </div>
                         <div class="amount">
-                            <input required type="number" name="targetamount" step="1000" id="fund-amount" placeholder="1,000,000.00">
+                            <input required type="number" name="targetamount"  id="fund-amount" min="1" placeholder="1,000,000.00">
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -235,7 +249,7 @@
                 <div class="att-container">
                     <div class="action row">
                         <label for="fund-att" class="att-btn">Select File</label>
-                        <input type="file" name="attachmentUrl" id="fund-att" multiple>
+                        <input type="file" required name="attachmentUrl" id="fund-att" multiple>
                         <div class="sep"></div>
                     </div>
                     <div class="att-content">
@@ -289,12 +303,14 @@
                         <span>Approved Bank Transfers</span>
                     </button>
                 </a>
+
                 <a href="GetAllRequestServlet">
                     <button class="my-funds row">
                         <i class="fa-solid fa-wallet"></i>
                         <span>my fundraises</span>
                     </button>
                 </a>
+
                 <a href="GetApprovedFundraisersByUser">
                     <button class="my-accept-fund">
                         <i class="fa-solid fa-wallet"></i>

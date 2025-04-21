@@ -28,6 +28,7 @@ public class GetAllCommentServlet extends HttpServlet {
                 return;
             }
 
+
             // Fetch comments for the given postId
             List<CommentModel> allComment = CommentController.getCommentsByPostId(Integer.parseInt(postId));
 

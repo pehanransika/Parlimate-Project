@@ -65,9 +65,15 @@ public class CreateRequestServlet extends HttpServlet {
 
             // Handle response
             if (isCreated) {
+
+                response.setContentType("text/html");
                 response.getWriter().println(
-                        "<script>alert('Request Published Successfully'); " +
-                                "window.location.href='GetAllRequestServlet';</script>");
+                        "<script>" +
+                                "alert('Request Published Successfully');" +
+                                "window.location = document.referrer;" +
+                                "</script>"
+                );
+
             } else {
                 handleError(request, response, "Failed to create fundraising request", "wrong.jsp");
             }

@@ -50,7 +50,6 @@ return;
 </head>
 
 <body class="">
-
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
   <div class="bg"></div>
   <div class="fund-popup col">
@@ -64,17 +63,34 @@ return;
       <div class="title">Request a fundraise</div>
       <div class="separator"></div>
     </div>
-    <input type="hidden" name="userid" id="useri" value="${user.userId}" />
-    <input type="hidden" name="username" id="usernam" value="${userProfile.name}" />
     <div class="body col">
       <div class="fund-title field">
         <label for="fundtitle" class="title">Title</label>
         <input type="text" required placeholder="Fundraise for the senior care house" name="title" id="fundtitle">
       </div>
+      <input type="hidden" name="userid" id="useri" value="${user.userId}" />
+      <input type="hidden" name="username" id="usernam" value="${userProfile.name}" />
       <div class="fund-decs field">
         <label for="fund-desc" class="title">Description</label>
         <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>
       </div>
+      <div class="fund-contact" style="margin-bottom: 20px; font-family: Arial, sans-serif;">
+        <label class="title" style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">
+          Contact Number
+        </label>
+        <input
+                type="tel"
+                name="contact_no"
+                required
+                pattern="[0-9]{10}"
+                maxlength="10"
+                placeholder="Enter your contact number"
+                title="Contact number must be exactly 10 digits"
+                style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"
+        >
+      </div>
+
+
       <div class="multi-fields row">
         <div class="fund-cat field">
           <label for="fund-categ" class="title">Category</label>
@@ -94,18 +110,18 @@ return;
               </select>
             </div>
             <div class="amount">
-              <input required step="1000" type="number" name="targetamount" id="fund-amount" placeholder="1,000,000.00">
+              <input required type="number" name="targetamount"  id="fund-amount" min="1" placeholder="1,000,000.00">
             </div>
+
           </div>
         </div>
       </div>
-
       <div class="fund-attach field">
         <span for="" class="title">Upload Attachments</span>
         <div class="att-container">
           <div class="action row">
             <label for="fund-att" class="att-btn">Select File</label>
-            <input type="file" name="attachmentUrl" id="fund-att" multiple>
+            <input type="file" required name="attachmentUrl" id="fund-att" multiple>
             <div class="sep"></div>
           </div>
           <div class="att-content">
@@ -116,9 +132,25 @@ return;
           </div>
         </div>
       </div>
+      <div class="fund-photo field">
+        <span for="" class="title">Upload Photos</span>
+        <div class="att-container-photo">
+          <div class="action row-photo">
+            <label for="fund-photo" class="photo-btn">Select Photo</label>
+            <input type="file" name="photos" id="fund-photo" multiple >
+            <div class="sep"></div>
+          </div>
+          <div class="photo-content">
+            <span class="no-of-files">No Photo attached</span>
+            <ul id="photo-list" class="col">
+              <!-- uploaded files will be listed here -->
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="bottom row">
-      <button class="cancel-btn form-btn">Cancel</button>
+      <button type="button" class="cancel-btn form-btn">Cancel</button>
       <button type="submit" class="submit-btn form-btn row">
         <i class="fa-duotone fa-solid fa-check"></i>
         Publish
@@ -126,49 +158,6 @@ return;
     </div>
   </div>
 </form>
-<div class="notification-msg capitalize"></div>
-<div class="popup-modal">
-  <div class="popup">
-    <div class="title">
-      New Post
-      <div class="close-btn btn" id="popup-close-btn">
-        <i class="fa-solid fa-times"></i>
-      </div>
-      <div class="breakLine"></div>
-    </div>
-    <div class="content">
-      <div class="account row">
-        <div class="user-profile">
-          <div class="prof-img"></div>
-          <div class="user-name">${userProfile.name}</div>
-        </div>
-        <div class="switch-btn capitalize">
-          <a href="#">switch account
-            <i class="fa-regular fa-chevron-down"></i></a>
-        </div>
-      </div>
-      <form method="POST" action="PublishPostServlet">
-        <div class="caption-box col content-pd">
-          <div class="title capitalize">caption</div>
-          <input type="hidden" name="userid" id="userid" value="${user.userId}" />
-          <input type="hidden" name="username" id="username" value="${userProfile.name}" />
-
-          <textarea autocomplete="off" name="content" id="post-desc" placeholder="Enter the caption of the discussion"></textarea>
-        </div>
-        <div class="popbtns capitalize">
-          <div class="clear-btn" id="popup-clear-btn">
-            Clear
-            <i class="fa-sharp fa-solid fa-rotate-left"></i>
-          </div>
-
-          <!-- Use a div or any other element with a click event to trigger form submission -->
-          <div class="post-btn" id="popup-post-btn" onclick="this.closest('form').submit();">
-            post discussion
-          </div>
-          <i class="fa-duotone fa-solid fa-check"></i>
-        </div>
-      </form>
-
     </div>
   </div>
 </div>
