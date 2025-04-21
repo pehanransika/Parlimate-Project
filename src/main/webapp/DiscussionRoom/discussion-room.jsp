@@ -229,12 +229,27 @@
     </form>
 </div>
 </c:if>
+
 <div class="notification-msg"></div>
 <div class="container col">
     <div class="pageTitles">
         <h2 class="title">Meeting room</h2>
         <div class="subTitle">
             engage with ongoing live video discussions
+        </div>
+    </div>
+    <div class="meeting-btns row">
+        <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+            <a href="GetMyMeetingRequests?userId=${user.userId}" class="myMeetings row">
+                <span> My meeting requests </span>
+                <i class="fa-solid fa-clock"></i>
+            </a>
+        </c:if>
+        <div class="newmeeting row">
+            <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+                            <span> request meeting </span
+                            ><i class="fa-solid fa-pencil"></i>
+            </c:if>
         </div>
     </div>
     <div class="discussions col">
@@ -257,21 +272,19 @@
         </div>
         <div class="nav-body col">
 
-            <div class="meeting-btns row">
-                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                <a href="GetAllMeetingRequestServlet" class="myMeetings row">
-                    <span> My meeting requests </span
-                    ><i class="fa-solid fa-clock"></i>
-                </a>   </c:if>
-                <div class="newmeeting row">
-                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                            <span> request meeting </span
-                            ><i class="fa-solid fa-pencil"></i>
-                 </c:if>
-                </div>
-
-
-            </div>
+<%--            <div class="meeting-btns row">--%>
+<%--                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">--%>
+<%--                <a href="GetAllMeetingRequestServlet" class="myMeetings row">--%>
+<%--                    <span> My meeting requests </span--%>
+<%--                    ><i class="fa-solid fa-clock"></i>--%>
+<%--                </a>   </c:if>--%>
+<%--                <div class="newmeeting row">--%>
+<%--                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">--%>
+<%--                            <span> request meeting </span--%>
+<%--                            ><i class="fa-solid fa-pencil"></i>--%>
+<%--                 </c:if>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
             <div class="items col">
                 <c:forEach var="allmeetings" items="${allMeetingsUser}">

@@ -98,6 +98,56 @@ public class MeetingRequestController {
         return requests;
     }
 
+    public static List<MeetingRequestModel> getMyMeetingRequests(int politicianId) throws SQLException {
+        List<MeetingRequestModel> requests = new ArrayList<>();
+        String query = "SELECT * FROM meetingrequest WHERE politician_id = ? ORDER BY proposaldate ASC";
+
+        System.out.println(query);
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, politicianId); // Set the politician_id parameter
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int meetingrequestid = rs.getInt("meetingrequestid");
+                    int politician_id = rs.getInt("politician_id");
+                    String topic = rs.getString("topic");
+                    String purposeofmeeting = rs.getString("purposeofmeeting");
+                    String opponentname = rs.getString("opponentname");
+                    String partyaffiliation = rs.getString("partyaffiliation");
+                    String discussionformat = rs.getString("discussionformat");
+                    String preferredhost = rs.getString("preferredhost");
+                    LocalDate proposaldate = rs.getDate("proposaldate").toLocalDate();
+                    LocalTime proposaltime = rs.getTime("proposaltime").toLocalTime();
+                    String estimatedduration = rs.getString("estimatedduration");
+                    int participantcount = rs.getInt("participantcount");
+
+                    MeetingRequestModel request = new MeetingRequestModel(
+                            meetingrequestid,
+                            topic,
+                            politician_id,
+                            purposeofmeeting,
+                            proposaldate,
+                            proposaltime,
+                            estimatedduration,
+                            opponentname,
+                            partyaffiliation,
+                            discussionformat,
+                            preferredhost,
+                            participantcount
+                    );
+
+                    requests.add(request);
+                }
+            }
+        }
+
+        return requests;
+    }
+
+
 
     public static MeetingRequestModel getMeetingRequestById(int meetingrequestid) throws SQLException {
         String query = "SELECT topic, purposeofmeeting, opponentname, partyaffiliation, " +

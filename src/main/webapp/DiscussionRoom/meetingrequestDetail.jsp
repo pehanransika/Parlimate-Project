@@ -57,7 +57,7 @@
 
 
     <ul class="request-list">
-        <c:forEach var="request" items="${allMeetingRequests}">
+        <c:forEach var="request" items="${myMeetingRequests}">
             <li class="request-item">
                 <div class="request-header">
                     <h3>${fn:escapeXml(request.topic)}</h3>
