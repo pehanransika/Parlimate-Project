@@ -291,8 +291,7 @@
                                 <img src="GetProfileImageServlet?politicianId=${allmeetings.politicianId}" alt="Profile"
                                      onerror="console.error('Error loading image: ' + this.src)"
                                      onload="console.log('Image URL loaded: ' + this.src)" />
-                            </div>
-
+                                 </div>
                             </div>
                         </div>
 
@@ -394,6 +393,25 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         const buttons = document.querySelectorAll(".item-live");
+
+        const meetingItems = document.querySelectorAll('.item.live');
+
+        meetingItems.forEach(function (item) {
+            const deadlineText = item.querySelector('.body[style*="color: #ea2f07"]').textContent;
+            const deadlineMatch = deadlineText.match(/(\d{4}-\d{2}-\d{2})/); // match YYYY-MM-DD
+
+            if (deadlineMatch) {
+                const deadlineDate = new Date(deadlineMatch[1]);
+                const currentDate = new Date();
+
+                if (currentDate > deadlineDate) {
+                    const requestBtn = item.querySelector('.request-join-btn');
+                    if (requestBtn) {
+                        requestBtn.style.display = 'none';
+                    }
+                }
+            }
+        });
 
         buttons.forEach(button => {
             button.addEventListener("click", () => {

@@ -271,6 +271,11 @@
             </div>
 
             <div class="items col">
+                <c:if test="${empty ongoingMeetings}">
+                    <div class="no-meetings-message" style="text-align: center; margin-top: 20px; font-weight: bold; color: #555;">
+                        There are no meetings scheduled for today.
+                    </div>
+                </c:if>
                 <c:forEach var="ongoinmeetings" items="${ongoingMeetings}">
                     <div class="item live row"
                          style="animation-delay: 0.25s"
@@ -282,10 +287,9 @@
                         <div class="panelists">
                             <div class="pImgs row">
                                 <div class="prof-img">
-                                    <img src="${pageContext.request.contextPath}/assets/images/ranil.jpg" alt="" />
-                                </div>
-                                <div class="prof-img">
-                                    <img src="${pageContext.request.contextPath}/assets/images/images.jpeg" alt="" />
+                                    <img src="GetProfileImageServlet?politicianId=${ongoinmeetings.politicianId}" alt="Profile"
+                                         onerror="console.error('Error loading image: ' + this.src)"
+                                         onload="console.log('Image URL loaded: ' + this.src)" />
                                 </div>
                             </div>
                         </div>

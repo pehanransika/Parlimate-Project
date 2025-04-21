@@ -73,22 +73,35 @@ public class JoinMeetingController {
         }
     }
     public static boolean withdrawRegistration(String meetingId, String userId) {
-        String query = "DELETE FROM meetingusers WHERE meetingId = ? AND userId = ?";
+        String deleteQuery = "DELETE FROM meetingusers WHERE meetingId = ? AND userId = ?";
+        String updateSlotsQuery = "UPDATE meetings SET availableSlots = availableSlots + 1 WHERE meetingId = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
 
-            stmt.setInt(1, Integer.parseInt(meetingId)); // Cast to int
-            stmt.setInt(2, Integer.parseInt(userId));    // Cast to int
+            // Set parameters for delete query
+            deleteStmt.setInt(1, Integer.parseInt(meetingId));
+            deleteStmt.setInt(2, Integer.parseInt(userId));
 
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0; // return true if at least one row was deleted
+            int rowsAffected = deleteStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Registration was deleted successfully, now update availableSlots
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSlotsQuery)) {
+                    updateStmt.setInt(1, Integer.parseInt(meetingId));
+                    updateStmt.executeUpdate();
+                }
+                return true;
+            } else {
+                return false; // No rows deleted
+            }
 
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public static List<RegisteredUserModel> getRegisteredUsers(int meetingId) {
         String query = "SELECT userid, email FROM meetingusers WHERE meetingid = ?";

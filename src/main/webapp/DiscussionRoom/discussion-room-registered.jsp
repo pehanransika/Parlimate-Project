@@ -271,6 +271,11 @@
             </div>
 
             <div class="items col">
+                <c:if test="${empty registeredMeetings}">
+                    <div class="no-meetings-message" style="text-align: center; margin-top: 20px; font-weight: bold; color: #555;">
+                        You have not Registered for any meeting. View upcoming meetings and register
+                    </div>
+                </c:if>
                 <c:forEach var="registeredmeetings" items="${registeredMeetings}">
                     <div class="item live row"
                          style="animation-delay: 0.25s"
@@ -282,10 +287,9 @@
                         <div class="panelists">
                             <div class="pImgs row">
                                 <div class="prof-img">
-                                    <img src="${pageContext.request.contextPath}/assets/images/ranil.jpg" alt="" />
-                                </div>
-                                <div class="prof-img">
-                                    <img src="${pageContext.request.contextPath}/assets/images/images.jpeg" alt="" />
+                                    <img src="GetProfileImageServlet?politicianId=${registeredmeetings.politicianId}" alt="Profile"
+                                         onerror="console.error('Error loading image: ' + this.src)"
+                                         onload="console.log('Image URL loaded: ' + this.src)" />
                                 </div>
                             </div>
                         </div>
@@ -346,6 +350,25 @@
     console.log("User ID from session:", loggedInUserId);
     document.addEventListener("DOMContentLoaded", () => {
         const withdrawButtons = document.querySelectorAll(".request-join-btn");
+
+        const meetingItems = document.querySelectorAll('.item.live');
+
+        meetingItems.forEach(function (item) {
+            const deadlineText = item.querySelector('.body[style*="color: #ea2f07"]').textContent;
+            const deadlineMatch = deadlineText.match(/(\d{4}-\d{2}-\d{2})/); // match YYYY-MM-DD
+
+            if (deadlineMatch) {
+                const deadlineDate = new Date(deadlineMatch[1]);
+                const currentDate = new Date();
+
+                if (currentDate > deadlineDate) {
+                    const requestBtn = item.querySelector('.request-join-btn');
+                    if (requestBtn) {
+                        requestBtn.style.display = 'none';
+                    }
+                }
+            }
+        });
 
         withdrawButtons.forEach(button => {
             button.addEventListener("click", () => {
