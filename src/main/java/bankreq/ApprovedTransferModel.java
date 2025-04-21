@@ -40,10 +40,16 @@ public class ApprovedTransferModel {
         this.verified_at = verified_at;
     }
 
+    public ApprovedTransferModel(int transferId, int fundraiserId, String bankName, String accountHolderName, String accountNumber, String branch, BigDecimal amount, String currency, String receiptImagePath, String referenceCode, Timestamp transferDate, int verifiedBy, Timestamp verified_at, int user_id) {
+    }
+
+
+
     // Getters and Setters
     public int getTransfer_id() {
         return transfer_id;
     }
+
 
     public void setTransfer_id(int transfer_id) {
         this.transfer_id = transfer_id;

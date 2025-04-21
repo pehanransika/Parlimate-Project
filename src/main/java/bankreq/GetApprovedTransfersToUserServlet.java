@@ -14,8 +14,17 @@ public class GetApprovedTransfersToUserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            String userId = request.getParameter("userId");
+            System.out.println(userId);
+
+            // Check if postId is null or empty
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "User ID is missing.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
             // Get all approved transfers (assumes controller method works)
-            List<ApprovedTransferModel> approvedTransferstouser = ApprovedTransferController.getAllApprovedTransfers();
+            List<ApprovedTransferModel> approvedTransferstouser = ApprovedTransferController.getAllApprovedTransfersToUser(Integer.parseInt(userId));
 
             // Set data to request scope
             request.setAttribute("approvedTransferstouser", approvedTransferstouser);

@@ -1,12 +1,17 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
   <title>Approved Bank Transfers</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="stylesheet" href="../index/sidebar1.css" />
+  <link rel="stylesheet" href="../index/header/header.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Container for transfer cards */
     #approved .transfer-cards {
       display: flex;
       flex-direction: column;
@@ -14,7 +19,6 @@
       margin-top: 20px;
     }
 
-    /* Individual transfer card */
     .transfer-card {
       background-color: #fff;
       border: 1px solid #ddd;
@@ -30,7 +34,6 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Header section of the card */
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -46,7 +49,6 @@
       font-weight: 500;
     }
 
-    /* Status badge */
     .status-badge.approved {
       background-color: #e6ffed;
       color: #22863a;
@@ -59,14 +61,12 @@
       gap: 6px;
     }
 
-    /* Card body */
     .card-body {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    /* Info rows */
     .info-row {
       display: flex;
       justify-content: space-between;
@@ -85,14 +85,12 @@
       color: #222;
     }
 
-    /* Utility Flex Row */
     .f-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    /* Responsive styling */
     @media (max-width: 768px) {
       .info-row {
         flex-direction: column;
@@ -113,13 +111,13 @@
   </style>
 </head>
 <body>
+<%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
+
 <div class="container">
-  <div class="header">
-    <h1 class="page-title">
-      <i class="fa-solid fa-wallet"></i>
-      Approved Bank Transfers
-    </h1>
-  </div>
+
+    <h1>My Approved Bank Transfers</h1>
+  
 
   <div class="search-filter">
     <div class="search-box">
@@ -127,6 +125,14 @@
       <input type="text" id="searchInput" placeholder="Search transfers...">
     </div>
   </div>
+
+  <!-- DEBUG: show how many records were received -->
+  <c:if test="${empty approvedTransferstouser}">
+    <p>No approved transfers found.</p>
+  </c:if>
+  <c:if test="${not empty approvedTransferstouser}">
+    <p>Total Transfers Found: <strong>${fn:length(approvedTransferstouser)}</strong></p>
+  </c:if>
 
   <div id="approved" class="tab-pane">
     <div class="transfer-cards">
@@ -139,6 +145,7 @@
               <i class="fa-regular fa-check-circle"></i> Approved
             </div>
           </div>
+
           <div class="card-body">
             <div class="info-row f-row">
               <div class="info-label">User ID:</div>
@@ -172,7 +179,6 @@
 </div>
 
 <script>
-
   document.getElementById('searchInput').addEventListener('input', function () {
     const searchTerm = this.value.toLowerCase();
     const cards = document.querySelectorAll('.transfer-card');
@@ -186,8 +192,6 @@
   function viewDetails(transferId) {
     window.location.href = `ViewTransferDetailsServlet?transferId=${transferId}`;
   }
-
-
 </script>
 </body>
 </html>

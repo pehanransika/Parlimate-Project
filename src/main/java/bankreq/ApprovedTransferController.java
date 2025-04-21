@@ -1,5 +1,7 @@
 package bankreq;
 
+import fundreq.RequestModel;
+
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -112,4 +114,42 @@ public class ApprovedTransferController {
         }
         return approvedTransfers;
     }
+    public static List<ApprovedTransferModel> getAllApprovedTransfersToUser(int userId) {
+        List<ApprovedTransferModel> approvedTransfers = new ArrayList<>();
+        String sql = "SELECT * FROM approved_transfers WHERE user_id = ? ORDER BY verified_at DESC";
+
+        try (Connection conn = fundreq.DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    approvedTransfers.add(new ApprovedTransferModel(
+                            rs.getInt("user_id"),
+                            rs.getInt("transfer_id"),
+                            rs.getInt("fundraiser_id"),
+                            rs.getString("bank_name"),
+                            rs.getString("account_holder_name"),
+                            rs.getString("account_number"),
+                            rs.getString("branch"),
+                            rs.getBigDecimal("amount"),
+                            rs.getString("currency"),
+                            rs.getString("receipt_image_path"),
+                            rs.getString("reference_code"),
+                            rs.getTimestamp("transfer_date"),
+                      rs.getInt("verified_by"),
+                            rs.getTimestamp("verified_at")
+
+
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error while fetching approved transfers: " + e.getMessage());
+        }
+
+        return approvedTransfers;
+    }
+
 }

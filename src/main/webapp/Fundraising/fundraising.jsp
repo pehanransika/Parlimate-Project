@@ -297,10 +297,10 @@
                 </div>
             </div>
             <div class="fund-btns row">
-                <a href="GetApprovedTransfersToUserServlet">
+                <a href="GetApprovedTransfersToUserServlet?userId=${userProfile.userId}">
                     <button class="my-accept-trans">
                         <i class="fa-solid fa-wallet"></i>
-                        <span>Approved Bank Transfers</span>
+                        <span>My Approved Bank Transfers</span>
                     </button>
                 </a>
 
