@@ -301,13 +301,18 @@
                                         ${allmeetings.topic}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <div class="start"> ${allmeetings.time}</div>
-                                    <div class="date">${allmeetings.date}</div>
+                                    <div>
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span class="start">Time - ${allmeetings.time}</span><br>
+                                        <span class="date">
+                                        <i class="fa-solid fa-calendar"></i> Date - ${allmeetings.date}</span>
+                                    </div>
                                 </div>
-                                <div class="body">${allmeetings.description}</div>
-                                <div class="body">${allmeetings.typeofthemeeting}</div>
-                                <div class="body">${allmeetings.host}</div>
+
+
+                                <div class="body"><strong>Meeting is about : </strong> ${allmeetings.description}</div>
+                                <div class="body"><strong>Type of the Meeting : </strong> ${allmeetings.typeofthemeeting}</div>
+                                <div class="body"><strong>Meeting will be hosted by : </strong> ${allmeetings.host}</div>
                             </div>
                             <div class="item-interactive row">
                                 <a href="#" class="small-text item-yt">
@@ -315,8 +320,7 @@
                                     Watch on Youtube
                                 </a>
                                 <a href="#" class="small-text item-sp">
-                                    <i class="fa-brands fa-spotify"></i>
-                                        ${allmeetings.platform}
+                                    <strong>Platform</strong> - ${allmeetings.platform}
                                 </a>
                                 <span class="small-text item-live request-join-btn">
                                     <i class="fa-solid fa-signal-stream"></i>

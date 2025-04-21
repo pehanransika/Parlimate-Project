@@ -300,13 +300,17 @@
                                         ${registeredmeetings.topic}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <div class="start"> ${registeredmeetings.time}</div>
-                                    <div class="date">${registeredmeetings.date}</div>
+                                    <div>
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span class="start">Time - ${registeredmeetings.time}</span><br>
+                                        <span class="date">
+                                        <i class="fa-solid fa-calendar"></i> Date - ${registeredmeetings.date}</span>
+                                    </div>
                                 </div>
-                                <div class="body">${registeredmeetings.description}</div>
-                                <div class="body">${registeredmeetings.typeofthemeeting}</div>
-                                <div class="body">${registeredmeetings.host}</div>
+
+                                <div class="body"><strong>Meeting is about : </strong> ${registeredmeetings.description}</div>
+                                <div class="body"><strong>Type of the Meeting : </strong> ${registeredmeetings.typeofthemeeting}</div>
+                                <div class="body"><strong>Meeting will be hosted by : </strong> ${registeredmeetings.host}</div>
                             </div>
                             <div class="item-interactive row">
                                 <a href="#" class="small-text item-yt">
@@ -314,8 +318,7 @@
                                     Watch on Youtube
                                 </a>
                                 <a href="#" class="small-text item-sp">
-                                    <i class="fa-brands fa-spotify"></i>
-                                        ${registeredmeetings.platform}
+                                    <strong>Platform</strong> ${registeredmeetings.platform}
                                 </a>
                                 <span class="small-text item-live request-join-btn" aria-disabled="true">
                                     <i class="fa-solid fa-signal-stream"></i>

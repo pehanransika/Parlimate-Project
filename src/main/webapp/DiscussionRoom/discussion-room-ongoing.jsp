@@ -300,13 +300,16 @@
                                         ${ongoinmeetings.topic}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <div class="start"> ${ongoinmeetings.time}</div>
-                                    <div class="date">${ongoinmeetings.date}</div>
+                                    <div>
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span class="start">Time - ${ongoinmeetings.time}</span><br>
+                                        <span class="date">
+                                        <i class="fa-solid fa-calendar"></i> Date - ${ongoinmeetings.date}</span>
+                                    </div>
                                 </div>
-                                <div class="body">${ongoinmeetings.description}</div>
-                                <div class="body">${ongoinmeetings.typeofthemeeting}</div>
-                                <div class="body">${ongoinmeetings.host}</div>
+                                <div class="body"><strong>Meeting is about : </strong> ${ongoinmeetings.description}</div>
+                                <div class="body"><strong>Type of the Meeting : </strong> ${ongoinmeetings.typeofthemeeting}</div>
+                                <div class="body"><strong>Meeting will be hosted by : </strong> ${ongoinmeetings.host}</div>
                             </div>
                             <div class="item-interactive row">
                                 <a href="#" class="small-text item-yt">
@@ -314,8 +317,7 @@
                                     Watch on Youtube
                                 </a>
                                 <a href="#" class="small-text item-sp">
-                                    <i class="fa-brands fa-spotify"></i>
-                                        ${ongoinmeetings.platform}
+                                    <strong>Platform</strong> ${ongoinmeetings.platform}
                                 </a>
                                 <span class="small-text item-live request-join-btn" aria-disabled="true">
                                     <i class="fa-solid fa-signal-stream"></i>
