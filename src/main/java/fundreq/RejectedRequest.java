@@ -7,18 +7,27 @@ public class RejectedRequest {
     private String reasonForReject;
     private Timestamp rejectionDate;
     private String title;
+    private int userId;
 
 
     // Constructors
     public RejectedRequest() {}
 
-    public RejectedRequest(int requestId, String reasonForReject,String title) {
+
+
+
+
+
+    public RejectedRequest(int userId, int rejectionId, int requestId, String reasonForReject, Timestamp rejectionDate, String title) {
+        this.userId=userId;
+        this.rejectionId=rejectionId;
         this.requestId = requestId;
         this.reasonForReject = reasonForReject;
+        this.rejectionDate=rejectionDate;
         this.title=title;
 
-
     }
+
 
     // Getters and Setters
     public int getRejectionId() { return rejectionId; }
@@ -35,5 +44,8 @@ public class RejectedRequest {
 
     public String getTitle(){return title;}
 public void setTitle(String title){this.title=title;}
+
+    public int getUserId(){return userId;}
+    public void setUserId(int userId){this.userId=userId;}
 
 }

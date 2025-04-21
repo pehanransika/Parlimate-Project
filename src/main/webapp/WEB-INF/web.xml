@@ -235,6 +235,14 @@
     <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>DeleteRejectionServlet</servlet-name>
+    <servlet-class>fundreq.DeleteRejectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteRejectionServlet</servlet-name>
+    <url-pattern>/Fundraising/DeleteRejectionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>GetAllRejectedRequestServlet</servlet-name>
     <servlet-class>fundreq.GetAllRejectedRequestServlet </servlet-class>
   </servlet>

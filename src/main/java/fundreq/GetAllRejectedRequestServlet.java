@@ -19,8 +19,16 @@ public class GetAllRejectedRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String userId = request.getParameter("userId");
+            System.out.println(userId);
 
-            List<RejectedRequest> rejectedRequests = RejectedRequestController.getAllRejectedRequests();
+            // Check if postId is null or empty
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "User ID is missing.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
+            List<RejectedRequest> rejectedRequests = RejectedRequestController.getAllRejectedRequestsByUserId(Integer.parseInt(userId));
 
             // Set the list as a request attribute
             request.setAttribute("rejectedRequests", rejectedRequests);

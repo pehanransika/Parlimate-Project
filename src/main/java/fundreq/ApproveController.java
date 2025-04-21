@@ -309,6 +309,8 @@ public class ApproveController {
         }
 
     }
+
+    // Custom exception class
     public static String getRequesterEmail(int requestId) throws EmailRetrievalException {
         String sql = "SELECT u.email FROM users u " +
                 "JOIN approved_requests ar ON u.user_id = ar.userid " +
@@ -321,7 +323,7 @@ public class ApproveController {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return String.valueOf(Boolean.parseBoolean(rs.getString("email")));
+                    return rs.getString("email"); // Fixed here: directly return the email value
                 }
                 throw new EmailRetrievalException("No requester found for fundraising request ID: " + requestId);
             }

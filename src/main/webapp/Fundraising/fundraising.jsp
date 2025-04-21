@@ -317,7 +317,7 @@
                         <span> Approved fundraises</span>
                     </button>
                 </a>
-                <a href="GetAllRejectedRequestServlet">
+                <a href="GetAllRejectedRequestServlet?userId=${userProfile.userId}">
                     <button class="my-funds row">
                         <i class="fa-solid fa-wallet"></i>
                         <span>Rejected Fundraisers</span>

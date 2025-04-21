@@ -21,6 +21,8 @@ public class RejectRequestServlet extends HttpServlet {
             // Get parameters
             int requestId = Integer.parseInt(request.getParameter("requestId"));
             String rejectionReason = request.getParameter("rejectionReason");
+            String title=request.getParameter("title");
+             int userId= Integer.parseInt(request.getParameter("userId"));
 
 
             // Validate reason (server-side validation is still important)
@@ -32,6 +34,8 @@ public class RejectRequestServlet extends HttpServlet {
             RejectedRequest rejectedRequest = new RejectedRequest();
             rejectedRequest.setRequestId(requestId);
             rejectedRequest.setReasonForReject(rejectionReason);
+            rejectedRequest.setTitle(title);
+            rejectedRequest.setUserId(userId);
             rejectedRequest.setRejectionDate(new Timestamp(System.currentTimeMillis()));
 
             // Process rejection

@@ -1,7 +1,5 @@
 package fundreq;
 
-import fundreq.DBConnection;
-import fundreq.RejectedRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,16 @@ public class RejectedRequestController {
             System.out.println("Attempting to reject request ID: " + rejectedRequest.getRequestId());
 
             // 1. First INSERT into rejected_requests
-            String insertSQL = "INSERT INTO rejected_requests (request_id, reason_for_reject, rejection_date) " +
-                    "VALUES (?, ?, ?)";
+            String insertSQL = "INSERT INTO rejected_requests (request_id, reason_for_reject, rejection_date,title,user_id) " +
+                    "VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
                 insertStmt.setInt(1, rejectedRequest.getRequestId());
                 insertStmt.setString(2, rejectedRequest.getReasonForReject());
                 insertStmt.setTimestamp(3, rejectedRequest.getRejectionDate());
+                insertStmt.setString(4, rejectedRequest.getTitle());
+                insertStmt.setInt(5,rejectedRequest.getUserId());
+                
+
 
                 int insertedRows = insertStmt.executeUpdate();
                 if (insertedRows != 1) {
@@ -82,7 +84,7 @@ public class RejectedRequestController {
     // Method to get all rejected requests
     public static List<RejectedRequest> getAllRejectedRequests() throws SQLException {
         List<RejectedRequest> rejectedRequests = new ArrayList<>();
-        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date, " +
+        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date,r.user_id " +
                 "f.title " +
                 "FROM rejected_requests r " +
                 "LEFT JOIN fundraisingrequests f ON r.request_id = f.requestid";
@@ -98,6 +100,7 @@ public class RejectedRequestController {
                 request.setReasonForReject(rs.getString("reason_for_reject"));
                 request.setRejectionDate(rs.getTimestamp("rejection_date"));
                 request.setTitle(rs.getString("title"));  // Set the title from joined table
+                request.setUserId(rs.getInt("user_id"));
 
                 rejectedRequests.add(request);
             }
@@ -106,7 +109,7 @@ public class RejectedRequestController {
     }
     // Method to get rejected request by ID
     public static RejectedRequest getRejectedRequestById(int rejectionId) throws SQLException {
-        String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date " +
+        String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date ,title,user_id" +
                 "FROM rejected_requests WHERE rejection_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -120,6 +123,8 @@ public class RejectedRequestController {
                     request.setRequestId(rs.getInt("request_id"));
                     request.setReasonForReject(rs.getString("reason_for_reject"));
                     request.setRejectionDate(rs.getTimestamp("rejection_date"));
+                    request.setTitle(rs.getString("title"));
+                    request.setUserId(rs.getInt("user_id"));
                     return request;
                 }
             }
@@ -133,7 +138,7 @@ public class RejectedRequestController {
     // Method to get rejected requests by original request ID
     public static List<RejectedRequest> getRejectedRequestsByRequestId(int requestId) throws SQLException {
         List<RejectedRequest> rejectedRequests = new ArrayList<>();
-        String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date " +
+        String query = "SELECT rejection_id, request_id, reason_for_reject, rejection_date,title,user_id " +
                 "FROM rejected_requests WHERE request_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -147,6 +152,8 @@ public class RejectedRequestController {
                     request.setRequestId(rs.getInt("request_id"));
                     request.setReasonForReject(rs.getString("reason_for_reject"));
                     request.setRejectionDate(rs.getTimestamp("rejection_date"));
+                    request.setTitle(rs.getString("title"));
+                    request.setUserId(rs.getInt("user_id"));
 
                     rejectedRequests.add(request);
                 }
@@ -187,7 +194,34 @@ public class RejectedRequestController {
             throw e;
         }
     }
+    public static List<RejectedRequest> getAllRejectedRequestsByUserId(int userId) throws SQLException {
+        List<RejectedRequest> rejectedRequests = new ArrayList<>();
+        String query = "SELECT r.rejection_id, r.request_id, r.reason_for_reject, r.rejection_date, f.title,r.user_id " +
+                "FROM rejected_requests r " +
+                "LEFT JOIN fundraisingrequests f ON r.request_id = f.requestid " +
+                "WHERE r.user_id = ?";
 
-    // Helper method to reject a funding request
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    rejectedRequests.add(new RejectedRequest(
+                            rs.getInt("user_id"),
+                            rs.getInt("rejection_id"),
+                            rs.getInt("request_id"),
+                            rs.getString("reason_for_reject"),
+                            rs.getTimestamp("rejection_date"),
+                            rs.getString("title")
+
+                    ));
+                }
+            }
+        }
+
+        return rejectedRequests;
+    }
 
 }

@@ -117,7 +117,7 @@
 <div class="container">
 
     <h1>My Approved Bank Transfers</h1>
-  
+
 
   <div class="search-filter">
     <div class="search-box">

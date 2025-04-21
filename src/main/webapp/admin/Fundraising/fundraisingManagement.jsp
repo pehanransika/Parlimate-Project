@@ -259,14 +259,16 @@
                                 <!-- Simple Delete Form with Confirmation -->
                             <form action="${pageContext.request.contextPath}/admin/Fundraising/RejectRequestServlet"
                                   method="post"  onsubmit="return confirmDeleteWithReason(this)"
-
                                   style="display:inline;">
                                 <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                <input type="hidden" name="userId" value="${fund.userId}"/>
+                                <input type="hidden" name="title" value="${fund.title}"/>
                                 <button type="submit" class="delete-btn">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </button>
                             </form>
-                            </td>
+
+                        </td>
                             </td>
                             </c:if>
                             <c:if test="${fund.status == 'DELETED'}">

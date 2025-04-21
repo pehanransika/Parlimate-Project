@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../index/sidebar1.css" />
+    <link rel="stylesheet" href="../index/header/header.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Embedded Styling -->
     <style>
@@ -151,6 +155,8 @@
     </style>
 </head>
 <body>
+<%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
 <div class="container">
     <h1>
         <i class="fas fa-ban"></i> Rejected Requests
@@ -174,6 +180,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${rejectedRequests}" var="rejection">
+
                     <tr>
                         <td data-label="Rejection ID">${rejection.rejectionId}</td>
                         <td data-label="Request ID">${rejection.requestId}</td>
@@ -192,15 +199,15 @@
                             <fmt:formatDate value="${rejection.rejectionDate}" pattern="MMM dd, yyyy hh:mm a" />
                         </td>
                         <td data-label="Actions">
-                            <a href="ViewRequestServlet?requestId=${rejection.requestId}"
-                               class="action-btn btn-primary btn-sm">
-                                <i class="fas fa-eye"></i> View
-                            </a>
-                            <a href="DeleteRejectionServlet?rejectionId=${rejection.rejectionId}"
-                               class="action-btn btn-danger btn-sm"
-                               onclick="return confirm('Permanently delete this rejection record?')">
-                                <i class="fas fa-trash"></i> Delete
-                            </a>
+
+                            <form action="DeleteRejectionServlet" method="post" style="display:inline;"
+                                  onsubmit="return confirm('Permanently delete this rejection record?')">
+                                <input type="hidden" name="rejectionId" value="${rejection.rejectionId}" />
+                                <button type="submit" class="action-btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+
                         </td>
                     </tr>
                 </c:forEach>

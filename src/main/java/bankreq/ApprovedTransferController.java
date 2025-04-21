@@ -126,8 +126,9 @@ public class ApprovedTransferController {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     approvedTransfers.add(new ApprovedTransferModel(
-                            rs.getInt("user_id"),
+
                             rs.getInt("transfer_id"),
+                            rs.getInt("user_id"),
                             rs.getInt("fundraiser_id"),
                             rs.getString("bank_name"),
                             rs.getString("account_holder_name"),

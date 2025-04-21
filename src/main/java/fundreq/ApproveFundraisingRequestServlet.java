@@ -72,12 +72,11 @@ public class ApproveFundraisingRequestServlet extends HttpServlet {
 
             // 3. Send email notification if enabled
             if (emailEnabled) {
-                String requesterEmail = String.valueOf(ApproveController.getRequesterEmail(requestId));
+                String requesterEmail = ApproveController.getRequesterEmail(requestId);
                 if (requesterEmail != null && !requesterEmail.isEmpty()) {
                     boolean emailSent = sendApprovalEmail(requesterEmail, requestId);
                     if (!emailSent) {
-                        session.setAttribute("warning",
-                                "Request approved but failed to send notification email");
+                        session.setAttribute("warning", "Request approved but failed to send notification email");
                     }
                 }
             } else {
@@ -104,52 +103,51 @@ public class ApproveFundraisingRequestServlet extends HttpServlet {
         }
 
         try {
-            // Create a copy of the properties to avoid modification
+            final String username = emailConfig.getProperty("mail.username");
+            final String password = emailConfig.getProperty("mail.password");
+            final String fromAddress = emailConfig.getProperty("mail.from", username);
+
+            if (username == null || password == null) {
+                System.err.println("Missing email username or password in properties.");
+                return false;
+            }
+
             Properties mailProps = new Properties();
             mailProps.putAll(emailConfig);
 
-            // Configure session with debug
-            Session session = Session.getInstance(mailProps,
-                    new Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(
-                                    mailProps.getProperty("mail.username"),
-                                    mailProps.getProperty("mail.password")
-                            );
-                        }
-                    });
-            session.setDebug(true);
+            Session session = Session.getInstance(mailProps, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+            session.setDebug(true); // Optional for debugging
 
-            // Create and configure message
+            // Construct the email message
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(mailProps.getProperty("mail.from")));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(recipientEmail));
+            message.setFrom(new InternetAddress(fromAddress));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
 
-            // Set subject with request ID
-            String subject = String.format(
-                    mailProps.getProperty("mail.approval.subject",
-                            "Fundraising Request #%d Approved"),
-                    requestId);
+            // Subject and body
+            String subjectTemplate = emailConfig.getProperty("mail.approval.subject", "Fundraising Request #%d Approved");
+            String subject = String.format(subjectTemplate, requestId);
+
+            String bodyTemplate = emailConfig.getProperty("mail.approval.template",
+                    "Dear Fundraiser,\n\n" +
+                            "Your fundraising request (ID: %d) has been approved.\n\n" +
+                            "You can now proceed with your campaign.\n\n" +
+                            "Thank you,\nThe Fundraising Team");
+            String body = String.format(bodyTemplate, requestId);
+
             message.setSubject(subject);
+            message.setText(body);
 
-            // Set email content
-            String emailContent = String.format(
-                    mailProps.getProperty("mail.approval.template",
-                            "Dear Fundraiser,\n\n" +
-                                    "Your fundraising request (ID: %d) has been approved.\n\n" +
-                                    "You can now proceed with your campaign.\n\n" +
-                                    "Thank you,\nThe Fundraising Team"),
-                    requestId);
-            message.setText(emailContent);
-
-            // Send email
+            // Send the message
             Transport.send(message);
+            System.out.println("Approval email sent to: " + recipientEmail);
             return true;
 
         } catch (MessagingException e) {
-            System.err.printf("Failed to send approval email for request %d: %s%n",
-                    requestId, e.getMessage());
+            System.err.println("Error sending approval email: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
