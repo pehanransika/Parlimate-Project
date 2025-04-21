@@ -304,7 +304,7 @@
                     </button>
                 </a>
 
-                <a href="GetAllRequestServlet">
+                <a href="GetAllRequestServlet?userId=${userProfile.userId}">
                     <button class="my-funds row">
                         <i class="fa-solid fa-wallet"></i>
                         <span>my fundraises</span>

@@ -224,7 +224,7 @@ public class RequestController {
     }
     public static List<RequestModel> getRequestsByUserId(int userId) throws SQLException {
         List<RequestModel> requests = new ArrayList<>();
-        String query = "SELECT requestid, userid, title, description, category, contact_no, targetamount, currency, datetime, photos, attachment_url FROM fundraisingrequests WHERE userid = ?";
+        String query = "SELECT  * FROM fundraisingrequests WHERE userid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -235,18 +235,21 @@ public class RequestController {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int requestId = rs.getInt("requestid");
-                    int user_id = rs.getInt("userid");
+
                     String title = rs.getString("title");
                     String description = rs.getString("description");
                     String category = rs.getString("category");
-                    String contactNo = rs.getString("contact_no");
-                    BigDecimal targetAmount = rs.getBigDecimal("targetamount");
+                    BigDecimal targetamount = rs.getBigDecimal("targetamount");
                     String currency = rs.getString("currency");
-                    Timestamp datetime = rs.getTimestamp("datetime");
+                    String contact_no = rs.getString("contact_no");
                     String photos = rs.getString("photos");
-                    String attachmentUrl = rs.getString("attachment_url");
+                    Timestamp datetime = rs.getTimestamp("datetime");
+                    String attachment_url = rs.getString("attachment_url");  // Fixed space issue
+                    String name = rs.getString("name");
+                    String status=rs.getString("status");
 
-                    RequestModel request = new RequestModel(requestId, user_id, title, description, category, contactNo, targetAmount, currency, datetime, photos, attachmentUrl);
+                    RequestModel request = new RequestModel(requestId, userId, title, description,
+                            category, targetamount, currency, contact_no, photos, datetime, attachment_url, name,status);
                     requests.add(request);
                 }
             }
