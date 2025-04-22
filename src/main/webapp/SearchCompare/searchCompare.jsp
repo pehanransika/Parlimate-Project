@@ -1,0 +1,672 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: HP
+  Date: 4/17/2025
+  Time: 7:52 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%!
+  String baseURL = "http://localhost:8080/Parlimate/images"; // define base URL here
+%>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search & Compare</title>
+
+  <link rel="stylesheet" href="searchCompare.css" />
+  <link rel="stylesheet" href="index/sidebar1.css" />
+  <link rel="stylesheet" href="index/header/header.css" />
+  <link rel="stylesheet" href="../index.css"/>
+  <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
+  <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
+
+  <link
+          rel="stylesheet"
+          href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+          data-purpose="Layout StyleSheet"
+          title="Web Awesome"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+  />
+</head>
+<body>
+
+<%@ include file="../index/sidebar.jsp" %>
+<%@ include file="../index/header/header.jsp" %>
+
+<div class="container">
+  <div class="pageTitles">
+    <h2 class="title">Fundraisers</h2>
+    <div class="subTitle">
+      Fueling Change Through Collective Action
+    </div>
+  </div>
+  <div class="scContainer">
+    <table>
+      <form action="GetPoliticianProfileDetailsServlet" method="get">
+        <tr>
+          <td>
+            <select name="role" id="roleSelect" class="roleType caps">
+              <option value="politician">Politician</option>
+              <option value="political-party">Political Party</option>
+            </select>
+          </td>
+
+          <!-- Politician 1 -->
+          <td class="column-head f-col">
+            <div class="content f-col">
+              <div class="search">
+                <input
+                        type="text"
+                        name="politicianName1"
+                        placeholder="Enter Politician Name"
+                        class="search-2"
+                        id="col1-search"
+                        autocomplete="off"
+                        required
+                />
+                <ul id="col1-suggestions" class="suggestion-box"></ul>
+                <label for="col1-search">
+                  <i class="fa-regular fa-magnifying-glass"></i>
+                </label>
+              </div>
+<%--              <div class="image">--%>
+<%--                <!-- Displaying Image 1 -->--%>
+<%--                <c:forEach var="politician" items="${profiles}">--%>
+<%--                  <img--%>
+<%--                          id="img1"--%>
+<%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? politician.imagePath.split(',')[0] : ''}"--%>
+<%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? 'display:block;' : 'display:none;'}"--%>
+<%--                  />--%>
+<%--                </c:forEach>--%>
+<%--              </div>--%>
+              <div class="name-shown">Politician 1</div>
+            </div>
+          </td>
+
+          <!-- Politician 2 -->
+          <td class="column-head f-col">
+            <div class="content f-col">
+              <div class="search">
+                <input
+                        type="text"
+                        name="politicianName2"
+                        placeholder="Enter Politician Name (optional)"
+                        class="search-2"
+                        id="col2-search"
+                        autocomplete="off"
+                />
+                <ul id="col2-suggestions" class="suggestion-box"></ul>
+                <label for="col2-search">
+                  <i class="fa-regular fa-magnifying-glass"></i>
+                </label>
+              </div>
+<%--              <div class="image">--%>
+<%--                <!-- Displaying Image 2 -->--%>
+<%--                <c:forEach var="politician" items="${profiles}">--%>
+<%--                  <img--%>
+<%--                          id="img2"--%>
+<%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? politician.imagePath.split(',')[1] : ''}"--%>
+<%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? 'display:block;' : 'display:none;'}"--%>
+<%--                  />--%>
+<%--                </c:forEach>--%>
+<%--              </div>--%>
+              <div class="name-shown">Politician 2</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Submit button row -->
+        <tr>
+          <td colspan="3" style="text-align: center; padding-top: 10px;">
+            <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
+            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>
+            <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Profiles</button>
+          </td>
+        </tr>
+      </form>
+
+      <tr>
+        <td class="row-head">Photo</td>
+        <c:forEach var="politician" items="${profiles}">
+          <td>
+            <div class="image">
+              <!-- Check if the politician has an image path and display it -->
+              <img src="../images/${politician.imagePath}" alt="Photo" style="max-width: 100px; height: auto;">
+              <script>
+                // Log the image URL to the console to test
+                console.log('Image URL:', '../image${politician.imagePath}');
+              </script>
+            </div>
+          </td>
+        </c:forEach>
+      </tr>
+
+      <tr style="border: 0">
+        <td colspan="3">
+          <div class="select-attributes f-row">
+            <input type="radio" name="select-attr" id="all-attr" data-target="" checked />
+            <label for="all-attr">All</label>
+
+            <input type="radio" name="select-attr" id="gen-info-attr" data-target="general-info" />
+            <label for="gen-info-attr">General Information</label>
+
+            <input type="radio" name="select-attr" id="edu-attr" data-target="educational-background" />
+            <label for="edu-attr">Educational Background</label>
+
+            <input type="radio" name="select-attr" id="prof-attr" data-target="professional-background" />
+            <label for="prof-attr">Professional Background</label>
+
+            <input type="radio" name="select-attr" id="pol-details-attr" data-target="political-details" />
+            <label for="pol-details-attr">Political Details</label>
+
+            <input type="radio" name="select-attr" id="key-attr" data-target="key-policies" />
+            <label for="key-attr">Key Policies</label>
+
+            <input type="radio" name="select-attr" id="socialmedia-attr" data-target="social-media" />
+            <label for="socialmedia-attr">Social Media</label>
+
+            <input type="radio" name="select-attr" id="election-results-attr" data-target="election-results" />
+            <label for="election-results-attr">Latest Election Results</label>
+          </div>
+
+        </td>
+      </tr>
+
+      <!-- from here we will update details :) -->
+      <div class="gen-inf detail-section">
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="general-info">General Information</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Full Name</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.fullName}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">age</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.age}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Gender</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.gender}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Public Contact Number</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.publicContactNumber}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Public Email Address</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.publicEmailAddress}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">District</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.district}</td>
+          </c:forEach>
+        </tr>
+
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="educational-background">Background</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Schools Attended</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.schoolsAttended}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">University</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.university}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Highest Educational Qualification</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.highestEducationQualification}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Field of Study</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.fieldOfStudy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Educational Qualifications</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.educationalQualifications}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="professional-background">Professional Background</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Profession</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.profession}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Work Experience Summary</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.workExperienceSummary}</td>
+          </c:forEach>
+        </tr>
+
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="political-details">Political Details</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">party</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.party}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Level</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralLevel}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Province</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralProvince}</td>
+          </c:forEach>
+        </tr>
+
+
+        <tr>
+          <td class="row-head">Electoral District</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralDistrict}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Electoral Division</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electoralDivision}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Current Position</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.currentPosition}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Current Position Held in Party</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.currentPositionInParty}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Years active in Politics</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.yearsActiveInPolitics}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="election-results">Latest Election Results</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Year</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electionYear}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Type of Election</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.typeOfElection}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">No of Votes</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.numberOfVotes}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Result</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.electionResult}</td>
+          </c:forEach>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="key-policies">Policies</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Vision / Slogan </td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.visionOrSlogan}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Economic</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.economicPolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">healthcare</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.healthcarePolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Infrastructure</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.infrastructurePolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Education</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.educationPolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Youth Development</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.youthDevelopmentPolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Agriculture</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>${politician.agriculturePolicy}</td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Other</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+
+        <tr class="detail-begin row-title">
+          <td colspan="3">
+            <div class="details-title" id="social-media">Social Media</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="row-head">Facebook</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.facebook}" target="_blank">${politician.facebook}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">X</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.x}" target="_blank">${politician.x}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">LinkedIn</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.linkedin}" target="_blank">${politician.linkedin}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr>
+          <td class="row-head">Instagram</td>
+          <c:forEach var="politician" items="${profiles}">
+            <td>
+              <a href="${politician.instagram}" target="_blank">${politician.instagram}</a>
+            </td>
+          </c:forEach>
+        </tr>
+
+      </div>
+    </table>
+  </div>
+</div>
+</body>
+
+<script src="http://localhost:8080/Parlimate/script.js"></script>
+
+<script>
+  // Sample politician data (replace with your actual data source)
+
+  const politicians = [
+    {
+      name: "Mahinda Rajapaksa",
+      party: "SLPP",
+    },
+    { name: "Ranil Wickremesinghe", party: "UNP" },
+    { name: "Sajith Premadasa", party: "SJB" },
+    {
+      name: "Anura Kumara Dissanayake",
+      party: "JVP",
+    },
+    {
+      name: "Maithripala Sirisena",
+      party: "SLFP",
+    },
+    {
+      name: "Chandrika Kumaratunga",
+      party: "SLFP",
+    },
+    { name: "Dullas Alahapperuma", party: "SLPP" },
+    {
+      name: "Patali Champika Ranawaka",
+      party: "SJB",
+    },
+    { name: "Wimal Weerawansa", party: "NPP" },
+    { name: "Udaya Gammanpila", party: "SLPP" },
+    { name: "Rosy Senanayake", party: "UNP" },
+    { name: "Harin Fernando", party: "SJB" },
+  ];
+
+  const searchInput = document.getElementById("col1-search");
+  const suggestionsContainer = document.getElementById("suggestions");
+
+  searchInput.addEventListener("input", function () {
+    const searchTerm = this.value.toLowerCase();
+    suggestionsContainer.innerHTML = "";
+
+    if (searchTerm.length < 1) {
+      suggestionsContainer.style.display = "none";
+      return;
+    }
+
+    const filteredPoliticians = politicians.filter(
+            (politician) =>
+                    politician.name.toLowerCase().includes(searchTerm) ||
+                    politician.party.toLowerCase().includes(searchTerm)
+    );
+
+    if (filteredPoliticians.length > 0) {
+      filteredPoliticians.forEach((politician) => {
+        const suggestionItem = document.createElement("div");
+        suggestionItem.className = "suggestion-item";
+        suggestionItem.innerHTML = `
+      <img src="https://i.pravatar.cc/50" alt="${politician.name}">
+      <div>
+        <div class="politician-name">${politician.name}</div>
+        <div class="politician-party">${politician.party}</div>
+      </div>
+    `;
+        suggestionItem.addEventListener("click", () => {
+          searchInput.value = politician.name;
+          suggestionsContainer.style.display = "none";
+          // You can trigger search or selection action here
+        });
+        suggestionsContainer.appendChild(suggestionItem);
+      });
+      suggestionsContainer.style.display = "block";
+    } else {
+      suggestionsContainer.style.display = "none";
+    }
+  });
+
+  // Close suggestions when clicking outside
+  document.addEventListener("click", function (e) {
+    if (
+            !searchInput.contains(e.target) &&
+            !suggestionsContainer.contains(e.target)
+    ) {
+      suggestionsContainer.style.display = "none";
+    }
+  });
+
+  document.querySelectorAll('input[name="select-attr"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const targetId = radio.getAttribute('data-target');
+      if (targetId) {
+        const section = document.getElementById(targetId);
+        if (section) {
+          const yOffset = -70; // adjust based on your header height
+          const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+  function setupAutoSuggest(inputId, suggestionBoxId) {
+    const input = document.getElementById(inputId);
+    const suggestionBox = document.getElementById(suggestionBoxId);
+
+    input.addEventListener("input", function () {
+      const query = input.value.trim();
+
+      if (query.length === 0) {
+        suggestionBox.innerHTML = "";
+        return;
+      }
+
+      fetch("NameSuggestionsServlet?query=" + encodeURIComponent(query))
+              .then(response => response.text())
+              .then(text => {
+                const names = text.trim().split("\n");
+                suggestionBox.innerHTML = "";
+                names.forEach(name => {
+                  const option = document.createElement("div");
+                  option.className = "suggestion-item";
+                  option.textContent = name;
+                  option.onclick = function () {
+                    input.value = name;
+                    suggestionBox.innerHTML = "";
+                  };
+                  suggestionBox.appendChild(option);
+                });
+              })
+              .catch(err => {
+                console.error("Error fetching suggestions:", err);
+              });
+    });
+
+    // Optional: hide suggestions when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!suggestionBox.contains(e.target) && e.target !== input) {
+        suggestionBox.innerHTML = "";
+      }
+    });
+  }
+
+  // Initialize for both input fields
+  setupAutoSuggest("col1-search", "col1-suggestions");
+  setupAutoSuggest("col2-search", "col2-suggestions");
+
+</script>
+
+<body>
+
+</body>
+</html>

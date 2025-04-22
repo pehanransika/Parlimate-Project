@@ -23,8 +23,11 @@ public class GetAllMeetingRequestServlet extends HttpServlet {
             request.setAttribute("allMeetingRequests", allMeetingRequests);
 
             // Forward to requestsDetail.jsp
+            System.out.println("This is a debug message");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/DiscussionRoom/meetingrequestDetail.jsp");
             dispatcher.forward(request, response);
+
+
         } catch (Exception e) {
             // Log the exception for debugging
             e.printStackTrace();

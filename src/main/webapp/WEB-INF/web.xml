@@ -479,9 +479,33 @@
     <url-pattern>/DiscussionRoom/GetAllMeetingRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>/GetAllMeetingRequestAdminServlet</servlet-name>
+    <servlet-class>meetingreq.GetAllMeetingRequestAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>/GetAllMeetingRequestAdminServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetAllMeetingRequestAdminServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>/GetAllMeetingServlet</servlet-name>
+    <servlet-class>meetings.GetAllMeetingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>/GetAllMeetingServlet</servlet-name>
+    <url-pattern>/admin/meetingManagement/GetAllMeetingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>UpdateMeetingRequestServlet</servlet-name>
     <servlet-class>meetingreq.UpdateMeetingRequestServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetAllMeetingUserServlet</servlet-name>
+    <servlet-class>meetings.GetAllMeetingUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllMeetingUserServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetAllMeetingUserServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UpdateMeetingRequestServlet</servlet-name>
     <url-pattern>/DiscussionRoom/UpdateMeetingRequestServlet</url-pattern>
@@ -522,6 +546,10 @@
   <servlet-name>CreateMeetingServlet</servlet-name>
   <servlet-class>meetings.CreateMeetingServlet</servlet-class>
 </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMeetingServlet</servlet-name>
+    <servlet-class>meetings.CreateMeetingServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>CreateMeetingServlet</servlet-name>
     <url-pattern>/admin/meetingManagement/CreateMeetingServlet</url-pattern>
@@ -607,7 +635,6 @@
     <url-pattern>/Help/SupportMessageServlet</url-pattern>
   </servlet-mapping>
   <filter>
-<filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
   </filter>

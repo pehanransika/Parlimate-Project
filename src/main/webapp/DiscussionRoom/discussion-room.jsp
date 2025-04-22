@@ -1,9 +1,20 @@
-<%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
-    if (session1 == null || session.getAttribute("user") == null) {
-// User is not logged in, redirect to login page
+<%@ page import="UserPackage.UserModel" %>
+
+<%
+    HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+    if (session1 == null || session1.getAttribute("user") == null) {
+        // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
-    }%>
+    }
+
+    // Session exists and user is logged in
+    UserModel user = (UserModel) session1.getAttribute("user");
+    int userId = user.getUserId();
+
+    // You can now use this userId as needed
+%>
+
 <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
     response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
@@ -12,8 +23,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="../index/sidebar1.css" rel="stylesheet" />
-    <link href="../index/header/header.css" rel="stylesheet" />
+<%--    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />--%>
+    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
+    <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting room | Parlimate</title>
@@ -41,6 +54,7 @@
 
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
 <div class="reqPop">
     <div class="bg"></div>
@@ -74,9 +88,6 @@
             <div id="progress" class="progress row">
                 <div class="item item-active" data-title="DebDetails">
                     Debate Details
-                </div>
-                <div class="item" data-title="OppDetails">
-                    Opponents Info
                 </div>
                 <div class="item" data-title="AddDetails">
                     Additional Information
@@ -162,56 +173,40 @@
                 </div>
                 <div class="input-group">
                     <div class="field">
-                        <label class="title" for="disc-opNames"
-                        >Invite Politician (Optional) </label
-                        >
-                        <input
-                                type="text"
-                                name="opponentname"
-                                id="disc-opNames"
-                                required
-                                placeholder="Sajith Premadasa"
-                        />
-                    </div>
-                    <div class="field">
-                        <label class="title" for="disc-party-aff"
-                        >Party Affiliation(s)</label
-                        >
-                        <input
-                                type="text"
-                                required
-                                placeholder="Samagi Jana Balawegaya"
-                                id="disc-party-aff"
-                                name="partyaffiliation"
-                        />
-                        <div class="separator"></div>
-                    </div>
-                    <div class="bottom">
-                        <button type="button" class="prev-btn btn">
-                            back
-                        </button>
-                        <button type="button" class="next-btn btn">
-                            Next
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <div class="field">
-                        <label class="title" for="disc-pref"
-                        >Preferred Discussion Format</label
-                        >
+                        <label class="title" for="disc-pref">Preferred Discussion Format</label>
                         <select name="discussionformat" id="disc-pref">
-                            <option value="Open-debate">
-                                Open debate
-                            </option>
-                            <option value="Moderated-discussion">
-                                Moderated Discussion
-                            </option>
+                            <option value="Open-debate">Open debate</option>
+                            <option value="Moderated-discussion">Moderated Discussion</option>
                             <option value="QA">Q&A</option>
-                            <option value="Other">other</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    <div id="opponent-fields" style="display: none;">
+                        <div class="field">
+                            <label class="title" for="opponent-name">Opponent Name</label>
+                            <input type="text" id="opponent-name" name="opponentname" placeholder="Enter opponent name">
+                        </div>
+                        <div class="field">
+                            <label class="title" for="opponent-party">Opponent's Party</label>
+                            <input type="text" id="opponent-party" name="partyaffiliation" placeholder="Enter opponent's party">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="title">
+                            <input type="checkbox" id="allow-participants" name="allowParticipants">
+                            Allow Live Participants
+                            <i class="fa-solid fa-circle-info" title="Ticking this will allow participants to join the meeting and interact"></i>
+                        </label>
+                    </div>
+
+                    <div id="participant-fields" style="display: none;">
+                        <div class="field">
+                            <label class="title" for="participant-count">Number of Participants Allowed</label>
+                            <input type="number" id="participant-count" name="participantCount" min="1" placeholder="Enter number of participants">
+                        </div>
+                    </div>
+
                     <div class="field">
                         <label class="title" for="disc-party-host">Preferred Host <span>(Optional)</span></label>
                         <select id="disc-party-host" name="preferredhost">
@@ -221,13 +216,11 @@
                         </select>
                         <div class="separator"></div>
                     </div>
+
                     <div class="bottom">
-                        <button type="button" class="prev-btn btn">
-                            back
-                        </button>
+                        <button type="button" class="prev-btn btn">back</button>
                         <button type="submit" class="next-btn btn">
-                            request
-                            <i class="fa-solid fa-check"></i>
+                            request <i class="fa-solid fa-check"></i>
                         </button>
                     </div>
                 </div>
@@ -236,6 +229,7 @@
     </form>
 </div>
 </c:if>
+
 <div class="notification-msg"></div>
 <div class="container col">
     <div class="pageTitles">
@@ -244,388 +238,126 @@
             engage with ongoing live video discussions
         </div>
     </div>
+    <div class="meeting-btns row">
+        <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+            <a href="GetMyMeetingRequests?userId=${user.userId}" class="myMeetings row">
+                <span> My meeting requests </span>
+                <i class="fa-solid fa-clock"></i>
+            </a>
+        </c:if>
+        <div class="newmeeting row">
+            <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+                            <span> request meeting </span
+                            ><i class="fa-solid fa-pencil"></i>
+            </c:if>
+        </div>
+    </div>
     <div class="discussions col">
         <div class="navigations row">
             <div class="nav-btn">
-                <button value="recent" class="capitalize nav-active">
-                    recent
+                <button value="upcoming" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet'">
+                    Upcoming
                 </button>
             </div>
             <div class="nav-btn">
-                <button value="today" class="capitalize">
-                    ongoing
-                </button>
+            <button value="ongoing" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetOngoingMeetingsServlet'">
+                Ongoing
+            </button>
             </div>
             <div class="nav-btn">
-                <button value="upcoming" class="capitalize">
-                    upcoming
+                <button value="registered" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
+                    Registered
                 </button>
             </div>
         </div>
         <div class="nav-body col">
 
-            <div class="meeting-btns row">
-                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                <a href="GetAllMeetingRequestServlet" class="myMeetings row">
-                    <span> My meeting </span
-                    ><i class="fa-solid fa-clock"></i>
-                </a>   </c:if>
-                <div class="newmeeting row">
-                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                            <span> request meeting </span
-                            ><i class="fa-solid fa-pencil"></i>
-                 </c:if>
-                </div>
+<%--            <div class="meeting-btns row">--%>
+<%--                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">--%>
+<%--                <a href="GetAllMeetingRequestServlet" class="myMeetings row">--%>
+<%--                    <span> My meeting requests </span--%>
+<%--                    ><i class="fa-solid fa-clock"></i>--%>
+<%--                </a>   </c:if>--%>
+<%--                <div class="newmeeting row">--%>
+<%--                 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">--%>
+<%--                            <span> request meeting </span--%>
+<%--                            ><i class="fa-solid fa-pencil"></i>--%>
+<%--                 </c:if>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-
-            </div>
             <div class="items col">
-                <div
-                        class="item live row"
-                        style="animation-delay: 0.25s"
-                >
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/ranil.jpg" alt="" />
-                            </div>
-                            <div class="prof-img">
-                                <img
-                                        src="../assets/images/images.jpeg"
-                                        alt=""
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content live col">
-                        <div class="item-title">
-                            <div class="title">
-                                who is the best among two of us ?
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">7.00 PM</div>
-                                >
-                                <div class="end">9.00 PM</div>
-                                <div class="date">Sept 14</div>
+                <c:forEach var="allmeetings" items="${allMeetingsUser}">
+                    <div class="item live row"
+                         style="animation-delay: 0.25s"
+                         data-meetingid="${allmeetings.meetingId}"
+                         data-topic="${allmeetings.topic}"
+                         data-date="${allmeetings.date}"
+                         data-description="${allmeetings.description}"
+                         data-time="${allmeetings.time}"
+                         data-available-slots="${allmeetings.availableSlots}"
+                         data-image-url="GetProfileImageServlet?politicianId=${allmeetings.politicianId}"
+                    >
+                        <div class="panelists">
+                            <div class="pImgs row">
+                                <div class="prof-img">
+                                <img src="GetProfileImageServlet?politicianId=${allmeetings.politicianId}" alt="Profile"
+                                     onerror="console.error('Error loading image: ' + this.src)"
+                                     onload="console.log('Image URL loaded: ' + this.src)" />
+                                 </div>
                             </div>
                         </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                            <span class="small-text item-live">
-										<i
-                                                class="fa-solid fa-signal-stream"
-                                        ></i>
-										Request to Join
-									</span>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>ranil wickramasinghe</span>
-                            <span>sajith premadasa</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 0.5s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/AKD.jpg" alt="" />
+
+                        <div class="item-content live col">
+                            <div class="item-title">
+                                <div class="title" style="font-size: 15px;">
+                                        ${allmeetings.topic}
+                                </div>
+                                <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
+                                    <div>
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span class="start">Time - ${allmeetings.time}</span><br>
+                                        <span class="date">
+                                        <i class="fa-solid fa-calendar"></i> Date - ${allmeetings.date}</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="body"><strong>Meeting is about : </strong> ${allmeetings.description}</div>
+                                <div class="body"><strong>Type of the Meeting : </strong> ${allmeetings.typeofthemeeting}</div>
+                                <div class="body"><strong>Meeting will be hosted by : </strong> ${allmeetings.host}</div>
                             </div>
-                            <div class="prof-img">
-                                <img
-                                        src="../assets/images/images.jpeg"
-                                        alt=""
-                                />
+                            <div class="item-interactive row">
+                                <a href="#" class="small-text item-yt">
+                                    <i class="fa-brands fa-youtube"></i>
+                                    Watch on Youtube
+                                </a>
+                                <a href="#" class="small-text item-sp">
+                                    <strong>Platform</strong> - ${allmeetings.platform}
+                                </a>
+                                <span class="small-text item-live request-join-btn">
+                                    <i class="fa-solid fa-signal-stream"></i>
+                                        Request to Join
+                                </span>
+
+                                </span>
+                                <div class="body" style="color: #ea2f07">Registration Deadline - ${allmeetings.deadlinetoregister}</div>
+                            </div>
+                        </div>
+                        <div class="post-options col">
+                            <div class="status capitalize row">
+                                <span>${allmeetings.politicianId}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                Post-Presidential election
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">8.00 PM</div>
-                                >
-                                <div class="end">10.00 PM</div>
-                                <div class="date">Sept 15</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>Anura kumara dissanayake</span>
-                            <span>sajith premadasa</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 0.75s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/AKD.jpg" alt="" />
-                            </div>
-                            <div class="prof-img">
-                                <img
-                                        src="../assets/images/images.jpeg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="prof-img">
-                                <img src="../assets/images/ranil.jpg" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                Post-Presidential election
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">8.00 PM</div>
-                                >
-                                <div class="end">10.00 PM</div>
-                                <div class="date">Sept 16</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>Anura kumara dissanayake</span>
-                            <span>sajith premadasa</span>
-                            <span>ranil wockramasinghe</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 1s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img
-                                        src="../assets/images/images.jpeg"
-                                        alt=""
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                How to Improve the Education System with
-                                the Help of Sajith Premadasa
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">1.00 AM</div>
-                                >
-                                <div class="end">5.00 AM</div>
-                                <div class="date">Feb 30</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>sajith premadasa</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 1.25s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/AKD.jpg" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                Why should we change the current
-                                currupted political system ?
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">8.00 PM</div>
-                                >
-                                <div class="end">10.00 PM</div>
-                                <div class="date">Sept 16</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>Anura kumara dissanayake</span>
-                            <span>sajith premadasa</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 1.5s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/ranil.jpg" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                72 years in Politics
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">8.00 PM</div>
-                                >
-                                <div class="end">10.00 PM</div>
-                                <div class="date">Oct 15</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>Ranil wickramasinghe</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="item row" style="animation-delay: 1.75s">
-                    <div class="panelists">
-                        <div class="pImgs row">
-                            <div class="prof-img">
-                                <img src="../assets/images/ranil.jpg" alt="" />
-                            </div>
-                            <div class="prof-img">
-                                <img
-                                        src="../assets/images/images.jpeg"
-                                        alt=""
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-content col">
-                        <div class="item-title">
-                            <div class="title">
-                                who is the best among two of us ?
-                            </div>
-                            <div class="time-period small-text row">
-                                <i class="fa-solid fa-clock"></i>
-                                <div class="start">7.00 PM</div>
-                                >
-                                <div class="end">9.00 PM</div>
-                                <div class="date">Sept 14</div>
-                            </div>
-                        </div>
-                        <div class="item-interactive row">
-                            <a href="#" class="small-text item-yt">
-                                <i class="fa-brands fa-youtube"></i>
-                                Watch on Youtube
-                            </a>
-                            <a href="#" class="small-text item-sp">
-                                <i class="fa-brands fa-spotify"></i>
-                                Listen on Spotify
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-options col">
-                        <div class="status capitalize row">
-                            <span>ranil wickramasinghe</span>
-                            <span>sajith premadasa</span>
-                        </div>
-                        <button class="share raw capitalize">
-                            <i class="fa-solid fa-link"></i>
-                            <span> copy link </span>
-                        </button>
-                    </div>
-                </div>
+                </c:forEach>
+
             </div>
         </div>
     </div>
 </div>
-<div class="live-meeting-popup">
+
+<div class="live-meeting-popup" style="display: flex; background: rgba(0,0,0,0.6);">
     <div class="popup-container">
         <div class="head row">
             <div class="title">Request to Join</div>
@@ -634,37 +366,35 @@
             </div>
         </div>
         <div class="content">
-            <div class="meeting-title">Post-presedential election</div>
-            <div class="date capitalize">september 24 2024</div>
+            <!-- These will be dynamically updated -->
+            <div class="body" id="meetingid">MeetingID</div>
+            <div class="meeting-title">Topic</div>
+            <div class="date capitalize">Date</div>
+            <div class="body" id="description">Description</div>
+            <div class="body" id="time">Time</div>
             <div class="profs row">
-                <div class="prof-img"></div>
-                <div class="prof-img"></div>
+                <div class="prof-img"><img id="popup-profile-img" src="" alt="Profile" /></div>
             </div>
-            <div class="seats">
-                <span>12</span> more seats available
+            <div class="slots">
+                [slot count]
+            </div>
+            <div class="gmail-input">
+                <label for="gmail">Enter your Gmail address:</label>
+                <input type="email" id="gmail" name="gmail" placeholder="yourname@gmail.com" required>
             </div>
             <div class="conf">
-                Are you sure you want to join the live meeting via Zoom
-                ?
+                Are you sure you want to join the live meeting via Zoom?
             </div>
             <div class="warning">
-                The invitation will be send via e-mail. You must obey
-                and respect
-                <a
-                        href="#"
-                        target="_blank"
-                        class="rules"
-                        rel="noopener noreferrer"
-                >rules & regulations</a
-                >
-                in the live meeting. Any unnecessary behavior may lead
-                to permanent/temporary banned from this platform
+                The invitation will be sent via e-mail. You must obey and respect
+                <a href="#" target="_blank" class="rules" rel="noopener noreferrer">rules & regulations</a>
+                in the live meeting. Any unnecessary behavior may lead to permanent/temporary ban from this platform.
             </div>
         </div>
         <div class="btns row">
-            <button class="close">close</button>
+            <button class="close">Close</button>
             <button class="confirm row">
-                confirm <i class="fa-solid fa-check"></i>
+                Confirm <i class="fa-solid fa-check"></i>
             </button>
         </div>
     </div>
@@ -672,20 +402,238 @@
 </body>
 <script src="../script.js"></script>
 <script src="../loadSidebar.js"></script>
-<script src="./discussin.js"></script>
+<%--<script src="http://localhost:8080/Parlimate/DiscussionRoom/discussin.js"></script>--%>
 <script src="./reqPop.js"></script>
 <script>
+    const loggedInUserId = <%= userId %>;
+    console.log("User ID from session:", loggedInUserId);
 
-    document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
-    const navBtns = document.querySelectorAll(".nav-btn button");
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".item-live");
 
-    navBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            navBtns.forEach((btn) => {
-                btn.classList.remove("nav-active");
+        const meetingItems = document.querySelectorAll('.item.live');
+
+        meetingItems.forEach(function (item) {
+            const deadlineText = item.querySelector('.body[style*="color: #ea2f07"]').textContent;
+            const deadlineMatch = deadlineText.match(/(\d{4}-\d{2}-\d{2})/); // match YYYY-MM-DD
+
+            if (deadlineMatch) {
+                const deadlineDate = new Date(deadlineMatch[1]);
+                const currentDate = new Date();
+
+                if (currentDate > deadlineDate) {
+                    const requestBtn = item.querySelector('.request-join-btn');
+                    if (requestBtn) {
+                        requestBtn.style.display = 'none';
+                    }
+                }
+            }
+        });
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                console.log("✅ Button clicked");
+
+                const item = button.closest(".item");
+                if (!item) return;
+
+                const meetingid = item.dataset.meetingid;
+                const topic = item.dataset.topic;
+                const date = item.dataset.date;
+                const description = item.dataset.description;
+                const time = item.dataset.time;
+                const slots = item.dataset.availableSlots;
+                const imageUrl = item.dataset.imageUrl;
+
+                console.log("📦 Data:", { topic, date, description, time, slots });
+
+                const popup = document.querySelector(".live-meeting-popup");
+                popup.querySelector("#meetingid").textContent = meetingid;
+                popup.querySelector(".meeting-title").textContent = topic;
+                popup.querySelector(".date").textContent = date;
+                popup.querySelector("#description").textContent = description;
+                popup.querySelector("#time").textContent = "Time: " + time;
+                popup.querySelector("#popup-profile-img").src = imageUrl;
+
+
+                const slotsElement = popup.querySelector(".slots");
+                const confirmBtn = popup.querySelector(".confirm");
+                const confMessage = popup.querySelector(".conf");
+
+                if (parseInt(slots) === 0) {
+                    slotsElement.textContent = "No slots available";
+                    confirmBtn.innerHTML = 'Add to Wishlist <i class="fa-solid fa-heart"></i>';
+                    confMessage.textContent = "Sorry, no slots available. You can add this meeting to your wishlist.";
+
+                    confirmBtn.onclick = () => {
+                        const email = popup.querySelector("#gmail").value.trim();
+                        const meetingId = document.querySelector("#meetingid").textContent.trim();
+
+                        if (!email) {
+                            alert("Please enter a valid email to add to wishlist.");
+                            return;
+                        }
+
+                        // Validate email format
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(email)) {
+                            alert("Please enter a valid email format.");
+                            return;
+                        }
+
+                        console.log("Meeting ID:", meetingId);
+                        console.log("User ID:", loggedInUserId);
+                        console.log("Email:", email);
+
+                        const params = new URLSearchParams();
+                        params.append("meetingId", meetingId);
+                        params.append("userId", loggedInUserId);
+                        params.append("email", email);
+
+                        fetch("/Parlimate/AddToWishlistServlet", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: params.toString()
+                        })
+                            .then(res => {
+                                if (!res.ok) throw new Error("Server error during wishlist submission");
+                                return res.text();
+                            })
+                            .then(responseText => {
+                                try {
+                                    const result = JSON.parse(responseText);
+                                    console.log("✅ Wishlist Response:", result);
+
+                                    if (result.status === "success") {
+                                        displayNotification("Meeting added to wishlist!");
+                                    } else if (result.message) {
+                                        alert(result.message);
+                                    } else {
+                                        alert("Something went wrong while adding to wishlist.");
+                                    }
+
+                                    document.body.classList.remove("overlay-active");
+                                } catch (e) {
+                                    console.error("❌ Failed to parse JSON response:", e, "Raw text:", responseText);
+                                }
+                            })
+                            .catch(err => {
+                                console.error("❌ Error adding to wishlist:", err);
+                            });
+                    };
+                }
+                else {
+                    slotsElement.innerHTML = slots + " more seats available";
+                    confirmBtn.innerHTML = 'Confirm <i class="fa-solid fa-check"></i>';
+                    confMessage.textContent = "Are you sure you want to join the live meeting via Zoom?";
+
+                    confirmBtn.onclick = () => {
+                        const email = document.getElementById("gmail").value.trim();
+                        const meetingId = document.querySelector("#meetingid").textContent.trim();
+
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if (!email || !emailRegex.test(email)) {
+                            alert("Please enter a valid email address.");
+                            return;
+                        }
+
+                        if (!meetingId || !loggedInUserId) {
+                            alert("Missing required fields.");
+                            return;
+                        }
+
+                        console.log("Meeting ID:", meetingId);
+                        console.log("User ID:", loggedInUserId);
+                        console.log("Email:", email);
+
+                        const params = new URLSearchParams();
+                        params.append("meetingId", meetingId);
+                        params.append("userId", loggedInUserId);
+                        params.append("email", email);
+
+                        fetch("/Parlimate/JoinMeetingServlet", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: params.toString()
+                        })
+                            .then(res => {
+                                if (!res.ok) throw new Error("Server returned error");
+                                return res.text();
+                            })
+                            .then(text => {
+                                try {
+                                    const result = JSON.parse(text);
+                                    console.log("✅ Server Response:", result);
+
+                                    if (result.status === "error" && result.message) {
+                                        alert(result.message);
+                                    } else {
+                                        displayNotification("Your invitation has been sent!");
+                                    }
+
+                                    document.body.classList.remove("overlay-active");
+                                } catch (e) {
+                                    console.error("❌ JSON Parse Error:", e, "Raw response:", text);
+                                }
+                            })
+                            .catch(err => {
+                                console.error("❌ Error:", err);
+                            });
+                    };
+                }
+
+                body.classList.add("overlay-active");
             });
-            btn.classList.add("nav-active");
+        });
+
+        document.querySelector(".live-meeting-popup .close").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
+            body.classList.remove("overlay-active");
+        });
+
+        function displayNotification(msg, timeout = 3000) {
+            console.log("notification is called");
+            const notificationMsg = document.querySelector("#notification");
+            if (notificationMsg) {
+                notificationMsg.innerHTML = msg;
+                body.classList.add("noti-active");
+
+                setTimeout(() => {
+                    body.classList.remove("noti-active");
+                }, timeout);
+            }
+        }
+
+        document.getElementById('disc-date').min = new Date().toISOString().split('T')[0];
+
+        const navBtns = document.querySelectorAll(".nav-btn button");
+        navBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                navBtns.forEach((btn) => btn.classList.remove("nav-active"));
+                btn.classList.add("nav-active");
+            });
+        });
+
+        const discussionFormat = document.getElementById('disc-pref');
+        const opponentFields = document.getElementById('opponent-fields');
+        discussionFormat.addEventListener('change', function () {
+            opponentFields.style.display = this.value === 'Open-debate' ? 'block' : 'none';
+        });
+
+        const allowParticipantsCheckbox = document.getElementById('allow-participants');
+        const participantFields = document.getElementById('participant-fields');
+        allowParticipantsCheckbox.addEventListener('change', function () {
+            participantFields.style.display = this.checked ? 'block' : 'none';
         });
     });
 </script>
+
 </html>

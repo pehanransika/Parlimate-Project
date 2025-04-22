@@ -42,6 +42,17 @@ public class UpdateMeetingRequestServlet extends HttpServlet {
             String proposaldateString = request.getParameter("proposaldate");
             String proposaltimeString = request.getParameter("proposaltime");
             String estimatedduration = request.getParameter("estimatedduration");
+            String participantcountStr = request.getParameter("participantcount");
+
+            int participantcount = 0;
+            if (participantcountStr != null && !participantcountStr.isEmpty()) {
+                try {
+                    participantcount = Integer.parseInt(participantcountStr);
+                } catch (NumberFormatException e) {
+                    // handle invalid input if needed
+                    e.printStackTrace();
+                }
+            }
 
             // Validate mandatory fields
             if (topic == null || topic.trim().isEmpty() ||
@@ -64,7 +75,7 @@ public class UpdateMeetingRequestServlet extends HttpServlet {
             // Call the controller method to update the meeting request
             boolean isUpdated = MeetingRequestController.updateMeetingRequest(
                     meetingrequestid, topic, purposeofmeeting, opponentname, partyaffiliation,
-                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration);
+                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration ,participantcount);
 
             if (isUpdated) {
                 response.setContentType("text/html");

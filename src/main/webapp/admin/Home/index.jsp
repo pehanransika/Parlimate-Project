@@ -89,7 +89,7 @@
 				</li>
 				<li>
 					<a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
-						<i class="fa-regular fa-circle-check"></i>
+<i class="fa-regular fa-circle-check"></i>
 						<span>Meeting Management</span>
 					</a>
 				</li>
@@ -117,8 +117,9 @@
 					</a>
 				</li>
 			</ul>
-			</div>
+    </div>
 		</div>
+	</div>
 		<div class="pageContent">
 			<div class="container f-col">
 				<div class="top f-row">
@@ -299,5 +300,10 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		function logoutUser() {
+			window.location.href = "../../index.jsp"; // Redirect to index.js
+		}
+	</script>
 </html>
 
