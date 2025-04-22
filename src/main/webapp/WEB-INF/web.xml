@@ -267,6 +267,14 @@
     <url-pattern>/admin/Fundraising/HoldApprovedRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>SendEmailServlet </servlet-name>
+    <servlet-class>fundreq.SendEmailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SendEmailServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/SendEmailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>FinalDeleteApprovedFundraisingRequestServlet</servlet-name>
     <servlet-class>fundreq.FinalDeleteApprovedFundraisingRequestServlet</servlet-class>
   </servlet>

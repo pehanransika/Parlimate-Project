@@ -33,7 +33,9 @@ public class HoldApprovedRequestServlet extends HttpServlet {
             if (isHold) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert(' Hold Successfully'); window.history.back();</script>");
+
+                response.getWriter().println("<script>alert('Hold Successfully'); window.history.back();</script>");
+
             } else {
                 // If the request is not found
                 response.setContentType("text/html");

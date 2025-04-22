@@ -191,8 +191,7 @@
                     <label for="fundraising-search"><i class="fa-solid fa-magnifying-glass"></i></label>
                     <input type="search" placeholder="Search by title/category" name="fundraising-search" id="fundraising-search" />
                 </div>
-                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
-                <button class="add-btn f-row" id="openFundPopup"><i class="fa-sharp fa-solid fa-plus"></i> Add Fundraising</button>
+
             </div>
 
             <div class="data f-col">
@@ -309,13 +308,14 @@
                     <label for="approval-search"><i class="fa-solid fa-magnifying-glass"></i></label>
                     <input type="search" placeholder="Search approved fundraisers" name="approval-search" id="approval-search" />
                 </div>
-                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
+               
             </div>
 
             <div class="data f-col">
                 <table class="fundraising">
                     <thead>
                     <tr>
+                        <td>UserId</td>
                         <td>Title</td>
                         <td>Description</td>
                         <td>Contact Number</td>
@@ -329,7 +329,9 @@
                     </thead>
                     <tbody>
                     <c:forEach var="fund" items="${approvalrequests}">
+
                         <tr>
+                            <td>${fund.userid !=null ? fund.userid :'N/A'}</td>
                             <td>${fund.title != null ? fund.title : 'N/A'}</td>
                             <td>${fund.description != null ? fund.description : 'N/A'}</td>
                             <td>${fund.contact_no != null ? fund.contact_no : 'N/A'}</td>
@@ -360,7 +362,7 @@
                             <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
                                 <c:if test="${fund.status != 'HOLD'}">
-                                <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
+
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/HoldApprovedRequestServlet"
                                       method="post"
                                       style="display:inline;">
@@ -393,6 +395,7 @@
         </div>
     </div>
     <!-- Email Modal -->
+
     <div id="emailModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -582,16 +585,7 @@
             });
 
             // Optional: Fetch user email via AJAX
-            function fetchUserEmail(requestId) {
-                fetch('${pageContext.request.contextPath}/admin/Fundraising/GetUserEmailServlet?requestId=' + requestId)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.email) {
-                            document.getElementById('userEmail').value = data.email;
-                        }
-                    })
-                    .catch(error => console.error('Error fetching email:', error));
-            }
+
 
             const rejectModal = document.getElementById('rejectModal');
             const closeBtn = document.querySelector('.close');
