@@ -535,6 +535,14 @@
     <servlet-class>meetingreq.UpdateMeetingRequestServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>GetRegisteredWishlistServlet</servlet-name>
+    <servlet-class>meetings.GetRegisteredWishlistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRegisteredWishlistServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetRegisteredWishlistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>GetAllMeetingUserServlet</servlet-name>
     <servlet-class>meetings.GetAllMeetingUserServlet</servlet-class>
   </servlet>

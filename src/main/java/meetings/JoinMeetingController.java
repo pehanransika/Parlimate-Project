@@ -155,6 +155,32 @@ public class JoinMeetingController {
         return users;
     }
 
+    public static List<RegisteredUserModel> getregisteredWishlistUsers(int meetingId) {
+        String query = "SELECT userid, email FROM meetingwishlist WHERE meetingid = ?";
+        List<RegisteredUserModel> users = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, meetingId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("userid");
+                    String email = rs.getString("email");
+
+                    RegisteredUserModel user = new RegisteredUserModel(userId, email, meetingId);
+                    users.add(user);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // You can log this instead
+        }
+
+        return users;
+    }
+
     public static void sendEmail(String toEmail, String subject, String messageText) {
         final String fromEmail = "pixeylon@gmail.com"; // Your email
         final String password = "uwwy cmxc ujip yvmo";      // Your email password or app password

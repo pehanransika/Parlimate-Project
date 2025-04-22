@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: HP
+  Date: 4/22/2025
+  Time: 7:18 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,9 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting Management | Admin Dashboard</title>
 
-    <!-- CSS Links -->
     <link rel="stylesheet" href="admin/meetingManagement/meetingManagement.css" />
     <link rel="stylesheet" href="admin/index.css" />
+
+    <%--    <link rel="stylesheet" href="<c:url value='/admin/meetingManagement/meetingManagement.css' />">--%>
+    <%--    <link rel="stylesheet" href="<c:url value='/admin/meetingManagement/sidebar.css' />">--%>
+
 
     <!-- icons -->
     <link
@@ -125,9 +135,9 @@
     <div class="container f-col">
         <div class="top f-row">
             <div class="page f-col">
-                <div class="page-title capitalize">Meeting Management</div>
+                <div class="page-title capitalize">Manage Registrations</div>
                 <div class="page-desc">
-                    Manage meeting requests, schedule meetings.
+                    View Registered Users , Send Invitations
                 </div>
             </div>
         </div>
@@ -144,30 +154,31 @@
                 </div>
 
                 <div class="actions f-row">
-                    <div class="search-bar">
-                        <label for="user-search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </label>
-                        <input
-                                type="search"
-                                placeholder="Search by name/userId"
-                                name="user-search"
-                                id="user-search"
-                        />
-                    </div>
+                    <%--                    <div class="search-bar">--%>
+                    <%--                        <label for="user-search">--%>
+                    <%--                            <i class="fa-solid fa-magnifying-glass"></i>--%>
+                    <%--                        </label>--%>
+                    <%--                        <input--%>
+                    <%--                                type="search"--%>
+                    <%--                                placeholder="Search by name/userId"--%>
+                    <%--                                name="user-search"--%>
+                    <%--                                id="user-search"--%>
+                    <%--                        />--%>
+                    <%--                    </div>--%>
                     <div class="scheduled-meeting">
                         <button class="filter-btn f-row" id="request-btn">
                             <i class="fa-solid fa-filter"></i>
-                            Meeting Requests
+                            Scheduled Meetings
                         </button>
                     </div>
-                    <button class="add-btn f-row">
-                        <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add User
+                    <button class="add-btn f-row" onclick="openPopup()">
+                        <i class="fa-sharp fa-solid fa-link"></i>
+                        Provide Meeting Link
                     </button>
                 </div>
             </div>
-            <h2 class="section-title">Scheduled Meetings</h2>
+
+            <h2 class="section-title">Registere Wishlist Users for Meeting ID : ${meetingId} </h2>
             <div class="total-records f-row">
                 Total <span>560</span> records
             </div>
@@ -175,53 +186,17 @@
                 <table class="users">
                     <thead>
                     <tr>
-                        <td>Meeting ID</td>
-                        <td>Politician ID</td>
-                        <td>Topic</td>
-                        <td>Description</td>
-                        <td>Date</td>
-                        <td>Time</td>
-                        <td>Type</td>
-                        <td>Host</td>
-                        <td>Platform</td>
-                        <td>Deadline</td>
-                        <td>Slots</td>
-                        <td>Available Slots</td>
-                        <td>Registered Users</td>
-                        <td>Wishlist</td>
+                        <td>User ID</td>
+                        <td>Email</td>
                         <td>Action</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="meetings" items="${allMeetings}">
+                    <c:forEach var="registeredWishlistUsers" items="${registeredWishlistUsers}">
                         <tr>
-                            <td>${meetings.meetingId}</td>
-                            <td>${meetings.politicianId}</td>
-                            <td>${meetings.topic}</td>
-                            <td>${meetings.description}</td>
-                            <td>${meetings.date}</td>
-                            <td>${meetings.time}</td>
-                            <td>${meetings.typeofthemeeting}</td>
-                            <td>${meetings.host}</td>
-                            <td>${meetings.platform}</td>
-                            <td>${meetings.deadlinetoregister}</td>
-                            <td>${meetings.slots}</td>
-                            <td>${meetings.availableSlots}</td>
-                            <td><form action="GetRegisteredUserServlet" method="get">
-                                <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
-                                <button type="submit">View</button>
-                            </form></td>
-                            <td><form action="GetRegisteredWishlistServlet" method="get">
-                                <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
-                                <button type="submit">View</button>
-                            </form></td>
-                            <td>
-                                <form action="SendDeleteEmailServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this meeting?');">
-                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
-                                    <button type="submit" style="color: red;">Delete</button>
-                                </form>
-                            </td>
-
+                            <td>${registeredWishlistUsers.userId}</td>
+                            <td>${registeredWishlistUsers.email}</td>
+                            <td><button>View</button></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -237,7 +212,73 @@
     </div>
 </div>
 
+<div id="popup-container" style="display: none;">
+    <div class="popup-box">
+        <h2>Provide Meeting Link</h2>
+
+        <p><strong>Meeting Link:</strong><br>
+            <input type="url" id="meeting-link" name="meeting-link" placeholder="https://example.com/meeting" required style="width: 100%;" />
+        </p>
+
+        <div style="margin-top: 20px;">
+            <button onclick="sendEmail()">Send Email</button>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    const allEmails = [
+        <c:forEach var="user" items="${registeredWishlistUsers}" varStatus="status">
+        '${user.email}'<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+    function openPopup() {
+        document.getElementById("meeting-link").value = "";
+        document.getElementById("popup-container").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popup-container").style.display = "none";
+    }
+
+    function sendEmail() {
+        const meetingLink = document.getElementById("meeting-link").value;
+
+        if (!meetingLink) {
+            alert("Please enter the meeting link.");
+            return;
+        }
+
+        // Convert email array to comma-separated string
+        const emailString = allEmails.join(",");
+
+        // Create form-encoded data
+        const formData = new URLSearchParams();
+        formData.append("emails", emailString);
+        formData.append("meetingLink", meetingLink);
+
+        // Send POST request
+        fetch("SendBulkEmailServlet", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Emails sent successfully!");
+                    closePopup();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .catch(error => {
+                alert("Failed to send emails: " + error.message);
+            });
+    }
+
     document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
@@ -252,7 +293,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         // Toggle popup-active class on body when filter button is clicked
         document.getElementById("request-btn").addEventListener("click", function() {
-            window.location.href = "<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet";
+            window.location.href = "<%= request.getContextPath() %>/GetAllMeetingServlet";
         });
 
 
@@ -267,3 +308,4 @@
 </script>
 </body>
 </html>
+
