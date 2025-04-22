@@ -1,0 +1,71 @@
+1.fundraisingrequests
+    CREATE TABLE fundraising_requests (
+    requestid SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    contact_no VARCHAR(20),
+    category VARCHAR(100),
+    targetamount DECIMAL(10,2),
+    attachment_url VARCHAR(255),
+    photos VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INTEGER
+);
+
+
+2.approved_requests
+CREATE TABLE approved_requests (
+    requestid INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    contact_no VARCHAR(20),
+    category VARCHAR(100),
+    targetamount DECIMAL(10,2),
+    attachment_url VARCHAR(255),
+    photos VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'Approved',
+    approval_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_requestid FOREIGN KEY (requestid) REFERENCES fundraisingrequests(requestid) ON DELETE CASCADE
+);
+3.bank_transfers
+
+
+CREATE TABLE bank_transfers (
+    transfer_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    fundraiser_id INT NOT NULL,
+    bank_name VARCHAR(100) NOT NULL,
+    account_holder_name VARCHAR(100) NOT NULL,
+    account_number VARCHAR(50) NOT NULL,
+    branch VARCHAR(100),
+    amount DECIMAL(12,2) NOT NULL,
+    currency VARCHAR(3) NOT NULL DEFAULT 'USD',
+    receipt_image_path VARCHAR(255),
+    reference_code VARCHAR(50) UNIQUE,
+    transfer_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Foreign key constraints
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_fundraiser FOREIGN KEY (fundraiser_id) REFERENCES approved_requests(requestid),
+    );
+
+4.approved_transfers
+CREATE TABLE approved_transfers (
+    transfer_id VARCHAR(36) PRIMARY KEY,
+    user_id INT NOT NULL,
+    fundraiser_id INT NOT NULL,
+    bank_name VARCHAR(100) NOT NULL,
+    account_holder_name VARCHAR(255) NOT NULL,
+    account_number VARCHAR(50) NOT NULL,
+    branch VARCHAR(100),
+    amount DECIMAL(15,2) NOT NULL,
+    currency VARCHAR(3) NOT NULL CHECK (currency IN ('LKR', 'USD')),
+    receipt_image_path VARCHAR(255) NOT NULL,
+    reference_code VARCHAR(50) NOT NULL,
+    transfer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    verified_by INT,
+    verified_at TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (fundraiser_id) REFERENCES fundraisingrequests(requestid),
+    FOREIGN KEY (verified_by) REFERENCES admin(adminid)
+);
