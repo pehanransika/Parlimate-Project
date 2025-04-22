@@ -136,21 +136,22 @@
 <script src="help.js"></script>
 <script>
     function searchHelp() {
-        // Get the value of the search input
-        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        // Get the search query
+        const query = document.getElementById('searchInput').value.toLowerCase();
 
-        // Get all FAQ cards
+        // Get all the FAQ cards
         const faqCards = document.querySelectorAll('.faq-card');
 
-        // Loop through each FAQ card
+        // Loop through each card and check if the title or the answer contains the search query
         faqCards.forEach(card => {
-            const question = card.querySelector('h3').textContent.toLowerCase();
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            const answer = card.querySelector('.faq-answer').innerText.toLowerCase();
 
-            // If the search query matches part of the question, show the card, otherwise hide it
-            if (question.includes(searchQuery)) {
-                card.style.display = 'block';  // Show the card
+            // If the query matches the title or the answer, display the card; otherwise, hide it
+            if (title.includes(query) || answer.includes(query)) {
+                card.style.display = 'block';
             } else {
-                card.style.display = 'none';   // Hide the card
+                card.style.display = 'none';
             }
         });
     }

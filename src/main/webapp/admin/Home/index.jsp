@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../index.css">
 
 		<!-- icons -->
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 		<link
 			rel="stylesheet"
 			data-purpose="Layout StyleSheet"
@@ -70,7 +71,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#" class="nav-item f-row">
+					<a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
 						<i class="fa-regular fa-briefcase"></i>
 						<span>fundraise management</span>
 					</a>

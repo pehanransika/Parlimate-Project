@@ -264,7 +264,7 @@ public class ApproveController {
         List<ApproveModel> requests = new ArrayList<>();
         String sql = "SELECT * FROM approved_requests ar " +
                 "WHERE userid = ?" +
-                "ORDER BY ar.approval_date DESC";
+                " ORDER BY ar.approval_date DESC";
 
 
         try (Connection conn = getConnection();

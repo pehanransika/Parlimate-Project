@@ -38,6 +38,7 @@ public class RequestController {
             String attachment_url,
             String name,
             String status
+
     ) throws SQLException {
         // Validate required fields
         if (isEmpty(title) || isEmpty(description) || isEmpty(category) ||
