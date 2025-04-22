@@ -13,9 +13,13 @@ public class MeetingController {
     public MeetingController() {}
 
     public boolean insertMeeting(MeetingModel meeting) {
-        String query = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String updateSlotsQuery = "UPDATE meetings SET availableslots = availableslots - 1 WHERE meetingId = ?";
 
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            // Set values for the insert statement
             ps.setInt(1, meeting.getPoliticianId());
             ps.setString(2, meeting.getTopic());
             ps.setString(3, meeting.getDescription());
@@ -29,12 +33,32 @@ public class MeetingController {
             ps.setInt(11, meeting.getSlots());
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+
+            if (rowsAffected > 0) {
+                // Get generated meetingId
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int meetingId = generatedKeys.getInt(1);
+
+                        // Decrease availableSlots by 1
+                        try (PreparedStatement updatePs = connection.prepareStatement(updateSlotsQuery)) {
+                            updatePs.setInt(1, meetingId);
+                            updatePs.executeUpdate();
+                        }
+                    }
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public boolean deleteMeeting(int meetingId) {
         String query = "DELETE FROM meetings WHERE meetingid = ?";
