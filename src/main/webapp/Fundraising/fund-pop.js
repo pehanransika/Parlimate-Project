@@ -23,7 +23,7 @@ fundFInp.addEventListener("change", () => {
 
         const name = i.name;
         let unit = "KB";
-        const fileSize = (i.size / 1024).toFixed(1);
+        let fileSize = (i.size / 1024).toFixed(1);
         if (fileSize > 1024) {
             fileSize = (fileSize / 1024).toFixed(1);
             unit = "MB";

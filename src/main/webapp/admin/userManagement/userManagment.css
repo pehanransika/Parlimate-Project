@@ -1,0 +1,277 @@
+.pageContent {
+    min-height: 100vh;
+    background: #f2f2f2;
+    padding-left: 18rem;
+    padding-bottom: 5rem;
+}
+
+.pageContent .container {
+    font-family: "Poppins";
+    padding-block: 2rem;
+    font-size: 0.8rem;
+    padding-right: 8rem;
+    gap: 2rem;
+    width: 100%;
+}
+
+.pageContent .container .top {
+    justify-content: space-between;
+}
+
+.pageContent .container .top .page .page-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.pageContent .container .top .page .page-desc {
+    color: #6b6b6b;
+}
+
+.pageContent .container .top .date {
+    font-weight: 600;
+    background: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.65rem;
+    border: 1px solid #8e8e8e;
+}
+
+.pageContent .container .content {
+    padding: 1rem;
+    background: #fff;
+    border-radius: 1rem;
+    gap: 1.5rem;
+}
+
+.pageContent .container .content .topS {
+    justify-content: space-between;
+}
+
+.pageContent .container .content .topS .show {
+    gap: 0.5rem;
+    font-weight: 600;
+    user-select: none;
+    color: #6b6b6b;
+}
+
+.pageContent .container .content .topS .show select {
+    color: #6b6b6b;
+    border: 1px solid #8e8e8e;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
+
+.pageContent .container .content .topS .show select:focus {
+    outline: none;
+}
+
+.pageContent .container .content .topS .actions {
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.pageContent .container .content .topS .actions .search-bar {
+    position: relative;
+}
+
+.pageContent .container .content .topS .actions .search-bar label {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: #565656;
+    font-size: 0.8rem;
+}
+
+.pageContent .container .content .topS .actions .search-bar input[type="search"] {
+    padding: 0.5rem;
+    padding-left: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #8e8e8e;
+    transition: border 0.25s ease;
+}
+
+.pageContent .container .content .topS .actions .search-bar input[type="search"]:focus {
+    outline: none;
+    border: 1px solid #1f1f1f;
+}
+
+.pageContent .container .content .topS .actions .search-bar input[type="search"]::placeholder {
+    color: #8e8e8e;
+}
+
+.pageContent .container .content .topS .actions .filter button {
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: 1px solid rgb(214, 214, 214);
+    color: #242424;
+    font-weight: 600;
+    background: #eeeeee;
+    padding: 0.6rem 1rem;
+}
+
+.pageContent .container .content .topS .actions .add-btn {
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+    color: #eeeeee;
+    font-weight: 600;
+    background: #1e1e1e;
+    padding: 0.6rem 1rem;
+}
+
+.pageContent .container .content .total-records {
+    margin-top: -1rem;
+    gap: 0.5rem;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #6b6b6b;
+}
+
+.pageContent .container .content .total-records span {
+    color: #1e1e1e;
+}
+
+/* Data Table */
+.pageContent .container .content .data {
+    align-items: center;
+}
+
+.pageContent .container .content .data table {
+    width: 100%;
+    border-collapse: collapse;
+    height: fit-content;
+    border-radius: 1rem;
+}
+
+/* Additional styles for filter user popup */
+.filter-user-popup {
+    min-width: 25rem;
+}
+
+.filter-user-popup .head {
+    text-align: left !important;
+    margin-top: 0 !important;
+}
+
+.filter-user-popup .head .title {
+    gap: 0.5rem;
+    color: black;
+}
+
+.filter-user-popup .head .title .desc {
+    width: 90%;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #898989;
+    line-height: 0.9rem;
+}
+
+.filter-user-popup .head .content {
+    align-items: start !important;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.filter-user-popup .head .content ul {
+    list-style: none;
+    gap: 0.5rem;
+}
+
+.filter-user-popup .head .content ul .divider-line {
+    width: 100%;
+    height: 1px;
+    background: #bdbdbd;
+    margin-block: 1rem;
+}
+
+.filter-user-popup .head .content ul li {
+    padding: 0.5rem 0;
+}
+
+.filter-user-popup .head .content ul li .dropdown-content {
+    display: none;
+    padding-block: 0.5rem;
+}
+
+.filter-user-popup .head .content ul li > input[type="checkbox"] {
+    display: none;
+}
+
+.filter-user-popup .head .content ul li > input[type="checkbox"]:checked ~ label > i {
+    transform: rotate(180deg);
+}
+
+.filter-user-popup .head .content ul li > input[type="checkbox"]:checked ~ .dropdown-content {
+    display: flex;
+}
+
+.filter-user-popup .head .content ul li > label {
+    user-select: none;
+    color: #535353;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+.filter-user-popup .head .content ul li > label span {
+    text-transform: capitalize;
+}
+
+.filter-user-popup .head .content ul li > label i {
+    font-size: 0.7rem;
+    transition: transform 0.25s ease;
+}
+
+.filter-user-popup .head .content ul li > .dropdown-content {
+    margin-top: 0.5rem;
+    gap: 0.35rem;
+}
+
+.filter-user-popup .head .content ul li .city {
+    gap: 1rem;
+}
+
+.filter-user-popup .head .content ul li .city span {
+    color: #535353;
+    font-weight: 500;
+}
+
+.filter-user-popup .head .content ul li .city select {
+    text-transform: capitalize;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    background: #ececec;
+    border: 1px solid #bdbdbd;
+    color: #616161;
+    font-weight: 500;
+}
+
+/* Delete user popup */
+.delete-user-popup {
+    padding-bottom: 9rem !important;
+}
+
+.delete-user-popup .head {
+    align-items: center;
+}
+
+/* Ensure the dropdown menu is hidden initially */
+.actbtn .menu {
+    display: none; /* Hide initially */
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 10px;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+}
+
+/* Show when the menu has 'nav-active' class */
+.actbtn .menu.nav-active {
+    display: block;
+}

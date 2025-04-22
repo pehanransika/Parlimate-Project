@@ -19,25 +19,27 @@ public class UpdateCommentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Retrieve parameters from the form
-            int commentid = Integer.parseInt(request.getParameter("commentid"));
+            int commentid = Integer.parseInt(request.getParameter("commentId"));
 
             String content = request.getParameter("content");
-            String datetimeStr = request.getParameter("datetime");
+            String timeStr = request.getParameter("time");
 
             // Set the current timestamp
-            LocalDateTime datetime = LocalDateTime.now();
+            LocalDateTime time = LocalDateTime.now();
 
-            // Call the controller to update the announcement
-            boolean isUpdated = CommentController.updateComment(commentid,content, datetime);
+            // Call the controller to update the comment
+            boolean isUpdated = CommentController.updateComment(commentid,content,time);
 
             if (isUpdated) {
-                // If successful, retrieve the updated list of announcements
-                List<CommentModel> comments = CommentController.getAllcomments();
-                request.setAttribute("comments", comments);
 
-                // Show alert and redirect to GetAllServlet
-                String alertMessage = "Comment Updated Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='ViewCommentServlet';</script>");
+                response.setContentType("text/html");
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('Comment Updated Successfully');" +
+                                "window.location = document.referrer;" +
+                                "</script>"
+                );
+
             } else {
                 // If update fails, forward to the error page
                 String alertMessage = "Failed to update the =comment.";

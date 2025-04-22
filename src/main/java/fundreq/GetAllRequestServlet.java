@@ -16,8 +16,16 @@ public class GetAllRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String userId = request.getParameter("userId");
+
+            // Check if postId is null or empty
+            if (userId == null || userId.isEmpty()) {
+                request.setAttribute("error", "Post ID is missing.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
             // Fetch all fundraising requests from FundraisingRequestController
-            List<RequestModel> allRequests = RequestController.getAllFundraisingRequests();
+            List<RequestModel> allRequests = RequestController.getRequestsByUserId(Integer.parseInt(userId));
 
             // Set the list as a request attribute
             request.setAttribute("allRequests", allRequests);
@@ -45,4 +53,3 @@ public class GetAllRequestServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

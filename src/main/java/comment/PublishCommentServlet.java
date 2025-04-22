@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-
 @WebServlet("/PublishNewCommentServlet")
 public class PublishCommentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -16,32 +15,33 @@ public class PublishCommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Set default values for user ID and post ID if not provided
-            int defaultUserId = 1; // Default user ID
-            int defaultPostId = 1; // Default post ID
-
-            // Retrieve form data
+            // Retrieve parameters from the form
+            int defaultUserId = 1;
+            int defaultPostId = 1;
             String userIdStr = request.getParameter("userid");
+            String username = request.getParameter("username");
             int userid = (userIdStr != null && !userIdStr.isEmpty())
                     ? Integer.parseInt(userIdStr)
                     : defaultUserId;
 
-            String postIdStr = request.getParameter("postid");
+            String postIdStr = request.getParameter("postId");
             int postid = (postIdStr != null && !postIdStr.isEmpty())
                     ? Integer.parseInt(postIdStr)
                     : defaultPostId;
 
             String content = request.getParameter("content");
 
-            // Call the controller to publish the comment
-            boolean isTrue = CommentController.PublishComment(userid, postid, content);
+
+            // Publish the comment
+            boolean isTrue = CommentController.PublishComment(userid, postid, content,username);
 
             if (isTrue) {
-                // If successful, show alert and redirect to done.jsp
-                String alertMessage = "Comment Published Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='ViewCommentServlet';</script>");
+                // If successful, show alert and redirect to ViewCommentServlet
+
+                response.getWriter().println("<script>alert('Comment Published Successfully'); window.location.href='GetAllCommentServlet';</script>");
+
             } else {
-                // If not successful, forward to the error page
+                // If unsuccessful, forward to the error page
                 String alertMessage = "Failed to publish comment.";
                 request.setAttribute("error", alertMessage);
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
@@ -51,7 +51,7 @@ public class PublishCommentServlet extends HttpServlet {
             // Log the exception for debugging
             e.printStackTrace();
 
-            // Provide user-friendly error message
+            // Provide a user-friendly error message
             String alertMessage = "Invalid input or database error. Please try again.";
             request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
@@ -59,4 +59,3 @@ public class PublishCommentServlet extends HttpServlet {
         }
     }
 }
-

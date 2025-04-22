@@ -1,5 +1,6 @@
 package comment;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class CommentModel {
@@ -7,34 +8,54 @@ public class CommentModel {
     private int userid;
     private int postid;
     private String content;
-    private LocalDateTime datetime;
+    private Timestamp time;
+    private String name;
 
-    public CommentModel(int commentid, int userid, int postid, String content, LocalDateTime datetime) {
-        this.commentid = commentid;
-        this.userid = userid;
-        this.postid = postid;
-        this.content = content;
-        this.datetime = datetime;
+    public CommentModel(int commentid, int userid, int postid, String content, LocalDateTime time,String name){
+
+        this.commentid=commentid;
+        this.userid=userid;
+        this.postid=postid;
+        this.content=content;
+        this.time= Timestamp.valueOf(time);
+        this.name=name;
     }
 
-    public int getCommentid() {
+    public CommentModel() {
+
+    }
+
+    public int getCommentid(){
         return commentid;
     }
-
-    public int getUserid() {
+    public void setCommentid(int commentid){
+        this.commentid=commentid;
+    }
+    public int getUserid(){
         return userid;
     }
-
-    public int getPostid() {
+    public void setUserid(int userid){
+        this.userid=userid;
+    }
+    public int getPostid(){
         return postid;
     }
-
-    public String getContent() {
+    public void setPostid(int postid){
+        this.postid=postid;
+    }
+    public String getContent(){
         return content;
     }
-
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public void setContent(String content){
+        this.content=content;
     }
-}
+    public Timestamp getTime(){
+        return time;
+    }
+    public void setTime(Timestamp time){
+        this.time=time;
+    }
 
+    public String getName(){return  name;}
+    public void setName(String name){this.name=name;}
+}

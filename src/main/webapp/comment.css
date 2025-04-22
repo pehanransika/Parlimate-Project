@@ -28,16 +28,16 @@ body.cmnt-visible > *:not(.comment-popup) {
 .comment-container {
     cursor: auto;
     background: white;
-    border-top-left-radius: 1.25rem;
-    border-top-right-radius: 1.25rem;
-    padding: 3rem 2rem 1rem;
-    max-width: 65%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding: 2rem 1.5rem 1rem; /* Reduced padding */
+    max-width: 45%; /* Was 65% */
+    max-height: 40rem; /* Was 58rem */
+    min-height: 20rem; /* Was 25rem */
     justify-content: space-between;
-    position: relative;;
-    max-height: 58rem;
+    position: relative;
     border: 1px solid #bbbbbb;
-    min-height: 25rem;
-    animation: movein-bottom 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: movein-bottom 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .comment-container .post {
     width: 100%;
@@ -143,7 +143,31 @@ body.cmnt-visible > *:not(.comment-popup) {
     color: var(--primary-color);
     font-weight: 500;
 }
+.comment-popup {
+    display: none;
+}
 
+body.cmnt-visible .comment-popup {
+    display: flex;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    z-index: 1010;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #000;
+}
 /* animations */
 @keyframes movein-bottom {
     0% {
@@ -152,4 +176,5 @@ body.cmnt-visible > *:not(.comment-popup) {
     100% {
         transform: translateY(0);
     }
+
 }

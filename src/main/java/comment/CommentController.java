@@ -1,7 +1,5 @@
 package comment;
 
-import com.ann.AnnouncementModel;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,14 +7,15 @@ import java.util.List;
 
 public class CommentController {
 
-    // Method to check if a post exists
-    public static boolean isPostExists(int postid) throws SQLException {
-        String query = "SELECT COUNT(*) FROM post WHERE postid = ?";
+    // Method to check if the post exists in the database
+    public static boolean isPostExist(int postId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM post WHERE postid=?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, postid);
+            // Correct parameter index to 1 for the postid.
+            stmt.setInt(1, postId); // Set the postid at index 1
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -30,34 +29,31 @@ public class CommentController {
         return false;
     }
 
-    // Method to publish a comment
-    public static boolean PublishComment(int userid, int postid, String content) throws SQLException {
-        // First, check if the post exists
-        if (!isPostExists(postid)) {
-            throw new SQLException("Post ID does not exist.");
+    // Method to publish the comment
+    public static boolean PublishComment(int userid, int postId, String content,String name) throws SQLException {
+       if (!isPostExist(postId)) {
+            throw new SQLException("Post Id does not exist"); // Post doesn't exist, throw exception
         }
 
-        String query = "INSERT INTO comment (userid, postid, content, datetime) VALUES (?, ?, ?, ?)";
-
+        String query = "INSERT INTO comment(userid, postid, content, time,name) VALUES(?, ?, ?, ?,?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, userid);
-            stmt.setInt(2, postid);
-            stmt.setString(3, content);
-            stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis())); // Current timestamp
-
+            stmt.setInt(1, userid);        // Bind userid to first parameter
+            stmt.setInt(2, postId);        // Bind postid to second parameter
+            stmt.setString(3, content);    // Bind content to third parameter
+            stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis())); // Set the current time for the comment
+stmt.setString(5,name);
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            return rowsAffected > 0; // Return true if the insert was successful
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
         }
     }
-
     public static List<CommentModel> getAllcomments() {
         ArrayList<CommentModel> comments = new ArrayList<>();
-        String query = "SELECT c.commentid, c.userid, c.postid, c.content, c.datetime "
+        String query = "SELECT c.commentid, c.userid, c.postid, c.content, c.time,c.name "
                 + "FROM \"comment\" c "  // Use double quotes for the table name
                 + "JOIN post p ON c.postid = p.postid "
                 + "JOIN users u ON c.userid = u.user_id";
@@ -74,10 +70,11 @@ public class CommentController {
                     int userid = rs.getInt("userid");
                     int postid = rs.getInt("postid");
                     String content = rs.getString("content");
-                    LocalDateTime datetime = rs.getTimestamp("datetime").toLocalDateTime();
+                    LocalDateTime time = rs.getTimestamp("time").toLocalDateTime();
+                    String name=rs.getString("name");
 
                     // Create a CommentModel object
-                    CommentModel comment = new CommentModel(commentid, userid, postid, content, datetime);
+                    CommentModel comment = new CommentModel(commentid, userid, postid, content, time,name);
                     comments.add(comment);
                 }
             }
@@ -89,60 +86,58 @@ public class CommentController {
         // Return the list of comments (could be empty if no result)
         return comments;
     }
+    public static List<CommentModel> getCommentsByPostId(int postId) throws Exception {
+        List<CommentModel> commentList = new ArrayList<>();
 
-    public static List<CommentModel> getById(String commentid) {
-        int convertedID = Integer.parseInt(commentid);  // Convert String to int
+        // Define SQL query
+        String query = "SELECT * FROM comment WHERE postid = ?";  // You may adjust based on your table structure
 
-
-
-         String query = "SELECT c.commentid, c.userid, c.postid, c.content, c.datetime \n" +
-                 "FROM comment c\n" +
-                 "JOIN post p ON c.postid = p.postid\n" +
-                 "JOIN users u ON c.userid = u.user_id;\n";
-        // Join with politician table to fetch politician's name
-
-        // Create a list to store the result
-        ArrayList<CommentModel> comments = new ArrayList<>();
-
-        // Database connection and PreparedStatement
+        // Initialize resources
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Set the parameter for the query
-            stmt.setInt(1, convertedID);
+            // Set the postId parameter in the query
+            stmt.setInt(1, postId);
 
             // Execute the query and retrieve the result
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve data from the result set
-                    int commentid1 = rs.getInt("commentid");
+                    int commentid = rs.getInt("commentid");
                     int userid = rs.getInt("userid");
-                    int postid = rs.getInt("postid");
                     String content = rs.getString("content");
-                    LocalDateTime datetime = rs.getTimestamp("datetime").toLocalDateTime();
+                    LocalDateTime time = rs.getTimestamp("time").toLocalDateTime();
+                    String name = rs.getString("name");
 
-                    CommentModel comment = new CommentModel(commentid1, userid, postid, content, datetime);
-                   comments.add(comment);
+                    // Create a new CommentModel object
+                    CommentModel comment = new CommentModel();
+                    comment.setCommentid(commentid);
+                    comment.setUserid(userid);
+                    comment.setPostid(postId);
+                    comment.setContent(content);
+                    comment.setTime(Timestamp.valueOf(time));
+                    comment.setName(name);
+
+                    // Add the comment to the list
+                    commentList.add(comment);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception("Error fetching comments by post ID", e);
         }
 
-
-        return comments;
+        return commentList;
     }
-    //Update Data
-    public static boolean updateComment(int commentid, String content, LocalDateTime datetime) {
-        String query = "UPDATE comment SET content = ?, datetime = ? WHERE commentid = ?";
+    public static boolean updateComment(int commentid, String content, LocalDateTime time) {
+        String query = "UPDATE comment SET content = ?, time = ? WHERE commentid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Set the parameters for the prepared statement
             stmt.setString(1, content);
-            stmt.setTimestamp(2, Timestamp.valueOf(datetime)); // Convert LocalDateTime to Timestamp
+            stmt.setTimestamp(2, Timestamp.valueOf(time)); // Convert LocalDateTime to Timestamp
             stmt.setInt(3, commentid);
 
             // Execute the update and return true if at least one row was updated
@@ -155,8 +150,6 @@ public class CommentController {
             return false;
         }
     }
-
-    //Delete Data
     public static boolean deleteComment(int commentid) {
         boolean isDeleted = false;
         String query = "DELETE FROM comment WHERE commentid = ?";
@@ -177,10 +170,6 @@ public class CommentController {
 
         return isDeleted;
     }
-
-
-
-
 
 
 }

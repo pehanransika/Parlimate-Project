@@ -72,15 +72,42 @@ public class UserController {
 
                 UserModel user = new UserModel(userId, email, "", userType, created_at);
                 users.add(user);
-
-                System.out.println("User found: " + userId + ", " + email + ", " + userType);
             }
+
+            // Debugging: Print user list size
+            System.out.println("Users found: " + users.size());
 
         } catch (SQLException e) {
             System.err.println("Error fetching users: " + e.getMessage());
         }
 
         return users;
+    }
+    public UserModel getUserById(int userId) {
+        UserModel user = null;
+        String query = "SELECT * FROM users WHERE user_id = ?"; // Fixed column name
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Corrected constructor usage
+                    user = new UserModel(
+                            rs.getInt("user_id"),
+                            rs.getString("email"),
+                            "", // Password should not be exposed
+                            rs.getString("user_type"),
+                            rs.getString("created_at")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching user by ID: " + e.getMessage());
+        }
+
+        return user;
     }
 
     // Login Validation

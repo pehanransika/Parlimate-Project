@@ -35,7 +35,10 @@ public class UpdateRequestServlet extends HttpServlet {
             String category = request.getParameter("category");
             String targetAmountParam = request.getParameter("targetAmount");
             String currency = request.getParameter("currency");
+            String contact_no=request.getParameter("contact_no");
+            String photos=request.getParameter("photos");
             String attachment_url = request.getParameter("attachment_url");  // Fixed parameter name
+            String status=request.getParameter("status");
 
             // Validate target amount
             if (targetAmountParam == null || targetAmountParam.trim().isEmpty()) {
@@ -47,7 +50,7 @@ public class UpdateRequestServlet extends HttpServlet {
 
             // Call the controller method
             boolean isUpdated = RequestController.updateFundraisingRequest(
-                    requestId, title, description, category, targetAmount, currency, datetime, attachment_url);
+                    requestId, title, description, category, targetAmount, currency,contact_no,photos, datetime, attachment_url,status);
 
             if (isUpdated) {
                 response.setContentType("text/html");

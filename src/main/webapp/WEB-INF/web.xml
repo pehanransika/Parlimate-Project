@@ -47,42 +47,37 @@
     <servlet-name>PublishCommentServlet</servlet-name>
     <servlet-class>comment.PublishCommentServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>PublishCommentServlet</servlet-name>
     <url-pattern>/PublishCommentServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>ViewCommentServlet</servlet-name>
-    <servlet-class>comment.ViewCommentServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewCommentServlet</servlet-name>
-    <url-pattern>/ViewCommentServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ViewCommentListServlet</servlet-name>
-    <servlet-class>comment.ViewCommentListServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewCommentListServlet</servlet-name>
-    <url-pattern>/ViewCommentListServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>UpdateCommentServlet</servlet-name>
-    <servlet-class>comment.UpdateCommentServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpdateCommentServlet</servlet-name>
-    <url-pattern>/UpdateCommentServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>DeleteCommentServlet</servlet-name>
     <servlet-class>comment.DeleteCommentServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteCommentServlet</servlet-name>
     <url-pattern>/DeleteCommentServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CommentManagementServlet</servlet-name>
+    <servlet-class>comment.CommentManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentManagementServlet</servlet-name>
+    <url-pattern>/admin/CommentManagement/CommentManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CommentDeleteAdminServlet</servlet-name>
+    <servlet-class>comment.CommentDeleteAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentDeleteAdminServlet</servlet-name>
+    <url-pattern>/admin/CommentManagement/CommentDeleteAdminServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>PublishPostServlet</servlet-name>
     <servlet-class>post.PublishPostServlet</servlet-class>
@@ -92,7 +87,22 @@
     <url-pattern>/PublishPostServlet</url-pattern>
   </servlet-mapping>
 
-
+  <servlet>
+    <servlet-name>PostManagementServlet</servlet-name>
+    <servlet-class>post.PostManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostManagementServlet</servlet-name>
+    <url-pattern>/admin/PostManagement/PostManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteAdminPostServlet</servlet-name>
+    <servlet-class>post.DeleteAdminPostServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAdminPostServlet</servlet-name>
+    <url-pattern>/admin/PostManagement/DeleteAdminPostServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>
@@ -166,7 +176,201 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UserManagementServlet</servlet-name>
-    <url-pattern>/admin/userManagment/user-management</url-pattern>
+    <url-pattern>/admin/userManagement/UserManagementServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>BankTransferManagementServlet</servlet-name>
+    <servlet-class>bankreq.BankTransferManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BankTransferManagementServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/BankTransferManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FundraisingManagementServlet</servlet-name>
+    <servlet-class>fundreq.FundraisingManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FundraisingManagementServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/FundraisingManagementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-class>fundreq.GetApprovalFundraisingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.ApproveFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/ApproveFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteAdminRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteAdminRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAdminRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/DeleteAdminRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <servlet-class>fundreq.DeleteApproveRequestServlet</servlet-class>
+  </servlet>66
+  <servlet-mapping>
+    <servlet-name>DeleteApproveRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/DeleteApproveRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllFundraisingApprovelServlet </servlet-name>
+    <servlet-class>fundreq.GetAllFundraisingApprovelServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllFundraisingApprovelServlet </servlet-name>
+    <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteRejectionServlet</servlet-name>
+    <servlet-class>fundreq.DeleteRejectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteRejectionServlet</servlet-name>
+    <url-pattern>/Fundraising/DeleteRejectionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllRejectedRequestServlet</servlet-name>
+    <servlet-class>fundreq.GetAllRejectedRequestServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllRejectedRequestServlet </servlet-name>
+    <url-pattern>/Fundraising/GetAllRejectedRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FinalDeleteFundraisingRequestServlet </servlet-name>
+    <servlet-class>fundreq.FinalDeleteFundraisingRequestServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FinalDeleteFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/FinalDeleteFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HoldApprovedRequestServlet </servlet-name>
+    <servlet-class>fundreq.HoldApprovedRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HoldApprovedRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/HoldApprovedRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SendEmailServlet </servlet-name>
+    <servlet-class>fundreq.SendEmailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SendEmailServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/SendEmailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FinalDeleteApprovedFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.FinalDeleteApprovedFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FinalDeleteApprovedFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/FinalDeleteApprovedFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RestoreApprovedFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.RestoreApprovedFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestoreApprovedFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/RestoreApprovedFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CreateTransferServlet </servlet-name>
+    <servlet-class>bankreq.CreateTransferServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateTransferServlet </servlet-name>
+    <url-pattern>/Fundraising/CreateTransferServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllApprovedTransfersServlet </servlet-name>
+    <servlet-class>bankreq.GetAllApprovedTransfersServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllApprovedTransfersServlet </servlet-name>
+    <url-pattern>/admin/BankTransferManagement/GetAllApprovedTransfersServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <servlet-name>DeleteBankTransferRequestServlet</servlet-name>
+  <servlet-class>bankreq.DeleteBankTransferRequestServlet</servlet-class>
+</servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteBankTransferRequestServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/DeleteBankTransferRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ApprovedTransferRequestServlet</servlet-name>
+    <servlet-class>bankreq.ApprovedTransferRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApprovedTransferRequestServlet</servlet-name>
+    <url-pattern>/admin/BankTransferManagement/ApprovedTransferRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetApprovedTransfersToUserServlet</servlet-name>
+    <servlet-class>bankreq.GetApprovedTransfersToUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovedTransfersToUserServlet</servlet-name>
+    <url-pattern>/Fundraising/GetApprovedTransfersToUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetApprovedFundraisersByUser</servlet-name>
+    <servlet-class>fundreq.GetApprovedFundraisersByUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovedFundraisersByUser</servlet-name>
+    <url-pattern>/Fundraising/GetApprovedFundraisersByUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RejectRequestServlet</servlet-name>
+    <servlet-class>fundreq.RejectRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RejectRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/RejectRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetAllRejectRequestServlet</servlet-name>
+    <servlet-class>fundreq.GetAllRejectRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllRejectRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/GetAllRejectRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RestoreFundraisingRequestServlet</servlet-name>
+    <servlet-class>fundreq.RestoreFundraisingRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestoreFundraisingRequestServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/RestoreFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UserDetailsServlet</servlet-name>
+    <servlet-class>UserPackage.UserDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserDetailsServlet</servlet-name>
+    <url-pattern>/admin/userManagment/UserDetailsServlet </url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>profileServlet</servlet-name>
@@ -315,6 +519,34 @@
     <url-pattern>/DiscussionRoom/DeleteNewMeetingRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>AuthorizePaymentServlet</servlet-name>
+    <servlet-class>cardreq.AuthorizePaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthorizePaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/AuthorizePaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ReviewPaymentServlet</servlet-name>
+    <servlet-class>cardreq.ReviewPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewPaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/ReviewPaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ConfirmPaymentServlet</servlet-name>
+    <servlet-class>cardreq.ConfirmPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmPaymentServlet</servlet-name>
+    <url-pattern>/Fundraising/ConfirmPaymentServlett</url-pattern>
+  </servlet-mapping>
+<servlet>
+  <servlet-name>CreateMeetingServlet</servlet-name>
+  <servlet-class>meetings.CreateMeetingServlet</servlet-class>
+</servlet>
+  <servlet-mapping>
     <servlet-name>CreateMeetingServlet</servlet-name>
     <servlet-class>meetings.CreateMeetingServlet</servlet-class>
   </servlet>

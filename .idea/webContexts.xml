@@ -6,11 +6,19 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcements.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcementsDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/fundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/myApprovedfundraises.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/rejectedrequest.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Home.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Surveys/surveys.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Surveys" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/BankTransferManagement/BankTransferManagement.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/BankTransferManagement" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/BankTransferManagment/BankTransferManagment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/BankTransferManagment" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/CommentManagement/CommentManagement.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/CommentManagement" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/adminfundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/fundraisingManagement.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising/requestDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/Fundraising" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/meetingManagement/meetingManagement.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/meetingManagement" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/userManagment/userManagment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/userManagment" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/comment.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

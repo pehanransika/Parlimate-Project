@@ -1,5 +1,7 @@
 package comment;
 
+import fundreq.RequestController;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,45 +23,49 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Retrieve the announcement ID from the request parameter
-            String commentIdParam = request.getParameter("commentid");
+            // Retrieve the comment ID from the request parameter
+            String commentIdParam = request.getParameter("commentId"); // Use commentid to match form
 
-            // Log the parameter for debugging
-            System.out.println("Received commentid: " + commentIdParam);
+            System.out.println("Received commentId: " + commentIdParam);
 
-            // Check if the parameter is null or empty
-            if (commentIdParam == null ||commentIdParam.trim().isEmpty()) {
-                throw new NumberFormatException("Comment ID is missing or invalid");
+            // Validate the comment ID
+            if (commentIdParam == null || commentIdParam.trim().isEmpty()) {
+                throw new NumberFormatException("comment ID is missing or invalid.");
             }
 
-            // Convert the parameter to an integer
+            // Parse to integer
             int commentId = Integer.parseInt(commentIdParam);
 
-            // Call the delete method from the controller
-            boolean isDeleted =CommentController.deleteComment(commentId);
+            // Attempt deletion
+            boolean isDeleted = CommentController.deleteComment(commentId);
+
 
             if (isDeleted) {
                 // If deletion is successful, redirect with a success message
-                String alertMessage = "Data Deleted Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='ViewCommentServlet';</script>");
-            } else {
-                // If deletion fails, retrieve announcement details and show error page
-                List<CommentModel> commentsDetails = CommentController.getById(commentIdParam);
-                request.setAttribute("commentsDetails", commentsDetails);
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("wrong.jsp");
-                dispatcher.forward(request, response);
+                response.setContentType("text/html");
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('Comment Deleted Successfully');" +
+                                "window.location = document.referrer;" +
+                                "</script>"
+                );
+
+            } else {
+                // If deletion fails, retrieve comment details and show error page
+                response.setContentType("text/html");
+                response.getWriter().println("<script>alert('Comment not found or already deleted.'); window.location.href='error.jsp';</script>");
+
             }
         } catch (NumberFormatException e) {
             // Handle invalid or missing announcement ID
             e.printStackTrace();
-            response.getWriter().println("<script>alert('Invalid announcement ID'); window.location.href='ViewCommentServlet';</script>");
+            response.getWriter().println("<script>alert('Invalid comment ID'); window.location.href='GetPostListServlet';</script>");
         } catch (Exception e) {
             // General exception handling
             e.printStackTrace();
-            response.getWriter().println("<script>alert('An error occurred'); window.location.href='ViewCommentServlet';</script>");
+            response.getWriter().println("<script>alert('An error occurred'); window.location.href='GetPostListServlet';</script>");
         }
     }
 
 }
-
