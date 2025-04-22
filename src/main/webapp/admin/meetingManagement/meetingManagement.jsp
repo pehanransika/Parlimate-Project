@@ -50,7 +50,10 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
@@ -59,13 +62,13 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/Home/index.jsp" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row active">
+                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
                     <span>User Management</span>
                 </a>
@@ -89,7 +92,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row active">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
@@ -168,9 +171,11 @@
                 </div>
             </div>
             <h2 class="section-title">Meeting Requests</h2>
+
             <div class="total-records f-row">
-                Total <span>560</span> records
+                Total <span>${totalCount}</span> records
             </div>
+
             <div class="data f-col">
                 <table class="users">
                     <thead>
@@ -298,12 +303,7 @@
 
                 <button type="submit">Submit</button>
             </form>
-
-
-
-
         </div>
-
         <br>
         <button onclick="closePopup()">Close</button>
     </div>

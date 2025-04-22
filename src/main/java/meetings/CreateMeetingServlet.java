@@ -84,8 +84,10 @@ public class CreateMeetingServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
 
             if (success) {
-                response.getWriter().write("Meeting created successfully.");
-            } else {
+                String contextPath = request.getContextPath(); // This will return "/Parlimate"
+                response.sendRedirect(contextPath + "/GetAllMeetingServlet");
+            }
+            else {
                 response.getWriter().write("Failed to create meeting.");
             }
 

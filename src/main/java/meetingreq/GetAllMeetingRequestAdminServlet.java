@@ -19,9 +19,11 @@ public class GetAllMeetingRequestAdminServlet extends HttpServlet {
             // Fetch all meeting requests from MeetingRequestController
             System.out.println("This is a debug message");
             List<MeetingRequestModel> allMeetingRequestsAdmin = MeetingRequestController.getAllMeetingRequests();
+            int totalCount = allMeetingRequestsAdmin.size();
 
             // Set the list as a request attribute
             request.setAttribute("allMeetingRequestsAdmin", allMeetingRequestsAdmin);
+            request.setAttribute("totalCount", totalCount);
 
             // Forward to requestsDetail.jsp
             System.out.println("This is a debug message");

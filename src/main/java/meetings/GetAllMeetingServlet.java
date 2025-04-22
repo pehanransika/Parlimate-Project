@@ -21,9 +21,11 @@ public class GetAllMeetingServlet extends HttpServlet {
             System.out.println("Trying to get all meetings");
 
             List<MeetingModel> allMeetings = MeetingController.getAllMeetings();
+            int totalCount = allMeetings.size();
 
             // Set the list as a request attribute
             request.setAttribute("allMeetings", allMeetings);
+            request.setAttribute("totalCount", totalCount);
 
             // Forward to meetings.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/meetingManagement/scheduledMeeting.jsp");
