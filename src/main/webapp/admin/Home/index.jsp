@@ -1,3 +1,24 @@
+<%@ page import="UserPackage.UserModel" %>
+
+<%
+	HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+	if (session1 == null || session1.getAttribute("user") == null) {
+		// User is not logged in, redirect to login page
+		response.sendRedirect("../index.jsp");
+		return;
+	}
+
+	// Session exists and user is logged in
+	UserModel user = (UserModel) session1.getAttribute("user");
+	int userId = user.getUserId();
+
+	// You can now use this userId as needed
+%>
+
+<% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+	response.setHeader("Pragma","no-cache"); //HTTP 1.0
+	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 
 <!DOCTYPE html>
 <html lang="en">

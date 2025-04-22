@@ -674,6 +674,14 @@
     <servlet-name>SupportMessageServlet</servlet-name>
     <url-pattern>/Help/SupportMessageServlet</url-pattern>
   </servlet-mapping>
+<!--  <servlet>-->
+<!--    <servlet-name>LogoutServlet</servlet-name>-->
+<!--    <servlet-class>UserPackage.LogoutServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>LogoutServlet</servlet-name>-->
+<!--    <url-pattern>/LogoutServlet</url-pattern>-->
+<!--  </servlet-mapping>-->
   <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>

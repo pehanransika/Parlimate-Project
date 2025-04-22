@@ -113,7 +113,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="f-row log-out">
+                <a href="${pageContext.request.contextPath}/LogoutServlet" class="f-row log-out">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Log out
                 </a>
