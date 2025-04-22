@@ -161,10 +161,6 @@
                             Scheduled Meetings
                         </button>
                     </div>
-                    <button class="add-btn f-row">
-                        <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add User
-                    </button>
                 </div>
             </div>
             <h2 class="section-title">Meeting Requests</h2>
@@ -176,7 +172,7 @@
                     <thead>
                     <tr>
                         <td>Meeting Request ID</td>
-                        <td>User Name</td>
+                        <td>Politician ID</td>
                         <td>Title</td>
                         <td>Purpose of the Meeting</td>
                         <td>Date</td>

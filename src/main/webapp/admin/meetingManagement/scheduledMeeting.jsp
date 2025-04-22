@@ -163,7 +163,7 @@
                     </div>
                     <button class="add-btn f-row">
                         <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add User
+                        Schedule a Meeting
                     </button>
                 </div>
             </div>
@@ -232,7 +232,96 @@
     </div>
 </div>
 
+<div id="popup-container" style="display: none;">
+    <div class="popup-box">
+        <h2>Meeting Details</h2>
+
+        <!-- Extra fields shown when Accept is clicked -->
+        <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
+
+            <form method="post" action="CreateMeetingServlet">
+                <p><strong>Admin ID:</strong><br>
+                    <input type="text" name="politicianId" id="accepted-politicianId" required />
+                </p>
+                <p><strong>Topic:</strong><br>
+                    <input type="text" name="topic" id="accepted-topic" required />
+                </p>
+
+                <p><strong>Description:</strong><br>
+                    <textarea name="description" id="accepted-description" rows="3" required></textarea>
+                </p>
+
+                <p><strong>Date:</strong><br>
+                    <input type="date" name="date" id="accepted-date" required />
+                </p>
+
+                <p><strong>Time:</strong><br>
+                    <input type="time" name="time" id="accepted-time" required />
+                </p>
+
+                <p><strong>Type of the Meeting:</strong><br>
+                    <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required />
+                </p>
+
+                <p><strong>Platform:</strong><br>
+                    <input type="text" name="platform" id="accepted-platform" required />
+                </p>
+
+                <p><strong>Host:</strong><br>
+                    <input type="text" name="host" id="accepted-host" required />
+                </p>
+
+                <p><strong>Deadline to Register:</strong><br>
+                    <input type="date" name="deadlinetoregister" id="accepted-deadline" required />
+                </p>
+
+                <p><strong>Number of Slots:</strong><br>
+                    <input type="number" name="slots" id="accepted-slots" required />
+                </p>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <br>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+
 <script>
+    function openPopup() {
+        // Show the popup container
+        document.getElementById("popup-container").style.display = "block";
+
+        // Also show the form fields inside the popup
+        document.getElementById("accept-extra-fields").style.display = "block";
+
+        // Clear form fields (in case it was previously filled)
+        document.getElementById("accepted-politicianId").value = "";
+        document.getElementById("accepted-topic").value = "";
+        document.getElementById("accepted-description").value = "";
+        document.getElementById("accepted-date").value = "";
+        document.getElementById("accepted-time").value = "";
+        document.getElementById("accepted-typeofthemeeting").value = "";
+        document.getElementById("accepted-platform").value = "";
+        document.getElementById("accepted-host").value = "";
+        document.getElementById("accepted-deadline").value = "";
+        document.getElementById("accepted-slots").value = "";
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        document.getElementById("popup-container").style.display = "none";
+    }
+
+    // Add click event listener to the button
+    document.addEventListener("DOMContentLoaded", function () {
+        const scheduleBtn = document.querySelector(".add-btn.f-row");
+        if (scheduleBtn) {
+            scheduleBtn.addEventListener("click", openPopup);
+        }
+    });
+
     document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {

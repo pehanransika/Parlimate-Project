@@ -84,10 +84,25 @@ public class CreateMeetingServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
 
             if (success) {
-                response.getWriter().write("Meeting created successfully.");
+                // If success, show an alert and redirect to a different page
+                response.setContentType("text/html");
+                response.getWriter().write(
+                        "<script type=\"text/javascript\">" +
+                                "alert('Meeting Created successfully!');" +
+                                "window.location.href = 'http://localhost:8080/Parlimate/GetAllMeetingServlet';" +  // Replace with your desired page URL
+                                "</script>"
+                );
             } else {
-                response.getWriter().write("Failed to create meeting.");
+                // If failure, show an alert and redirect back to the form
+                response.setContentType("text/html");
+                response.getWriter().write(
+                        "<script type=\"text/javascript\">" +
+                                "alert('Failed to create meeting. Please try again later.');" +
+                                "window.location.href = 'http://localhost:8080/Parlimate/GetAllMeetingServlet';" +  // Replace with your form page URL
+                                "</script>"
+                );
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
