@@ -51,85 +51,72 @@
 		/>
 	</head>
 	<body>
-		<div class="navMenu f-col center">
-			<div class="logo">
-				<img src="../assets/logo.png" alt="Parlimate" id="logo" />
-			</div>
-			<div class="navigation">
-				<ul>
-					<li>
-						<a href="index.jsp" class="nav-item f-row active">
-							<i class="fa-regular fa-house"></i>
-							<span>home</span>
-						</a>
-					</li>
-					<li>
-						<a href="../userManagement/UserManagementServlet" class="nav-item f-row">
-							<i class="fa-regular fa-users"></i>
-							<span>user management</span>
-						</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
-							<i class="fa-regular fa-briefcase"></i>
-							<span>fundraise management</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="nav-item f-row">
-							<i class="fa-regular fa-check-to-slot"></i>
-							<span>survey management</span>
-						</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row ">
-							<i class="fa-regular fa-cards-blank"></i>
-							<span>post management</span>
-						</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
-							<i class="fa-regular fa-comments"></i>
-							<span>Comment Management</span>
-						</a>
-					</li>
-
-					<li>
-						<a href="#" class="nav-item f-row">
-							<i class="fa-regular fa-circle-check"></i>
-							<span>requests</span>
-						</a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
-							<i class="fa-regular fa-money-bill-transfer"></i>
-							<span>bank transfer management</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="nav-item f-row">
-							<i class="fa-regular fa-sliders-up"></i>
-							<span>platform settings</span>
-						</a>
-					</li>
-				</ul>
-				<ul>
-					<li>
-						<a href="#" class="f-row profile">
-							<div class="p-img"></div>
-							<div class="sUser f-col">
-								<div class="name">Naleeka Kumarasinghe</div>
-								<div class="role">Admin</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="f-row log-out">
-							<i class="fa-solid fa-right-from-bracket"></i>
-							log out
-						</a>
-					</li>
-				</ul>
+	<div class="navMenu f-col center">
+		<div class="logo">
+			<img src="../assets/logo.png" alt="Parlimate" id="logo" />
+		</div>
+		<div class="navigation">
+			<ul>
+				<li>
+					<a href="index.jsp" class="nav-item f-row active">
+						<i class="fa-regular fa-house"></i>
+						<span>home</span>
+					</a>
+				</li>
+				<li>
+					<a href="../userManagment/userManagment.jsp" class="nav-item f-row">
+						<i class="fa-regular fa-users"></i>
+						<span>user management</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="nav-item f-row">
+						<i class="fa-regular fa-briefcase"></i>
+						<span>fundraise management</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="nav-item f-row">
+						<i class="fa-regular fa-check-to-slot"></i>
+						<span>survey management</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="nav-item f-row">
+						<i class="fa-regular fa-cards-blank"></i>
+						<span>post management</span>
+					</a>
+				</li>
+				<li>
+					<a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
+						<i class="fa-regular fa-circle-check"></i>
+						<span>Meeting Management</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="nav-item f-row">
+						<i class="fa-regular fa-sliders-up"></i>
+						<span>platform settings</span>
+					</a>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<a href="#" class="f-row profile">
+						<div class="p-img"></div>
+						<div class="sUser f-col">
+							<div class="name">Naleeka Kumarasinghe</div>
+							<div class="role">Admin</div>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="f-row log-out" onclick="logoutUser()">
+						<i class="fa-solid fa-right-from-bracket"></i>
+						log out
+					</a>
+				</li>
+			</ul>
 			</div>
 		</div>
 		<div class="pageContent">

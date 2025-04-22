@@ -518,8 +518,95 @@
     <servlet-name>ConfirmPaymentServlet</servlet-name>
     <url-pattern>/Fundraising/ConfirmPaymentServlett</url-pattern>
   </servlet-mapping>
-
-
+<servlet>
+  <servlet-name>CreateMeetingServlet</servlet-name>
+  <servlet-class>meetings.CreateMeetingServlet</servlet-class>
+</servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMeetingServlet</servlet-name>
+    <url-pattern>/admin/meetingManagement/CreateMeetingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>JoinMeetingServlet</servlet-name>
+    <servlet-class>meetings.JoinMeetingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JoinMeetingServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/JoinMeetingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddToWishlistServlet</servlet-name>
+    <servlet-class>meetings.AddToWishlistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddToWishlistServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/AddToWishlistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetOngoingMeetingsServlet</servlet-name>
+    <servlet-class>meetings.GetOngoingMeetingsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetOngoingMeetingsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetOngoingMeetingsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
+    <servlet-class>meetings.GetRegisteredMeetingsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetRegisteredMeetingsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.GetPoliticianProfileDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
+    <url-pattern>/SearchCompare/GetPoliticianProfileDetailsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.GetPartyProfileDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
+    <url-pattern>/SearchCompare/GetPartyProfileDetailsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NameSuggestionsServlet</servlet-name>
+    <servlet-class>publicprofile.NameSuggestionsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NameSuggestionsServlet</servlet-name>
+    <url-pattern>/Parlimate/SearchCompare/NameSuggestionsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetProfileImageServlet</servlet-name>
+    <servlet-class>profileimage.GetProfileImageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetProfileImageServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetProfileImageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetMyMeetingRequests</servlet-name>
+    <servlet-class>meetingreq.GetMyMeetingRequests</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMyMeetingRequests</servlet-name>
+    <url-pattern>/DiscussionRoom/GetMyMeetingRequests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SupportMessageServlet</servlet-name>
+    <servlet-class>supportmessage.SupportMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupportMessageServlet</servlet-name>
+    <url-pattern>/Help/SupportMessageServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
 <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
