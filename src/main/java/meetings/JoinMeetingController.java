@@ -78,7 +78,7 @@ public class JoinMeetingController {
     public static boolean withdrawRegistration(String meetingId, String userId) {
         String deleteQuery = "DELETE FROM meetingusers WHERE meetingId = ? AND userId = ?";
         String updateSlotsQuery = "UPDATE meetings SET availableSlots = availableSlots + 1 WHERE meetingId = ?";
-        String selectWishlistQuery = "SELECT * FROM meetingwishlist WHERE meetingId = ? ORDER BY meetingid ASC LIMIT 1"; // Use 'id' or correct ordering column
+        String selectWishlistQuery = "SELECT * FROM meetingwishlist WHERE meetingId = ? ORDER BY timestamp ASC LIMIT 1"; // Use 'id' or correct ordering column
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
@@ -104,6 +104,7 @@ public class JoinMeetingController {
                             String wishlistEmail = rs.getString("email");
 
                             // Step 4: Add user to meeting
+                            System.out.println(wishlistUserId + " " + wishlistEmail);
                             addUserToMeeting(meetingId, wishlistUserId, wishlistEmail);
 
                             // Step 5: Send email
