@@ -1,5 +1,15 @@
 <link rel="stylesheet" href="/sidebar1.css">
 
+<style>
+    /* Optional: Add this inside your sidebar1.css */
+    .sidebar label.selected {
+        background-color: #e0e0e0;
+        font-weight: bold;
+        border-left: 4px solid #007BFF;
+        color: #007BFF;
+    }
+</style>
+
 <div class="sidebar pd-1">
     <div class="navs">
         <ul>
@@ -38,36 +48,31 @@
 <script>
     function navigate(label) {
         const inputElement = label.previousElementSibling;
-
-        // Redirect to the input's value URL
         if (inputElement && inputElement.value) {
             window.location.href = inputElement.value;
         }
     }
 
-    function highlightCurrentPage() {
-        const currentURL = window.location.href;
+    function normalizeUrl(url) {
+        return url.split(/[?#]/)[0].replace(/\/$/, "").toLowerCase();
+    }
 
-        // Get all input elements in the sidebar
+    function highlightCurrentPage() {
+        const currentURL = normalizeUrl(window.location.href);
         const inputs = document.querySelectorAll('.sidebar input[type="radio"]');
 
         inputs.forEach(input => {
-            // If the input's value matches the current URL, check the radio button
-            if (input.value === currentURL) {
-                input.checked = true;  // Check the radio input
-                const label = input.nextElementSibling;
-                if (label) {
-                    label.classList.add('selected');  // Add the 'selected' class to the label
-                }
+            const inputURL = normalizeUrl(input.value);
+            const label = input.nextElementSibling;
+
+            if (currentURL.startsWith(inputURL)) {
+                input.checked = true;
+                if (label) label.classList.add('selected');
             } else {
-                const label = input.nextElementSibling;
-                if (label) {
-                    label.classList.remove('selected');  // Remove 'selected' class from other labels
-                }
+                if (label) label.classList.remove('selected');
             }
         });
     }
 
-    // Call the function when the page loads to highlight and check the current page's button
     window.onload = highlightCurrentPage;
 </script>

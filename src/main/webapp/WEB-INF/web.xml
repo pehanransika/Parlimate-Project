@@ -363,6 +363,14 @@
     <url-pattern>/SearchCompare/GetPoliticianProfileDetailsServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.GetPartyProfileDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
+    <url-pattern>/SearchCompare/GetPartyProfileDetailsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>NameSuggestionsServlet</servlet-name>
     <servlet-class>publicprofile.NameSuggestionsServlet</servlet-class>
   </servlet>
@@ -377,6 +385,22 @@
   <servlet-mapping>
     <servlet-name>GetProfileImageServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetProfileImageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetMyMeetingRequests</servlet-name>
+    <servlet-class>meetingreq.GetMyMeetingRequests</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMyMeetingRequests</servlet-name>
+    <url-pattern>/DiscussionRoom/GetMyMeetingRequests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SupportMessageServlet</servlet-name>
+    <servlet-class>supportmessage.SupportMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupportMessageServlet</servlet-name>
+    <url-pattern>/Help/SupportMessageServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>UserSessionFilter</filter-name>
