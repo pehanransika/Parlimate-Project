@@ -2,7 +2,7 @@
 <%
     // Session check
     HttpSession session1 = request.getSession(false);
-    if (session1 == null || session.getAttribute("user") == null) {
+    if (session1 == null || session1.getAttribute("user") == null) {
         response.sendRedirect("../index.jsp");
         return;
     }
@@ -15,7 +15,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,28 +63,22 @@
             width: 400px;
             position: relative;
         }
-
-
         .transfer-popup .popup-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
-        .transfer-popup  .close-btn {
+        .transfer-popup .close-btn {
             position: absolute;
             top: 10px;
             right: 15px;
             cursor: pointer;
             font-size: 20px;
         }
-
-        .transfer-details  .form-group {
+        .transfer-details .form-group {
             margin-bottom: 15px;
         }
-
-
         .transfer-details label {
             display: block;
             margin-bottom: 5px;
@@ -103,17 +96,14 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-
         .transfer-details .form-checkbox {
             margin: 15px 0;
             display: flex;
             align-items: center;
         }
-
         .transfer-details .form-checkbox input {
             margin-right: 10px;
         }
-
         /* Payment Popup Styles */
         .payment-popup {
             display: none;
@@ -127,7 +117,6 @@
             align-items: center;
             z-index: 2000;
         }
-
         .payment-popup .popup-content {
             background: white;
             width: 90%;
@@ -136,27 +125,23 @@
             padding: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-
         .payment-popup .popup-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .payment-popup .close-popup {
             font-size: 24px;
             cursor: pointer;
             background: none;
             border: none;
         }
-
         .payment-options {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
         .payment-method {
             display: flex;
             align-items: center;
@@ -167,14 +152,50 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
         .payment-method:hover {
             background-color: #f5f5f5;
             border-color: #aaa;
         }
-
         .payment-method i {
             font-size: 24px;
+        }
+        /* Filter Select Styles */
+        .filter-container {
+            margin-bottom: 20px;
+        }
+        .filter-select {
+            position: relative;
+            display: inline-block;
+        }
+        .filter-select select {
+            appearance: none;
+            width: 200px;
+            padding: 10px 30px 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .filter-select select:focus {
+            outline: none;
+            border-color: #aaa;
+        }
+        .filter-select::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            pointer-events: none;
+        }
+        .filter-select select:hover {
+            border-color: #aaa;
         }
     </style>
 </head>
@@ -186,13 +207,10 @@
     <div class="popup-content">
         <div class="popup-header">
             <h3>Bank Transfer Donation</h3>
-            <span class="close-btn" onclick="closeTransferPopup()">&times;</span>
+            <span class="close-btn" onclick="closeTransferPopup()">×</span>
         </div>
-
         <div class="transfer-details">
             <h3>Bank Transfer Information</h3>
-
-            <!-- Transfer Amount -->
             <div class="form-group">
                 <label for="transfer-amount">Transfer Amount (LKR)*</label>
                 <input
@@ -206,9 +224,6 @@
                         class="form-control"
                 >
             </div>
-
-
-            <!-- Currency -->
             <div class="form-group">
                 <label for="currency">Currency*</label>
                 <select id="currency" name="currency" required>
@@ -216,21 +231,15 @@
                     <option value="USD">USD</option>
                 </select>
             </div>
-
-            <!-- Upload Receipt -->
             <div class="form-group">
                 <label for="receipt">Upload Transfer Receipt*</label>
                 <input type="file" name="receipt_image_path" id="receipt" accept="image/*,application/pdf" required>
                 <small>Upload clear image or PDF of your bank transfer receipt</small>
             </div>
-
-            <!-- Confirmation Checkbox -->
             <div class="form-group">
                 <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
                 <label for="confirm-terms">I confirm this transfer is from my own account</label>
             </div>
-
-            <!-- Form Buttons -->
             <div class="form-actions">
                 <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel</button>
                 <button type="submit" class="submit-btn">Submit Transfer</button>
@@ -239,9 +248,7 @@
     </div>
 </div>
 
-<!-- Fundraise Request Form -->
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
-
     <div class="bg"></div>
     <div class="fund-popup col">
         <div class="head row">
@@ -280,8 +287,6 @@
                         style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"
                 >
             </div>
-
-
             <div class="multi-fields row">
                 <div class="fund-cat field">
                     <label for="fund-categ" class="title">Category</label>
@@ -301,9 +306,8 @@
                             </select>
                         </div>
                         <div class="amount">
-                            <input required type="number" name="targetamount"  id="fund-amount" min="1" placeholder="1,000,000.00">
+                            <input required type="number" name="targetamount" id="fund-amount" min="1" placeholder="1,000,000.00">
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -328,7 +332,7 @@
                 <div class="att-container-photo">
                     <div class="action row-photo">
                         <label for="fund-photo" class="photo-btn">Select Photo</label>
-                        <input type="file" name="photos" id="fund-photo" multiple >
+                        <input type="file" name="photos" id="fund-photo" multiple>
                         <div class="sep"></div>
                     </div>
                     <div class="photo-content">
@@ -350,12 +354,11 @@
     </div>
 </form>
 
-<!-- Payment Popup -->
 <div id="paymentPopup" class="payment-popup" style="display: none;">
     <div class="popup-content">
         <div class="popup-header">
             <h3>Select Payment Method</h3>
-            <span class="close-popup" onclick="closePaymentPopup()">&times;</span>
+            <span class="close-popup" onclick="closePaymentPopup()">×</span>
         </div>
         <div class="payment-options">
             <div class="payment-method" onclick="selectPaymentMethod('card')">
@@ -369,8 +372,8 @@
         </div>
     </div>
 </div>
-<div class="container">
 
+<div class="container">
     <div class="fundraisers-container">
         <div id="fundraisers" class="section">
             <div class="pageTitles">
@@ -386,18 +389,16 @@
                         <span>My Approved Bank Transfers</span>
                     </button>
                 </a>
-
                 <a href="GetAllRequestServlet?userId=${userProfile.userId}">
                     <button class="my-funds row">
                         <i class="fa-solid fa-wallet"></i>
                         <span>my fundraises</span>
                     </button>
                 </a>
-
                 <a href="GetApprovedFundraisersByUser?userid=${userProfile.userId}">
                     <button class="my-accept-fund">
                         <i class="fa-solid fa-wallet"></i>
-                        <span> Approved fundraises</span>
+                        <span>Approved fundraises</span>
                     </button>
                 </a>
                 <a href="GetAllRejectedRequestServlet?userId=${userProfile.userId}">
@@ -411,34 +412,15 @@
                     <span>Request fundraise</span>
                 </button>
             </div>
-
             <div class="fundraising-container">
-
                 <div class="filter-container">
-
-                    <div class="filter-dropdown">
-                        <button class="filter-toggle" aria-expanded="false" aria-controls="dropdownMenu">
-                            <span id="filter-label">All Categories</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="filter-label">
-                            <div class="filter-option">
-                                <input type="checkbox" id="all-categories" checked>
-                                <label for="all-categories">All Categories</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="education" class="category-checkbox" checked>
-                                <label for="education">Education</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="social" class="category-checkbox" checked>
-                                <label for="social">Social</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="community" class="category-checkbox" checked>
-                                <label for="community">Community Service</label>
-                            </div>
-                        </div>
+                    <div class="filter-select">
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="education">Education</option>
+                            <option value="social">Social</option>
+                            <option value="community">Community Service</option>
+                        </select>
                     </div>
                 </div>
                 <div class="funds-container">
@@ -453,7 +435,6 @@
                                 </div>
                                 <div class="category">${approveModel.category}</div>
                             </div>
-
                             <div class="content col">
                                 <div class="imgs row">
                                     <c:if test="${not empty approveModel.photos}">
@@ -462,32 +443,23 @@
                                         </div>
                                     </c:if>
                                 </div>
-
                                 <div class="desc">${approveModel.description}</div>
-
                                 <div class="donations row">
                                     <div class="target">
                                         <fmt:formatNumber value="${approveModel.targetamount}" type="number" maxFractionDigits="0"/>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="bottom">
-
                                 <div class="seperator top"></div>
-
-                                <!-- Display total_lkr -->
                                 <div class="total-lkr">
                                     Total Raised:
                                     <fmt:formatNumber value="${approveModel.totalLkr}" type="number" maxFractionDigits="0"/> LKR
                                 </div>
                                 <br>
-                                <!-- Calculate and display percentage -->
                                 <div class="progress-bar-container">
                                     <div class="progress-bar" style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
                                     </div>
-
-
                                     <div class="percentage">
                                             ${approveModel.targetamount > 0 ?
                                                     (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}% Raised
@@ -499,48 +471,27 @@
                                         <span>Donate</span>
                                     </div>
                                 </c:if>
-
-
                             </div>
                         </div>
                     </c:forEach>
-
                 </div>
-
-
-
-
-                <!-- Bank Transfer Form -->
                 <form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
-                    <!-- Hidden fields -->
                     <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
-
                     <input type="hidden" name="user_id" value="${user.userId}">
                     <input type="hidden" name="csrfToken" value="${csrfToken}">
-
-
                 </form>
-
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript Files -->
 <script src="../loadSidebar.js"></script>
 <script src="./fund-pop.js"></script>
-
-
-
-// Example: setting it from a JS variable (e.g., passed from server-side or another element)
 <script>
-
-
-
     const sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
-    const paymnetPopup = document.querySelector(".popup-content");
+    const paymentPopup = document.querySelector(".popup-content");
 
     sideMenuBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -556,7 +507,6 @@
             }
         });
     });
-
 
     let currentRequestId = '';
 
@@ -574,7 +524,7 @@
         if (method === 'card') {
             window.location.href = 'card-payment.jsp?requestId=' + currentRequestId;
         } else if (method === 'bank') {
-            paymnetPopup.style.display = "none";
+            paymentPopup.style.display = "none";
             openTransferPopup();
         }
     }
@@ -605,112 +555,42 @@
         });
     }
 
-
     document.addEventListener('DOMContentLoaded', function() {
-        // Get all necessary elements
-        const filterToggle = document.querySelector('.filter-toggle');
-        const dropdownMenu = document.getElementById('dropdownMenu');
-        const allCategoriesCheckbox = document.getElementById('all-categories');
-        const educationCheckbox = document.getElementById('education');
-        const socialCheckbox = document.getElementById('social');
-        const communityCheckbox = document.getElementById('community');
-        const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+        const categoryFilter = document.getElementById('categoryFilter');
         const projectItems = document.querySelectorAll('.fund');
 
-        // Toggle dropdown visibility
-        if (filterToggle && dropdownMenu) {
-            filterToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                dropdownMenu.classList.toggle('show', !isExpanded);
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function() {
-                filterToggle.setAttribute('aria-expanded', 'false');
-                dropdownMenu.classList.remove('show');
-            });
-
-            // Prevent dropdown from closing when clicking inside
-            dropdownMenu.addEventListener('click', function(e) {
-                e.stopPropagation();
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                filterProjects(selectedCategory);
             });
         }
 
-        // Handle "All Categories" checkbox
-        if (allCategoriesCheckbox) {
-            allCategoriesCheckbox.addEventListener('change', function() {
-                const isChecked = this.checked;
-                categoryCheckboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-                filterProjects();
-            });
-        }
-
-        // Handle individual category checkboxes
-        categoryCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (!this.checked) {
-                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = false;
-                } else if (Array.from(categoryCheckboxes).every(cb => cb.checked)) {
-                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = true;
-                }
-                filterProjects();
-            });
-        });
-
-        // Filter projects based on selected categories
-        function filterProjects() {
-            const showAll = allCategoriesCheckbox ? allCategoriesCheckbox.checked : false;
-            const showEducation = educationCheckbox ? educationCheckbox.checked : false;
-            const showSocial = socialCheckbox ? socialCheckbox.checked : false;
-            const showCommunity = communityCheckbox ? communityCheckbox.checked : false;
-
+        function filterProjects(selectedCategory) {
             projectItems.forEach(project => {
                 const categoryElement = project.querySelector('.category');
                 if (!categoryElement) return;
 
                 const category = categoryElement.textContent.trim().toLowerCase();
+                let shouldShow = false;
 
-                // Determine if project should be shown
-                const shouldShow = showAll ||
-                    (showEducation && category.includes('education')) ||
-                    (showSocial && (category.includes('social') || category === 'social')) ||
-                    (showCommunity && (category.includes('community') || category.includes('community-service')));
+                if (selectedCategory === 'all') {
+                    shouldShow = true;
+                } else if (selectedCategory === 'education' && category.includes('education')) {
+                    shouldShow = true;
+                } else if (selectedCategory === 'social' && category.includes('social')) {
+                    shouldShow = true;
+                } else if (selectedCategory === 'community' && (category.includes('community') || category.includes('community-service'))) {
+                    shouldShow = true;
+                }
 
                 project.style.display = shouldShow ? 'flex' : 'none';
             });
-
-            updateFilterLabel();
-        }
-
-        // Update the filter label text
-        function updateFilterLabel() {
-            const filterLabel = document.getElementById('filter-label');
-            if (!filterLabel) return;
-
-            if (allCategoriesCheckbox && allCategoriesCheckbox.checked) {
-                filterLabel.textContent = 'All Categories';
-                return;
-            }
-
-            const selectedCategories = [];
-            if (educationCheckbox && educationCheckbox.checked) selectedCategories.push('Education');
-            if (socialCheckbox && socialCheckbox.checked) selectedCategories.push('Social');
-            if (communityCheckbox && communityCheckbox.checked) selectedCategories.push('Community Service');
-
-            filterLabel.textContent = selectedCategories.length > 0
-                ? selectedCategories.join(', ')
-                : 'Select Categories';
         }
 
         // Initial filter
-        filterProjects();
+        filterProjects(categoryFilter ? categoryFilter.value : 'all');
     });
-
-
 </script>
 </body>
 </html>
