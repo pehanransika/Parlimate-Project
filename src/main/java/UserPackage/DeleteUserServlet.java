@@ -35,14 +35,14 @@ public class  DeleteUserServlet extends HttpServlet {
         boolean isUserDeleted = UserController.deleteUser(id);
         boolean isTypeDeleted = false;
 
-        switch (userType) {
-            case "Citizen":
+        switch (userType.toLowerCase()) {
+            case "citizen":
                 isTypeDeleted = CitizenController.deleteCitizen(id);
                 break;
-            case "Politician":
+            case "politician":
                 isTypeDeleted = PoliticianController.deletePolitician(id);
                 break;
-            case "Political Party":
+            case "political party":
                 isTypeDeleted = PoliticalPartyController.deletePoliticalParty(id);
                 break;
             default:

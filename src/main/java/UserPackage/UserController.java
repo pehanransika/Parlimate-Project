@@ -58,7 +58,7 @@ public class UserController {
     }
     public static List<UserModel> getAllUsers() {
         List<UserModel> users = new ArrayList<>();
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users order by user_id";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);

@@ -8,7 +8,7 @@
         font-family: "Poppins";
         padding-block: 2rem;
         font-size: 0.8rem;
-        padding-right: 8rem;
+        padding-right: 4rem;
         gap: 2rem;
         width: 100%;
 
@@ -107,7 +107,7 @@
                         padding: 0.6rem 1rem;
                     }
 
-                    && .add-btn {
+                    && .party-req-btn {
                         gap: 0.5rem;
                         border-radius: 0.5rem;
                         outline: none;
@@ -122,7 +122,7 @@
 
             && .total-records {
                 margin-top: -1rem;
-                gap: 0.5rem;
+                gap: 0.25rem;
                 text-transform: capitalize;
                 font-weight: 600;
                 color: #6b6b6b;
@@ -223,7 +223,7 @@
                                 color: #336988;
                                 background: #e6f6ff;
                             }
-                            &&.political-party {
+                            &&.political {
                                 color: #338840;
                                 background: #e6ffe6;
                             }
@@ -256,7 +256,7 @@
                                 border: 1px solid #dfdfdf;
                                 padding: 0.25rem;
                                 position: absolute;
-                                transform: translateX(-0%);
+                                transform: translateX(-80%);
                                 z-index: 998;
                                 width: max-content;
                                 display: none;
@@ -484,4 +484,70 @@
         align-items: center;
     }
     padding-bottom: 9rem !important;
+}
+.party-req-modal{
+    && .top{
+        position: relative;
+        padding-bottom: 0.5rem;
+
+        &&::after{
+            position: absolute;
+            left: -2.5rem;
+            right: -2.5rem;
+            content: "";
+            height: 1px;
+            background: #d5d5d5;
+            top: 100%;
+        }
+        && .title{
+            font-size: 1.1rem;
+            gap: 0.25rem;
+            min-width: 20rem;
+            font-weight: 600;
+        }
+        && .requestsAmount{
+            font-size: 0.65rem;
+            color: #870e0e;
+            width: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 1rem;
+            padding: 0.15rem;
+            border-radius: 50%;
+            background: #ffcbcb;
+        }
+    }
+
+    && .content {
+        max-height: 33rem;
+        overflow-y: auto;
+        padding-bottom: 1rem;
+        && input.req-option{
+            display: none;
+            &&~ label{
+                height: 2rem;
+                padding: 0.5rem 0.75rem;
+            }
+            &&:checked~ label{
+                height: 10rem;
+                background: #f2f2f2;
+            }
+        }
+        && .request{
+            border-radius: 1rem;
+            background: #ffffff;
+            border: 1px solid #f6f6f6;
+            transition: background 0.25s ease, height 0.25s ease;
+
+            &&:hover{
+                background: #f4f4f4;
+            }
+
+            && .dropdown-btn{
+                justify-content: flex-end;
+                color: grey;
+            }
+        }
+    }
 }

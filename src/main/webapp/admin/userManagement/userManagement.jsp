@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Management | Admin Dashboard</title>
 
-    <link rel="stylesheet" href="./userManagment.css" />
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/userManagement/userManagment.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/index.css" />
 
     <!-- icons -->
     <link
@@ -48,7 +51,7 @@
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
 </head>
-<body class="">
+<body class="popup-active">
 <div class="popup-overlay"></div>
 <div class="delete-user-popup f-col popup">
     <div class="close-btn">
@@ -57,8 +60,11 @@
     <div class="head f-col">
         <div class="title">
             Are you sure you want to <span class="red">delete</span> user <span class="username capitalize">manuja ransara</span>?
+            (user id :<span class="userid">null</span>)s
         </div>
-        <img src="../Frame 297.png" alt="delete user" width="200px">
+<%--        <img src="--%>
+<%--            ${pageContext.request.contextPath}/admin/assetsFrame 297.png--%>
+<%--" alt="delete user" width="200px">--%>
     </div>
     <div class="warns">
         <ul class="f-col">
@@ -68,7 +74,7 @@
                 </div>
                 <div class="details f-col">
                     <div class="title">This action cannot be undone</div>
-                    <div class="desc">Deleting this user is permanent and can not be reversed. Proceed with caution.</div>
+                    <div class="desc">Deleting this user is permanent and can not be reversed.</div>
                 </div>
             </li>
             <li class="warn f-row">
@@ -77,7 +83,7 @@
                 </div>
                 <div class="details f-col">
                     <div class="title">System-Wide Impact</div>
-                    <div class="desc">This action will affect multiple systems and can not be reversed. Proceed with caution.ere</div>
+                    <div class="desc">This action will affect multiple systems and can not be reversed.</div>
                 </div>
             </li>
         </ul>
@@ -89,7 +95,7 @@
         </div>
         <div class="btns f-row">
             <div class="cancel"></div>
-            <button class="proceed">continue</button>
+            <button class="proceed" id="proceed-delete-btn">proceed with caution</button>
         </div>
     </div>
 </div>
@@ -268,15 +274,33 @@
         </div>
     </div>
 </div>
+<div class="party-req-modal f-col popup popup-show" style="padding-block: 1rem">
+    <div class="close-btn">
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="top f-row">
+        <div class="title f-row">
+            Political party requests
+            <span class="requestsAmount">2</span>
+        </div>
+    </div>
+    <div class="content f-col">
+        <input type="checkbox" id="request-1" class="req-option"/>
+        <label for="request-1" class="request dropdown">
+            <div class="dropdown-btn f-row">
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+        </label>
+    </div>
 </div>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/admin/assets/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="../Home/index.html" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>home</span>
                 </a>
@@ -346,7 +370,9 @@
                     Manage user roles, permissions, and activity logs.
                 </div>
             </div>
-            <div class="date">18 Jan, 2025</div>
+            <div class="date">
+                <fmt:formatDate value="<%= new java.util.Date() %>" pattern="dd MMM, yyyy" />
+            </div>
         </div>
         <div class="content f-col">
             <div class="topS f-row">
@@ -378,14 +404,13 @@
                             Filter
                         </button>
                     </div>
-                    <button class="add-btn f-row">
-                        <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add user
+                    <button class="party-req-btn f-row" id="party-req-btn">
+                        Political Party Requests
                     </button>
                 </div>
             </div>
             <div class="total-records f-row">
-                total <span> 560 </span> records
+                total <span> ${AllUsers.size()} </span> records
             </div>
             <div class="data f-col">
                 <table class="users">
@@ -394,132 +419,48 @@
                         <td>User ID</td>
                         <td>User Name</td>
                         <td>Role</td>
-                        <td>Status</td>
                         <td class="head-row f-row">Joined on</td>
                         <td>Actions</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="credentials f-col">
-                                <div class="name">John Doe</div>
-                                <div class="email">jDoe@parlimate.com</div>
-                            </div>
-                        </td>
-                        <td class="role">
-                            <span class="admin">Admin</span>
-                        </td>
-                        <td>Active</td>
-                        <td>18 Jan, 2025</td>
-                        <td class="actbtn">
-                            <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
-                            <ul class="menu">
-                                <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
-                                <li class="f-row del-user"><i class="fa-regular fa-trash"></i>delete user</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="credentials f-col">
-                                <div class="name">Michael Brown</div>
-                                <div class="email">mBrown@parlimate.com</div>
-                            </div>
-                        </td>
-                        <td class="role">
-                            <span class="moderator">Moderator</span>
-                        </td>
-                        <td>Active</td>
-                        <td>16 Jan, 2025</td>
-                        <td class="actbtn">
-                            <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
-                            <ul class="menu">
-                                <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
-                                <li class="f-row del-user"><i class="fa-regular fa-trash"></i>delete user</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="credentials f-col">
-                                <div class="name">Jane Smith</div>
-                                <div class="email">jSmith@parlimate.com</div>
-                            </div>
-                        </td>
-                        <td class="role">
-                            <span class="citizen">Citizen</span>
-                        </td>
-                        <td>Inactive</td>
-                        <td>17 Jan, 2025</td>
-                        <td class="actbtn">
-                            <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
-                            <ul class="menu">
-                                <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
-                                <li class="f-row del-user"><i class="fa-regular fa-trash"></i>delete user</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="credentials f-col">
-                                <div class="name">David Lee</div>
-                                <div class="email">dLee@parlimate.com</div>
-                            </div>
-                        </td>
-                        <td class="role">
-                            <span class="politician">Politician</span>
-                        </td>
-                        <td>Active</td>
-                        <td>10 Jan, 2025</td>
-                        <td class="actbtn">
-                            <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
-                            <ul class="menu">
-                                <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
-                                <li class="f-row del-user"><i class="fa-regular fa-trash"></i>delete user</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td class="profile f-row">
-                            <div class="p-img"></div>
-                            <div class="credentials f-col">
-                                <div class="name">James White</div>
-                                <div class="email">jWhite@parlimate.com</div>
-                            </div>
-                        </td>
-                        <td class="role">
-                            <span class="political-party">Political Party</span>
-                        </td>
-                        <td>Active</td>
-                        <td>8 Jan, 2025</td>
-                        <td class="actbtn">
-                            <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
-                            <ul class="menu">
-                                <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
-                                <li class="f-row del-user"><i class="fa-regular fa-trash"></i>delete user</li>
-                            </ul>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${empty AllUsers}">
+                            <tr><td colspan="6">No users found.</td></tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="user" items="${AllUsers}">
+                                <tr>
+                                    <td>${user.userId}</td>
+                                    <td class="profile f-row">
+                                        <div class="p-img"></div>
+                                        <div class="credentials f-col">
+                                            <div class="name">${user.name}</div>
+                                            <div class="email">${user.email}</div>
+                                        </div>
+                                    </td>
+                                    <td class="role capitalize">
+                                        <span class="${user.userType}">${user.userType}</span>
+                                    </td>
+                                    <td class="formatDate" data-date="${user.created_at}">${user.created_at}</td>
+                                    <td class="actbtn">
+                                        <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
+                                        <ul class="menu">
+                                            <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
+                                            <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
+                                            <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
+                                            <li class="f-row del-user"
+                                                data-userid="${user.userId}"
+                                                data-username="${user.name}"
+                                                data-userType="${user.userType}">
+                                                <i class="fa-regular fa-trash"></i>delete user</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
                     </tbody>
                 </table>
 
@@ -533,48 +474,118 @@
         </div>
     </div>
 </div>
+<%--<script>--%>
+
+
+<%--    document.addEventListener("DOMContentLoaded", function() {--%>
+<%--        // Toggle action menus--%>
+<%--        document.querySelectorAll('.actbtn button').forEach(button => {--%>
+<%--            button.addEventListener('click', () => {--%>
+<%--                document.querySelectorAll('.actbtn .menu').forEach(menu => {--%>
+<%--                    if (menu !== button.nextElementSibling) {--%>
+<%--                        menu.classList.remove('nav-active');--%>
+<%--                    }--%>
+<%--                });--%>
+<%--                button.nextElementSibling.classList.toggle('nav-active');--%>
+<%--            });--%>
+<%--        });--%>
+
+<%--        // close all action menu--%>
+<%--        function closeActionMenus() {--%>
+<%--            document.querySelectorAll('.actbtn button').forEach(button => {--%>
+<%--                document.querySelectorAll('.actbtn .menu').forEach(menu => {--%>
+<%--                    menu.classList.contains('nav-active') ? menu.classList.remove('nav-active'): null;--%>
+<%--                })--%>
+<%--            })--%>
+<%--        }--%>
+
+<%--        // Toggle filter popup--%>
+<%--        document.getElementById("filter-btn")?.addEventListener("click", function() {--%>
+<%--            document.body.classList.toggle("popup-active");--%>
+<%--            document.querySelector(".filter-user-popup").classList.toggle("popup-show");--%>
+<%--        });--%>
+
+<%--        // Delete user popup logic--%>
+<%--        const deleteModal = document.querySelector(".delete-user-popup");--%>
+<%--        let selectedUserId = null; // Store selected user ID globally--%>
+
+<%--        document.querySelectorAll(".del-user").forEach(button => {--%>
+<%--            button.addEventListener("click", function() {--%>
+<%--                const userNameElement = deleteModal.querySelector(".head .username");--%>
+<%--                const userIdElement = deleteModal.querySelector(".head .userid");--%>
+
+<%--                selectedUserId = button.dataset.userid; // Store the ID for later use--%>
+<%--                userNameElement.textContent = button.dataset.username;--%>
+<%--                userIdElement.textContent = selectedUserId;--%>
+
+<%--                document.body.classList.add("popup-active");--%>
+<%--                deleteModal.classList.add("popup-show");--%>
+<%--            });--%>
+<%--        });--%>
+
+<%--        // Proceed with deletion--%>
+<%--        document.querySelector("#proceed-delete-btn")?.addEventListener("click", () => {--%>
+<%--            if (selectedUserId) {--%>
+<%--                closeActionMenus();--%>
+<%--                removeUserServlet(selectedUserId);--%>
+<%--            }--%>
+<%--        });--%>
+
+<%--        // Close popups--%>
+<%--        document.querySelectorAll(".close-btn, .proceed").forEach(button => {--%>
+<%--            button.addEventListener("click", function() {--%>
+<%--                document.body.classList.remove("popup-active");--%>
+<%--                document.querySelector(".filter-user-popup").classList.remove("popup-show");--%>
+<%--                deleteModal.classList.remove("popup-show");--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
+
+<%--    // Delete user function--%>
+<%--    function removeUserServlet(userId) {--%>
+<%--        const basePath = window.location.origin;--%>
+<%--        fetch(basePath+"/Parlimate/DeleteUserFromUMServlet", {--%>
+<%--            method: "POST",--%>
+<%--            headers: {--%>
+<%--                "Content-Type": "application/x-www-form-urlencoded",--%>
+<%--            },--%>
+<%--            body: `userId=`+encodeURIComponent(userId)--%>
+<%--        })--%>
+<%--            .then(res => {--%>
+<%--                if (!res.ok) throw new Error("Network response was not ok");--%>
+<%--                return res.text();--%>
+<%--            })--%>
+<%--            .then(data => {--%>
+<%--                console.log("User deleted:", data);--%>
+<%--                location.reload();--%>
+<%--            })--%>
+<%--            .catch(err => {--%>
+<%--                console.error("Delete failed:", err);--%>
+<%--                alert("Failed to delete user. Please try again.");--%>
+<%--            });--%>
+<%--    }--%>
+<%--</script>--%>
 <script>
-    document.querySelectorAll('.actbtn button').forEach(button => {
-        button.addEventListener('click', () => {
-            document.querySelectorAll('.actbtn .menu').forEach(menu => {
-                if (menu !== button.nextElementSibling) {
-                    menu.classList.remove('nav-active');
-                }
-            });
-            button.nextElementSibling.classList.toggle('nav-active');
-        });
-    });
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Toggle popup-active class on body when filter button is clicked
-        document.getElementById("filter-btn").addEventListener("click", function() {
-            document.body.classList.toggle("popup-active");
-            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
-        });
-
-        // Toggle popup-active class on body when delete user button is clicked
-        document.querySelectorAll(".del-user").forEach(button => {
-            button.addEventListener("click", function() {
-                document.body.classList.add("popup-active");
-                document.querySelector(".delete-user-popup").classList.add("popup-show");
-            });
-        });
-
-        // Close popup when close button is clicked
-        document.querySelectorAll(".close-btn").forEach(button => {
-            button.addEventListener("click", function() {
-                document.body.classList.remove("popup-active");
-                document.querySelector(".filter-user-popup").classList.remove("popup-show");
-                document.querySelector(".delete-user-popup").classList.remove("popup-show");
-            });
-        });
-
-        // Close popup when proceed button is clicked
-        document.querySelector(".proceed").addEventListener("click", function() {
-            document.body.classList.remove("popup-active");
-            document.querySelector(".delete-user-popup").classList.remove("popup-show");
-        });
+    document.querySelectorAll('.formatDate').forEach(el => {
+        const rawDate = el.getAttribute('data-date');
+        el.textContent = formatDate(rawDate);
     });
 </script>
+<script>
+    const partyReqBtn = document.getElementById("party-req-btn");
+</script>
+
 </body>
 </html>

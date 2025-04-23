@@ -6,18 +6,24 @@ public class UserDetailModel {
     private String userType;
     private String created_at;
     private String name;
-    private String status;
-    private String deleteReason = null;
+    private String address;
+    private String pNo;
+    private String district;
+    private String province;
+    private String politicalView = null;
 
     // Constructors, Getters, and Setters
-    public UserDetailModel(int userId, String email, String userType, String created_at, String name, String status, String deleteReason) {
+    public UserDetailModel(int userId, String email, String userType, String created_at, String name, String address, String pNo, String district, String province, String politicalView) {
         this.userId = userId;
         this.email = email;
         this.userType = userType;
         this.created_at = created_at;
         this.name = name;
-        this.status = status;
-        this.deleteReason = deleteReason;
+        this.address = address;
+        this.pNo = pNo;
+        this.district = district;
+        this.province = province;
+        this.politicalView = politicalView;
 
     }
 
@@ -36,9 +42,19 @@ public class UserDetailModel {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public String getDeleteReason() { return deleteReason; }
-    public void setDeleteReason(String deleteReason) { this.deleteReason = deleteReason; }
+    public String getpNo() { return pNo; }
+    public void setpNo(String pNo) { this.pNo = pNo; }
+
+    public String getDistrict() { return district; }
+    public void setDistrict(String district) { this.district = district; }
+
+    public String getProvince() { return province; }
+    public void setProvince(String province) { this.province = province; }
+
+    public String getPoliticalView() { return politicalView; }
+    public void setPoliticalView(String politicalView) { this.politicalView = politicalView; }
+
 }
