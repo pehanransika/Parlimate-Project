@@ -634,6 +634,25 @@
     <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
     <url-pattern>/SearchCompare/GetPoliticianProfileDetailsServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetPoliticianProfileDetailsAdminServlet</servlet-name>
+    <servlet-class>publicprofile.GetPoliticianProfileDetailsAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPoliticianProfileDetailsAdminServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/GetPoliticianProfileDetailsAdminServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UpdatePolitcianDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.UpdatePolitcianDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePolitcianDetailsServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/UpdatePolitcianDetailsServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
     <servlet-class>publicprofile.GetPartyProfileDetailsServlet</servlet-class>
@@ -649,6 +668,14 @@
   <servlet-mapping>
     <servlet-name>NameSuggestionsServlet</servlet-name>
     <url-pattern>/Parlimate/SearchCompare/NameSuggestionsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NameSuggestionsAdminServlet</servlet-name>
+    <servlet-class>publicprofile.NameSuggestionsAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NameSuggestionsAdminServlet</servlet-name>
+    <url-pattern>/Parlimate/admin/ProfileManagement/NameSuggestionsAdminServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GetProfileImageServlet</servlet-name>

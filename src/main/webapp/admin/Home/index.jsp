@@ -116,9 +116,9 @@
 					</a>
 				</li>
 				<li>
-					<a href="#" class="nav-item f-row">
+					<a href="<%= request.getContextPath() %>/admin/ProfileManagement/profileManagement.jsp" class="nav-item f-row">
 						<i class="fa-regular fa-sliders-up"></i>
-						<span>platform settings</span>
+						<span>Profile Management</span>
 					</a>
 				</li>
 			</ul>
