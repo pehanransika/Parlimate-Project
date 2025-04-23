@@ -486,6 +486,8 @@
     padding-bottom: 9rem !important;
 }
 .party-req-modal{
+    max-width: 90rem !important;
+    width: 90rem !important;
     && .top{
         position: relative;
         padding-bottom: 0.5rem;
@@ -520,34 +522,116 @@
     }
 
     && .content {
-        max-height: 33rem;
+        max-height: 30rem;
         overflow-y: auto;
         padding-bottom: 1rem;
-        && input.req-option{
-            display: none;
-            &&~ label{
-                height: 2rem;
-                padding: 0.5rem 0.75rem;
-            }
-            &&:checked~ label{
-                height: 10rem;
-                background: #f2f2f2;
-            }
-        }
-        && .request{
-            border-radius: 1rem;
-            background: #ffffff;
-            border: 1px solid #f6f6f6;
-            transition: background 0.25s ease, height 0.25s ease;
+        background: #f1f1f1;
+        margin: -1.5rem;
+        padding: 2rem ;
 
-            &&:hover{
-                background: #f4f4f4;
-            }
 
-            && .dropdown-btn{
-                justify-content: flex-end;
-                color: grey;
+        table{
+            border: 1px solid #c8c8c8;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow-y: hidden;
+            border-radius: 0.75rem;
+            && tr{
+                padding: 1rem 2rem;
+            }
+            && th{
+                border: 0;
+                font-weight: 600;
+                font-size: 0.8rem;
+                padding: 0.5rem 0.5rem;
+                border: none;
+                background: #dfdfdf;
+                border: 0;
+                &&:first-child{
+                    border-top-left-radius: 0.75rem;
+                }
+                &&:last-child{
+                    border-top-right-radius: 0.75rem;
+                }
+                &&td{
+                    padding: 0.5rem 2rem;
+
+                }
+            }
+            && td{
+                border: 0;
+            }
+            && tr{
+                font-size: 0.9rem;
+                background: #FFFFFF;
+                && td{
+                    padding: 0.75rem 0.5rem ;
+                    border-bottom: 1px solid #efefef;
+                    display: compact;
+                }
+                &&:last-child{
+                    && td{
+                        border-bottom: 0;
+                    }
+                }
+                &&:hover{
+                    background: #f6f6f6;
+                }
+
+                &&:last-of-type{
+                    && td:first-child{
+                        border-bottom-left-radius: 0.75rem;
+                    }
+                    && td:last-child{
+                        border-bottom-right-radius: 0.75rem;
+                    }
+                }
+                && button{
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.5rem;
+                    border: 0;
+                    font-weight: 500;
+                    font-size: 0.65rem;
+
+                    &&.btn-approve{
+                        background: #edffed;
+                        color: #095909;
+                        border: 1px solid #c8e6c8;
+                    }
+                    &&.btn-reject{
+                        background: #ffe7e7;
+                        color: #590909;
+                        border: 1px solid #e6c8c8;
+                    }
+                }
             }
         }
     }
+
+    && .footer{
+        border-top: 1px solid #d5d5d5;
+        padding-top: 0.75rem;
+        padding-inline: 2rem;
+        margin-inline: -1.5rem;
+        display: flex;
+        justify-content: flex-end;
+
+        && #generate-csv-btn{
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: capitalize;
+            border: 1px solid #dedede;
+            border-radius: 0.5rem;
+            gap: 0.25rem;
+
+            &&:hover{
+                background: #ececec;
+            }
+        }
+    }
+}
+
+.width-full{
+    width: 100%;
 }

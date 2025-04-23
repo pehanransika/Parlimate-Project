@@ -6,12 +6,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>User Management | Admin Dashboard</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/userManagement/userManagment.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/index.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/userManagement/userManagment.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/index.css"/>
 
     <!-- icons -->
     <link
@@ -62,9 +62,9 @@
             Are you sure you want to <span class="red">delete</span> user <span class="username capitalize">manuja ransara</span>?
             (user id :<span class="userid">null</span>)s
         </div>
-<%--        <img src="--%>
-<%--            ${pageContext.request.contextPath}/admin/assetsFrame 297.png--%>
-<%--" alt="delete user" width="200px">--%>
+        <%--        <img src="--%>
+        <%--            ${pageContext.request.contextPath}/admin/assetsFrame 297.png--%>
+        <%--" alt="delete user" width="200px">--%>
     </div>
     <div class="warns">
         <ul class="f-col">
@@ -252,7 +252,7 @@
                         </div>
                         <div class="order wrap f-row">
                             <div>
-                                <input type="radio" name="user-sort-filter-sort"  id="user-sort-asc" checked>
+                                <input type="radio" name="user-sort-filter-sort" id="user-sort-asc" checked>
                                 <label for="user-sort-asc" class="toggle-btn-check">
                                     ascending
                                 </label>
@@ -281,21 +281,101 @@
     <div class="top f-row">
         <div class="title f-row">
             Political party requests
-            <span class="requestsAmount">2</span>
+            <span class="requestsAmount">${parties.size()}</span>
         </div>
     </div>
     <div class="content f-col">
-        <input type="checkbox" id="request-1" class="req-option"/>
-        <label for="request-1" class="request dropdown">
-            <div class="dropdown-btn f-row">
-                <i class="fa-regular fa-circle-chevron-down"></i>
-            </div>
-        </label>
+        <table>
+            <tr class="capitalize">
+                <th>Party name</th>
+                <th>HQ address</th>
+                <th>party leader</th>
+                <th>email</th>
+                <th>contact phone</th>
+                <th>submission date</th>
+                <th>action</th>
+            </tr>
+            <tr>
+                <td>Jathika Hela Urumaya (JHU)</td>
+                <td>62/5, Sri Jayawardenepura Kotte</td>
+                <td>Omalpe Sobhitha Thero</td>
+                <td>contact@jhu.lk</td>
+                <td>+94 112 345 678</td>
+                <td>2024-05-12</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Illankai Tamil Arasu Kachchi (ITAK)</td>
+                <td>23 Temple Road, Jaffna</td>
+                <td>Mavai Senathirajah</td>
+                <td>info@itak.org</td>
+                <td>+94 212 345 678</td>
+                <td>2024-05-08</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Sri Lanka Muslim Congress (SLMC)</td>
+                <td>45 Mosque Lane, Colombo 12</td>
+                <td>Rauff Hakeem</td>
+                <td>admin@slmc.lk</td>
+                <td>+94 112 987 654</td>
+                <td>2024-05-18</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Eelam People's Democratic Party (EPDP)</td>
+                <td>10 Beach Road, Batticaloa</td>
+                <td>Douglas Devananda</td>
+                <td>support@epdp.org</td>
+                <td>+94 652 345 678</td>
+                <td>2024-05-05</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>National Congress (NC)</td>
+                <td>78 Unity Avenue, Kandy</td>
+                <td>A.L.M. Athaullah</td>
+                <td>info@nc.lk</td>
+                <td>+94 812 456 789</td>
+                <td>2024-05-20</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Bodu Bala Sena (BBS)</td>
+                <td>15 Dalada Veediya, Colombo 10</td>
+                <td>Galagoda Aththe Gnanasara Thero</td>
+                <td>contact@bbs.lk</td>
+                <td>+94 112 567 890</td>
+                <td>2024-05-15</td>
+                <td>
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reject">Reject</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <button id="generate-csv-btn" class="f-row">Export CSV <i class="fa-regular fa-arrow-down-to-line"></i></button>
     </div>
 </div>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/admin/assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/admin/assets/logo.png" alt="Parlimate" id="logo"/>
     </div>
     <div class="navigation">
         <ul>
@@ -371,7 +451,7 @@
                 </div>
             </div>
             <div class="date">
-                <fmt:formatDate value="<%= new java.util.Date() %>" pattern="dd MMM, yyyy" />
+                <fmt:formatDate value="<%= new java.util.Date() %>" pattern="dd MMM, yyyy"/>
             </div>
         </div>
         <div class="content f-col">
@@ -426,7 +506,9 @@
                     <tbody>
                     <c:choose>
                         <c:when test="${empty AllUsers}">
-                            <tr><td colspan="6">No users found.</td></tr>
+                            <tr>
+                                <td colspan="6">No users found.</td>
+                            </tr>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="user" items="${AllUsers}">
@@ -453,7 +535,8 @@
                                                 data-userid="${user.userId}"
                                                 data-username="${user.name}"
                                                 data-userType="${user.userType}">
-                                                <i class="fa-regular fa-trash"></i>delete user</li>
+                                                <i class="fa-regular fa-trash"></i>delete user
+                                            </li>
                                         </ul>
                                     </td>
                                 </tr>

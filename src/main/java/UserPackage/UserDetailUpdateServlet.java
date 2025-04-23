@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/UserDetailUpdateServlet")
+//@WebServlet("/UserDetailUpdateServlet")
 public class UserDetailUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
