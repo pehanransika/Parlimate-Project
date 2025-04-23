@@ -503,3 +503,17 @@
     color: #242424;
     background: #ffffff;
 }
+
+.date-filter {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.date-filter label {
+    margin-right: 5px;
+}
+.date-filter input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 
-
 @WebServlet("/CreateMeetingServlet")
 public class CreateMeetingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -17,15 +16,18 @@ public class CreateMeetingServlet extends HttpServlet {
 
         try {
             // Get and parse form values
+            String meetingRequestIdStr = request.getParameter("meetingrequestid");
             String politicianIdStr = request.getParameter("politicianId");
             String slotsStr = request.getParameter("slots");
 
-            if (politicianIdStr == null || politicianIdStr.trim().isEmpty() ||
+            if (meetingRequestIdStr == null || meetingRequestIdStr.trim().isEmpty() ||
+                    politicianIdStr == null || politicianIdStr.trim().isEmpty() ||
                     slotsStr == null || slotsStr.trim().isEmpty()) {
-                response.getWriter().println("Politician ID and Slots are required.");
+                response.getWriter().println("Meeting Request ID, Politician ID, and Slots are required.");
                 return;
             }
 
+            int meetingRequestId = Integer.parseInt(meetingRequestIdStr.trim());
             int politicianId = Integer.parseInt(politicianIdStr.trim());
             int slots = Integer.parseInt(slotsStr.trim());
 
@@ -47,8 +49,8 @@ public class CreateMeetingServlet extends HttpServlet {
             String platform = request.getParameter("platform");
             Date deadlinetoregister = Date.valueOf(request.getParameter("deadlinetoregister"));
 
-
             System.out.println("=== Retrieved Form Values ===");
+            System.out.println("Meeting Request ID: " + meetingRequestId);
             System.out.println("Politician ID: " + politicianId);
             System.out.println("Topic: " + topic);
             System.out.println("Description: " + description);
@@ -60,6 +62,7 @@ public class CreateMeetingServlet extends HttpServlet {
             System.out.println("Deadline to Register: " + deadlinetoregister);
             System.out.println("Slots: " + slots);
             System.out.println("==============================");
+
             // Create MeetingModel object
             MeetingModel meeting = new MeetingModel();
             meeting.setPoliticianId(politicianId);
@@ -74,10 +77,9 @@ public class CreateMeetingServlet extends HttpServlet {
             meeting.setSlots(slots);
             meeting.setAvailableSlots(slots); // initially same as total slots
 
-
             // Insert into database
             MeetingController controller = new MeetingController();
-            boolean success = controller.insertMeeting(meeting);
+            boolean success = controller.insertMeeting(meeting, meetingRequestId);
 
             // Response
             response.setContentType("text/plain");
@@ -86,8 +88,7 @@ public class CreateMeetingServlet extends HttpServlet {
             if (success) {
                 String contextPath = request.getContextPath(); // This will return "/Parlimate"
                 response.sendRedirect(contextPath + "/GetAllMeetingServlet");
-            }
-            else {
+            } else {
                 response.getWriter().write("Failed to create meeting.");
             }
 

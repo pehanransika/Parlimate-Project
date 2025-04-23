@@ -254,7 +254,7 @@
     <div class="popup-box">
         <h2>Meeting Details</h2>
 
-        <p><strong>Meeting ID:</strong> <span id="popup-id"></span></p>
+        <p><strong>Meeting Request ID:</strong> <span id="popup-id"></span></p>
         <p><strong>User:</strong> <span id="popup-user"></span></p>
         <p><strong>Title:</strong> <span id="popup-title"></span></p>
         <p><strong>Purpose:</strong> <span id="popup-purpose"></span></p>
@@ -263,7 +263,7 @@
         <p><strong>Duration:</strong> <span id="popup-duration"></span></p>
         <p><strong>No of Participants:</strong> <span id="popup-participants"></span></p>
         <p><strong>Type of the Meeting:</strong> <span id="popup-typeofthemeeting"></span></p>
-        <p><strong>Host :</strong> <span id="popup-host"></span></p>
+        <p><strong>Host:</strong> <span id="popup-host"></span></p>
 
         <!-- Buttons -->
         <div id="response-buttons">
@@ -276,45 +276,37 @@
             <h3>Confirm and Provide Details</h3>
 
             <form method="post" action="CreateMeetingServlet">
-                <p><strong>ID:</strong><br>
+                <input type="hidden" name="meetingrequestid" id="accepted-meetingrequestid" />
+                <p><strong>Politician ID:</strong><br>
                     <input type="text" name="politicianId" id="accepted-politicianId" readonly required />
                 </p>
                 <p><strong>Final Topic:</strong><br>
                     <input type="text" name="topic" id="accepted-topic" required />
                 </p>
-
                 <p><strong>Description:</strong><br>
                     <textarea name="description" id="accepted-description" rows="3" required></textarea>
                 </p>
-
                 <p><strong>Date:</strong><br>
                     <input type="date" name="date" id="accepted-date" required />
                 </p>
-
                 <p><strong>Final Time:</strong><br>
                     <input type="time" name="time" id="accepted-time" required />
                 </p>
-
                 <p><strong>Type of the Meeting:</strong><br>
                     <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required />
                 </p>
-
                 <p><strong>Platform:</strong><br>
                     <input type="text" name="platform" id="accepted-platform" required />
                 </p>
-
                 <p><strong>Host:</strong><br>
                     <input type="text" name="host" id="accepted-host" required />
                 </p>
-
                 <p><strong>Deadline to Register:</strong><br>
                     <input type="date" name="deadlinetoregister" id="accepted-deadline" required />
                 </p>
-
                 <p><strong>Number of Slots:</strong><br>
                     <input type="number" name="slots" id="accepted-slots" required />
                 </p>
-
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -335,14 +327,14 @@
         document.getElementById("popup-participants").innerText = participants || "Not Specified";
         document.getElementById("popup-typeofthemeeting").innerText = typeofthemeeting || "Not Specified";
         document.getElementById("popup-host").innerText = host || "Not Specified";
-        document.getElementById("accepted-politicianId").value = document.getElementById("popup-id").textContent;
-        document.getElementById("accepted-topic").value = document.getElementById("popup-title").textContent;
-        document.getElementById("accepted-description").value = document.getElementById("popup-purpose").textContent;
-        document.getElementById("accepted-date").value = document.getElementById("popup-date").textContent;
-        document.getElementById("accepted-time").value = document.getElementById("popup-time").textContent;
-        document.getElementById("accepted-typeofthemeeting").value = document.getElementById("popup-typeofthemeeting").textContent;
-        document.getElementById("accepted-host").value = document.getElementById("popup-host").textContent;
-
+        document.getElementById("accepted-meetingrequestid").value = id || "";
+        document.getElementById("accepted-politicianId").value = user || "";
+        document.getElementById("accepted-topic").value = title || "";
+        document.getElementById("accepted-description").value = purpose || "";
+        document.getElementById("accepted-date").value = date || "";
+        document.getElementById("accepted-time").value = time || "";
+        document.getElementById("accepted-typeofthemeeting").value = typeofthemeeting || "";
+        document.getElementById("accepted-host").value = host || "";
         document.getElementById("accepted-platform").placeholder = "Enter platform (e.g. Zoom, Google Meet)";
         document.getElementById("accepted-deadline").value = "";
         document.getElementById("accepted-slots").value = "";
@@ -354,7 +346,7 @@
         document.getElementById("popup-container").style.display = "none";
         document.getElementById("accept-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "block";
-
+        document.getElementById("accepted-meetingrequestid").value = "";
         document.getElementById("accepted-topic").value = "";
         document.getElementById("accepted-description").value = "";
         document.getElementById("accepted-time").value = "";
@@ -403,33 +395,30 @@
         rows.forEach(row => {
             const status = row.getAttribute("data-status").toLowerCase();
             const date = row.getAttribute("data-date");
-            const topic = row.cells[2].textContent.toLowerCase(); // Topic is in the third column (index 2)
+            const topic = row.cells[2].textContent.toLowerCase();
 
-            // Check status filter
             const matchesStatus = filterValue === "all" ||
                 (filterValue === "accepted" && status === "false") ||
                 (filterValue === "non-accepted" && status === "true");
 
-            // Check date filter
             const matchesDate = !dateFilter || date === dateFilter;
 
-            // Check search query
             const matchesSearch = !searchQuery || topic.includes(searchQuery);
 
-            // Show row only if all filters match
             row.style.display = matchesStatus && matchesDate && matchesSearch ? "" : "none";
         });
     }
 
     function filterByDate() {
-        filterByStatus(); // Reuse the combined filtering logic
+        filterByStatus();
     }
 
     function searchByTopic() {
-        filterByStatus(); // Reuse the combined filtering logic
+        filterByStatus();
     }
 
     function submitAcceptedDetails() {
+        const meetingrequestid = document.getElementById('accepted-meetingrequestid').value;
         const politicianId = document.getElementById('accepted-politicianId').value;
         const typeofthemeeting = document.getElementById('accepted-typeofthemeeting').value;
         const topic = document.getElementById('accepted-topic').value;
@@ -442,6 +431,7 @@
         const slots = document.getElementById('accepted-slots').value;
 
         console.log("=== Debug Values Before Form Submission ===");
+        console.log("meetingrequestid:", meetingrequestid);
         console.log("politicianId:", politicianId);
         console.log("topic:", topic);
         console.log("description:", description);
@@ -455,6 +445,7 @@
         console.log("===========================================");
 
         const formData = new FormData();
+        formData.append("meetingrequestid", meetingrequestid);
         formData.append("politicianId", politicianId);
         formData.append("topic", topic);
         formData.append("description", description);
@@ -465,7 +456,7 @@
         formData.append("platform", platform);
         formData.append("deadlinetoregister", deadline);
         formData.append("slots", slots);
-        formData.append("availableSlots", slots);
+        formData.append("availableslots", slots);
 
         fetch("CreateMeetingServlet", {
             method: "POST",

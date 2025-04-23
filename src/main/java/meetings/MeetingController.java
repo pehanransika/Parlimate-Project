@@ -12,9 +12,9 @@ public class MeetingController {
 
     public MeetingController() {}
 
-    public boolean insertMeeting(MeetingModel meeting) {
+    public boolean insertMeeting(MeetingModel meeting, int meetingrequestid) {
         String insertQuery = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String updateSlotsQuery = "UPDATE meetings SET availableslots = availableslots - 1 WHERE meetingId = ?";
+        String updateRequestStatusQuery = "UPDATE meetingrequest SET status = ? WHERE meetingrequestid = ?";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
@@ -35,19 +35,12 @@ public class MeetingController {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-                // Get generated meetingId
-                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int meetingId = generatedKeys.getInt(1);
-
-                        // Decrease availableSlots by 1
-                        try (PreparedStatement updatePs = connection.prepareStatement(updateSlotsQuery)) {
-                            updatePs.setInt(1, meetingId);
-                            updatePs.executeUpdate();
-                        }
-                    }
+                // Update meetingrequest status to false
+                try (PreparedStatement updatePs = connection.prepareStatement(updateRequestStatusQuery)) {
+                    updatePs.setBoolean(1, false);
+                    updatePs.setInt(2, meetingrequestid);
+                    updatePs.executeUpdate();
                 }
-
                 return true;
             } else {
                 return false;
