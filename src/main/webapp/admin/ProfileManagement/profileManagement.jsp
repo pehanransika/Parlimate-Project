@@ -5,9 +5,9 @@
   Time: 7:33 AM
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="UserPackage.UserModel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
@@ -20,8 +20,6 @@
     // Session exists and user is logged in
     UserModel user = (UserModel) session1.getAttribute("user");
     int userId = user.getUserId();
-
-    // You can now use this userId as needed
 %>
 
 <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
@@ -72,6 +70,50 @@
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-family: "Satoshi", sans-serif;
+            font-weight: 500;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .btn-info {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-family: "Satoshi", sans-serif;
+            font-weight: 500;
+        }
+        .btn-info:hover {
+            background-color: #0056b3;
+        }
+        .btn-primary {
+            background-color: #2C2C2C;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-family: "Satoshi", sans-serif;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+        }
+    </style>
 </head>
 <body>
 <div class="navMenu f-col center">
@@ -159,7 +201,7 @@
 
             <div id="politicianSection">
                 <table>
-                    <form action="GetPoliticianProfileDetailsAdminServlet" method="get">
+                    <form id="politicianForm" action="GetPoliticianProfileDetailsAdminServlet" method="get">
                         <tr>
                             <!-- Politician 1 -->
                             <td class="column-head f-col">
@@ -179,36 +221,26 @@
                                             <i class="fa-regular fa-magnifying-glass"></i>
                                         </label>
                                     </div>
-                                    <%--              <div class="image">--%>
-                                    <%--                <!-- Displaying Image 1 -->--%>
-                                    <%--                <c:forEach var="politician" items="${profiles}">--%>
-                                    <%--                  <img--%>
-                                    <%--                          id="img1"--%>
-                                    <%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? politician.imagePath.split(',')[0] : ''}"--%>
-                                    <%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? 'display:block;' : 'display:none;'}"--%>
-                                    <%--                  />--%>
-                                    <%--                </c:forEach>--%>
-                                    <%--              </div>--%>
                                     <div class="name-shown">Politician 1</div>
                                 </div>
                             </td>
+                        </tr>
 
-                            <!-- Submit button row -->
+                        <!-- Submit button row -->
                         <tr>
                             <td colspan="3" style="text-align: center; padding-top: 10px;">
                                 <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
+                                <button type="button" onclick="clearForm('politicianForm')" class="btn btn-secondary">Clear</button>
                             </td>
                         </tr>
                     </form>
 
-                    <form action="UpdatePolitcianDetailsServlet" method="POST" >
+                    <form id="updatePoliticianForm" action="UpdatePolitcianDetailsServlet" method="POST" enctype="multipart/form-data">
                         <tr>
                             <td class="row-head">Photo</td>
-                            <!-- Assuming 'politician' is the object holding the single politician profile -->
                             <td>
                                 <div class="image">
-                                    <!-- Check if the politician has an image path and display it -->
-                                    <img src="<%= request.getContextPath() %>/images/${profiles1.imagePath}" alt="Photo" style="max-width: 100px; height: auto;">
+                                    <img src="<%= request.getContextPath() %>/images/${profiles1.imagePath}" alt="Photo" style="max-width: 100px; height: auto; ${profiles1.imagePath != null && profiles1.imagePath != '' ? 'display:block;' : 'display:none;'}">
                                     <br>
                                     <br>
                                     <label style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; border-radius: 4px; cursor: pointer;">
@@ -216,7 +248,6 @@
                                         <input type="file" name="photo" accept="image/*" style="display: none;" />
                                     </label>
                                     <script>
-                                        // Log the image URL to the console to test
                                         console.log('Image URL:', '<%= request.getContextPath() %>/images/${profiles1.imagePath}');
                                     </script>
                                 </div>
@@ -225,49 +256,38 @@
 
                         <input type="hidden" name="image_path" value="${profiles1.imagePath}" />
 
-
                         <tr style="border: 0">
                             <td colspan="3">
                                 <div class="select-attributes f-row">
                                     <input type="radio" name="select-attr" id="all-attr" data-target="" checked />
                                     <label for="all-attr">All</label>
-
                                     <input type="radio" name="select-attr" id="gen-info-attr" data-target="general-info" />
                                     <label for="gen-info-attr">General Information</label>
-
                                     <input type="radio" name="select-attr" id="edu-attr" data-target="educational-background" />
                                     <label for="edu-attr">Educational Background</label>
-
                                     <input type="radio" name="select-attr" id="prof-attr" data-target="professional-background" />
                                     <label for="prof-attr">Professional Background</label>
-
                                     <input type="radio" name="select-attr" id="pol-details-attr" data-target="political-details" />
                                     <label for="pol-details-attr">Political Details</label>
-
                                     <input type="radio" name="select-attr" id="key-attr" data-target="key-policies" />
                                     <label for="key-attr">Key Policies</label>
-
                                     <input type="radio" name="select-attr" id="socialmedia-attr" data-target="social-media" />
                                     <label for="socialmedia-attr">Social Media</label>
-
                                     <input type="radio" name="select-attr" id="election-results-attr" data-target="election-results" />
                                     <label for="election-results-attr">Latest Election Results</label>
                                 </div>
-
                             </td>
                         </tr>
 
-                        <!-- from here we will update details :) -->
                         <div class="gen-inf detail-section">
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
                                     <div class="details-title" id="general-info">General Information</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Profile ID</td>
-                                <td><input type="text" name="profile_id" value="${profiles1.profileId}" /></td>
+                                <td><input type="text" name="profile_id" value="${profiles1.profileId}" readonly /></td>
                             </tr>
                             <tr>
                                 <td><input type="hidden" name="politician_id" value="${profiles1.politicianId}" /></td>
@@ -276,232 +296,190 @@
                                 <td class="row-head">Full Name</td>
                                 <td><input type="text" name="full_name" value="${profiles1.fullName}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Age</td>
                                 <td><input type="number" name="age" value="${profiles1.age}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Gender</td>
                                 <td><input type="text" name="gender" value="${profiles1.gender}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Public Contact Number</td>
                                 <td><input type="tel" name="public_contact_number" value="${profiles1.publicContactNumber}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Public Email Address</td>
                                 <td><input type="email" name="public_email_address" value="${profiles1.publicEmailAddress}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">District</td>
-                                <td><input type="text" name="district" value="${profiles1.district}" /></td>
+                                <td><input type="text" name="district perm" value="${profiles1.district}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
-                                    <div class="details-title" id="educational-background">Background</div>
+                                    <div class="details-title" id="educational-background">Educational Background</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Schools Attended</td>
                                 <td><input type="text" name="schools_attended" value="${profiles1.schoolsAttended}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">University</td>
                                 <td><input type="text" name="university" value="${profiles1.university}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Highest Educational Qualification</td>
                                 <td><input type="text" name="highest_education_qualification" value="${profiles1.highestEducationQualification}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Field of Study</td>
                                 <td><input type="text" name="field_of_study" value="${profiles1.fieldOfStudy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Educational Qualifications</td>
                                 <td><input type="text" name="educational_qualifications" value="${profiles1.educationalQualifications}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
                                     <div class="details-title" id="professional-background">Professional Background</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Profession</td>
                                 <td><input type="text" name="profession" value="${profiles1.profession}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Work Experience Summary</td>
                                 <td><input type="text" name="work_experience_summary" value="${profiles1.workExperienceSummary}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
                                     <div class="details-title" id="political-details">Political Details</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Party</td>
                                 <td><input type="text" name="party" value="${profiles1.party}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Electoral Level</td>
                                 <td><input type="text" name="electoral_level" value="${profiles1.electoralLevel}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Electoral Province</td>
                                 <td><input type="text" name="electoral_province" value="${profiles1.electoralProvince}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Electoral District</td>
                                 <td><input type="text" name="electoral_district" value="${profiles1.electoralDistrict}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Electoral Division</td>
                                 <td><input type="text" name="electoral_division" value="${profiles1.electoralDivision}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Current Position</td>
                                 <td><input type="text" name="current_position" value="${profiles1.currentPosition}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Current Position Held in Party</td>
                                 <td><input type="text" name="current_position_in_party" value="${profiles1.currentPositionInParty}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Years Active in Politics</td>
                                 <td><input type="number" name="years_active_in_politics" value="${profiles1.yearsActiveInPolitics}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
                                     <div class="details-title" id="election-results">Latest Election Results</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Year</td>
                                 <td><input type="text" name="election_year" value="${profiles1.electionYear}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Type of Election</td>
                                 <td><input type="text" name="type_of_election" value="${profiles1.typeOfElection}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">No of Votes</td>
                                 <td><input type="number" name="number_of_votes" value="${profiles1.numberOfVotes}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Result</td>
                                 <td><input type="text" name="election_result" value="${profiles1.electionResult}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
-                                    <div class="details-title" id="key-policies">Policies</div>
+                                    <div class="details-title" id="key-policies">Key Policies</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Vision / Slogan</td>
                                 <td><input type="text" name="vision_or_slogan" value="${profiles1.visionOrSlogan}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Economic</td>
                                 <td><input type="text" name="economic_policy" value="${profiles1.economicPolicy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Healthcare</td>
                                 <td><input type="text" name="healthcare_policy" value="${profiles1.healthcarePolicy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Infrastructure</td>
                                 <td><input type="text" name="infrastructure_policy" value="${profiles1.infrastructurePolicy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Education</td>
                                 <td><input type="text" name="education_policy" value="${profiles1.educationPolicy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Youth Development</td>
                                 <td><input type="text" name="youth_development_policy" value="${profiles1.youthDevelopmentPolicy}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Agriculture</td>
                                 <td><input type="text" name="agriculture_policy" value="${profiles1.agriculturePolicy}" /></td>
                             </tr>
-
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
                                     <div class="details-title" id="social-media">Social Media</div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">Facebook</td>
                                 <td><input type="url" name="facebook" value="${profiles1.facebook}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">X</td>
                                 <td><input type="url" name="x" value="${profiles1.x}" /></td>
                             </tr>
-
                             <tr>
                                 <td class="row-head">LinkedIn</td>
                                 <td><input type="url" name="linkedin" value="${profiles1.linkedin}" /></td>
                             </tr>
                             <tr>
-                                <td class="row-head">LinkedIn</td>
+                                <td class="row-head">Instagram</td>
                                 <td><input type="url" name="instagram" value="${profiles1.instagram}" /></td>
                             </tr>
                             <tr>
-                                <td class="row-head">LinkedIn</td>
-                                <td><button type="submit">Submit</button></td>
+                                <td class="row-head"></td>
+                                <td><button type="submit" class="btn btn-primary">Submit</button></td>
                             </tr>
                         </div>
                     </form>
                 </table>
             </div>
 
-
-
             <div id="partySection" style="display: none;">
                 <table>
-                    <form action="GetPartyProfileDetailsServlet" method="get">
+                    <form id="partyForm" action="GetPartyProfileDetailsServlet" method="get">
                         <tr>
-                            <!-- Politician 1 -->
+                            <!-- Party 1 -->
                             <td class="column-head f-col">
                                 <div class="content f-col">
                                     <div class="search">
@@ -519,21 +497,10 @@
                                             <i class="fa-regular fa-magnifying-glass"></i>
                                         </label>
                                     </div>
-                                    <%--              <div class="image">--%>
-                                    <%--                <!-- Displaying Image 1 -->--%>
-                                    <%--                <c:forEach var="politician" items="${profiles}">--%>
-                                    <%--                  <img--%>
-                                    <%--                          id="img1"--%>
-                                    <%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? politician.imagePath.split(',')[0] : ''}"--%>
-                                    <%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? 'display:block;' : 'display:none;'}"--%>
-                                    <%--                  />--%>
-                                    <%--                </c:forEach>--%>
-                                    <%--              </div>--%>
                                     <div class="name-shown">Party 1</div>
                                 </div>
                             </td>
-
-                            <!-- Politician 2 -->
+                            <!-- Party 2 -->
                             <td class="column-head f-col">
                                 <div class="content f-col">
                                     <div class="search">
@@ -550,16 +517,6 @@
                                             <i class="fa-regular fa-magnifying-glass"></i>
                                         </label>
                                     </div>
-                                    <%--              <div class="image">--%>
-                                    <%--                <!-- Displaying Image 2 -->--%>
-                                    <%--                <c:forEach var="politician" items="${profiles}">--%>
-                                    <%--                  <img--%>
-                                    <%--                          id="img2"--%>
-                                    <%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? politician.imagePath.split(',')[1] : ''}"--%>
-                                    <%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? 'display:block;' : 'display:none;'}"--%>
-                                    <%--                  />--%>
-                                    <%--                </c:forEach>--%>
-                                    <%--              </div>--%>
                                     <div class="name-shown">Party 2</div>
                                 </div>
                             </td>
@@ -571,327 +528,195 @@
                                 <button type="submit" name="view" value="1" class="btn btn-info">View Party 1</button>
                                 <button type="submit" name="view" value="2" class="btn btn-info">View Party 2</button>
                                 <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Parties</button>
+                                <button type="button" onclick="clearForm('partyForm')" class="btn btn-secondary">Clear</button>
                             </td>
                         </tr>
                     </form>
 
-                    <tr>
-                        <td class="row-head">Logo</td>
-                        <c:forEach var="party" items="${party}">
+                    <c:if test="${not empty party}">
+                        <tr>
+                            <td class="row-head">Logo</td>
                             <td>
                                 <div class="image">
-                                    <!-- Check if the politician has an image path and display it -->
-                                    <img src="../images/${party.imagePath}" alt="Photo" style="max-width: 100px; height: auto;">
+                                    <img src="<%= request.getContextPath() %>/images/${party.imagePath}" alt="Party Logo" style="max-width: 100px; height: auto; ${party.imagePath != null && party.imagePath != '' ? 'display:block;' : 'display:none;'}">
                                     <script>
-                                        // Log the image URL to the console to test
-                                        console.log('Image URL:', '../image${party.imagePath}');
+                                        console.log('Image URL:', '<%= request.getContextPath() %>/images/${party.imagePath}');
                                     </script>
                                 </div>
                             </td>
-                        </c:forEach>
-                    </tr>
+                        </tr>
 
-                    <tr style="border: 0">
-                        <td colspan="3">
-                            <div class="select-attributes f-row">
-                                <input type="radio" name="select-attr" id="all-attr-party" data-target="" checked />
-                                <label for="all-attr">All</label>
-
-                                <input type="radio" name="select-attr" id="gen-info-attr-party" data-target="general-info" />
-                                <label for="gen-info-attr">General Information</label>
-
-
-                                <input type="radio" name="select-attr" id="pol-details-attr-party" data-target="political-details" />
-                                <label for="pol-details-attr">Political Details</label>
-
-                                <input type="radio" name="select-attr" id="key-attr-party" data-target="key-policies" />
-                                <label for="key-attr">Key Policies</label>
-
-                                <input type="radio" name="select-attr" id="socialmedia-attr-party" data-target="social-media" />
-                                <label for="socialmedia-attr">Social Media</label>
-
-                                <input type="radio" name="select-attr" id="election-results-attr-party" data-target="election-results" />
-                                <label for="election-results-attr">Latest Election Results</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- from here we will update details :) -->
-                    <div class="gen-inf detail-section">
-                        <tr class="detail-begin row-title">
+                        <tr style="border: 0">
                             <td colspan="3">
-                                <div class="details-title" id="general-info-party">General Information</div>
+                                <div class="select-attributes f-row">
+                                    <input type="radio" name="select-attr" id="all-attr-party" data-target="" checked />
+                                    <label for="all-attr-party">All</label>
+                                    <input type="radio" name="select-attr" id="gen-info-attr-party" data-target="general-info-party" />
+                                    <label for="gen-info-attr-party">General Information</label>
+                                    <input type="radio" name="select-attr" id="pol-details-attr-party" data-target="political-details-party" />
+                                    <label for="pol-details-attr-party">Political Details</label>
+                                    <input type="radio" name="select-attr" id="key-attr-party" data-target="key-policies-party" />
+                                    <label for="key-attr-party">Key Policies</label>
+                                    <input type="radio" name="select-attr" id="socialmedia-attr-party" data-target="social-media-party" />
+                                    <label for="socialmedia-attr-party">Social Media</label>
+                                    <input type="radio" name="select-attr" id="election-results-attr-party" data-target="election-results-party" />
+                                    <label for="election-results-attr-party">Latest Election Results</label>
+                                </div>
                             </td>
                         </tr>
 
-                        <tr>
-                            <td class="row-head">Party Name</td>
-                            <c:forEach var="party" items="${party}">
+                        <div class="gen-inf detail-section">
+                            <tr class="detail-begin row-title">
+                                <td colspan="3">
+                                    <div class="details-title" id="general-info-party">General Information</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Party Name</td>
                                 <td>${party.name}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Founder</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Founder</td>
                                 <td>${party.founder}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Founding Year</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Founding Year</td>
                                 <td>${party.foundYear}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Leader</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Leader</td>
                                 <td>${party.leader}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">General Secretary</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">General Secretary</td>
                                 <td>${party.generalSecretary}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Public Contact Number</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Public Contact Number</td>
                                 <td>${party.publicContactNumber}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Public Email Address</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Public Email Address</td>
                                 <td>${party.publicEmailAddress}</td>
-                            </c:forEach>
-                        </tr>
-
-
-                        <tr class="detail-begin row-title">
-                            <td colspan="3">
-                                <div class="details-title" id="political-details-party">Political Details</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Party Ideology</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr class="detail-begin row-title">
+                                <td colspan="3">
+                                    <div class="details-title" id="political-details-party">Political Details</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Party Ideology</td>
                                 <td>${party.ideology}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Coalitions</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Coalitions</td>
                                 <td>${party.coalitions}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Membership</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Membership</td>
                                 <td>${party.membership}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Head Office</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Head Office</td>
                                 <td>${party.address}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Years active in Politics</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Years Active in Politics</td>
                                 <td>${party.yearsActiveInPolitics}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr class="detail-begin row-title">
-                            <td colspan="3">
-                                <div class="details-title" id="election-results-party">Latest Election Results</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Seats in Parliament</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr class="detail-begin row-title">
+                                <td colspan="3">
+                                    <div class="details-title" id="election-results-party">Latest Election Results</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Seats in Parliament</td>
                                 <td>${party.seatsParliament}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Year</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Year</td>
                                 <td>${party.electionYear}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Type of Election</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Type of Election</td>
                                 <td>${party.typeOfElection}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">No of Votes</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">No of Votes</td>
                                 <td>${party.numberOfVotes}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Result</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Result</td>
                                 <td>${party.electionResult}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr class="detail-begin row-title">
-                            <td colspan="3">
-                                <div class="details-title" id="key-policies-party">Policies</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Vision / Slogan </td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr class="detail-begin row-title">
+                                <td colspan="3">
+                                    <div class="details-title" id="key-policies-party">Policies</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Vision / Slogan</td>
                                 <td>${party.visionOrSlogan}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Economic</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Economic</td>
                                 <td>${party.economicPolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">healthcare</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Healthcare</td>
                                 <td>${party.healthcarePolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Infrastructure</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Infrastructure</td>
                                 <td>${party.infrastructurePolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Education</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Education</td>
                                 <td>${party.educationPolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Youth Development</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Youth Development</td>
                                 <td>${party.youthDevelopmentPolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Agriculture</td>
-                            <c:forEach var="party" items="${party}">
+                            </tr>
+                            <tr>
+                                <td class="row-head">Agriculture</td>
                                 <td>${party.agriculturePolicy}</td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Other</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-
-                        <tr class="detail-begin row-title">
-                            <td colspan="3">
-                                <div class="details-title" id="social-media-party">Social Media</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Website</td>
-                            <c:forEach var="party" items="${party}">
-                                <td>
-                                    <a href="${party.website}" target="_blank">${party.website}</a>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Other</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="detail-begin row-title">
+                                <td colspan="3">
+                                    <div class="details-title" id="social-media-party">Social Media</div>
                                 </td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Facebook</td>
-                            <c:forEach var="party" items="${party}">
-                                <td>
-                                    <a href="${party.facebook}" target="_blank">${party.facebook}</a>
-                                </td>
-                            </c:forEach>
-                        </tr>
-
-                        <%--          <tr>--%>
-                        <%--            <td class="row-head">X</td>--%>
-                        <%--            <c:forEach var="party" items="${party}">--%>
-                        <%--              <td>--%>
-                        <%--                <a href="${party.xLink}" target="_blank">${party.xLink}</a>--%>
-                        <%--              </td>--%>
-                        <%--            </c:forEach>--%>
-                        <%--          </tr>--%>
-
-                        <tr>
-                            <td class="row-head">LinkedIn</td>
-                            <c:forEach var="party" items="${party}">
-                                <td>
-                                    <a href="${party.linkedin}" target="_blank">${party.linkedin}</a>
-                                </td>
-                            </c:forEach>
-                        </tr>
-
-                        <tr>
-                            <td class="row-head">Instagram</td>
-                            <c:forEach var="party" items="${party}">
-                                <td>
-                                    <a href="${party.instagram}" target="_blank">${party.instagram}</a>
-                                </td>
-                            </c:forEach>
-                        </tr>
-
-                    </div>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Website</td>
+                                <td><a href="${party.website}" target="_blank">${party.website}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Facebook</td>
+                                <td><a href="${party.facebook}" target="_blank">${party.facebook}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">LinkedIn</td>
+                                <td><a href="${party.linkedin}" target="_blank">${party.linkedin}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="row-head">Instagram</td>
+                                <td><a href="${party.instagram}" target="_blank">${party.instagram}</a></td>
+                            </tr>
+                        </div>
+                    </c:if>
                 </table>
             </div>
         </div>
     </div>
 </div>
-</body>
-
-<script src="http://localhost:8080/Parlimate/script.js"></script>
 
 <script>
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     const fileInput = document.getElementById("imageUploadInput");
-    //     const imagePathInput = document.querySelector("input[name='image_path']");
-    //
-    //     fileInput.addEventListener("change", function () {
-    //         if (fileInput.files.length > 0) {
-    //             const fileName = fileInput.files[0].name;
-    //             // Set the new relative path, same format as what the backend saves
-    //             imagePathInput.value = "/Politician/" + fileName;
-    //         }
-    //     });
-    // });
-    // Sample politician data (replace with your actual data source)
+    // Switch between politician and party sections
     const roleSelect = document.getElementById("roleSelect");
     const politicianSection = document.getElementById("politicianSection");
     const partySection = document.getElementById("partySection");
@@ -906,135 +731,43 @@
         }
     });
 
-    // Optional: Set correct view on load
+    // Set correct view on load
     document.addEventListener("DOMContentLoaded", () => {
         roleSelect.dispatchEvent(new Event("change"));
     });
 
-
-    const searchInput = document.getElementById("col1-search");
-    const suggestionsContainer = document.getElementById("suggestions");
-
-    const searchInputParty = document.getElementById("col1-search-party");
-    const suggestionsContainerParty = document.getElementById("col1-suggestions-party")
-
-    searchInput.addEventListener("input", function () {
-        const searchTerm = this.value.toLowerCase();
-        suggestionsContainer.innerHTML = "";
-
-        if (searchTerm.length < 1) {
-            suggestionsContainer.style.display = "none";
-            return;
-        }
-
-        const filteredPoliticians = politicians.filter(
-            (politician) =>
-                politician.name.toLowerCase().includes(searchTerm) ||
-                politician.party.toLowerCase().includes(searchTerm)
-        );
-
-        if (filteredPoliticians.length > 0) {
-            filteredPoliticians.forEach((politician) => {
-                const suggestionItem = document.createElement("div");
-                suggestionItem.className = "suggestion-item";
-                suggestionItem.innerHTML = `
-      <img src="https://i.pravatar.cc/50" alt="${politician.name}">
-      <div>
-        <div class="politician-name">${politician.name}</div>
-        <div class="politician-party">${politician.party}</div>
-      </div>
-    `;
-                suggestionItem.addEventListener("click", () => {
-                    searchInput.value = politician.name;
-                    suggestionsContainer.style.display = "none";
-                    // You can trigger search or selection action here
-                });
-                suggestionsContainer.appendChild(suggestionItem);
-            });
-            suggestionsContainer.style.display = "block";
-        } else {
-            suggestionsContainer.style.display = "none";
-        }
-    });
-
-    searchInputParty.addEventListener("input", function () {
-        const searchTermParty = this.value.toLowerCase();
-        suggestionsContainerParty.innerHTML = "";
-
-        if (searchTermParty.length < 1) {
-            suggestionsContainerParty.style.display = "none";
-            return;
-        }
-
-        const filteredParties = party.filter(
-            (politician) =>
-                party.name.toLowerCase().includes(searchTerm) ||
-                party.party.toLowerCase().includes(searchTerm)
-        );
-
-        if (filteredParties.length > 0) {
-            filteredParties.forEach((party) => {
-                const suggestionItemParty = document.createElement("div");
-                suggestionItemParty.className = "suggestion-item-Party";
-                suggestionItemParty.innerHTML = `
-      <img src="https://i.pravatar.cc/50" alt="${party.name}">
-      <div>
-        <div class="politician-name">${party.name}</div>
-        <div class="politician-party">${party.party}</div>
-      </div>
-    `;
-                suggestionItemParty.addEventListener("click", () => {
-                    searchInputParty.value = party.name;
-                    suggestionsContainerParty.style.display = "none";
-                    // You can trigger search or selection action here
-                });
-                suggestionsContainerParty.appendChild(suggestionItemParty);
-            });
-            suggestionsContainerParty.style.display = "block";
-        } else {
-            suggestionsContainerParty.style.display = "none";
-        }
-    });
-
-    // Close suggestions when clicking outside
-    document.addEventListener("click", function (e) {
-        if (
-            !searchInput.contains(e.target) &&
-            !suggestionsContainer.contains(e.target)
-        ) {
-            suggestionsContainer.style.display = "none";
-        }
-    });
-
-    document.addEventListener("click", function (e) {
-        if (
-            !searchInputParty.contains(e.target) &&
-            !suggestionsContainerParty.contains(e.target)
-        ) {
-            suggestionsContainerParty.style.display = "none";
-        }
-    });
-
-    document.querySelectorAll('input[name="select-attr"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            const targetId = radio.getAttribute('data-target');
-            if (targetId) {
-                const section = document.getElementById(targetId);
-                if (section) {
-                    const yOffset = -70; // adjust based on your header height
-                    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-
+    // Function to clear all input fields in a form
+    function clearForm(formId) {
+        const form = document.getElementById(formId);
+        if (form) {
+            // Reset all input fields
+            form.querySelectorAll('input').forEach(input => {
+                if (input.type === 'text' || input.type === 'number' || input.type === 'tel' || input.type === 'email' || input.type === 'url') {
+                    input.value = '';
+                } else if (input.type === 'file') {
+                    input.value = ''; // Clear file input
+                } else if (input.type === 'radio') {
+                    input.checked = input.id === 'all-attr' || input.id === 'all-attr-party'; // Reset to default radio
                 }
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            // Reset select elements if any
+            form.querySelectorAll('select').forEach(select => {
+                select.selectedIndex = 0;
+            });
+            // Clear image preview if applicable
+            const img = form.querySelector('img');
+            if (img) {
+                img.src = '';
+                img.style.display = 'none';
             }
-        });
-    });
+        }
+    }
 
-    function setupAutoSuggest(inputId, suggestionBoxId) {
+    // Auto-suggest for politicians
+    function setupAutoSuggest(inputId, suggestionBoxId, formId) {
         const input = document.getElementById(inputId);
         const suggestionBox = document.getElementById(suggestionBoxId);
+        const form = document.getElementById(formId);
 
         input.addEventListener("input", function () {
             const query = input.value.trim();
@@ -1056,6 +789,10 @@
                         option.onclick = function () {
                             input.value = name;
                             suggestionBox.innerHTML = "";
+                            // Programmatically submit the form
+                            if (form) {
+                                form.submit();
+                            }
                         };
                         suggestionBox.appendChild(option);
                     });
@@ -1065,7 +802,7 @@
                 });
         });
 
-        // Optional: hide suggestions when clicking outside
+        // Hide suggestions when clicking outside
         document.addEventListener("click", function (e) {
             if (!suggestionBox.contains(e.target) && e.target !== input) {
                 suggestionBox.innerHTML = "";
@@ -1073,15 +810,17 @@
         });
     }
 
-    function setupAutoSuggestParty(inputId, suggestionBoxId) {
-        const inputParty = document.getElementById(inputId);
-        const suggestionBoxParty = document.getElementById(suggestionBoxId);
+    // Auto-suggest for parties
+    function setupAutoSuggestParty(inputId, suggestionBoxId, formId) {
+        const input = document.getElementById(inputId);
+        const suggestionBox = document.getElementById(suggestionBoxId);
+        const form = document.getElementById(formId);
 
-        input.addEventListener("inputParty", function () {
-            const query = inputParty.value.trim();
+        input.addEventListener("input", function () {
+            const query = input.value.trim();
 
             if (query.length === 0) {
-                suggestionBoxParty.innerHTML = "";
+                suggestionBox.innerHTML = "";
                 return;
             }
 
@@ -1089,16 +828,20 @@
                 .then(response => response.text())
                 .then(text => {
                     const names = text.trim().split("\n");
-                    suggestionBoxParty.innerHTML = "";
+                    suggestionBox.innerHTML = "";
                     names.forEach(name => {
                         const option = document.createElement("div");
                         option.className = "suggestion-item-Party";
                         option.textContent = name;
                         option.onclick = function () {
-                            inputParty.value = name;
-                            suggestionBoxParty.innerHTML = "";
+                            input.value = name;
+                            suggestionBox.innerHTML = "";
+                            // Programmatically submit the form
+                            if (form) {
+                                form.submit();
+                            }
                         };
-                        suggestionBoxParty.appendChild(option);
+                        suggestionBox.appendChild(option);
                     });
                 })
                 .catch(err => {
@@ -1106,22 +849,35 @@
                 });
         });
 
-        // Optional: hide suggestions when clicking outside
+        // Hide suggestions when clicking outside
         document.addEventListener("click", function (e) {
-            if (!suggestionBoxParty.contains(e.target) && e.target !== input) {
-                suggestionBoxParty.innerHTML = "";
+            if (!suggestionBox.contains(e.target) && e.target !== input) {
+                suggestionBox.innerHTML = "";
             }
         });
     }
 
-    // Initialize for both input fields
-    setupAutoSuggest("col1-search", "col1-suggestions");
-    setupAutoSuggest("col1-search-party", "col1-suggestions-party");
-    setupAutoSuggest("col2-search-party", "col2-suggestions-party");
+    // Initialize auto-suggest for both input fields
+    setupAutoSuggest("col1-search", "col1-suggestions", "politicianForm");
+    setupAutoSuggestParty("col1-search-party", "col1-suggestions-party", "partyForm");
+    setupAutoSuggestParty("col2-search-party", "col2-suggestions-party", "partyForm");
 
+    // Handle radio button scrolling
+    document.querySelectorAll('input[name="select-attr"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const targetId = radio.getAttribute('data-target');
+            if (targetId) {
+                const section = document.getElementById(targetId);
+                if (section) {
+                    const yOffset = -70; // Adjust based on header height
+                    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
 </script>
-
-<body>
-
 </body>
 </html>
