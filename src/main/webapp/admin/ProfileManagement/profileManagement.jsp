@@ -111,15 +111,15 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row active">
+                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="#" class="nav-item f-row active">
                     <i class="fa-regular fa-sliders-up"></i>
-                    <span>Platform Settings</span>
+                    <span>Profile Management</span>
                 </a>
             </li>
         </ul>
@@ -270,7 +270,7 @@
                                 <td><input type="text" name="profile_id" value="${profiles1.profileId}" /></td>
                             </tr>
                             <tr>
-                                <td><input name="politician_id" value="${profiles1.politicianId}" /></td>
+                                <td><input type="hidden" name="politician_id" value="${profiles1.politicianId}" /></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Full Name</td>

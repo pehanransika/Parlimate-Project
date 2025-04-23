@@ -12,8 +12,18 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Retrieve parameters from the form (assume all are passed as form data)
-        System.out.println("profileId: " + request.getParameter("profile_id"));
-        int profileId = Integer.parseInt(request.getParameter("profile_id"));
+        String profileIdParam = request.getParameter("profile_id");
+        System.out.println("profileId: " + profileIdParam);
+        int profileId = 0; // Default value if profile_id is empty or invalid
+        if (profileIdParam != null && !profileIdParam.trim().isEmpty()) {
+            try {
+                profileId = Integer.parseInt(profileIdParam);
+            } catch (NumberFormatException e) {
+                // Log the error or handle it appropriately
+                System.out.println("Invalid profile_id format: " + profileIdParam);
+            }
+        }
+
         int politicianId = Integer.parseInt(request.getParameter("politician_id"));
         String fullName = request.getParameter("full_name");
         int age = Integer.parseInt(request.getParameter("age"));
