@@ -12,7 +12,7 @@ public class AdminController {
     public static List<AdminModel> AdminProfile(int id) {
         List<AdminModel> admins = new ArrayList<>();
 
-        String sql = "SELECT * FROM admin WHERE userid = '"+id+"'";
+        String sql = "SELECT * FROM admin WHERE user_id = '"+id+"'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -40,7 +40,7 @@ public class AdminController {
         AdminModel admin = null;
         try {
             Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM admins WHERE userid = ?";
+            String query = "SELECT * FROM admins WHERE user_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();

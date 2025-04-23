@@ -1,3 +1,76 @@
+<style>
+                              /* Share Popup Styles */
+  .share-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .share-popup-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+
+  .share-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+  }
+
+  .share-input-group {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .share-input-group input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 19px;
+  }
+
+  .copy-btn {
+    padding: 10px 20px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .copy-btn:hover {
+    background: #080809;
+  }
+
+  .copy-status {
+    color: rgba(0, 0, 0, 0.82);
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    height: 20px;
+  }
+</style>
+                      <%--  Share pop up styles end--%>
+
+                      <%-- Survey Prototype  --%>
+
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <!-- Inside the loop -->
   <c:forEach var="survey" items="${surveys}" varStatus="status">
@@ -35,9 +108,7 @@
             <button id="deleteSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
               <i class='fas fa-trash' style='font-size:20px'></i>
             </button> &nbsp;
-            <button id="editSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
-              <i class='fas fa-edit' style='font-size:20px'></i>
-            </button> &nbsp;
+
           </c:if>
 
           <button id="viewAnalyticsBtn${status.index}">View Analytics</button> &nbsp
@@ -45,9 +116,7 @@
             Share <i class="fa-solid fa-share"></i>
           </button>
         </div>
-        <c:if test="${user.userId == survey.user[0].userId}">
-        <%@ include file="../Surveys/editSurveypopup.jsp" %>
-        </c:if>
+
       </div> <br>
       <div class="survey-topic" style="justify-content: center;font-size: larger;">
         Survey Topic : ${survey.surveyTopic}
@@ -85,9 +154,76 @@
       });
     </script>
 
-    <c:if test="${user.userId == survey.user[0].userId}">
+    <%--    share button pop up     --%>
+
+
+    <div id="sharePopup${status.index}" class="share-popup">
+      <div class="share-popup-content">
+        <span class="share-close" onclick="closeSharePopup(${status.index})">&times;</span>
+        <h3 style="font-size: 19px;">Share Survey</h3> <br>
+        <div class="share-input-group">
+          <input type="text"
+                 id="shareLink${status.index}"
+                 value="<%= request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() %>/Surveys/GetUserSurveysServlet?surveyId=${survey.surveyId}"
+                 readonly>
+          <button onclick="copyShareLink(${status.index})" class="copy-btn">
+            <i class='fas fa-copy'></i>
+          </button>
+        </div>
+        <p class="copy-status" id="copyStatus${status.index}"></p>
+      </div>
+    </div>
+
+
+    <script>
+
+      function showSharePopup(index) {
+        const popup = document.getElementById("sharePopup"+index);
+        popup.style.display = 'flex';
+        document.getElementById("copyStatus"+index).textContent = '';
+      }
+
+      function closeSharePopup(index) {
+        document.getElementById("sharePopup"+index).style.display = 'none';
+      }
+
+      function copyShareLink(index) {
+        const input = document.getElementById("shareLink"+index);
+        input.select();
+        navigator.clipboard.writeText(input.value)
+                .then(() => {
+                  const status = document.getElementById("copyStatus"+index);
+                  status.textContent = 'Link copied!';
+                  setTimeout(() => {
+                    status.textContent = '';
+                  }, 2000);
+                })
+                .catch(err => {
+                  console.error('Failed to copy:', err);
+                  alert('Failed to copy link. Please try again.');
+                });
+      }
+
+      window.onclick = function(event) {
+        const sharePopups = document.querySelectorAll('.share-popup');
+        sharePopups.forEach(popup => {
+          if (event.target === popup) {
+            popup.style.display = 'none';
+          }
+        });
+      };
+
+      // Add event listener to share button
+      document.getElementById("share-btn${status.index}").addEventListener('click', () => {
+        showSharePopup(${status.index});
+      });
+    </script>
+
+
     <!-- Delete Popup HTML and Javascript -->
 
+
+    <c:if test="${user.userId == survey.user[0].userId}">
     <div id="deletepopup" class="popup">
       <div  style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
             class="popup-content">
@@ -145,9 +281,11 @@
       }
     </script>
 
+    </c:if>
+
     <!-- Delete Popup HTML and Javascript End-->
 
-  </c:if>
+
     <%--      survey questions javascripts      --%>
 
     <script>
@@ -194,7 +332,6 @@
 
         <c:if test="${user.userId == survey.user[0].userId}">
         const deleteBtn = document.getElementById('deleteSurveyBtn${status.index}');
-        const editBtn = document.getElementById('editSurveyBtn${status.index}');
         </c:if>
 
         let currentQuestion = 0;
@@ -360,16 +497,7 @@
                   });
         };
 
-        /*   window["vote" + "{status.index}"] = function(optIndex) {
-             const q = questions[currentQuestion];
-             const prev = selectedAnswers[currentQuestion];
-             if (prev !== null) q.votes[prev]--;
-             q.votes[optIndex]++;
-             selectedAnswers[currentQuestion] = optIndex;
 
-             const slide = questionSlider.querySelector('.question-slide');
-             slide.innerHTML = renderQuestion(currentQuestion);
-           }     */
 
         prevBtn.addEventListener('click', () => {
           if (currentQuestion > 0) {
@@ -396,11 +524,7 @@
           deletepopup.classList.add("show");
         });
 
-        editBtn.addEventListener('click', () => {
-          const editpopup = document.getElementById('editpopup');
-          editpopup.style.display = 'flex';
-          editpopup.classList.add("show");
-        });
+
         </c:if>
 
         // Popup close functionality
@@ -436,7 +560,8 @@
         </div>
         <div id="voteStats" class="analytics-vote-stats">
           <h3>Vote Statistics</h3>
-          <p>Total Votes: <span id="totalVotes${status.index}">0</span></p>
+          <p>Total Survey Votes : ${survey.totalVotes}</p>
+          <p>Total Question Votes: <span id="totalVotes${status.index}">0</span></p>
           <ul id="answerVotes${status.index}" class="analytics-answer-votes"></ul>
         </div>
       </div>
@@ -614,3 +739,4 @@
     </script>
 
   </c:forEach>
+                       <%-- Survey Prototype  End--%>

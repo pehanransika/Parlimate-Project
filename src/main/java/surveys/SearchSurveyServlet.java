@@ -11,11 +11,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/GetParlimateSurveysServlet")
-public class GetParlimateSurveysServlet extends HttpServlet {
+@WebServlet("/searchSurveyServlet")
+public class SearchSurveyServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Check if session exists and user is logged in
         HttpSession session = request.getSession(false);
@@ -30,30 +30,41 @@ public class GetParlimateSurveysServlet extends HttpServlet {
         // Extract the userId
         int userId = user.getUserId();
 
+        // Get search parameters from request
+        String searchQuery = request.getParameter("searchQuery");
+        String platform = request.getParameter("platform");
+
         // Create an instance of the controller
         surveyController controller = new surveyController(userId);
 
-        // Retrieve all surveys with questions and answers
         List<SurveyModel> surveys;
-        if ("admin".equals(user.getUserType()) || "moderator".equals(user.getUserType())) {
-            surveys = controller.getAllSurveysByModeratorsAndAdmins();
+
+        // Determine which search method to use based on platform
+        if ("parlimate".equals(platform)) {
+
+            surveys = controller.searchParlimateSurveys(searchQuery);
             request.setAttribute("surveys", surveys);
-            // Forward to admin/moderator JSP
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/SurveyManagement/ParlimateSurveys.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            // For regular users, use a different method if needed or the same one
-            surveys = controller.getAllSurveysByModeratorsAndAdmins(); // Adjust if regular users need different data
-            request.setAttribute("surveys", surveys);
-            // Forward to regular user JSP
+
+            // Forward to the search results JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/surveys.jsp");
             dispatcher.forward(request, response);
-        }
-    }
+        } else if("users".equals(platform)){
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
+            surveys = controller.searchSurveys(searchQuery);
+            request.setAttribute("surveys", surveys);
+
+            // Forward to the search results JSP
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/userSurveys.jsp");
+            dispatcher.forward(request, response);
+        }else{
+
+            surveys = controller. searchSurveysByUser(userId,searchQuery);
+            request.setAttribute("surveys", surveys);
+
+            // Forward to the search results JSP
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/yourSurveys.jsp");
+            dispatcher.forward(request, response);
+        }
+
     }
 }

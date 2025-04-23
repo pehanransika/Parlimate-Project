@@ -4,7 +4,9 @@ import UserPackage.UserModel;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -36,6 +38,9 @@ public class surveyController {
                     List<SurveyUserProfileModel> ownner = new ArrayList<>();
                     ownner.add(surveyowner);
                     survey.setUser(ownner);
+                    ResponseController responseController = new ResponseController();
+                    int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
+                    survey.setTotalVotes(totalVotes);
 
                     // Fetch the questions for this survey
                     String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
@@ -108,6 +113,8 @@ public class surveyController {
 
             return surveys;
         }
+
+
     // Helper method to get answerNumber by answerId
     private int getAnswerNumberById(int answerId) {
         String query = "SELECT answer_number FROM answer WHERE answer_id = ?";
@@ -138,29 +145,201 @@ public class surveyController {
             }
         }
 
-        return userSurveys;  // Return the filtered list
+        return sortSurveys(userSurveys);  // Return the filtered list
     }
 
     public List<SurveyModel> getAllSurveysByModeratorsAndAdmins() {
-        List<SurveyModel> allSurveys = new ArrayList<>();
-        String userQuery = "SELECT user_id FROM users WHERE user_type IN ('Admin', 'Moderator')";
+        List<SurveyModel> surveys = new ArrayList<>();
+        String surveyQuery = "SELECT * FROM survey WHERE user_id IN (SELECT user_id FROM users WHERE user_type IN ('admin', 'moderator'))";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(userQuery)) {
+             PreparedStatement surveyStmt = conn.prepareStatement(surveyQuery);
+             ResultSet surveyRs = surveyStmt.executeQuery()) {
 
-            ResultSet rs = stmt.executeQuery();
+            while (surveyRs.next()) {
+                int surveyId = surveyRs.getInt("survey_id");
+                String surveyTopic = surveyRs.getString("survey_topic");
+                int numberOfQuestions = surveyRs.getInt("number_of_questions");
+                int userId = surveyRs.getInt("user_id");
+                Timestamp timestamp = surveyRs.getTimestamp("created_at");
+                LocalDateTime createdAt = timestamp.toLocalDateTime();
 
-            while (rs.next()) {
-                int userId = rs.getInt("user_id");
-                List<SurveyModel> userSurveys = getSurveysOfUser(userId);
-                allSurveys.addAll(userSurveys);
+                SurveyModel survey = new SurveyModel(surveyId, surveyTopic, numberOfQuestions, userId,createdAt);
+                SurveyUserProfileModel surveyowner = SurveyUserProfileController.getSurveyUserProfile(userId);
+                List<SurveyUserProfileModel> ownner = new ArrayList<>();
+                ownner.add(surveyowner);
+                survey.setUser(ownner);
+                ResponseController responseController = new ResponseController();
+                int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
+                survey.setTotalVotes(totalVotes);
+
+                // Fetch the questions for this survey
+                String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
+                try (PreparedStatement questionStmt = conn.prepareStatement(questionQuery)) {
+                    questionStmt.setInt(1, surveyId);
+                    ResultSet questionRs = questionStmt.executeQuery();
+
+                    List<QuestionModel> questions = new ArrayList<>();
+                    while (questionRs.next()) {
+                        int questionId = questionRs.getInt("question_id");
+                        String questionText = questionRs.getString("question");
+                        int questionNumber = questionRs.getInt("question_number");
+                        int numberOfAnswers = questionRs.getInt("number_of_answers"); // NEW
+
+                        QuestionModel question = new QuestionModel(
+                                questionId, questionText, questionNumber, numberOfAnswers
+                        );
+
+                        // Fetch answers for this question
+                        String answerQuery = "SELECT * FROM answer WHERE question_id = ?";
+                        try (PreparedStatement answerStmt = conn.prepareStatement(answerQuery)) {
+                            answerStmt.setInt(1, questionId);
+                            ResultSet answerRs = answerStmt.executeQuery();
+
+                            List<AnswerModel> answers = new ArrayList<>();
+                            while (answerRs.next()) {
+                                int answerId = answerRs.getInt("answer_id");
+                                String answerText = answerRs.getString("answer");
+                                int answerNumber = answerRs.getInt("answer_number");
+                                String imageUrl = answerRs.getString("image_url");
+                                int numberOfVotes = answerRs.getInt("number_of_votes");
+
+                                AnswerModel answer = new AnswerModel(answerId, answerText, answerNumber, imageUrl);
+                                answer.setNumberOfVotes(numberOfVotes);
+                                answers.add(answer);
+                            }
+
+                            question.setAnswers(answers);
+                        }
+
+                        // get user voting
+                        String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
+                        try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
+                            userVoteStmt.setInt(1, surveyId);
+                            userVoteStmt.setInt(2, questionId);
+                            userVoteStmt.setInt(3, sessionUserId);
+                            ResultSet userVoteRs = userVoteStmt.executeQuery();
+
+                            List<UserVoteModel> userVotes = new ArrayList<>();
+                            while (userVoteRs.next()) {
+                                int answerId = userVoteRs.getInt("answer_id");
+                                int answerNumber = getAnswerNumberById(answerId);
+                                UserVoteModel userVote = new UserVoteModel(sessionUserId, answerId, answerNumber);
+                                userVotes.add(userVote);
+                            }
+                            question.setUserVotes(userVotes);
+                        }
+
+                        questions.add(question);
+                    }
+
+                    survey.setQuestions(questions);
+                }
+
+                surveys.add(survey);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return allSurveys;
+        return sortSurveys(surveys);
+    }
+
+    public List<SurveyModel> getAllSurveysOfUsers() {
+        List<SurveyModel> surveys = new ArrayList<>();
+        String surveyQuery = "SELECT * FROM survey WHERE user_id IN ( SELECT user_id FROM users WHERE user_type IN ('Citizen', 'Politician','Political Party'))";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement surveyStmt = conn.prepareStatement(surveyQuery);
+             ResultSet surveyRs = surveyStmt.executeQuery()) {
+
+            while (surveyRs.next()) {
+                int surveyId = surveyRs.getInt("survey_id");
+                String surveyTopic = surveyRs.getString("survey_topic");
+                int numberOfQuestions = surveyRs.getInt("number_of_questions");
+                int userId = surveyRs.getInt("user_id");
+                Timestamp timestamp = surveyRs.getTimestamp("created_at");
+                LocalDateTime createdAt = timestamp.toLocalDateTime();
+
+                SurveyModel survey = new SurveyModel(surveyId, surveyTopic, numberOfQuestions, userId,createdAt);
+                SurveyUserProfileModel surveyowner = SurveyUserProfileController.getSurveyUserProfile(userId);
+                List<SurveyUserProfileModel> ownner = new ArrayList<>();
+                ownner.add(surveyowner);
+                survey.setUser(ownner);
+                ResponseController responseController = new ResponseController();
+                int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
+                survey.setTotalVotes(totalVotes);
+
+                // Fetch the questions for this survey
+                String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
+                try (PreparedStatement questionStmt = conn.prepareStatement(questionQuery)) {
+                    questionStmt.setInt(1, surveyId);
+                    ResultSet questionRs = questionStmt.executeQuery();
+
+                    List<QuestionModel> questions = new ArrayList<>();
+                    while (questionRs.next()) {
+                        int questionId = questionRs.getInt("question_id");
+                        String questionText = questionRs.getString("question");
+                        int questionNumber = questionRs.getInt("question_number");
+                        int numberOfAnswers = questionRs.getInt("number_of_answers"); // NEW
+
+                        QuestionModel question = new QuestionModel(
+                                questionId, questionText, questionNumber, numberOfAnswers
+                        );
+
+                        // Fetch answers for this question
+                        String answerQuery = "SELECT * FROM answer WHERE question_id = ?";
+                        try (PreparedStatement answerStmt = conn.prepareStatement(answerQuery)) {
+                            answerStmt.setInt(1, questionId);
+                            ResultSet answerRs = answerStmt.executeQuery();
+
+                            List<AnswerModel> answers = new ArrayList<>();
+                            while (answerRs.next()) {
+                                int answerId = answerRs.getInt("answer_id");
+                                String answerText = answerRs.getString("answer");
+                                int answerNumber = answerRs.getInt("answer_number");
+                                String imageUrl = answerRs.getString("image_url");
+                                int numberOfVotes = answerRs.getInt("number_of_votes");
+
+                                AnswerModel answer = new AnswerModel(answerId, answerText, answerNumber, imageUrl);
+                                answer.setNumberOfVotes(numberOfVotes);
+                                answers.add(answer);
+                            }
+
+                            question.setAnswers(answers);
+                        }
+
+                        // get user voting
+                        String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
+                        try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
+                            userVoteStmt.setInt(1, surveyId);
+                            userVoteStmt.setInt(2, questionId);
+                            userVoteStmt.setInt(3, sessionUserId);
+                            ResultSet userVoteRs = userVoteStmt.executeQuery();
+
+                            List<UserVoteModel> userVotes = new ArrayList<>();
+                            while (userVoteRs.next()) {
+                                int answerId = userVoteRs.getInt("answer_id");
+                                int answerNumber = getAnswerNumberById(answerId);
+                                UserVoteModel userVote = new UserVoteModel(sessionUserId, answerId, answerNumber);
+                                userVotes.add(userVote);
+                            }
+                            question.setUserVotes(userVotes);
+                        }
+
+                        questions.add(question);
+                    }
+
+                    survey.setQuestions(questions);
+                }
+
+                surveys.add(survey);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sortSurveys(surveys);
     }
 
     public SurveyModel getSurveyById(int surveyId) {
@@ -180,11 +359,11 @@ public class surveyController {
                         "JOIN users u ON s.user_id = u.user_id " +
                         "LEFT JOIN question q ON s.survey_id = q.survey_id " +
                         "LEFT JOIN answer a ON q.question_id = a.question_id " +
-                        "WHERE " +
+                        "WHERE (u.user_type = 'Citizen' OR u.user_type = 'Politician' OR u.user_type = 'Political Party') AND ( " +
                         "s.survey_topic ILIKE ? OR " +
                         "u.username ILIKE ? OR " +
                         "q.question ILIKE ? OR " +
-                        "a.answer ILIKE ?";
+                        "a.answer ILIKE ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -206,7 +385,7 @@ public class surveyController {
             e.printStackTrace();
         }
 
-        return matchedSurveys;
+        return sortSurveys(matchedSurveys);
     }
 
     public List<SurveyModel> searchSurveysByUser(int userId, String keyword) {
@@ -253,7 +432,7 @@ public class surveyController {
             e.printStackTrace();
         }
 
-        return matchedSurveys;
+        return sortSurveys(matchedSurveys);
     }
 
 
@@ -276,7 +455,7 @@ public class surveyController {
                         "JOIN users u ON s.user_id = u.user_id " +
                         "LEFT JOIN question q ON s.survey_id = q.survey_id " +
                         "LEFT JOIN answer a ON q.question_id = a.question_id " +
-                        "WHERE (u.user_type = 'Admin' OR u.user_type = 'Moderator') AND ( " +
+                        "WHERE (u.user_type = 'admin' OR u.user_type = 'moderator') AND ( " +
                         "s.survey_topic ILIKE ? OR " +
                         "u.username ILIKE ? OR " +
                         "q.question ILIKE ? OR " +
@@ -305,7 +484,7 @@ public class surveyController {
             e.printStackTrace();
         }
 
-        return surveys;
+        return sortSurveys(surveys);
     }
 
     public boolean createSurvey(SurveyModel survey) {
@@ -411,5 +590,63 @@ public class surveyController {
         return createSurvey(survey);
     }
 
+    public List<SurveyModel> sortSurveys(List<SurveyModel> surveys) {
+        // Handle empty list case
+        if (surveys.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // Find min and max creation dates
+        LocalDateTime minDate = surveys.stream()
+                .map(SurveyModel::getCreatedAt)
+                .min(LocalDateTime::compareTo)
+                .orElseThrow(() -> new IllegalStateException("No surveys in list"));
+        LocalDateTime maxDate = surveys.stream()
+                .map(SurveyModel::getCreatedAt)
+                .max(LocalDateTime::compareTo)
+                .orElseThrow(() -> new IllegalStateException("No surveys in list"));
+
+        // Find min and max total votes
+        int minVotes = surveys.stream()
+                .mapToInt(SurveyModel::getTotalVotes)
+                .min()
+                .orElse(0);
+        int maxVotes = surveys.stream()
+                .mapToInt(SurveyModel::getTotalVotes)
+                .max()
+                .orElse(0);
+
+        // Calculate total time span in seconds
+        long totalSpanSeconds = ChronoUnit.SECONDS.between(minDate, maxDate);
+
+        // Define comparator for sorting
+        Comparator<SurveyModel> comparator = (s1, s2) -> {
+            // Calculate x for s1 (recency score)
+            double x1 = (totalSpanSeconds > 0) ?
+                    100.0 * ChronoUnit.SECONDS.between(minDate, s1.getCreatedAt()) / totalSpanSeconds : 0.0;
+            // Calculate y for s1 (votes score)
+            double y1 = (maxVotes > minVotes) ?
+                    100.0 * (s1.getTotalVotes() - minVotes) / (maxVotes - minVotes) : 0.0;
+            // Weighted score for s1: (3/5)*y + (2/5)*x
+            double score1 = (3.0 / 5.0) * y1 + (2.0 / 5.0) * x1;
+
+            // Calculate x for s2 (recency score)
+            double x2 = (totalSpanSeconds > 0) ?
+                    100.0 * ChronoUnit.SECONDS.between(minDate, s2.getCreatedAt()) / totalSpanSeconds : 0.0;
+            // Calculate y for s2 (votes score)
+            double y2 = (maxVotes > minVotes) ?
+                    100.0 * (s2.getTotalVotes() - minVotes) / (maxVotes - minVotes) : 0.0;
+            // Weighted score for s2: (3/5)*y + (2/5)*x
+            double score2 = (3.0 / 5.0) * y2 + (2.0 / 5.0) * x2;
+
+            // Sort in descending order (higher score first)
+            return Double.compare(score2, score1);
+        };
+
+        // Create a copy of the input list and sort it
+        List<SurveyModel> sortedSurveys = new ArrayList<>(surveys);
+        sortedSurveys.sort(comparator);
+        return sortedSurveys;
+    }
 }
 

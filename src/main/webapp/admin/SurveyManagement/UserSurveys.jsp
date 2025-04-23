@@ -9,8 +9,12 @@
 <html>
 <head>
     <title>Survey Management | Parlimate Surveys</title>
-    <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../SurveyManagement/surveys.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/admin/index.css"
+          type="text/css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/admin/SurveyManagement/surveys.css"
+          type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- icons -->
@@ -57,7 +61,7 @@
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/admin/assets/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
@@ -80,7 +84,7 @@
                 </a>
             </li>
             <li>
-                <a href="../SurveyManagement/ParlimateSurveys.jsp" class="nav-item f-row active">
+                <a href="ParlimateSurveys.jsp" class="nav-item f-row active">
                     <i class="fa-regular fa-check-to-slot"></i>
                     <span>survey management</span>
                 </a>
@@ -145,14 +149,14 @@
                 <div class="tabs">
                     <div class="tab "
                          id="parliament-tab"
-                         onclick="window.location.href='../SurveyManagement/ParlimateSurveys.jsp'">
+                         onclick="window.location.href='${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet'">
                         Parlimate surveys
                     </div>
 
                     <div
                             class="tab active"
                             id="user-tab"
-                            onclick="window.location.href='../SurveyManagement/UserSurveys.jsp'"
+                            onclick="window.location.href='${pageContext.request.contextPath}/Surveys/GetUserSurveysServlet'"
                     >
                         User surveys
                     </div>

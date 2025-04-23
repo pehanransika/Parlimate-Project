@@ -358,6 +358,7 @@
     <url-pattern>/Surveys/GetUserSurveysServlet</url-pattern>
   </servlet-mapping>
 
+
   <servlet>
     <servlet-name>GetParlimateSurveysServlet</servlet-name>
     <servlet-class>surveys.GetParlimateSurveysServlet</servlet-class>
@@ -407,6 +408,7 @@
     <servlet-name>GetUserVoteServlet</servlet-name>
     <url-pattern>/Surveys/getUserVote</url-pattern>
   </servlet-mapping>
+
 
 <!--      survey servlets end  -->
 

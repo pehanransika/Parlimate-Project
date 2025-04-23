@@ -11,7 +11,7 @@ public class SurveyModel {
     private List<QuestionModel> questions;// List to hold questions
     private List<SurveyUserProfileModel> user;
     private LocalDateTime createdAt;  // Field for created_at
-
+    private int totalVotes;
     // Constructor, including created_at
     public SurveyModel(int surveyId, String surveyTopic, int numberOfQuestions, int userId, LocalDateTime createdAt) {
         this.surveyId = surveyId;
@@ -73,5 +73,10 @@ public class SurveyModel {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    public int getTotalVotes() {return totalVotes;}
+
+    public void setTotalVotes(int totalVotes) {
+        this.totalVotes = totalVotes;
     }
 }

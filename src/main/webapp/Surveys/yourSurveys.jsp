@@ -84,6 +84,14 @@
                 <h2 class="title">Surveys</h2>
                 <div class="subTitle">Create and Vote Surveys</div>
 
+                <div style="display: flex; justify-content: center; align-items: center;width:100%;">
+                    <input type="text" placeholder="Search Surveys" style="width: 500px; height: 35px; border-radius: 20px; font-size: 20px; padding: 0 10px; text-align: center;">
+                    <button style="width: 40px; height: 40px; border-radius: 20px; margin-left: 10px; background-color: #ccc; border: none; font-size: 20px; color: black; display: flex; justify-content: center; align-items: center;">
+                        <i class="far fa-search"></i>
+                    </button>
+                </div>
+
+
                 <div class="tab-container">
                     <div class="tabs">
                         <div class="tab"

@@ -18,7 +18,12 @@ public class GetYourSurveysServlet  extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Fetch user votes for this question and
+        // Fetch user votes for this question and
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
         // Get the user object from session
         UserModel user = (UserModel) session.getAttribute("user");
 

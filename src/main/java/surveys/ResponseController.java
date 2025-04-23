@@ -73,6 +73,22 @@ public class ResponseController {
         return 0; // Return 0 if no votes found or in case of an error
     }
 
+    public int getTotalVotesForSurvey(int surveyId) {
+        String sql = "SELECT COUNT(DISTINCT user_id) FROM response WHERE survey_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, surveyId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public int getQuestionFullVotes(int questionId) {
         String query = "SELECT COUNT(*) FROM response WHERE question_id = ?";
         try (Connection conn = DBConnection.getConnection();

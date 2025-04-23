@@ -4,6 +4,7 @@ import UserPackage.UserModel;
 
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,10 @@ public class GetUserSurveysServlet  extends HttpServlet {
             throws ServletException, IOException {
         // Fetch user votes for this question and
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
         // Get the user object from session
         UserModel user = (UserModel) session.getAttribute("user");
 
@@ -27,19 +32,29 @@ public class GetUserSurveysServlet  extends HttpServlet {
         int userid = user.getUserId();
         // Create an instance of your controller
         surveyController controller = new surveyController(userid);
-
-
-
-        // Retrieve all surveys with questions and answers
-        List<SurveyModel> surveys = controller.getAllSurveysWithQuestionsAndAnswers();
+        List<SurveyModel> surveys = new ArrayList<>();
+        String surveyIdParam = request.getParameter("surveyId");
+        if (surveyIdParam != null && !surveyIdParam.trim().isEmpty()) {
+            // Case 1: Specific survey requested
+            int surveyId = Integer.parseInt(surveyIdParam);
+            SurveyModel survey = controller.getSurveyById(surveyId);
+            surveys.add(survey);
+        } else {
+            // Case 2: No surveyId, fetch all user surveys
+                surveys = controller.getAllSurveysOfUsers();
+        }
 
         // Add the list of surveys as a request attribute so that it can be accessed in surveys.jsp
         request.setAttribute("surveys", surveys);
 
+        String jspPath;
+        if ("admin".equals(user.getUserType()) || "moderator".equals(user.getUserType())) {
+            jspPath = "/admin/SurveyManagement/UserSurveys.jsp";
+        } else {
+            jspPath = "/Surveys/userSurveys.jsp";
+        }
 
-
-        // Forward the request to surveys.jsp for rendering
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userSurveys.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(jspPath);
         dispatcher.forward(request, response);
 
    }

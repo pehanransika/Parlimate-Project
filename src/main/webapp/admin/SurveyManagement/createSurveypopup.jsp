@@ -1,5 +1,5 @@
 
-<%--            pop up content             --%>
+<%--         creat survey   pop up content             --%>
 
 <div id="popup" class="popup">
     <div class="popup-content">
@@ -8,9 +8,9 @@
             <!-- Step 1: Survey Info -->
             <div class="step step-11 active">
                 <h2>Create Survey</h2>
-                <label>Survey Topic:</label><br>
-                <input type="text" id="survey-topic" placeholder="Enter Topic" class="custom-input"/><br>
-                <label>Number of Questions:</label><br>
+                <label>Survey Topic:</label>
+                <input type="text" id="survey-topic" placeholder="Enter Topic" class="custom-input"/>
+                <label>Number of Questions:</label>
                 <input type="number" id="question-count" min="1" max="30" class="custom-input"/> <br><br>
                 <button class="next-btn" onclick="goToStep()">Next
                     <i class="fa-solid fa-arrow-right-long"></i>
@@ -138,6 +138,61 @@
         clearAnswerInputs();
     }
 
+    function submitSurvey() {
+        const formData = new FormData();
+
+        // Append survey-level data
+        formData.append('surveyTopic', surveyData.topic);
+        formData.append('numberOfQuestions', totalQuestions);
+        console.log("survey topic :",surveyData.topic);
+        console.log("numberOfQuestions",totalQuestions);
+        // Note: userId is fetched from the session in the servlet, so we don’t need to send it unless required
+        const retrievedSurveyTopic = formData.get('surveyTopic');
+        console.log('Retrieved surveyTopic from formData:', retrievedSurveyTopic);
+        const numberOfQuestions = formData.get('numberOfQuestions');
+        console.log('Retrieved numberofquestions',numberOfQuestions);
+
+        // Append questions and answers
+        surveyData.questions.forEach((question, qIndex) => {
+            formData.append("questions[" + qIndex + "][text]", question.text);
+            formData.append("questions[" + qIndex + "][numAnswers]", question.numAnswers);
+            console.log("question and number of answers:",question.text,question.numAnswers);
+            formData.append("questions[" + qIndex + "][questionNumber]", qIndex + 1);
+            const retrievedQuestionText = formData.get("questions[" + qIndex + "][text]");
+            console.log("Retrieved question text:", retrievedQuestionText);
+            question.answers.forEach((answer, aIndex) => {
+                formData.append("questions[" + qIndex + "][answers][" + aIndex + "][text]", answer.text);
+                console.log("answer:",answer.text);
+                if (answer.image) {
+                    formData.append("questions[" + qIndex + "][answers][" + aIndex + "][image]", answer.image);
+                }
+            });
+        });
+        console.log("FormData has entries:", Array.from(formData.entries()).length > 0);
+
+        // Send the data to the servlet
+        fetch('<%= request.getContextPath() %>/CreateSurveyServlet',{
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text(); // The servlet returns a script with an alert and redirect
+            })
+            .then(data => {
+                // The servlet’s response is a script that the browser will execute automatically
+                // No need to handle redirection manually here unless the servlet is modified
+                showStep('step-44'); // Show success message after submission
+            })
+            .catch(error => {
+                console.error('Error submitting survey:', error);
+                alert('An error occurred while creating the survey. Please try again.');
+            });
+    }
+
+
     // Handle navigation and data collection
     function goToStep() {
         const currentStep = document.querySelector('.step.active');
@@ -187,7 +242,7 @@
                     updateQuestionTitle();
                     clearQuestionInputs();
                 } else {
-                    showStep('step-44');
+                    submitSurvey();
                 }
             }
         }
