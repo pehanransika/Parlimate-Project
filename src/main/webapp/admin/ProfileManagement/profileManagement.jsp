@@ -174,7 +174,7 @@
                     <tr>
                         <td class="row-head">Profile ID</td>
                         <td><input type="text" name="profile_id" value="${profiles1.profileId}" /></td>
-                    </tr
+                    </tr>
                     <tr>
                         <td><input type="hidden" name="politician_id" value="${profiles1.politicianId}" /></td>
                     </tr>
