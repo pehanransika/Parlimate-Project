@@ -16,6 +16,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,26 +46,25 @@
     <style>
         /* Transfer Popup Styles */
         .transfer-popup {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
+            display: none;
             justify-content: center;
             align-items: center;
-            z-index: 2000;
+            z-index: 1000;
+        }
+        .transfer-popup .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            position: relative;
         }
 
-        .transfer-popup .popup-content {
-            background: white;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
 
         .transfer-popup .popup-header {
             display: flex;
@@ -73,23 +73,28 @@
             margin-bottom: 20px;
         }
 
-        .transfer-popup .close-btn {
-            font-size: 24px;
+        .transfer-popup  .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
             cursor: pointer;
-            background: none;
-            border: none;
+            font-size: 20px;
         }
 
-        .transfer-details .form-group {
+        .transfer-details  .form-group {
             margin-bottom: 15px;
         }
+
 
         .transfer-details label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
         }
-
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
         .transfer-details input,
         .transfer-details select,
         .transfer-details textarea {
@@ -177,8 +182,66 @@
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
 
+<div id="banktransfer" style="z-index: 1002" class="transfer-popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3>Bank Transfer Donation</h3>
+            <span class="close-btn" onclick="closeTransferPopup()">&times;</span>
+        </div>
+
+        <div class="transfer-details">
+            <h3>Bank Transfer Information</h3>
+
+            <!-- Transfer Amount -->
+            <div class="form-group">
+                <label for="transfer-amount">Transfer Amount (LKR)*</label>
+                <input
+                        type="number"
+                        id="transfer-amount"
+                        name="amount"
+                        min="100"
+                        step="100"
+                        required
+                        placeholder="Minimum 100 LKR"
+                        class="form-control"
+                >
+            </div>
+
+
+            <!-- Currency -->
+            <div class="form-group">
+                <label for="currency">Currency*</label>
+                <select id="currency" name="currency" required>
+                    <option value="LKR">LKR</option>
+                    <option value="USD">USD</option>
+                </select>
+            </div>
+
+            <!-- Upload Receipt -->
+            <div class="form-group">
+                <label for="receipt">Upload Transfer Receipt*</label>
+                <input type="file" name="receipt_image_path" id="receipt" accept="image/*,application/pdf" required>
+                <small>Upload clear image or PDF of your bank transfer receipt</small>
+            </div>
+
+            <!-- Confirmation Checkbox -->
+            <div class="form-group">
+                <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
+                <label for="confirm-terms">I confirm this transfer is from my own account</label>
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel</button>
+                <button type="submit" class="submit-btn">Submit Transfer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Fundraise Request Form -->
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
+
     <div class="bg"></div>
     <div class="fund-popup col">
         <div class="head row">
@@ -287,7 +350,27 @@
     </div>
 </form>
 
+<!-- Payment Popup -->
+<div id="paymentPopup" class="payment-popup" style="display: none;">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3>Select Payment Method</h3>
+            <span class="close-popup" onclick="closePaymentPopup()">&times;</span>
+        </div>
+        <div class="payment-options">
+            <div class="payment-method" onclick="selectPaymentMethod('card')">
+                <i class="fas fa-credit-card"></i>
+                <span>Credit/Debit Card</span>
+            </div>
+            <div class="payment-method" onclick="openTransferPopup()">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
+
     <div class="fundraisers-container">
         <div id="fundraisers" class="section">
             <div class="pageTitles">
@@ -390,20 +473,20 @@
                             </div>
 
                             <div class="bottom">
-                                <div class="donation-progress row">
-                                    <div class="seperator top"></div>
 
-                                    <!-- Display total_lkr -->
-                                    <div class="total-lkr">
-                                        Total Raised:
-                                        <fmt:formatNumber value="${approveModel.totalLkr}" type="number" maxFractionDigits="0"/> LKR
+                                <div class="seperator top"></div>
+
+                                <!-- Display total_lkr -->
+                                <div class="total-lkr">
+                                    Total Raised:
+                                    <fmt:formatNumber value="${approveModel.totalLkr}" type="number" maxFractionDigits="0"/> LKR
+                                </div>
+                                <br>
+                                <!-- Calculate and display percentage -->
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
                                     </div>
 
-                                    <!-- Calculate and display percentage -->
-                                    <div class="progress-bar-container">
-                                        <div class="progress-bar" style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
-                                        </div>
-                                    </div>
 
                                     <div class="percentage">
                                             ${approveModel.targetamount > 0 ?
@@ -424,122 +507,20 @@
 
                 </div>
 
-                <!-- Payment Popup -->
-                <div id="paymentPopup" class="payment-popup" style="display: none;">
-                    <div class="popup-content">
-                        <div class="popup-header">
-                            <h3>Select Payment Method</h3>
-                            <span class="close-popup" onclick="closePaymentPopup()">&times;</span>
-                        </div>
-                        <div class="payment-options">
-                            <div class="payment-method" onclick="selectPaymentMethod('card')">
-                                <i class="fas fa-credit-card"></i>
-                                <span>Credit/Debit Card</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('bank')">
-                                <i class="fas fa-university"></i>
-                                <span>Bank Transfer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
 
                 <!-- Bank Transfer Form -->
                 <form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
+                    <!-- Hidden fields -->
                     <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
+
                     <input type="hidden" name="user_id" value="${user.userId}">
                     <input type="hidden" name="csrfToken" value="${csrfToken}">
 
-                    <div id="banktransfer" class="transfer-popup" style="display:none;">
-                        <div class="popup-content">
-                            <div class="popup-header">
-                                <h3>Bank Transfer Donation</h3>
-                                <span class="close-btn" onclick="closeTransferPopup()">&times;</span>
-                            </div>
-                            <div class="transfer-details">
-                                <h3>Bank Transfer Information</h3>
 
-                                <!-- Bank Information -->
-                                <div class="form-group">
-                                    <label for="bank-name">Bank Name*</label>
-                                    <select id="bank-name" name="bank_name" required>
-                                        <option value="">Select your bank</option>
-                                        <option value="Commercial Bank">Commercial Bank</option>
-                                        <option value="People's Bank">People's Bank</option>
-                                        <option value="Bank of Ceylon">Bank of Ceylon</option>
-                                        <option value="Hatton National Bank">Hatton National Bank</option>
-                                        <option value="Sampath Bank">Sampath Bank</option>
-                                        <option value="other">Other Bank</option>
-                                    </select>
-                                    <input type="text" id="other-bank" name="bank_name" style="display:none; margin-top:5px;"
-                                           placeholder="Please specify bank name">
-                                </div>
-
-                                <!-- Account Details -->
-                                <div class="form-group">
-                                    <label for="account-holder">Account Holder Name*</label>
-                                    <input type="text" id="account-holder" name="account_holder_name" required
-                                           placeholder="As it appears in bank records">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="account_number">Account Number*</label>
-                                    <input type="text" id="account_number" name="account_number" required
-                                           placeholder="Your bank account number">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="branch">Branch Name</label>
-                                    <input type="text" id="branch" name="branch"
-                                           placeholder="Bank branch location">
-                                </div>
-
-                                <!-- Transfer Details -->
-                                <div class="form-group">
-                                    <label for="transfer-amount">Transfer Amount (LKR)*</label>
-                                    <input type="number" id="transfer-amount" name="amount" min="100" step="100" required
-                                           placeholder="Minimum 100 LKR">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="currency">Currency*</label>
-                                    <select id="currency" name="currency" required>
-                                        <option value="LKR">LKR</option>
-                                        <option value="USD">USD</option>
-                                    </select>
-                                </div>
-
-                                <!-- Receipt Upload -->
-                                <div class="form-group">
-                                    <label for="receipt">Upload Transfer Receipt*</label>
-
-
-                                    <input type="file" name="receipt_image_path" id="receipt" multiple >
-                                    <small>Upload clear image/PDF of your bank transfer receipt</small>
-                                </div>
-
-                                <!-- Reference Code -->
-                                <div class="form-group">
-                                    <label for="reference">Payment Reference*</label>
-                                    <input type="text" id="reference" name="reference_code" required readonly>
-                                    <small>Include this code in your transfer description</small>
-                                </div>
-
-                                <!-- Confirmation -->
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
-                                    <label for="confirm-terms">I confirm this transfer is from my own account</label>
-                                </div>
-
-                                <!-- Form Actions -->
-                                <div class="form-actions">
-                                    <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel</button>
-                                    <button type="submit" class="submit-btn">Submit Transfer</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -549,11 +530,17 @@
 <script src="../loadSidebar.js"></script>
 <script src="./fund-pop.js"></script>
 
+
+
+// Example: setting it from a JS variable (e.g., passed from server-side or another element)
 <script>
-    // Sidebar and navigation functionality
-    let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
+
+
+
+    const sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
+    const paymnetPopup = document.querySelector(".popup-content");
 
     sideMenuBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -570,164 +557,160 @@
         });
     });
 
-    // Payment and transfer popup functionality
+
     let currentRequestId = '';
 
-    function showPaymentPopup(requestId) {
+    window.showPaymentPopup = function (requestId) {
         currentRequestId = requestId;
         document.getElementById('paymentPopup').style.display = 'flex';
     }
 
-    function closePaymentPopup() {
+    window.closePaymentPopup = function () {
         document.getElementById('paymentPopup').style.display = 'none';
     }
 
-    function selectPaymentMethod(method) {
+    window.selectPaymentMethod = function (method) {
         closePaymentPopup();
         if (method === 'card') {
             window.location.href = 'card-payment.jsp?requestId=' + currentRequestId;
         } else if (method === 'bank') {
-            showTransferPopup(currentRequestId);
+            paymnetPopup.style.display = "none";
+            openTransferPopup();
         }
     }
 
-    function showTransferPopup(requestId) {
-        currentRequestId = requestId;
-        document.getElementById('fundraiser_id').value = requestId;
-        // Generate reference code
-        document.getElementById('reference').value = 'DON-' + requestId + '-' + Math.floor(Math.random() * 10000);
+    window.openTransferPopup = function () {
+        document.getElementById('fundraiser_id').value = currentRequestId;
         document.getElementById('banktransfer').style.display = 'flex';
+        const paymentMethods = document.getElementById('payment-methods');
+        if (paymentMethods) {
+            paymentMethods.style.display = 'none';
+        }
     }
 
-    function closeTransferPopup() {
+    window.closeTransferPopup = function () {
         document.getElementById('banktransfer').style.display = 'none';
-        document.getElementById('transfer-form').reset();
+        const paymentMethods = document.getElementById('payment-methods');
+        if (paymentMethods) {
+            paymentMethods.style.display = 'block';
+        }
     }
 
-    // Close popups when clicking outside
-    document.getElementById('paymentPopup').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePaymentPopup();
-        }
-    });
+    const bankTransferPopup = document.getElementById('banktransfer');
+    if (bankTransferPopup) {
+        bankTransferPopup.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeTransferPopup();
+            }
+        });
+    }
 
-    document.getElementById('banktransfer').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeTransferPopup();
-        }
-    });
-
-    // Show other bank input if "Other Bank" is selected
-    document.getElementById('bank-name').addEventListener('change', function() {
-        const otherBankInput = document.getElementById('other-bank');
-        otherBankInput.style.display = this.value === 'other' ? 'block' : 'none';
-        if (this.value !== 'other') {
-            otherBankInput.value = '';
-        }
-    });
 
     document.addEventListener('DOMContentLoaded', function() {
-        // UI Elements
+        // Get all necessary elements
         const filterToggle = document.querySelector('.filter-toggle');
         const dropdownMenu = document.getElementById('dropdownMenu');
         const allCategoriesCheckbox = document.getElementById('all-categories');
+        const educationCheckbox = document.getElementById('education');
+        const socialCheckbox = document.getElementById('social');
+        const communityCheckbox = document.getElementById('community');
         const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+        const projectItems = document.querySelectorAll('.fund');
 
-        // Toggle dropdown
-        filterToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !isExpanded);
-            dropdownMenu.classList.toggle('show', !isExpanded);
-        });
+        // Toggle dropdown visibility
+        if (filterToggle && dropdownMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                dropdownMenu.classList.toggle('show', !isExpanded);
+            });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function() {
-            filterToggle.setAttribute('aria-expanded', 'false');
-            dropdownMenu.classList.remove('show');
-        });
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                filterToggle.setAttribute('aria-expanded', 'false');
+                dropdownMenu.classList.remove('show');
+            });
 
-        // Prevent dropdown close when clicking inside
-        dropdownMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+            // Prevent dropdown from closing when clicking inside
+            dropdownMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
 
         // Handle "All Categories" checkbox
-        allCategoriesCheckbox.addEventListener('change', function() {
-            const isChecked = this.checked;
-            categoryCheckboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
+        if (allCategoriesCheckbox) {
+            allCategoriesCheckbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                categoryCheckboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                filterProjects();
             });
-            filterProjects();
-        });
+        }
 
         // Handle individual category checkboxes
         categoryCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (!this.checked) {
-                    allCategoriesCheckbox.checked = false;
+                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = false;
                 } else if (Array.from(categoryCheckboxes).every(cb => cb.checked)) {
-                    allCategoriesCheckbox.checked = true;
+                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = true;
                 }
                 filterProjects();
             });
         });
 
-        // Keyboard navigation
-        filterToggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-
-        // Main filtering function
+        // Filter projects based on selected categories
         function filterProjects() {
-            const allChecked = allCategoriesCheckbox.checked;
-            const selectedCategories = getSelectedCategories();
+            const showAll = allCategoriesCheckbox ? allCategoriesCheckbox.checked : false;
+            const showEducation = educationCheckbox ? educationCheckbox.checked : false;
+            const showSocial = socialCheckbox ? socialCheckbox.checked : false;
+            const showCommunity = communityCheckbox ? communityCheckbox.checked : false;
 
-            updateFilterLabel(selectedCategories, allChecked);
-            filterProjectElements(selectedCategories, allChecked);
-        }
-
-        // Get selected categories
-        function getSelectedCategories() {
-            if (allCategoriesCheckbox.checked) return [];
-
-            return Array.from(categoryCheckboxes)
-                .filter(cb => cb.checked)
-                .map(cb => {
-                    switch(cb.id) {
-                        case 'education': return 'Education';
-                        case 'social': return 'Social';
-                        case 'community': return 'Community Service';
-                        default: return '';
-                    }
-                })
-                .filter(Boolean);
-        }
-
-        // Update the filter label
-        function updateFilterLabel(selectedCategories, allChecked) {
-            const filterLabel = document.getElementById('filter-label');
-            filterLabel.textContent = allChecked ? 'All Categories' :
-                selectedCategories.length ? selectedCategories.join(', ') : 'Select Categories';
-        }
-
-        // Filter project elements
-        function filterProjectElements(selectedCategories, allChecked) {
-            document.querySelectorAll('.fund').forEach(project => {
+            projectItems.forEach(project => {
                 const categoryElement = project.querySelector('.category');
-                const category = categoryElement ? categoryElement.textContent.trim() : '';
+                if (!categoryElement) return;
 
-                const shouldShow = allChecked || selectedCategories.includes(category);
+                const category = categoryElement.textContent.trim().toLowerCase();
+
+                // Determine if project should be shown
+                const shouldShow = showAll ||
+                    (showEducation && category.includes('education')) ||
+                    (showSocial && (category.includes('social') || category === 'social')) ||
+                    (showCommunity && (category.includes('community') || category.includes('community-service')));
+
                 project.style.display = shouldShow ? 'flex' : 'none';
             });
+
+            updateFilterLabel();
         }
 
-        // Initial filter on page load
+        // Update the filter label text
+        function updateFilterLabel() {
+            const filterLabel = document.getElementById('filter-label');
+            if (!filterLabel) return;
+
+            if (allCategoriesCheckbox && allCategoriesCheckbox.checked) {
+                filterLabel.textContent = 'All Categories';
+                return;
+            }
+
+            const selectedCategories = [];
+            if (educationCheckbox && educationCheckbox.checked) selectedCategories.push('Education');
+            if (socialCheckbox && socialCheckbox.checked) selectedCategories.push('Social');
+            if (communityCheckbox && communityCheckbox.checked) selectedCategories.push('Community Service');
+
+            filterLabel.textContent = selectedCategories.length > 0
+                ? selectedCategories.join(', ')
+                : 'Select Categories';
+        }
+
+        // Initial filter
         filterProjects();
     });
+
+
 </script>
 </body>
 </html>

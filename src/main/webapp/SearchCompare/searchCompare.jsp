@@ -77,6 +77,7 @@
       <form action="GetPoliticianProfileDetailsServlet" method="get">
         <tr>
           <!-- Politician 1 -->
+          <td></td>
           <td class="column-head f-col">
             <div class="content f-col">
               <div class="search">
@@ -144,7 +145,7 @@
         <tr>
           <td colspan="3" style="text-align: center; padding-top: 10px;">
             <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
-            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>
+<%--            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>--%>
             <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Profiles</button>
           </td>
         </tr>
@@ -523,6 +524,7 @@
         <form action="GetPartyProfileDetailsServlet" method="get">
           <tr>
             <!-- Politician 1 -->
+            <td></td>
             <td class="column-head f-col">
               <div class="content f-col">
                 <div class="search">
@@ -932,6 +934,7 @@
 
     if (searchTerm.length < 1) {
       suggestionsContainer.style.display = "none";
+      suggestionsContainer.style.border = "none";
       return;
     }
 

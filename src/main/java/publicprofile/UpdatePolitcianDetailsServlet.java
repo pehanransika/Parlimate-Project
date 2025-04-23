@@ -12,6 +12,7 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Retrieve parameters from the form (assume all are passed as form data)
+        System.out.println("profileId: " + request.getParameter("profile_id"));
         int profileId = Integer.parseInt(request.getParameter("profile_id"));
         int politicianId = Integer.parseInt(request.getParameter("politician_id"));
         String fullName = request.getParameter("full_name");
@@ -105,7 +106,7 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
         boolean updated = controller.updatePoliticianDetails(profile);
 
         if (updated) {
-            response.sendRedirect(request.getContextPath() + "/admin/ProfileManagement/GetPoliticianProfileDetailsAdminServlet");
+            response.sendRedirect(request.getContextPath() + "/admin/ProfileManagement/profileManagement.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/update-failure.jsp");
         }

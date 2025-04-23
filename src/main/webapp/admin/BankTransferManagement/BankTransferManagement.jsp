@@ -148,26 +148,14 @@
                                         <div class="info-label">Fundraiser ID:</div>
                                         <div class="info-value">${transfer.fundraiser_id}</div>
                                     </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Bank:</div>
-                                        <div class="info-value">${transfer.bank_name}</div>
-                                    </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Account Holder:</div>
-                                        <div class="info-value">${transfer.account_holder_name}</div>
-                                    </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Account Number:</div>
-                                        <div class="info-value">${transfer.account_number}</div>
-                                    </div>
+
+
+
                                     <div class="info-row f-row">
                                         <div class="info-label">Amount:</div>
                                         <div class="info-value">${transfer.currency} ${transfer.amount}</div>
                                     </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Reference Code:</div>
-                                        <div class="info-value">${transfer.reference_code}</div>
-                                    </div>
+
                                     <div class="info-row f-row">
                                         <div class="info-label">Receipt:</div>
                                         <div class="info-value">
@@ -190,18 +178,18 @@
                                           method="POST"
                                           onsubmit="return confirm('Are you sure you want to approve this request?');">
                                         <input type="hidden" name="transfer_id" value="${transfer.transfer_id}"/>
-                                    <button class="btn approve-btn" onclick="approveTransfer(${transfer.transfer_id})">
-                                        <i class="fa-regular fa-check"></i> Approve
-                                    </button>
+                                        <button class="btn approve-btn" onclick="approveTransfer(${transfer.transfer_id})">
+                                            <i class="fa-regular fa-check"></i> Approve
+                                        </button>
                                     </form>
                                     <form action="${pageContext.request.contextPath}/admin/BankTransferManagement/DeleteBankTransferRequestServlet"
                                           method="post"
                                           onsubmit="return confirm('Are you sure you want to delete this request?');"
                                           style="display:inline;">
                                         <input type="hidden" name="transferId" value="${transfer.transfer_id}"/>
-                                    <button class="btn reject-btn" onclick="rejectTransfer(${transfer.transfer_id})">
-                                        <i class="fa-regular fa-xmark"></i> Reject
-                                    </button>
+                                        <button class="btn reject-btn" onclick="rejectTransfer(${transfer.transfer_id})">
+                                            <i class="fa-regular fa-xmark"></i> Reject
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -230,22 +218,13 @@
                                         <div class="info-label">Fundraiser ID:</div>
                                         <div class="info-value">${transfer.fundraiser_id}</div>
                                     </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Bank:</div>
-                                        <div class="info-value">${transfer.bank_name}</div>
-                                    </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Account Holder:</div>
-                                        <div class="info-value">${transfer.account_holder_name}</div>
-                                    </div>
+
+
                                     <div class="info-row f-row">
                                         <div class="info-label">Amount:</div>
                                         <div class="info-value">${transfer.currency} ${transfer.amount}</div>
                                     </div>
-                                    <div class="info-row f-row">
-                                        <div class="info-label">Reference Code:</div>
-                                        <div class="info-value">${transfer.reference_code}</div>
-                                    </div>
+
                                 </div>
                             </div>
                         </c:forEach>
@@ -313,7 +292,7 @@
         const reason = prompt('Please enter the reason for rejection:');
         if (reason !== null) {
             // This assumes you have access to the reason in JSP context
-            fetch(`/rejectTransfer?transferId=${transferId}&reason=${fn:escapeXml(reason)}`, {
+            fetch(/rejectTransfer?transferId=${transferId}&reason=${fn:escapeXml(reason)}, {
                 method: 'POST'
             })
                 .then(response => {
@@ -328,34 +307,33 @@
                     console.error('Error:', error);
                     alert('An error occurred while rejecting the transfer.');
                 });        }*/
-        function deleteTransfer(transferId) {
-            if (confirm('Are you sure you want to delete this request?')) {
-                fetch('${pageContext.request.contextPath}/admin/BankTransferManagement/DeleteBankTransferRequestServlet', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `transferId=${transferId}`
+    function deleteTransfer(transferId) {
+        if (confirm('Are you sure you want to delete this request?')) {
+            fetch('${pageContext.request.contextPath}/admin/BankTransferManagement/DeleteBankTransferRequestServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: transferId=${transferId}
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Show success message for 2 seconds before refreshing
+                        const msg = document.createElement('div');
+                        msg.className = 'delete-success-msg';
+                        msg.textContent = 'Transfer deleted successfully!';
+                        document.body.appendChild(msg);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        alert('Failed to delete transfer.');
+                    }
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            // Show success message for 2 seconds before refreshing
-                            const msg = document.createElement('div');
-                            msg.className = 'delete-success-msg';
-                            msg.textContent = 'Transfer deleted successfully!';
-                            document.body.appendChild(msg);
-                            setTimeout(() => {
-                                location.reload();
-                            }, 2000);
-                        } else {
-                            alert('Failed to delete transfer.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while deleting the transfer.');
-                    });
-            }
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the transfer.');
+                });
         }
     }
 </script>

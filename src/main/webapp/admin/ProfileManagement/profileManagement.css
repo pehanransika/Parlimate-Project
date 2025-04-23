@@ -41,7 +41,7 @@ input{
     background: #fff;
     border-radius: 1rem;
     min-height: 20rem;
-    border: 1px solid #dfdfdf;
+    border: 1px solid #6b6b6b;
 }
 select {
     padding: 0.35rem 0.5rem;
@@ -236,10 +236,15 @@ tr.detail-begin td {
 }
 
 .suggestion-box li {
-    padding: 8px;
+    padding: 0.5rem 1rem ;
     cursor: pointer;
 }
 
 .suggestion-box li:hover {
     background-color: #f0f0f0;
+}
+.container{
+    margin-left: 18rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
