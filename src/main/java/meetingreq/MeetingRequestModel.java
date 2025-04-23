@@ -21,11 +21,14 @@ public class MeetingRequestModel {
     private String discussionformat;        // Format of the meeting (e.g., panel, town hall)
     private String preferredhost;           // Preferred host for the meeting
     private int participantcount;
+    private boolean status;  // New boolean field to indicate active/inactive
+
 
     // Parameterized constructor
     public MeetingRequestModel(int meetingrequestid, String topic, int politician_id, String purposeofmeeting,
                                LocalDate proposaldate, LocalTime proposaltime, String estimatedduration, String opponentname,
-                               String partyaffiliation, String discussionformat, String preferredhost , int participantcount) {
+                               String partyaffiliation, String discussionformat, String preferredhost, int participantcount,
+                               boolean status) {
         this.meetingrequestid = meetingrequestid;
         this.topic = topic;
         this.politician_id = politician_id;
@@ -38,7 +41,9 @@ public class MeetingRequestModel {
         this.discussionformat = discussionformat;
         this.preferredhost = preferredhost;
         this.participantcount = participantcount;
+        this.status = status;
     }
+
 
     // Getters and Setters
     public int getMeetingrequestid() {
@@ -133,7 +138,16 @@ public class MeetingRequestModel {
 
     public void setparticipantcount(int participantcount) {this.participantcount = participantcount;}
 
-    // Override toString for better readability
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+
+    // Override toString for better readabili
     @Override
     public String toString() {
         return "MeetingRequestModel{" +
@@ -149,8 +163,10 @@ public class MeetingRequestModel {
                 ", discussionformat='" + discussionformat + '\'' +
                 ", preferredhost='" + preferredhost + '\'' +
                 ", participantcount=" + participantcount +
+                ", status=" + status +
                 '}';
     }
+
 }
 
 

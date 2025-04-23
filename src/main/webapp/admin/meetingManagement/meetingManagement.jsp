@@ -153,9 +153,10 @@
                         </label>
                         <input
                                 type="search"
-                                placeholder="Search by name/userId"
+                                placeholder="Search by topic"
                                 name="user-search"
                                 id="user-search"
+                                oninput="searchByTopic()"
                         />
                     </div>
                     <div class="scheduled-meeting">
@@ -164,10 +165,21 @@
                             Scheduled Meetings
                         </button>
                     </div>
-                    <button class="add-btn f-row">
-                        <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add User
-                    </button>
+                    <div class="status-filter">
+                        <select id="status-filter" onchange="filterByStatus()">
+                            <option value="all">All Meetings</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="non-accepted">Non-Accepted</option>
+                        </select>
+                    </div>
+                    <div class="date-filter">
+                        <input
+                                type="date"
+                                id="date-filter"
+                                onchange="filterByDate()"
+                                placeholder="Filter by date"
+                        />
+                    </div>
                 </div>
             </div>
             <h2 class="section-title">Meeting Requests</h2>
@@ -187,14 +199,14 @@
                         <td>Date</td>
                         <td>Time</td>
                         <td>Duration</td>
+                        <td>Status</td>
                         <td>No of Participants</td>
-
-                        <td>Action</td> <!-- New Column for Button -->
+                        <td>Action</td>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="meeting-table-body">
                     <c:forEach var="meeting" items="${allMeetingRequestsAdmin}">
-                        <tr>
+                        <tr data-status="${meeting.status}" data-date="${meeting.proposaldate}">
                             <td>${meeting.meetingrequestid}</td>
                             <td>${meeting.politician_id}</td>
                             <td>${meeting.topic}</td>
@@ -202,6 +214,7 @@
                             <td>${meeting.proposaldate}</td>
                             <td>${meeting.proposaltime}</td>
                             <td>${meeting.estimatedduration}</td>
+                            <td>${meeting.status}</td>
                             <td>${meeting.participantcount}</td>
                             <td>
                                 <button
@@ -235,6 +248,7 @@
         </div>
     </div>
 </div>
+
 <!-- Main Meeting Details Popup -->
 <div id="popup-container" style="display: none;">
     <div class="popup-box">
@@ -309,7 +323,6 @@
     </div>
 </div>
 
-
 <script>
     function openPopup(id, user, title, purpose, date, time, duration, participants, typeofthemeeting, host) {
         document.getElementById("popup-id").innerText = id || "Not Specified";
@@ -330,21 +343,24 @@
         document.getElementById("accepted-typeofthemeeting").value = document.getElementById("popup-typeofthemeeting").textContent;
         document.getElementById("accepted-host").value = document.getElementById("popup-host").textContent;
 
-        // Optional: Set placeholders for platform, deadline, and slots if not in popup
         document.getElementById("accepted-platform").placeholder = "Enter platform (e.g. Zoom, Google Meet)";
-        document.getElementById("accepted-deadline").value = ""; // Let user pick
-        document.getElementById("accepted-slots").value = ""; // Let user enter
-
+        document.getElementById("accepted-deadline").value = "";
+        document.getElementById("accepted-slots").value = "";
 
         document.getElementById("popup-container").style.display = "block";
     }
 
-
     function closePopup() {
         document.getElementById("popup-container").style.display = "none";
+        document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("response-buttons").style.display = "block";
+
+        document.getElementById("accepted-topic").value = "";
+        document.getElementById("accepted-description").value = "";
+        document.getElementById("accepted-time").value = "";
     }
 
-document.querySelectorAll('.actbtn button').forEach(button => {
+    document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
                 if (menu !== button.nextElementSibling) {
@@ -360,8 +376,6 @@ document.querySelectorAll('.actbtn button').forEach(button => {
             window.location.href = "<%= request.getContextPath() %>/GetAllMeetingServlet";
         });
 
-
-        // Close popup when close button is clicked
         document.querySelectorAll(".close-btn").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.remove("popup-active");
@@ -377,12 +391,45 @@ document.querySelectorAll('.actbtn button').forEach(button => {
 
     function rejectMeeting() {
         alert("Meeting Rejected.");
-        // Send rejection to servlet here if needed
         closePopup();
     }
 
+    function filterByStatus() {
+        const filterValue = document.getElementById("status-filter").value;
+        const dateFilter = document.getElementById("date-filter").value;
+        const searchQuery = document.getElementById("user-search").value.toLowerCase();
+        const rows = document.querySelectorAll("#meeting-table-body tr");
+
+        rows.forEach(row => {
+            const status = row.getAttribute("data-status").toLowerCase();
+            const date = row.getAttribute("data-date");
+            const topic = row.cells[2].textContent.toLowerCase(); // Topic is in the third column (index 2)
+
+            // Check status filter
+            const matchesStatus = filterValue === "all" ||
+                (filterValue === "accepted" && status === "false") ||
+                (filterValue === "non-accepted" && status === "true");
+
+            // Check date filter
+            const matchesDate = !dateFilter || date === dateFilter;
+
+            // Check search query
+            const matchesSearch = !searchQuery || topic.includes(searchQuery);
+
+            // Show row only if all filters match
+            row.style.display = matchesStatus && matchesDate && matchesSearch ? "" : "none";
+        });
+    }
+
+    function filterByDate() {
+        filterByStatus(); // Reuse the combined filtering logic
+    }
+
+    function searchByTopic() {
+        filterByStatus(); // Reuse the combined filtering logic
+    }
+
     function submitAcceptedDetails() {
-        // Get values from the popup labels (view-only data)
         const politicianId = document.getElementById('accepted-politicianId').value;
         const typeofthemeeting = document.getElementById('accepted-typeofthemeeting').value;
         const topic = document.getElementById('accepted-topic').value;
@@ -407,7 +454,6 @@ document.querySelectorAll('.actbtn button').forEach(button => {
         console.log("slots:", slots);
         console.log("===========================================");
 
-        // Create FormData to send data via POST
         const formData = new FormData();
         formData.append("politicianId", politicianId);
         formData.append("topic", topic);
@@ -419,9 +465,8 @@ document.querySelectorAll('.actbtn button').forEach(button => {
         formData.append("platform", platform);
         formData.append("deadlinetoregister", deadline);
         formData.append("slots", slots);
-        formData.append("availableSlots", slots); // Optional: keep if needed
+        formData.append("availableSlots", slots);
 
-        // Submit to backend
         fetch("CreateMeetingServlet", {
             method: "POST",
             body: formData
@@ -429,7 +474,7 @@ document.querySelectorAll('.actbtn button').forEach(button => {
             .then(response => {
                 if (response.ok) {
                     alert("Meeting accepted and sent to servlet.");
-                    closePopup(); // Assuming this closes the popup
+                    closePopup();
                 } else {
                     alert("Error submitting meeting details.");
                 }
@@ -439,20 +484,6 @@ document.querySelectorAll('.actbtn button').forEach(button => {
                 alert("Something went wrong while submitting.");
             });
     }
-
-
-
-    function closePopup() {
-        document.getElementById("popup-container").style.display = "none";
-        document.getElementById("accept-extra-fields").style.display = "none";
-        document.getElementById("response-buttons").style.display = "block";
-
-        // Clear inputs
-        document.getElementById("accepted-topic").value = "";
-        document.getElementById("accepted-description").value = "";
-        document.getElementById("accepted-time").value = "";
-    }
-
 </script>
 </body>
 </html>

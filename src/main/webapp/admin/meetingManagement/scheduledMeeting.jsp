@@ -167,7 +167,7 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/Home/index.jsp" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>Home</span>
                 </a>
