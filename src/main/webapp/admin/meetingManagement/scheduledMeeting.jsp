@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="admin/meetingManagement/meetingManagement.css" />
     <link rel="stylesheet" href="admin/index.css" />
 
-    <!-- Inline CSS for Date Filter and View Button -->
+    <!-- Inline CSS for Date Filter, View Button, and Meeting Status Filter -->
     <style>
         .date-filter {
             display: flex;
@@ -32,6 +32,23 @@
             font-family: "Poppins", sans-serif;
         }
         .date-filter input[type="date"]:focus {
+            outline: none;
+            border-color: #1f1f1f;
+        }
+        .meeting-status-filter {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .meeting-status-filter select {
+            color: #6b6b6b;
+            border: 1px solid #8e8e8e;
+            padding: 0.25rem;
+            border-radius: 0.5rem;
+            font-family: "Poppins", sans-serif;
+            font-size: 0.8rem;
+        }
+        .meeting-status-filter select:focus {
             outline: none;
             border-color: #1f1f1f;
         }
@@ -111,13 +128,13 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/Home/index.jsp" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row active">
+                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
                     <span>User Management</span>
                 </a>
@@ -141,7 +158,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row active">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
@@ -202,7 +219,7 @@
                         </label>
                         <input
                                 type="search"
-                                placeholder="Search by name/userId"
+                                placeholder="Search by topic"
                                 name="user-search"
                                 id="user-search"
                         />
@@ -217,6 +234,13 @@
                                 id="date-filter"
                                 placeholder="Filter by date"
                         />
+                    </div>
+                    <div class="meeting-status-filter">
+                        <select name="meeting-status" id="meeting-status">
+                            <option value="all">All Meetings</option>
+                            <option value="upcoming">Upcoming Meetings</option>
+                            <option value="past">Past Meetings</option>
+                        </select>
                     </div>
                     <div class="scheduled-meeting">
                         <button class="filter-btn f-row" id="request-btn">
@@ -441,25 +465,60 @@
             });
         });
 
-        // Date filter logic
+        // Filter logic
+        const searchInput = document.getElementById("user-search");
         const dateFilter = document.getElementById("date-filter");
-        dateFilter.addEventListener("change", function() {
-            const selectedDate = this.value;
+        const statusFilter = document.getElementById("meeting-status");
+
+        function applyFilters() {
+            const searchQuery = searchInput.value.toLowerCase();
+            const selectedDate = dateFilter.value;
+            const selectedStatus = statusFilter.value;
             const rows = document.querySelectorAll("table.users tbody tr");
+            const now = new Date();
+
+            let visibleRows = 0;
 
             rows.forEach(row => {
-                const dateCell = row.cells[4].textContent; // Date column (index 4)
-                if (selectedDate === "" || dateCell === selectedDate) {
+                const topic = row.cells[2].textContent.toLowerCase(); // Topic column (index 2)
+                const date = row.cells[4].textContent; // Date column (index 4)
+                const time = row.cells[5].textContent; // Time column (index 5)
+                const meetingDateTime = new Date(`${date}T${time}`);
+
+                // Check search filter
+                const matchesSearch = searchQuery === "" || topic.includes(searchQuery);
+
+                // Check date filter
+                const matchesDate = selectedDate === "" || date === selectedDate;
+
+                // Check status filter
+                let matchesStatus = true;
+                if (selectedStatus === "upcoming") {
+                    matchesStatus = meetingDateTime > now;
+                } else if (selectedStatus === "past") {
+                    matchesStatus = meetingDateTime < now;
+                }
+
+                // Show/hide row based on all filters
+                if (matchesSearch && matchesDate && matchesStatus) {
                     row.style.display = "";
+                    visibleRows++;
                 } else {
                     row.style.display = "none";
                 }
             });
 
             // Update total records count
-            const visibleRows = Array.from(rows).filter(row => row.style.display !== "none").length;
             document.querySelector(".total-records span").textContent = visibleRows;
-        });
+        }
+
+        // Add event listeners for all filters
+        searchInput.addEventListener("input", applyFilters);
+        dateFilter.addEventListener("change", applyFilters);
+        statusFilter.addEventListener("change", applyFilters);
+
+        // Initial filter application
+        applyFilters();
     });
 </script>
 </body>
