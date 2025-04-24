@@ -720,6 +720,89 @@
 <!--    <servlet-name>LogoutServlet</servlet-name>-->
 <!--    <url-pattern>/LogoutServlet</url-pattern>-->
 <!--  </servlet-mapping>-->
+  <!--       survey servlets     -->
+
+
+  <servlet>
+    <servlet-name>CreateSurveyServlet</servlet-name>
+    <servlet-class>surveys.CreateSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateSurveyServlet</servlet-name>
+    <url-pattern>/Surveys/CreateSurveyServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <servlet-class>surveys.DeleteSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <url-pattern>/Surveys/DeleteSurveyServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetUserSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetUserSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>GetParlimateSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetParlimateSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetParlimateSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetParlimateSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetYourSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetYourSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetYourSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetYourSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>vote</servlet-name>
+    <servlet-class>surveys.VoteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vote</servlet-name>
+    <url-pattern>/Surveys/vote</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <servlet-class>surveys.GetVotesServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <url-pattern>/Surveys/getVotes</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <servlet-class>surveys.GetUserVoteServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <url-pattern>/Surveys/getUserVote</url-pattern>
+  </servlet-mapping>
+
+
+  <!--      survey servlets end  -->
   <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
