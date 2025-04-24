@@ -1,4 +1,5 @@
 <%@ page import="UserPackage.UserModel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
@@ -13,8 +14,6 @@
     int userId = user.getUserId();
     String userEmail = user.getEmail(); // Assuming UserModel has getEmail() method
     boolean isGmail = userEmail != null && userEmail.toLowerCase().endsWith("@gmail.com");
-
-    // You can now use this userId as needed
 %>
 
 <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
@@ -41,7 +40,6 @@
             title="Web Awesome"
             href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
     />
-
     <link
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
@@ -50,6 +48,7 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="">
 
@@ -98,9 +97,7 @@
                 <div class="input-container">
                     <div class="input-group form-active">
                         <div class="field">
-                            <label class="title" for="disc-title"
-                            >proposed Title</label
-                            >
+                            <label class="title" for="disc-title">Proposed Title</label>
                             <input type="hidden" name="politicianid" id="politicianid" value="${userProfile.politicianId}" />
                             <input
                                     type="text"
@@ -111,9 +108,7 @@
                             />
                         </div>
                         <div class="field">
-                            <label class="title" for="disc-desc"
-                            >Purpose of the debate</label
-                            >
+                            <label class="title" for="disc-desc">Purpose of the debate</label>
                             <textarea
                                     name="purposeofmeeting"
                                     id="disc-desc"
@@ -134,9 +129,7 @@
                                 />
                             </div>
                             <div class="field">
-                                <label class="title" for="disc-time"
-                                >time</label
-                                >
+                                <label class="title" for="disc-time">Time</label>
                                 <input
                                         type="time"
                                         name="proposaltime"
@@ -146,11 +139,8 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label class="title" for="disc-dur"
-                            >Estimated duration</label
-                            >
+                            <label class="title" for="disc-dur">Estimated duration</label>
                             <div class="drop-type">
-
                                 <input
                                         type="text"
                                         name="estimatedduration"
@@ -162,12 +152,9 @@
                             <div class="separator"></div>
                         </div>
                         <div class="bottom">
-                            <button type="button" class="cancel-btn btn">
-                                Cancel
-                            </button>
+                            <button type="button" class="cancel-btn btn">Cancel</button>
                             <button type="button" class="next-btn btn">
-                                Next
-                                <i class="fa-solid fa-arrow-right"></i>
+                                Next <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -218,9 +205,9 @@
                         </div>
 
                         <div class="bottom">
-                            <button type="button" class="prev-btn btn">back</button>
+                            <button type="button" class="prev-btn btn">Back</button>
                             <button type="submit" class="next-btn btn">
-                                request <i class="fa-solid fa-check"></i>
+                                Request <i class="fa-solid fa-check"></i>
                             </button>
                         </div>
                     </div>
@@ -235,24 +222,46 @@
     <div class="pageTitles">
         <h2 class="title">Meeting room</h2>
         <div class="subTitle">
-            engage with ongoing live video discussions
+            Engage with ongoing live video discussions
         </div>
     </div>
     <div class="meeting-btns row">
         <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
             <a href="GetMyMeetingRequests?userId=${user.userId}" class="myMeetings row">
-                <span> My meeting requests </span>
+                <span>My meeting requests</span>
                 <i class="fa-solid fa-clock"></i>
             </a>
         </c:if>
         <div class="newmeeting row">
             <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                            <span> request meeting </span
-                            ><i class="fa-solid fa-pencil"></i>
+                <span>Request meeting</span>
+                <i class="fa-solid fa-pencil"></i>
             </c:if>
         </div>
     </div>
     <div class="discussions col">
+        <!-- Search and Filter Section -->
+        <div class="search-filter row">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search by topic or politician name" />
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </div>
+            <div class="filter-group">
+                <label for="date-filter">Filter by Date:</label>
+                <input type="date" id="date-filter" />
+            </div>
+            <div class="filter-group">
+                <label for="status-filter">Meeting Status:</label>
+                <select id="status-filter">
+                    <option value="all">All Meetings</option>
+                    <option value="upcoming">Upcoming Meetings</option>
+                    <option value="past">Past Meetings</option>
+                    <option value="open-reg">Open Registration</option>
+                    <option value="closed-reg">Closed Registration</option>
+                </select>
+            </div>
+        </div>
+
         <div class="navigations row">
             <div class="nav-btn">
                 <button value="upcoming" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet'">
@@ -282,7 +291,8 @@
                          data-time="${allmeetings.time}"
                          data-available-slots="${allmeetings.availableSlots}"
                          data-image-url="GetProfileImageServlet?politicianId=${allmeetings.politicianId}"
-                    >
+                         data-politician-name="${allmeetings.politicianName}"
+                         data-deadline="${allmeetings.deadlinetoregister}">
                         <div class="panelists">
                             <div class="pImgs row">
                                 <div class="prof-img">
@@ -303,14 +313,13 @@
                                         <i class="fa-solid fa-clock"></i>
                                         <span class="start">Time - ${allmeetings.time}</span><br>
                                         <span class="date">
-                                        <i class="fa-solid fa-calendar"></i> Date - ${allmeetings.date}</span>
+                                            <i class="fa-solid fa-calendar"></i> Date - ${allmeetings.date}
+                                        </span>
                                     </div>
                                 </div>
-
-
-                                <div class="body"><strong>Meeting is about : </strong> ${allmeetings.description}</div>
-                                <div class="body"><strong>Type of the Meeting : </strong> ${allmeetings.typeofthemeeting}</div>
-                                <div class="body"><strong>Meeting will be hosted by : </strong> ${allmeetings.host}</div>
+                                <div class="body"><strong>Meeting is about: </strong> ${allmeetings.description}</div>
+                                <div class="body"><strong>Type of the Meeting: </strong> ${allmeetings.typeofthemeeting}</div>
+                                <div class="body"><strong>Meeting will be hosted by: </strong> ${allmeetings.host}</div>
                             </div>
                             <div class="item-interactive row">
                                 <a href="#" class="small-text item-yt">
@@ -322,9 +331,7 @@
                                 </a>
                                 <span class="small-text item-live request-join-btn">
                                     <i class="fa-solid fa-signal-stream"></i>
-                                        Request to Join
-                                </span>
-
+                                    Request to Join
                                 </span>
                                 <div class="body" style="color: #ea2f07">Registration Deadline - ${allmeetings.deadlinetoregister}</div>
                             </div>
@@ -336,13 +343,12 @@
                         </div>
                     </div>
                 </c:forEach>
-
             </div>
         </div>
     </div>
 </div>
 
-<div class="live-meeting-popup" style="display: flex; background: rgba(0,0,0,0.6);">
+<div class="live-meeting-popup" style="display: none; background: rgba(0,0,0,0.6);">
     <div class="popup-container">
         <div class="head row">
             <div class="title">Request to Join</div>
@@ -351,7 +357,6 @@
             </div>
         </div>
         <div class="content">
-            <!-- These will be dynamically updated -->
             <div class="body" id="meetingid">MeetingID</div>
             <div class="meeting-title">Topic</div>
             <div class="date capitalize">Date</div>
@@ -360,9 +365,7 @@
             <div class="profs row">
                 <div class="prof-img"><img id="popup-profile-img" src="" alt="Profile" /></div>
             </div>
-            <div class="slots">
-                [slot count]
-            </div>
+            <div class="slots">[slot count]</div>
             <div class="gmail-input">
                 <label for="gmail">Enter your Gmail address:</label>
                 <input type="email" id="gmail" name="gmail"
@@ -389,6 +392,7 @@
         </div>
     </div>
 </div>
+
 </body>
 <script src="../script.js"></script>
 <script src="../loadSidebar.js"></script>
@@ -402,9 +406,13 @@
     document.addEventListener("DOMContentLoaded", function () {
         const buttons = document.querySelectorAll(".item-live");
         const meetingItems = document.querySelectorAll('.item.live');
+        const searchInput = document.getElementById('search-input');
+        const dateFilter = document.getElementById('date-filter');
+        const statusFilter = document.getElementById('status-filter');
 
+        // Hide join button for meetings with passed deadlines
         meetingItems.forEach(function (item) {
-            const deadlineText = item.querySelector('.body[style*="color: #ea2f07"]').textContent;
+            const deadlineText = item.dataset.deadline;
             const deadlineMatch = deadlineText.match(/(\d{4}-\d{2}-\d{2})/); // match YYYY-MM-DD
 
             if (deadlineMatch) {
@@ -419,6 +427,51 @@
                 }
             }
         });
+
+        // Search and Filter Logic
+        function filterMeetings() {
+            const searchText = searchInput.value.toLowerCase();
+            const filterDate = dateFilter.value;
+            const status = statusFilter.value;
+            const currentDate = new Date();
+
+            meetingItems.forEach(item => {
+                const topic = item.dataset.topic.toLowerCase();
+                const politicianName = item.dataset.politicianName.toLowerCase();
+                const meetingDate = new Date(item.dataset.date);
+                const deadlineDate = new Date(item.dataset.deadline.match(/(\d{4}-\d{2}-\d{2})/)[1]);
+
+                // Search filter
+                const matchesSearch = searchText === '' || topic.includes(searchText) || politicianName.includes(searchText);
+
+                // Date filter
+                const matchesDate = !filterDate || item.dataset.date === filterDate;
+
+                // Status filter
+                let matchesStatus = true;
+                if (status === 'upcoming') {
+                    matchesStatus = meetingDate >= currentDate;
+                } else if (status === 'past') {
+                    matchesStatus = meetingDate < currentDate;
+                } else if (status === 'open-reg') {
+                    matchesStatus = deadlineDate >= currentDate;
+                } else if (status === 'closed-reg') {
+                    matchesStatus = deadlineDate < currentDate;
+                }
+
+                // Show or hide item
+                if (matchesSearch && matchesDate && matchesStatus) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners for filters
+        searchInput.addEventListener('input', filterMeetings);
+        dateFilter.addEventListener('change', filterMeetings);
+        statusFilter.addEventListener('change', filterMeetings);
 
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -504,8 +557,7 @@
                                 console.error("❌ Error adding to wishlist:", err);
                             });
                     };
-                }
-                else {
+                } else {
                     slotsElement.innerHTML = slots + " more seats available";
                     confirmBtn.innerHTML = 'Confirm <i class="fa-solid fa-check"></i>';
                     confMessage.textContent = "Are you sure you want to join the live meeting via Zoom?";
@@ -565,16 +617,19 @@
                     };
                 }
 
-                body.classList.add("overlay-active");
+                document.body.classList.add("overlay-active");
+                popup.style.display = 'flex';
             });
         });
 
         document.querySelector(".live-meeting-popup .close").addEventListener("click", () => {
-            body.classList.remove("overlay-active");
+            document.body.classList.remove("overlay-active");
+            document.querySelector(".live-meeting-popup").style.display = 'none';
         });
 
         document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
-            body.classList.remove("overlay-active");
+            document.body.classList.remove("overlay-active");
+            document.querySelector(".live-meeting-popup").style.display = 'none';
         });
 
         function validateEmail(email) {
@@ -606,13 +661,13 @@
 
         function displayNotification(msg, timeout = 3000) {
             console.log("notification is called");
-            const notificationMsg = document.querySelector("#notification");
+            const notificationMsg = document.querySelector(".notification-msg");
             if (notificationMsg) {
                 notificationMsg.innerHTML = msg;
-                body.classList.add("noti-active");
+                document.body.classList.add("noti-active");
 
                 setTimeout(() => {
-                    body.classList.remove("noti-active");
+                    document.body.classList.remove("noti-active");
                 }, timeout);
             }
         }
