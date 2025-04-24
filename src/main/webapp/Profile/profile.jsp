@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../index.css"/>
     <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="./hashtag.css">
     <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
 
@@ -434,6 +435,7 @@
 </body>
 <script src="../script.js"></script>
 <script src="./popupModals.js"></script>
+<script src="./hashtag.js"></script>
 <script>
     const dateField = document.querySelector(".joined-date .date");
     const formatedDate = formatDate(dateField.innerHTML)
@@ -461,6 +463,7 @@
                 }
             }, 100);
         }
+
     });
 
     function updateCities() {
