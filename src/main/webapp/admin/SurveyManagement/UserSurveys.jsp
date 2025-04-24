@@ -78,7 +78,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -95,12 +95,12 @@
                     <span>post management</span>
                 </a>
             </li>
-            <li>
-                <a href="#" class="nav-item f-row">
-                    <i class="fa-regular fa-circle-check"></i>
-                    <span>requests</span>
-                </a>
-            </li>
+<%--            <li>--%>
+<%--                <a href="#" class="nav-item f-row">--%>
+<%--                    <i class="fa-regular fa-circle-check"></i>--%>
+<%--                    <span>requests</span>--%>
+<%--                </a>--%>
+<%--            </li>--%>
             <li>
                 <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-money-bill-transfer"></i>

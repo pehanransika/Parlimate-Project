@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: HP
-  Date: 4/23/2025
-  Time: 7:33 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="UserPackage.UserModel" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -113,23 +106,12 @@
             margin-bottom: 20px;
             width: 100%;
         }
-        .profile-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .profile-table th, .profile-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .profile-table th {
-            background-color: #f8f9fa;
+        .section-title {
+            font-size: 1.2rem;
             font-weight: 600;
-        }
-        .profile-table tr:hover {
-            background-color: #f1f1f1;
+            margin-bottom: 1rem;
+            font-family: "Poppins", sans-serif;
+            color: #1e1e1e;
         }
     </style>
 </head>
@@ -137,48 +119,60 @@
 
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="<%= request.getContextPath() %>/admin/assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/admin/Home/index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
-                    <span>Home</span>
+                    <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/admin/userManagement/UserManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
-                    <span>User Management</span>
+                    <span>users</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
-                    <span>Fundraise Management</span>
+                    <span>fundraise management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet" class="nav-item f-row">
                     <i class="fa-regular fa-check-to-slot"></i>
-                    <span>Survey Management</span>
+                    <span>survey management</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-cards-blank"></i>
-                    <span>Post Management</span>
+                    <span>post management</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Comment Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-money-bill-transfer"></i>
+                    <span>bank transfer management</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row active">
+                <a href="<%= request.getContextPath() %>/GetProfileListServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-sliders-up"></i>
                     <span>Profile Management</span>
                 </a>
@@ -189,15 +183,15 @@
                 <a href="#" class="f-row profile">
                     <div class="p-img"></div>
                     <div class="sUser f-col">
-                        <div class="name"><%= user.getEmail() %></div>
+                        <div class="name">Naleeka Kumarasinghe</div>
                         <div class="role">Admin</div>
                     </div>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/LogoutServlet" class="f-row log-out">
+                <a href="#" class="f-row log-out" onclick="logoutUser()">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    Log out
+                    log out
                 </a>
             </li>
         </ul>
@@ -219,35 +213,37 @@
                     onmouseup="this.style.transform='scale(1)'">Search for Full Details</button>
         </div>
 
-        <!-- New Profile Table Container -->
-        <div class="profile-table-container">
-            <table class="profile-table">
-                <thead>
-                <tr>
-                    <th>Profile ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="profile" items="${profilesList}">
+        <div class="content f-col">
+            <h2 class="section-title">Profile List</h2>
+            <div class="profile-table-container">
+                <table class="profile-table">
+                    <thead>
                     <tr>
-                        <td>${profile.profileId}</td>
-                        <td>${profile.fullName}</td>
-                        <td>
-                            <form action="GetPoliticianProfileDetailsAdminServlet" method="get">
-                                <input type="hidden" name="politicianName1" value="${profile.fullName}" />
-                                <button type="submit" name="view" value="1" class="btn btn-info" style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: transparent; color: #1e1e1e; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
-                                        onmouseover="this.style.background='#1e1e1e'; this.style.color='white'; this.style.border='1px solid #1e1e1e';"
-                                        onmouseout="this.style.background='transparent'; this.style.color='#1e1e1e'; this.style.border='1px solid #b8b8b8';"
-                                        onmousedown="this.style.transform='scale(0.95)'"
-                                        onmouseup="this.style.transform='scale(1)'">View </button>
-                            </form>
-                        </td>
+                        <th>Profile ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="profile" items="${profilesList}">
+                        <tr>
+                            <td>${profile.profileId}</td>
+                            <td>${profile.fullName}</td>
+                            <td>
+                                <form action="GetPoliticianProfileDetailsAdminServlet" method="get">
+                                    <input type="hidden" name="politicianName1" value="${profile.fullName}" />
+                                    <button type="submit" name="view" value="1" class="btn btn-info" style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: transparent; color: #1e1e1e; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
+                                            onmouseover="this.style.background='#1e1e1e'; this.style.color='white'; this.style.border='1px solid #1e1e1e';"
+                                            onmouseout="this.style.background='transparent'; this.style.color='#1e1e1e'; this.style.border='1px solid #b8b8b8';"
+                                            onmousedown="this.style.transform='scale(0.95)'"
+                                            onmouseup="this.style.transform='scale(1)'">View</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

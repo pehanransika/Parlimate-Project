@@ -72,15 +72,17 @@
 			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
 		/>
 	</head>
+
 	<body>
+
 	<div class="navMenu f-col center">
 		<div class="logo">
-			<img src="../assets/logo.png" alt="Parlimate" id="logo" />
+			<img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
 		</div>
 		<div class="navigation">
 			<ul>
 				<li>
-					<a href="index.jsp" class="nav-item f-row active">
+					<a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row active">
 						<i class="fa-regular fa-house"></i>
 						<span>home</span>
 					</a>
@@ -110,8 +112,26 @@
 					</a>
 				</li>
 				<li>
+					<a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
+						<i class="fa-regular fa-comments"></i>
+						<span>Comment Management</span>
+					</a>
+				</li>
+				<%--				<li>--%>
+				<%--					<a href="#" class="nav-item f-row">--%>
+				<%--						<i class="fa-regular fa-circle-check"></i>--%>
+				<%--						<span>requests</span>--%>
+				<%--					</a>--%>
+				<%--				</li>--%>
+				<li>
+					<a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+						<i class="fa-regular fa-money-bill-transfer"></i>
+						<span>bank transfer management</span>
+					</a>
+				</li>
+				<li>
 					<a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
-<i class="fa-regular fa-circle-check"></i>
+						<i class="fa-regular fa-circle-check"></i>
 						<span>Meeting Management</span>
 					</a>
 				</li>
@@ -139,9 +159,10 @@
 					</a>
 				</li>
 			</ul>
-    </div>
 		</div>
 	</div>
+
+
 		<div class="pageContent">
 			<div class="container f-col">
 				<div class="top f-row">

@@ -504,6 +504,34 @@
     background: #ffffff;
 }
 
+
+
+
+.meeting-status-filter select {
+    border-radius: 0.5rem;
+    outline: none;
+    border: 1px solid rgb(214, 214, 214);
+    color: #242424;
+    font-weight: 600;
+    background: #eeeeee;
+    padding: 0.6rem 1rem;
+    font-family: "Poppins";
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.meeting-status-filter select:focus {
+    outline: none;
+    border: 1px solid #1f1f1f;
+}
+
+.meeting-status-filter select option {
+    font-family: "Poppins";
+    font-size: 0.8rem;
+    color: #242424;
+    background: #ffffff;
+}
+
 .date-filter {
     display: flex;
     align-items: center;

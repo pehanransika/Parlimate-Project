@@ -41,12 +41,11 @@
             margin-right: 10px;
         }
         .meeting-status-filter select {
-            color: #6b6b6b;
-            border: 1px solid #8e8e8e;
-            padding: 0.25rem;
-            border-radius: 0.5rem;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
             font-family: "Poppins", sans-serif;
-            font-size: 0.8rem;
         }
         .meeting-status-filter select:focus {
             outline: none;
@@ -123,50 +122,62 @@
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="<%= request.getContextPath() %>/admin/assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/admin/Home/index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
-                    <span>Home</span>
+                    <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
-                    <span>User Management</span>
+                    <span>users</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
-                    <span>Fundraise Management</span>
+                    <span>fundraise management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet" class="nav-item f-row">
                     <i class="fa-regular fa-check-to-slot"></i>
-                    <span>Survey Management</span>
+                    <span>survey management</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-cards-blank"></i>
-                    <span>Post Management</span>
+                    <span>post management</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Comment Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-money-bill-transfer"></i>
+                    <span>bank transfer management</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row active" >
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/GetProfileListServlet" class="nav-item f-row">
                     <i class="fa-regular fa-sliders-up"></i>
-                    <span>Platform Settings</span>
+                    <span>Profile Management</span>
                 </a>
             </li>
         </ul>
@@ -181,9 +192,9 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/LogoutServlet" class="f-row log-out">
+                <a href="#" class="f-row log-out" onclick="logoutUser()">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    Log out
+                    log out
                 </a>
             </li>
         </ul>
@@ -301,7 +312,7 @@
                             <td>
                                 <form action="GetRegisteredWishlistServlet" method="get">
                                     <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
-                                    <button type="submit">View</button>
+                                    <button  type="submit">View</button>
                                 </form>
                             </td>
                             <td>
@@ -311,7 +322,7 @@
                                 </form>
                             </td>
                             <td>
-                                <button class="view-btn" onclick="openViewPopup({
+                                <button onclick="openViewPopup({
                                         meetingId: '${fn:escapeXml(meetings.meetingId)}',
                                         politicianId: '${fn:escapeXml(meetings.politicianId)}',
                                         topic: '${fn:escapeXml(meetings.topic)}',
@@ -475,28 +486,31 @@
             const selectedDate = dateFilter.value;
             const selectedStatus = statusFilter.value;
             const rows = document.querySelectorAll("table.users tbody tr");
-            const now = new Date();
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize to midnight for date comparison
 
             let visibleRows = 0;
 
             rows.forEach(row => {
                 const topic = row.cells[2].textContent.toLowerCase(); // Topic column (index 2)
-                const date = row.cells[4].textContent; // Date column (index 4)
-                const time = row.cells[5].textContent; // Time column (index 5)
-                const meetingDateTime = new Date(`${date}T${time}`);
+                const dateStr = row.cells[4].textContent; // Date column (index 4, format YYYY-MM-DD)
+
+                // Parse the meeting date
+                const meetingDate = new Date(dateStr);
+                meetingDate.setHours(0, 0, 0, 0); // Normalize to midnight
 
                 // Check search filter
                 const matchesSearch = searchQuery === "" || topic.includes(searchQuery);
 
                 // Check date filter
-                const matchesDate = selectedDate === "" || date === selectedDate;
+                const matchesDate = selectedDate === "" || dateStr === selectedDate;
 
                 // Check status filter
                 let matchesStatus = true;
                 if (selectedStatus === "upcoming") {
-                    matchesStatus = meetingDateTime > now;
+                    matchesStatus = meetingDate >= today;
                 } else if (selectedStatus === "past") {
-                    matchesStatus = meetingDateTime < now;
+                    matchesStatus = meetingDate < today;
                 }
 
                 // Show/hide row based on all filters

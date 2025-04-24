@@ -22,19 +22,17 @@ import java.util.List;
 )
 public class CreateSurveyServlet extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "uploads"; // Directory to store uploaded images
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Fetch user votes for this question and
         HttpSession session = request.getSession(false);
         // Get the user object from session
         UserModel user = (UserModel) session.getAttribute("user");
-        System.out.println("manuja is the god");
 
         // Extract the userId
         int userid = user.getUserId();
+        // Define the upload directory for the user
+
         surveyController controller = new surveyController(userid);
 
         try {
@@ -93,16 +91,19 @@ public class CreateSurveyServlet extends HttpServlet {
                     }
 
                     // Handle image upload if present
-//                    if (imagePart != null && imagePart.getSize() > 0) {
-//                        String fileName = imagePart.getSubmittedFileName();
-//                        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
-//                        File uploadDir = new File(uploadPath);
-//                        if (!uploadDir.exists()) {
-//                            uploadDir.mkdirs();
-//                        }
-//                        imageUrl = UPLOAD_DIR + File.separator + fileName;
-//                        imagePart.write(uploadPath + File.separator + fileName);
-//                    }
+                    if (imagePart != null && imagePart.getSize() > 0) {
+                        String fileName  = extractFileName(imagePart);
+                        String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "user_" + userid + File.separator+ "user_surveys";
+
+                        // Ensure the user-specific directory exists
+                        File userSurveyDir = new File(uploadPath);
+                        if (!userSurveyDir.exists()) {
+                            userSurveyDir.mkdirs(); // Create the directory (including parent directories if needed)
+                        }
+
+                        imageUrl =  fileName;
+                        imagePart.write(uploadPath + File.separator + fileName);
+                    }
 
                     AnswerModel answer = new AnswerModel(0, answerText, aIndex + 1, imageUrl);
                     answers.add(answer);
@@ -153,5 +154,17 @@ public class CreateSurveyServlet extends HttpServlet {
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
         }
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        if (contentDisposition != null) {
+            for (String content : contentDisposition.split(";")) {
+                if (content.trim().startsWith("filename")) {
+                    return content.substring(content.indexOf("=") + 2, content.length() - 1);
+                }
+            }
+        }
+        return null; // Return null if no filename is found
     }
 }

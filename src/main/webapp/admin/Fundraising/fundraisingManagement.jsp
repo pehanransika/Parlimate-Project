@@ -85,40 +85,42 @@
     />
 
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="">
+
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="../Home/index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="../userManagement/UserManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
-                    <span>user management</span>
+                    <span>users</span>
                 </a>
             </li>
             <li>
-                <a href="fundraisingManagement.jsp" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet" class="nav-item f-row">
                     <i class="fa-regular fa-check-to-slot"></i>
                     <span>survey management</span>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row ">
+                <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-cards-blank"></i>
                     <span>post management</span>
                 </a>
@@ -129,12 +131,12 @@
                     <span>Comment Management</span>
                 </a>
             </li>
-            <li>
-                <a href="#" class="nav-item f-row">
-                    <i class="fa-regular fa-circle-check"></i>
-                    <span>requests</span>
-                </a>
-            </li>
+            <%--				<li>--%>
+            <%--					<a href="#" class="nav-item f-row">--%>
+            <%--						<i class="fa-regular fa-circle-check"></i>--%>
+            <%--						<span>requests</span>--%>
+            <%--					</a>--%>
+            <%--				</li>--%>
             <li>
                 <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-money-bill-transfer"></i>
@@ -142,9 +144,15 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span>Meeting Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%= request.getContextPath() %>/GetProfileListServlet" class="nav-item f-row">
                     <i class="fa-regular fa-sliders-up"></i>
-                    <span>platform settings</span>
+                    <span>Profile Management</span>
                 </a>
             </li>
         </ul>
@@ -159,7 +167,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="f-row log-out">
+                <a href="#" class="f-row log-out" onclick="logoutUser()">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     log out
                 </a>
@@ -167,6 +175,7 @@
         </ul>
     </div>
 </div>
+
 <div class="pageContent">
     <div class="container f-col">
         <div class="top f-row">
