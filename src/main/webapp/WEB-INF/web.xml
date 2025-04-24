@@ -656,6 +656,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>GetProfileListServlet</servlet-name>
+    <servlet-class>publicprofile.GetProfileListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetProfileListServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/GetProfileListServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>UpdatePolitcianDetailsServlet</servlet-name>
     <servlet-class>publicprofile.UpdatePolitcianDetailsServlet</servlet-class>
   </servlet>

@@ -32,13 +32,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search & Compare</title>
 
-    <link rel="stylesheet" href="profileManagement.css" />
-    <link rel="stylesheet" href="index/sidebar1.css" />
-    <link rel="stylesheet" href="index/header/header.css" />
-    <link rel="stylesheet" href="../index.css"/>
-    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
-    <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/ProfileManagement/profileManagement.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/index.css"/>
     <link
             rel="stylesheet"
             href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
@@ -70,6 +65,7 @@
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         .btn-secondary {
             background-color: #6c757d;
@@ -113,9 +109,32 @@
         .btn-primary:hover {
             background-color: #1a1a1a;
         }
+        .profile-table-container {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .profile-table th, .profile-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .profile-table tr:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
+
 <div class="navMenu f-col center">
     <div class="logo">
         <img src="<%= request.getContextPath() %>/admin/assets/logo.png" alt="Parlimate" id="logo" />
@@ -187,12 +206,19 @@
 
 <div class="pageContent">
     <div class="container">
-        <div class="pageTitles">
+        <div class="pageTitles" style="display: flex; align-items: center; gap: 1rem;">
             <h2 class="title">Search and Compare</h2>
             <div class="subTitle">
                 Fueling Change Through Collective Action
             </div>
+            <button onclick="window.location.href='<%= request.getContextPath() %>/GetProfileListServlet'"
+                    style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: transparent; color: #1e1e1e; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
+                    onmouseover="this.style.background='#1e1e1e'; this.style.color='white'; this.style.border='1px solid #1e1e1e';"
+                    onmouseout="this.style.background='transparent'; this.style.color='#1e1e1e'; this.style.border='1px solid #b8b8b8';"
+                    onmousedown="this.style.transform='scale(0.95)'"
+                    onmouseup="this.style.transform='scale(1)'">View all Profiles</button>
         </div>
+
         <div class="scContainer">
             <select name="role" id="roleSelect" class="roleType caps">
                 <option value="politician">Politician</option>
@@ -229,8 +255,18 @@
                         <!-- Submit button row -->
                         <tr>
                             <td colspan="3" style="text-align: center; padding-top: 10px;">
-                                <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
-                                <button type="button" onclick="clearForm('politicianForm')" class="btn btn-secondary">Clear</button>
+                                <button type="submit" name="view" value="1" class="btn btn-info"
+                                        style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: #000000; color: #ffffff; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
+                                        onmouseover="this.style.background='#d3d3d3'; this.style.color='#000000'; this.style.border='1px solid #b8b8b8';"
+                                        onmouseout="this.style.background='#000000'; this.style.color='#ffffff'; this.style.border='1px solid #b8b8b8';"
+                                        onmousedown="this.style.transform='scale(0.95)'"
+                                        onmouseup="this.style.transform='scale(1)'">View Profile 1</button>
+
+                                <button type="button" onclick="clearForm('politicianForm')" class="btn btn-secondary" style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: #000000; color: #ffffff; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
+                                        onmouseover="this.style.background='#d3d3d3'; this.style.color='#000000'; this.style.border='1px solid #b8b8b8';"
+                                        onmouseout="this.style.background='#000000'; this.style.color='#ffffff'; this.style.border='1px solid #b8b8b8';"
+                                        onmousedown="this.style.transform='scale(0.95)'"
+                                        onmouseup="this.style.transform='scale(1)'">Clear</button>
                             </td>
                         </tr>
                     </form>
@@ -314,7 +350,7 @@
                             </tr>
                             <tr>
                                 <td class="row-head">District</td>
-                                <td><input type="text" name="district perm" value="${profiles1.district}" /></td>
+                                <td><input type="text" name="district" value="${profiles1.district}" /></td>
                             </tr>
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
@@ -446,16 +482,16 @@
                                 <td><input type="text" name="agriculture_policy" value="${profiles1.agriculturePolicy}" /></td>
                             </tr>
                             <tr class="detail-begin row-title">
-                                <td colspan="3">
+                                <td colspan="3"/>
                                     <div class="details-title" id="social-media">Social Media</div>
-                                </td>
+                                    </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Facebook</td>
                                 <td><input type="url" name="facebook" value="${profiles1.facebook}" /></td>
                             </tr>
                             <tr>
-                                <td class="row-head">X</td>
+                                <td class="row-head"/> X </td>
                                 <td><input type="url" name="x" value="${profiles1.x}" /></td>
                             </tr>
                             <tr>

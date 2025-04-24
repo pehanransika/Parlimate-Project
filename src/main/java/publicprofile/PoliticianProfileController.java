@@ -1,6 +1,8 @@
 package publicprofile;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PoliticianProfileController {
 
@@ -73,6 +75,29 @@ public class PoliticianProfileController {
         }
 
         return profile;
+    }
+
+    public List<PoliticianProfileModel> getAllProfiles() {
+        List<PoliticianProfileModel> profiles = new ArrayList<>();
+
+        String query = "SELECT profile_id, full_name FROM politicianprofile ORDER BY profile_id";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                PoliticianProfileModel profile = new PoliticianProfileModel();
+                profile.setProfileId(rs.getInt("profile_id"));
+                profile.setFullName(rs.getString("full_name"));
+                profiles.add(profile);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return profiles;
     }
 
     public boolean insertPoliticianDetails(PoliticianProfileModel profile) {

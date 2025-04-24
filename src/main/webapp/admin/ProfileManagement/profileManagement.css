@@ -248,3 +248,36 @@ tr.detail-begin td {
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
+
+button {
+    /* Base styles from the provided button */
+    padding: 0.25rem 0.55rem;
+    border: 1px solid #b8b8b8;
+    border-radius: 0.7rem;
+    font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    color: #1e1e1e;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+/* Hover effects */
+button:hover {
+    background: #1e1e1e;
+    color: white;
+    border: 1px solid #1e1e1e;
+}
+
+/* Active (click) effect */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Optional: Reset on mouseout (not strictly necessary due to transition) */
+button:not(:hover) {
+    background: transparent;
+    color: #1e1e1e;
+    border: 1px solid #b8b8b8;
+}

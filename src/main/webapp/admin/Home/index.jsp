@@ -116,7 +116,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="<%= request.getContextPath() %>/admin/ProfileManagement/profileManagement.jsp" class="nav-item f-row">
+					<a href="<%= request.getContextPath() %>/GetProfileListServlet" class="nav-item f-row">
 						<i class="fa-regular fa-sliders-up"></i>
 						<span>Profile Management</span>
 					</a>

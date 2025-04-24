@@ -1,25 +1,30 @@
 package publicprofile;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
 
 @WebServlet("/UpdatePolitcianDetailsServlet")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+        maxRequestSize = 1024 * 1024 * 50    // 50 MB
+)
 public class UpdatePolitcianDetailsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve parameters from the form (assume all are passed as form data)
+        // Retrieve parameters from the form
         String profileIdParam = request.getParameter("profile_id");
-        System.out.println("profileId: " + profileIdParam);
-        int profileId = 0; // Default value if profile_id is empty or invalid
+        int profileId = 0;
         if (profileIdParam != null && !profileIdParam.trim().isEmpty()) {
             try {
                 profileId = Integer.parseInt(profileIdParam);
             } catch (NumberFormatException e) {
-                // Log the error or handle it appropriately
                 System.out.println("Invalid profile_id format: " + profileIdParam);
             }
         }
@@ -67,7 +72,55 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
         String instagram = request.getParameter("instagram");
         String linkedin = request.getParameter("linkedin");
         String x = request.getParameter("x");
-        String imagePath = request.getParameter("image_path");
+
+        // Handle file upload
+        String imagePath;
+        Part filePart = request.getPart("photo");
+        if (filePart != null && filePart.getSize() > 0) {
+            // Validate that the file is an image
+            String contentType = filePart.getContentType();
+            if (!contentType.startsWith("image/")) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Only image files are allowed.");
+                return;
+            }
+
+            // Extract filename from Content-Disposition header
+            String contentDisposition = filePart.getHeader("Content-Disposition");
+            String fileName = null;
+            if (contentDisposition != null) {
+                for (String content : contentDisposition.split(";")) {
+                    if (content.trim().startsWith("filename")) {
+                        fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+                        break;
+                    }
+                }
+            }
+
+            if (fileName != null && !fileName.isEmpty()) {
+                // Generate a unique file name
+                String extension = fileName.substring(fileName.lastIndexOf("."));
+                String newFileName = "politician_" + politicianId + extension;
+
+                // Save the file to /images/Politicians directory
+                String savePath = getServletContext().getRealPath("/images/Politicians");
+                File saveDir = new File(savePath);
+                if (!saveDir.exists()) {
+                    saveDir.mkdirs(); // Create directory if it doesn't exist
+                }
+                String filePath = savePath + File.separator + newFileName;
+                filePart.write(filePath);
+
+                // Set the image path for the database
+                imagePath = "/Politicians/" + newFileName;
+            } else {
+                // Handle case where filename is not found
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Filename not found in the uploaded file.");
+                return;
+            }
+        } else {
+            // No new file uploaded, use the existing image path
+            imagePath = request.getParameter("image_path");
+        }
 
         // Create and populate the model
         PoliticianProfileModel profile = new PoliticianProfileModel();
@@ -116,10 +169,11 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
         boolean updated = controller.updatePoliticianDetails(profile);
 
         if (updated) {
+            // Redirect to refresh the profile data
+//            response.sendRedirect(request.getContextPath() + "/GetPoliticianProfileDetailsAdminServlet?politicianName1=" + java.net.URLEncoder.encode(fullName, "UTF-8") + "&view=1");
             response.sendRedirect(request.getContextPath() + "/admin/ProfileManagement/profileManagement.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/update-failure.jsp");
         }
-
     }
 }
