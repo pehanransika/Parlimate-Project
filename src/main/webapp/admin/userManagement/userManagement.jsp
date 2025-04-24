@@ -103,181 +103,181 @@
         </div>
     </div>
 </div>
-<div class="filter-user-popup f-col popup">
-    <div class="close-btn">
-        <i class="fa-solid fa-xmark"></i>
-    </div>
-    <div class="head f-col">
-        <div class="title f-col">
-            Filter Users
-            <div class="desc">
-                Filter users by type, activity, location, and more to manage your list efficiently
-            </div>
-        </div>
-        <div class="content">
-            <ul class="f-col">
-                <li>
-                    <input type="checkbox" name="filter-user-type" id="user-type">
-                    <label for="user-type" class="f-row">
-                        <span>User Type</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </label>
-                    <div class=" dropdown-content users wrap f-row">
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-all" checked>
-                            <label for="user-type-all" class="toggle-btn-check">
-                                all
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-citizen">
-                            <label for="user-type-citizen" class="toggle-btn-check">
-                                Citizen
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-politician">
-                            <label for="user-type-politician" class="toggle-btn-check">
-                                politician
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-political-party">
-                            <label for="user-type-political-party" class="toggle-btn-check">
-                                political party
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-moderator">
-                            <label for="user-type-moderator" class="toggle-btn-check">
-                                moderator
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-type-filter" id="user-type-admin">
-                            <label for="user-type-admin" class="toggle-btn-check">
-                                admin
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" name="filter-user-status" id="user-status">
-                    <label for="user-status" class="f-row">
-                        <span>User status</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </label>
-                    <div class=" dropdown-content users f-row">
-                        <div>
-                            <input type="checkbox" name="user-status-filter" id="user-status-all" checked>
-                            <label for="user-status-all" class="toggle-btn-check">
-                                all
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-status-filter" id="user-status-active">
-                            <label for="user-status-active" class="toggle-btn-check">
-                                active
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-status-filter" id="user-status-banned">
-                            <label for="user-status-banned" class="toggle-btn-check">
-                                banned
-                            </label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="user-status-filter" id="user-status-inactive">
-                            <label for="user-status-inactive" class="toggle-btn-check">
-                                inactive
-                            </label>
-                        </div>
+<%--<div class="filter-user-popup f-col popup">--%>
+<%--    <div class="close-btn">--%>
+<%--        <i class="fa-solid fa-xmark"></i>--%>
+<%--    </div>--%>
+<%--    <div class="head f-col">--%>
+<%--        <div class="title f-col">--%>
+<%--            Filter Users--%>
+<%--            <div class="desc">--%>
+<%--                Filter users by type, activity, location, and more to manage your list efficiently--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="content">--%>
+<%--            <ul class="f-col">--%>
+<%--                <li>--%>
+<%--                    <input type="checkbox" name="filter-user-type" id="user-type">--%>
+<%--                    <label for="user-type" class="f-row">--%>
+<%--                        <span>User Type</span>--%>
+<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
+<%--                    </label>--%>
+<%--                    <div class=" dropdown-content users wrap f-row">--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-all" checked>--%>
+<%--                            <label for="user-type-all" class="toggle-btn-check">--%>
+<%--                                all--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-citizen">--%>
+<%--                            <label for="user-type-citizen" class="toggle-btn-check">--%>
+<%--                                Citizen--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-politician">--%>
+<%--                            <label for="user-type-politician" class="toggle-btn-check">--%>
+<%--                                politician--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-political-party">--%>
+<%--                            <label for="user-type-political-party" class="toggle-btn-check">--%>
+<%--                                political party--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-moderator">--%>
+<%--                            <label for="user-type-moderator" class="toggle-btn-check">--%>
+<%--                                moderator--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-type-filter" id="user-type-admin">--%>
+<%--                            <label for="user-type-admin" class="toggle-btn-check">--%>
+<%--                                admin--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                    <input type="checkbox" name="filter-user-status" id="user-status">--%>
+<%--                    <label for="user-status" class="f-row">--%>
+<%--                        <span>User status</span>--%>
+<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
+<%--                    </label>--%>
+<%--                    <div class=" dropdown-content users f-row">--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-status-filter" id="user-status-all" checked>--%>
+<%--                            <label for="user-status-all" class="toggle-btn-check">--%>
+<%--                                all--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-status-filter" id="user-status-active">--%>
+<%--                            <label for="user-status-active" class="toggle-btn-check">--%>
+<%--                                active--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-status-filter" id="user-status-banned">--%>
+<%--                            <label for="user-status-banned" class="toggle-btn-check">--%>
+<%--                                banned--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div>--%>
+<%--                            <input type="checkbox" name="user-status-filter" id="user-status-inactive">--%>
+<%--                            <label for="user-status-inactive" class="toggle-btn-check">--%>
+<%--                                inactive--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
 
-                    </div>
-                </li>
-                <li>
-                    <div class="city f-row">
-                        <span>City :</span>
-                        <select name="filter-city" id="filter-city">
-                            <option value="all">all</option>
-                            <option value="kandy">kandy</option>
-                            <option value="jaffna">jaffna</option>
-                            <option value="colombo">colombo</option>
-                            <option value="galle">galle</option>
-                        </select>
-                    </div>
-                </li>
-                <div class="divider-line"></div>
-                <li>
-                    <input type="checkbox" name="filter-user-sort" id="user-sort">
-                    <label for="user-sort" class="f-row">
-                        <span>sort by</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </label>
-                    <div class=" dropdown-content sort users f-col">
-                        <div class="attribute f-row">
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-id" checked>
-                                <label for="user-sort-id" class="toggle-btn-check">
-                                    id
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-username">
-                                <label for="user-sort-username" class="toggle-btn-check">
-                                    user name
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-lastactive">
-                                <label for="user-sort-lastactive" class="toggle-btn-check">
-                                    last active
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-joinddate">
-                                <label for="user-sort-joinddate" class="toggle-btn-check">
-                                    joind date
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-contribution">
-                                <label for="user-sort-contribution" class="toggle-btn-check">
-                                    contribution
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter" id="user-sort-reports">
-                                <label for="user-sort-reports" class="toggle-btn-check">
-                                    reports
-                                </label>
-                            </div>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                    <div class="city f-row">--%>
+<%--                        <span>City :</span>--%>
+<%--                        <select name="filter-city" id="filter-city">--%>
+<%--                            <option value="all">all</option>--%>
+<%--                            <option value="kandy">kandy</option>--%>
+<%--                            <option value="jaffna">jaffna</option>--%>
+<%--                            <option value="colombo">colombo</option>--%>
+<%--                            <option value="galle">galle</option>--%>
+<%--                        </select>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--                <div class="divider-line"></div>--%>
+<%--                <li>--%>
+<%--                    <input type="checkbox" name="filter-user-sort" id="user-sort">--%>
+<%--                    <label for="user-sort" class="f-row">--%>
+<%--                        <span>sort by</span>--%>
+<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
+<%--                    </label>--%>
+<%--                    <div class=" dropdown-content sort users f-col">--%>
+<%--                        <div class="attribute f-row">--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-id" checked>--%>
+<%--                                <label for="user-sort-id" class="toggle-btn-check">--%>
+<%--                                    id--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-username">--%>
+<%--                                <label for="user-sort-username" class="toggle-btn-check">--%>
+<%--                                    user name--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-lastactive">--%>
+<%--                                <label for="user-sort-lastactive" class="toggle-btn-check">--%>
+<%--                                    last active--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-joinddate">--%>
+<%--                                <label for="user-sort-joinddate" class="toggle-btn-check">--%>
+<%--                                    joind date--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-contribution">--%>
+<%--                                <label for="user-sort-contribution" class="toggle-btn-check">--%>
+<%--                                    contribution--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter" id="user-sort-reports">--%>
+<%--                                <label for="user-sort-reports" class="toggle-btn-check">--%>
+<%--                                    reports--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
 
-                        </div>
-                        <div class="order wrap f-row">
-                            <div>
-                                <input type="radio" name="user-sort-filter-sort" id="user-sort-asc" checked>
-                                <label for="user-sort-asc" class="toggle-btn-check">
-                                    ascending
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="user-sort-filter-sort" id="user-sort-desc">
-                                <label for="user-sort-desc" class="toggle-btn-check">
-                                    descending order
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="action btns">
-            <button class="cancel-btn">cancel</button>
-            <button class="apply-btn">apply filter</button>
-        </div>
-    </div>
-</div>
+<%--                        </div>--%>
+<%--                        <div class="order wrap f-row">--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter-sort" id="user-sort-asc" checked>--%>
+<%--                                <label for="user-sort-asc" class="toggle-btn-check">--%>
+<%--                                    ascending--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div>--%>
+<%--                                <input type="radio" name="user-sort-filter-sort" id="user-sort-desc">--%>
+<%--                                <label for="user-sort-desc" class="toggle-btn-check">--%>
+<%--                                    descending order--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--            </ul>--%>
+<%--        </div>--%>
+<%--        <div class="action btns">--%>
+<%--            <button class="cancel-btn">cancel</button>--%>
+<%--            <button class="apply-btn">apply filter</button>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <div class="party-req-modal f-col popup" style="padding-block: 1rem">
     <div class="close-btn" id="party-req-close-btn">
         <i class="fa-solid fa-xmark"></i>
@@ -335,8 +335,8 @@
                                         <td>${party.phoneNumber}</td>
                                         <td>${party.submittedDate}</td>
                                         <td data-reqid="${party.reqId}">
-                                            <button class="btn-approve" data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-email="${party.email}" data-phone="${party.phoneNumber}" >Approve</button>
-                                            <button class="btn-reject">Reject</button>
+                                            <button class="btn-approve" data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-reqId="${party.reqId}" data-email="${party.email}" data-phone="${party.phoneNumber}" , data-pswd="${party.password}">Approve</button>
+                                            <button data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-reqId="${party.reqId}" data-email="${party.email}" data-phone="${party.phoneNumber}" , data-pswd="${party.password}" class="btn-reject">Reject</button>
                                         </td>
                                     </tr>
                                 </c:when>
@@ -388,78 +388,6 @@
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
-                <%--            <tr>--%>
-                <%--                <td>Jathika Hela Urumaya (JHU)</td>--%>
-                <%--                <td>62/5, Sri Jayawardenepura Kotte</td>--%>
-                <%--                <td>Omalpe Sobhitha Thero</td>--%>
-                <%--                <td>contact@jhu.lk</td>--%>
-                <%--                <td>+94 112 345 678</td>--%>
-                <%--                <td>2024-05-12</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
-                <%--            <tr>--%>
-                <%--                <td>Illankai Tamil Arasu Kachchi (ITAK)</td>--%>
-                <%--                <td>23 Temple Road, Jaffna</td>--%>
-                <%--                <td>Mavai Senathirajah</td>--%>
-                <%--                <td>info@itak.org</td>--%>
-                <%--                <td>+94 212 345 678</td>--%>
-                <%--                <td>2024-05-08</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
-                <%--            <tr>--%>
-                <%--                <td>Sri Lanka Muslim Congress (SLMC)</td>--%>
-                <%--                <td>45 Mosque Lane, Colombo 12</td>--%>
-                <%--                <td>Rauff Hakeem</td>--%>
-                <%--                <td>admin@slmc.lk</td>--%>
-                <%--                <td>+94 112 987 654</td>--%>
-                <%--                <td>2024-05-18</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
-                <%--            <tr>--%>
-                <%--                <td>Eelam People's Democratic Party (EPDP)</td>--%>
-                <%--                <td>10 Beach Road, Batticaloa</td>--%>
-                <%--                <td>Douglas Devananda</td>--%>
-                <%--                <td>support@epdp.org</td>--%>
-                <%--                <td>+94 652 345 678</td>--%>
-                <%--                <td>2024-05-05</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
-                <%--            <tr>--%>
-                <%--                <td>National Congress (NC)</td>--%>
-                <%--                <td>78 Unity Avenue, Kandy</td>--%>
-                <%--                <td>A.L.M. Athaullah</td>--%>
-                <%--                <td>info@nc.lk</td>--%>
-                <%--                <td>+94 812 456 789</td>--%>
-                <%--                <td>2024-05-20</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
-                <%--            <tr>--%>
-                <%--                <td>Bodu Bala Sena (BBS)</td>--%>
-                <%--                <td>15 Dalada Veediya, Colombo 10</td>--%>
-                <%--                <td>Galagoda Aththe Gnanasara Thero</td>--%>
-                <%--                <td>contact@bbs.lk</td>--%>
-                <%--                <td>+94 112 567 890</td>--%>
-                <%--                <td>2024-05-15</td>--%>
-                <%--                <td>--%>
-                <%--                    <button class="btn-approve">Approve</button>--%>
-                <%--                    <button class="btn-reject">Reject</button>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
             </table>
         </label>
 
@@ -595,15 +523,15 @@
         </div>
         <div class="content f-col">
             <div class="topS f-row">
-                <div class="show f-row">
-                    Shows
-                    <select name="rows" id="rows">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    entries per page
-                </div>
+<%--                <div class="show f-row">--%>
+<%--                    Shows--%>
+<%--                    <select name="rows" id="rows">--%>
+<%--                        <option value="10">10</option>--%>
+<%--                        <option value="20">20</option>--%>
+<%--                        <option value="50">50</option>--%>
+<%--                    </select>--%>
+<%--                    entries per page--%>
+<%--                </div>--%>
 
                 <div class="actions f-row">
                     <div class="search-bar">
@@ -617,12 +545,12 @@
                                 id="user-search"
                         />
                     </div>
-                    <div class="filter">
-                        <button class="filter-btn f-row" id="filter-btn">
-                            <i class="fa-solid fa-filter"></i>
-                            Filter
-                        </button>
-                    </div>
+<%--                    <div class="filter">--%>
+<%--                        <button class="filter-btn f-row" id="filter-btn">--%>
+<%--                            <i class="fa-solid fa-filter"></i>--%>
+<%--                            Filter--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
                     <button class="party-req-btn f-row" id="party-req-btn">
                         Political Party Requests
                     </button>
@@ -646,7 +574,7 @@
                     <c:choose>
                         <c:when test="${empty AllUsers}">
                             <tr>
-                                <td colspan="6">No users found.</td>
+                                <td colspan="5">No users found.</td>
                             </tr>
                         </c:when>
                         <c:otherwise>
@@ -668,14 +596,14 @@
                                         <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
                                         <ul class="menu">
                                             <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
-                                            <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>
-                                            <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>
+<%--                                            <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>--%>
+<%--                                            <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>--%>
                                             <li class="f-row del-user"
                                                 data-userid="${user.userId}"
                                                 data-username="${user.name}"
-                                                data-userType="${user.userType}"
-                                            data-pswd="${user.pswd}">
-                                                <i class="fa-regular fa-trash"></i>delete user
+                                                data-userType="${user.userType}">
+                                                <i class="fa-regular fa-trash"></i>
+                                                delete user
                                             </li>
                                         </ul>
                                     </td>
@@ -688,11 +616,11 @@
                 </table>
 
 
-                <div class="pagination capitalize f-row">
-                    <span>prev</span>
-                    <span class="curr-page">1</span>
-                    <span>next</span>
-                </div>
+<%--                <div class="pagination capitalize f-row">--%>
+<%--                    <span>prev</span>--%>
+<%--                    <span class="curr-page">1</span>--%>
+<%--                    <span>next</span>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
@@ -700,21 +628,105 @@
 <script>
 
 <%--    sending party request to servlet--%>
-    const partyApproveBtns = document.querySelectorAll(".btn-approve");
-    partyApproveBtns.forEach(aproveBtn => {
-        aproveBtn.addEventListener("click", () => {
-            const partyData = {
-                name: this.closest("td").getAttribute('data-name'),
-                address: this.closest("td").getAttribute('data-address'),
-                leader: this.closest("td").getAttribute('data-leader'),
-                email: this.closest("td").getAttribute('data-email'),
-                phone: this.closest("td").getAttribute('data-phone'),
-                password: this.closest("td").getAttribute("data-pswd")
-            };
+const partyApproveBtns = document.querySelectorAll(".btn-approve");
+const partyRejectBtns = document.querySelectorAll(".btn-reject");
+partyApproveBtns.forEach(approveBtn => {
+    approveBtn.addEventListener("click", async () => {
+        const partyData = {
+            name: approveBtn.dataset.name,
+            reqId: approveBtn.dataset.reqid,
+            address: approveBtn.dataset.address,
+            leader: approveBtn.dataset.leader,
+            email: approveBtn.dataset.email,
+            phone: approveBtn.dataset.phone,
+            password: approveBtn.dataset.pswd
+        };
 
-        //     call to the servlet
-        })
-    })
+        if (!confirm(`Are you sure you want to approve ${partyData.name}?`)) {
+            return;
+        }
+
+        try {
+            // CORRECT URL CONSTRUCTION
+            const url = `${window.location.origin}/Parlimate/ProcessPartyRequestServlet`;
+            console.log("Final request URL:", url); // Debugging
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                },
+                body: new URLSearchParams({
+                    action: 'approve',
+                    reqId: partyData.reqId,
+                    name: partyData.name,
+                    address: partyData.address,
+                    leader: partyData.leader,
+                    email: partyData.email,
+                    phone: partyData.phone,
+                    password: partyData.password
+                }).toString()
+            });
+
+            const result = await response.text();
+
+            if (!response.ok) {
+                throw new Error(result || `Server returned ${response.status}`);
+            }
+
+            if (result === "success") {
+                window.location.reload();
+            } else {
+                alert("Server response: " + result);
+            }
+        } catch (error) {
+            console.error("Full error:", error);
+            alert('Error approving party: ' + error.message);
+        }
+    });
+});
+
+// reject requests
+partyRejectBtns.forEach(rejectBtn => {
+    rejectBtn.addEventListener("click", async () => {
+        const reqId = rejectBtn.dataset.reqid;
+        const partyName = rejectBtn.dataset.name;
+
+        if (!confirm(`Are you sure you want to reject ${partyName}'s request?`)) {
+            return;
+        }
+
+        try {
+            const url = `${window.location.origin}/Parlimate/ProcessPartyRequestServlet`;
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                },
+                body: new URLSearchParams({
+                    action: 'reject',
+                    reqId: reqId
+                }).toString()
+            });
+
+            const result = await response.text();
+
+            if (!response.ok) {
+                throw new Error(result || `Server returned ${response.status}`);
+            }
+
+            if (result === "success") {
+                window.location.reload(); // Refresh to show updated status
+            } else {
+                alert("Server response: " + result);
+            }
+        } catch (error) {
+            console.error("Error rejecting request:", error);
+            alert('Error rejecting request: ' + error.message);
+        }
+    });
+});
 
 
     document.addEventListener("DOMContentLoaded", function() {

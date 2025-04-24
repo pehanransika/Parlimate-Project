@@ -43,7 +43,7 @@
             gap: 1.5rem;
 
             && .topS {
-                justify-content: space-between;
+                justify-content: flex-end;
                 && .show {
                     gap: 0.5rem;
                     font-weight: 600;
@@ -65,6 +65,7 @@
                 && .actions {
                     gap: 0.5rem;
                     align-items: center;
+                    justify-content: flex-end;
 
                     && .search-bar {
                         position: relative;
@@ -116,6 +117,11 @@
                         font-weight: 600;
                         background: #1e1e1e;
                         padding: 0.6rem 1rem;
+                        transition: background-color 0.25s ease, scale 0.25s ease;
+
+                        &&:hover{
+                            background: #353535;
+                        }
                     }
                 }
             }
@@ -136,9 +142,12 @@
                 align-items: center;
                 && table {
                     width: 100%;
-                    border-collapse: collapse;
+                    border-collapse: separate;
                     height: fit-content;
+                    border-spacing: 0;
                     border-radius: 1rem;
+                    overflow: hidden;
+                    border: 1px solid #dfdfdf;
 
                     && button {
                         border: none;
@@ -530,7 +539,7 @@
 
 
 
-        table{
+        && table{
             border: 1px solid #e1e1e1;
             border-collapse: separate;
             border-spacing: 0;
@@ -739,15 +748,20 @@ td[colspan='7']{
             transform: rotate(180deg) !important;
         }
     }
+
 }
 .party-req-modal:has( input[type='checkbox']:checked){
     width: 90rem;
 }
 #party-req-close-btn{
-    z-index: 1;
     cursor: pointer;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-
+    z-index: 1;
+}
+td[colspan='5']{
+    text-align: center;
+    font-style: italic;
+    font-weight: 500;
 }

@@ -167,4 +167,75 @@ public class PoliticalPartyController {
         }
         return politicalParties;
     }
+
+    public static boolean insertAprovedParty(String name, String address, String leader, String email, String phone, String password, int reqId){
+
+        try {
+            String sql= "INSERT INTO users values(0,?,?,'Political Party', 0)";
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+
+            int userInserted = pstmt.executeUpdate();
+
+            if(userInserted > 0){
+                int userId = getUserId(email, password);
+                if(userId > 0){
+                    String partyInsertQuery = "INSERT INTO politicalparty values(0, ?, ?, ?, ?, null, 0,?)";
+
+                    PreparedStatement pstmt2 = conn.prepareStatement(partyInsertQuery);
+                    pstmt2.setInt(1, userId);
+                    pstmt2.setString(2,name);
+                    pstmt2.setString(3,phone);
+                    pstmt2.setString(4,address);
+                    pstmt2.setString(5,leader);
+
+                    int rowInsertedOnPartyTable = pstmt2.executeUpdate();
+                    if(rowInsertedOnPartyTable > 0){
+                        System.out.println("User " + userId + " inserted into politicalparty table");
+
+                        String statusUpdate = "Update political_party_requests SET status='accepted' where req_id=?";
+                        Connection conn1 = DBConnection.getConnection();
+                        PreparedStatement pstmt3 = conn1.prepareStatement(statusUpdate);
+                        pstmt3.setInt(1, reqId);
+                        pstmt3.executeUpdate();
+                        return true;
+                    } else{
+                        System.out.println("User " + userId + " could not insert into politicalparty table");
+                    }
+                } else {
+                    System.out.println("User wasnt found in the DB");
+                }
+
+            } else {
+                System.out.println("User wasnt created");
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return false;
+    }
+
+    public static int getUserId(String email, String password) {
+        try {
+            String sql = "SELECT user_id FROM users WHERE email = ? AND password = ?";
+
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt =conn.prepareStatement(sql);
+
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                return rs.getInt("user_id");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
