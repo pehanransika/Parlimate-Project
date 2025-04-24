@@ -1,5 +1,6 @@
 package UserPackage;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -87,6 +88,7 @@ public class GetAllUsersServlet extends HttpServlet {
             }
             System.out.println("Total users fetched: " + usersDetails.size());
             request.setAttribute("AllUsers", usersDetails);
+            request.getRequestDispatcher("/getAllPartyRequests").include(request, response);
             request.getRequestDispatcher("/admin/userManagement/userManagement.jsp").forward(request, response);
 
         }

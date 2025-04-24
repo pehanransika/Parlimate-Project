@@ -29,7 +29,9 @@ public class PartyRequestController {
                         rs.getString("leader"),
                         rs.getString("email"),
                         rs.getString("contact_no"),
-                        rs.getString("submission_date")
+                        rs.getString("submission_date"),
+                        rs.getString("status"),
+                        rs.getString("password")
                 );
 
                 list.add(partyRequest);

@@ -3,6 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<c:set var="pendingParties" value="${parties.stream().filter(p -> p.status == 'pending').toList()}" />
+<c:set var="acceptedParties" value="${parties.stream().filter(p -> p.status == 'accepted').toList()}" />
+<c:set var="rejectedParties" value="${parties.stream().filter(p -> p.status == 'rejected').toList()}" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +55,7 @@
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
 </head>
-<body class="popup-active">
+<body class="">
 <div class="popup-overlay"></div>
 <div class="delete-user-popup f-col popup">
     <div class="close-btn">
@@ -274,100 +278,235 @@
         </div>
     </div>
 </div>
-<div class="party-req-modal f-col popup popup-show" style="padding-block: 1rem">
-    <div class="close-btn">
+<div class="party-req-modal f-col popup" style="padding-block: 1rem">
+    <div class="close-btn" id="party-req-close-btn">
         <i class="fa-solid fa-xmark"></i>
     </div>
     <div class="top f-row">
         <div class="title f-row">
             Political party requests
-            <span class="requestsAmount">${parties.size()}</span>
+            <span class="requestsAmount">
+                <c:choose>
+                    <c:when test="${fn:length(pendingParties) > 9}">
+                        9+
+                    </c:when>
+                    <c:otherwise>
+                        ${fn:length(pendingParties)}
+                    </c:otherwise>
+                </c:choose>
+            </span>
         </div>
     </div>
     <div class="content f-col">
-        <table>
-            <tr class="capitalize">
-                <th>Party name</th>
-                <th>HQ address</th>
-                <th>party leader</th>
-                <th>email</th>
-                <th>contact phone</th>
-                <th>submission date</th>
-                <th>action</th>
-            </tr>
-            <tr>
-                <td>Jathika Hela Urumaya (JHU)</td>
-                <td>62/5, Sri Jayawardenepura Kotte</td>
-                <td>Omalpe Sobhitha Thero</td>
-                <td>contact@jhu.lk</td>
-                <td>+94 112 345 678</td>
-                <td>2024-05-12</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Illankai Tamil Arasu Kachchi (ITAK)</td>
-                <td>23 Temple Road, Jaffna</td>
-                <td>Mavai Senathirajah</td>
-                <td>info@itak.org</td>
-                <td>+94 212 345 678</td>
-                <td>2024-05-08</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Sri Lanka Muslim Congress (SLMC)</td>
-                <td>45 Mosque Lane, Colombo 12</td>
-                <td>Rauff Hakeem</td>
-                <td>admin@slmc.lk</td>
-                <td>+94 112 987 654</td>
-                <td>2024-05-18</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Eelam People's Democratic Party (EPDP)</td>
-                <td>10 Beach Road, Batticaloa</td>
-                <td>Douglas Devananda</td>
-                <td>support@epdp.org</td>
-                <td>+94 652 345 678</td>
-                <td>2024-05-05</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td>National Congress (NC)</td>
-                <td>78 Unity Avenue, Kandy</td>
-                <td>A.L.M. Athaullah</td>
-                <td>info@nc.lk</td>
-                <td>+94 812 456 789</td>
-                <td>2024-05-20</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Bodu Bala Sena (BBS)</td>
-                <td>15 Dalada Veediya, Colombo 10</td>
-                <td>Galagoda Aththe Gnanasara Thero</td>
-                <td>contact@bbs.lk</td>
-                <td>+94 112 567 890</td>
-                <td>2024-05-15</td>
-                <td>
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reject">Reject</button>
-                </td>
-            </tr>
-        </table>
+
+        <input type="checkbox" id="pending-request-table">
+        <label class="f-col pending-table" for="pending-request-table">
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-pending">pending requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                    <th>action</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty pendingParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500; font-style: italic">
+                                No pending requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'pending'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+                                        <td data-reqid="${party.reqId}">
+                                            <button class="btn-approve" data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-email="${party.email}" data-phone="${party.phoneNumber}" >Approve</button>
+                                            <button class="btn-reject">Reject</button>
+                                        </td>
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </label>
+
+        <input type="checkbox" id="accepted-request-table">
+        <label class="f-col accept-table" for="accepted-request-table" >
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-accepted">accepted requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty acceptedParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500;  font-style: italic">
+                                No accepted requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'accepted'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+                <%--            <tr>--%>
+                <%--                <td>Jathika Hela Urumaya (JHU)</td>--%>
+                <%--                <td>62/5, Sri Jayawardenepura Kotte</td>--%>
+                <%--                <td>Omalpe Sobhitha Thero</td>--%>
+                <%--                <td>contact@jhu.lk</td>--%>
+                <%--                <td>+94 112 345 678</td>--%>
+                <%--                <td>2024-05-12</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+                <%--            <tr>--%>
+                <%--                <td>Illankai Tamil Arasu Kachchi (ITAK)</td>--%>
+                <%--                <td>23 Temple Road, Jaffna</td>--%>
+                <%--                <td>Mavai Senathirajah</td>--%>
+                <%--                <td>info@itak.org</td>--%>
+                <%--                <td>+94 212 345 678</td>--%>
+                <%--                <td>2024-05-08</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+                <%--            <tr>--%>
+                <%--                <td>Sri Lanka Muslim Congress (SLMC)</td>--%>
+                <%--                <td>45 Mosque Lane, Colombo 12</td>--%>
+                <%--                <td>Rauff Hakeem</td>--%>
+                <%--                <td>admin@slmc.lk</td>--%>
+                <%--                <td>+94 112 987 654</td>--%>
+                <%--                <td>2024-05-18</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+                <%--            <tr>--%>
+                <%--                <td>Eelam People's Democratic Party (EPDP)</td>--%>
+                <%--                <td>10 Beach Road, Batticaloa</td>--%>
+                <%--                <td>Douglas Devananda</td>--%>
+                <%--                <td>support@epdp.org</td>--%>
+                <%--                <td>+94 652 345 678</td>--%>
+                <%--                <td>2024-05-05</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+                <%--            <tr>--%>
+                <%--                <td>National Congress (NC)</td>--%>
+                <%--                <td>78 Unity Avenue, Kandy</td>--%>
+                <%--                <td>A.L.M. Athaullah</td>--%>
+                <%--                <td>info@nc.lk</td>--%>
+                <%--                <td>+94 812 456 789</td>--%>
+                <%--                <td>2024-05-20</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+                <%--            <tr>--%>
+                <%--                <td>Bodu Bala Sena (BBS)</td>--%>
+                <%--                <td>15 Dalada Veediya, Colombo 10</td>--%>
+                <%--                <td>Galagoda Aththe Gnanasara Thero</td>--%>
+                <%--                <td>contact@bbs.lk</td>--%>
+                <%--                <td>+94 112 567 890</td>--%>
+                <%--                <td>2024-05-15</td>--%>
+                <%--                <td>--%>
+                <%--                    <button class="btn-approve">Approve</button>--%>
+                <%--                    <button class="btn-reject">Reject</button>--%>
+                <%--                </td>--%>
+                <%--            </tr>--%>
+            </table>
+        </label>
+
+        <input type="checkbox" id="rejected-request-table">
+        <label class="f-col reject-table" for="rejected-request-table" >
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-rejected">rejected requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty acceptedParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500; font-style: italic">
+                                No rejected requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'rejected'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </label>
+
     </div>
     <div class="footer">
         <button id="generate-csv-btn" class="f-row">Export CSV <i class="fa-regular fa-arrow-down-to-line"></i></button>
@@ -534,7 +673,8 @@
                                             <li class="f-row del-user"
                                                 data-userid="${user.userId}"
                                                 data-username="${user.name}"
-                                                data-userType="${user.userType}">
+                                                data-userType="${user.userType}"
+                                            data-pswd="${user.pswd}">
                                                 <i class="fa-regular fa-trash"></i>delete user
                                             </li>
                                         </ul>
@@ -557,97 +697,114 @@
         </div>
     </div>
 </div>
-<%--<script>--%>
+<script>
+
+<%--    sending party request to servlet--%>
+    const partyApproveBtns = document.querySelectorAll(".btn-approve");
+    partyApproveBtns.forEach(aproveBtn => {
+        aproveBtn.addEventListener("click", () => {
+            const partyData = {
+                name: this.closest("td").getAttribute('data-name'),
+                address: this.closest("td").getAttribute('data-address'),
+                leader: this.closest("td").getAttribute('data-leader'),
+                email: this.closest("td").getAttribute('data-email'),
+                phone: this.closest("td").getAttribute('data-phone'),
+                password: this.closest("td").getAttribute("data-pswd")
+            };
+
+        //     call to the servlet
+        })
+    })
 
 
-<%--    document.addEventListener("DOMContentLoaded", function() {--%>
-<%--        // Toggle action menus--%>
-<%--        document.querySelectorAll('.actbtn button').forEach(button => {--%>
-<%--            button.addEventListener('click', () => {--%>
-<%--                document.querySelectorAll('.actbtn .menu').forEach(menu => {--%>
-<%--                    if (menu !== button.nextElementSibling) {--%>
-<%--                        menu.classList.remove('nav-active');--%>
-<%--                    }--%>
-<%--                });--%>
-<%--                button.nextElementSibling.classList.toggle('nav-active');--%>
-<%--            });--%>
-<%--        });--%>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Toggle action menus
+        document.querySelectorAll('.actbtn button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.actbtn .menu').forEach(menu => {
+                    if (menu !== button.nextElementSibling) {
+                        menu.classList.remove('nav-active');
+                    }
+                });
+                button.nextElementSibling.classList.toggle('nav-active');
+            });
+        });
 
-<%--        // close all action menu--%>
-<%--        function closeActionMenus() {--%>
-<%--            document.querySelectorAll('.actbtn button').forEach(button => {--%>
-<%--                document.querySelectorAll('.actbtn .menu').forEach(menu => {--%>
-<%--                    menu.classList.contains('nav-active') ? menu.classList.remove('nav-active'): null;--%>
-<%--                })--%>
-<%--            })--%>
-<%--        }--%>
+        // close all action menu
+        function closeActionMenus() {
+            document.querySelectorAll('.actbtn button').forEach(button => {
+                document.querySelectorAll('.actbtn .menu').forEach(menu => {
+                    menu.classList.contains('nav-active') ? menu.classList.remove('nav-active'): null;
+                })
+            })
+        }
 
-<%--        // Toggle filter popup--%>
-<%--        document.getElementById("filter-btn")?.addEventListener("click", function() {--%>
-<%--            document.body.classList.toggle("popup-active");--%>
-<%--            document.querySelector(".filter-user-popup").classList.toggle("popup-show");--%>
-<%--        });--%>
+        // Toggle filter popup
+        document.getElementById("filter-btn")?.addEventListener("click", function() {
+            document.body.classList.toggle("popup-active");
+            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
+        });
 
-<%--        // Delete user popup logic--%>
-<%--        const deleteModal = document.querySelector(".delete-user-popup");--%>
-<%--        let selectedUserId = null; // Store selected user ID globally--%>
+        // Delete user popup logic
+        const deleteModal = document.querySelector(".delete-user-popup");
+        let selectedUserId = null; // Store selected user ID globally
 
-<%--        document.querySelectorAll(".del-user").forEach(button => {--%>
-<%--            button.addEventListener("click", function() {--%>
-<%--                const userNameElement = deleteModal.querySelector(".head .username");--%>
-<%--                const userIdElement = deleteModal.querySelector(".head .userid");--%>
+        document.querySelectorAll(".del-user").forEach(button => {
+            button.addEventListener("click", function() {
+                const userNameElement = deleteModal.querySelector(".head .username");
+                const userIdElement = deleteModal.querySelector(".head .userid");
 
-<%--                selectedUserId = button.dataset.userid; // Store the ID for later use--%>
-<%--                userNameElement.textContent = button.dataset.username;--%>
-<%--                userIdElement.textContent = selectedUserId;--%>
+                selectedUserId = button.dataset.userid; // Store the ID for later use
+                userNameElement.textContent = button.dataset.username;
+                userIdElement.textContent = selectedUserId;
 
-<%--                document.body.classList.add("popup-active");--%>
-<%--                deleteModal.classList.add("popup-show");--%>
-<%--            });--%>
-<%--        });--%>
+                document.body.classList.add("popup-active");
+                deleteModal.classList.add("popup-show");
+            });
+        });
 
-<%--        // Proceed with deletion--%>
-<%--        document.querySelector("#proceed-delete-btn")?.addEventListener("click", () => {--%>
-<%--            if (selectedUserId) {--%>
-<%--                closeActionMenus();--%>
-<%--                removeUserServlet(selectedUserId);--%>
-<%--            }--%>
-<%--        });--%>
+        // Proceed with deletion
+        document.querySelector("#proceed-delete-btn")?.addEventListener("click", () => {
+            if (selectedUserId) {
+                closeActionMenus();
+                removeUserServlet(selectedUserId);
+            }
+        });
 
-<%--        // Close popups--%>
-<%--        document.querySelectorAll(".close-btn, .proceed").forEach(button => {--%>
-<%--            button.addEventListener("click", function() {--%>
-<%--                document.body.classList.remove("popup-active");--%>
-<%--                document.querySelector(".filter-user-popup").classList.remove("popup-show");--%>
-<%--                deleteModal.classList.remove("popup-show");--%>
-<%--            });--%>
-<%--        });--%>
-<%--    });--%>
+        // Close popups
+        document.querySelectorAll(".close-btn, .proceed").forEach(button => {
+            button.addEventListener("click", function() {
+                document.body.classList.remove("popup-active");
+                document.querySelector(".filter-user-popup").classList.remove("popup-show");
+                deleteModal.classList.remove("popup-show");
+            });
+        });
+    });
 
-<%--    // Delete user function--%>
-<%--    function removeUserServlet(userId) {--%>
-<%--        const basePath = window.location.origin;--%>
-<%--        fetch(basePath+"/Parlimate/DeleteUserFromUMServlet", {--%>
-<%--            method: "POST",--%>
-<%--            headers: {--%>
-<%--                "Content-Type": "application/x-www-form-urlencoded",--%>
-<%--            },--%>
-<%--            body: `userId=`+encodeURIComponent(userId)--%>
-<%--        })--%>
-<%--            .then(res => {--%>
-<%--                if (!res.ok) throw new Error("Network response was not ok");--%>
-<%--                return res.text();--%>
-<%--            })--%>
-<%--            .then(data => {--%>
-<%--                console.log("User deleted:", data);--%>
-<%--                location.reload();--%>
-<%--            })--%>
-<%--            .catch(err => {--%>
-<%--                console.error("Delete failed:", err);--%>
-<%--                alert("Failed to delete user. Please try again.");--%>
-<%--            });--%>
-<%--    }--%>
-<%--</script>--%>
+    // Delete user function
+    function removeUserServlet(userId) {
+        const basePath = window.location.origin;
+        fetch(basePath+"/Parlimate/DeleteUserFromUMServlet", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `userId=`+encodeURIComponent(userId)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Network response was not ok");
+                return res.text();
+            })
+            .then(data => {
+                console.log("User deleted:", data);
+                location.reload();
+            })
+            .catch(err => {
+                console.error("Delete failed:", err);
+                alert("Failed to delete user. Please try again.");
+            });
+    }
+</script>
 <script>
     function formatDate(dateString) {
         const options = {
@@ -668,6 +825,13 @@
 </script>
 <script>
     const partyReqBtn = document.getElementById("party-req-btn");
+    const partyModal = document.querySelector(".party-req-modal");
+
+    partyReqBtn.addEventListener("click", ()=> {
+        console.log(partyModal);
+        document.querySelector("body").classList.add("popup-active")
+        partyModal.classList.add("popup-show");
+    })
 </script>
 
 </body>
