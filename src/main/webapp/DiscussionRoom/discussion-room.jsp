@@ -271,7 +271,6 @@
             </div>
         </div>
         <div class="nav-body col">
-
             <div class="items col">
                 <c:forEach var="allmeetings" items="${allMeetingsUser}">
                     <div class="item live row"
@@ -297,7 +296,7 @@
                         <div class="item-content live col">
                             <div class="item-title">
                                 <div class="title" style="font-size: 15px;">
-                                        ${allmeetings.topic}
+                                        ${allmeetings.topic} by ${allmeetings.politicianName}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
                                     <div>

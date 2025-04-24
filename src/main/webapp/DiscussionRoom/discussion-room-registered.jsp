@@ -297,7 +297,7 @@
                         <div class="item-content live col">
                             <div class="item-title">
                                 <div class="title" style="font-size: 15px;">
-                                        ${registeredmeetings.topic}
+                                        ${registeredmeetings.topic} by ${registeredmeetings.politicianName}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
                                     <div>

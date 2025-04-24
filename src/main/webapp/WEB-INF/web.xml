@@ -618,6 +618,7 @@
     <servlet-name>GetOngoingMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetOngoingMeetingsServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
     <servlet-class>meetings.GetRegisteredMeetingsServlet</servlet-class>
@@ -626,6 +627,16 @@
     <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetRegisteredMeetingsServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PoliticianDetailsServlet</servlet-name>
+    <servlet-class>UserPackage.PoliticianDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PoliticianDetailsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/PoliticianDetailsServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
     <servlet-class>publicprofile.GetPoliticianProfileDetailsServlet</servlet-class>

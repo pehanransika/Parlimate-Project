@@ -1,11 +1,14 @@
 package meetings;
 
+import UserPackage.PoliticianController;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/GetOngoingMeetingsServlet")
 public class GetOngoingMeetingsServlet extends HttpServlet {
@@ -18,10 +21,19 @@ public class GetOngoingMeetingsServlet extends HttpServlet {
         try {
             System.out.println("Fetching today's (ongoing) meetings...");
             List<MeetingModel> ongoingMeetings = MeetingController.getTodaysMeetings();
+            PoliticianController politicianController = new PoliticianController();
 
-            request.setAttribute("ongoingMeetings", ongoingMeetings);
+            // Enhance meeting list with politician names
+            List<MeetingModel> enhancedMeetings = ongoingMeetings.stream().map(meeting -> {
+                String politicianName = politicianController.getPoliticianNameById(meeting.getPoliticianId());
+                meeting.setPoliticianName(politicianName);
+                return meeting;
+            }).collect(Collectors.toList());
 
-            // You can either forward to a dedicated JSP, or reuse the existing one
+            // Set the enhanced list as a request attribute
+            request.setAttribute("ongoingMeetings", enhancedMeetings);
+
+            // Forward to the dedicated JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/DiscussionRoom/discussion-room-ongoing.jsp");
             dispatcher.forward(request, response);
 

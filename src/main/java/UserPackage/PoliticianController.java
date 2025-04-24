@@ -39,15 +39,15 @@ public class PoliticianController {
         PoliticianModel politician = null;
         try {
             Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM Politicians WHERE userId = ?";
+            String query = "SELECT * FROM politician WHERE politician_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 politician = new PoliticianModel(
-                        rs.getInt("userId"),
-                        rs.getInt("politicianId"),
+                        rs.getInt("user_id"),
+                        rs.getInt("politician_id"),
                         rs.getString("name"),
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
@@ -59,6 +59,24 @@ public class PoliticianController {
             e.printStackTrace();
         }
         return politician;
+    }
+    public String getPoliticianNameById(int politicianId) {
+        String name = null;
+        try {
+            Connection conn = DBConnection.getConnection();
+            String query = "SELECT name FROM politician WHERE politician_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, politicianId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                name = rs.getString("name");
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name != null ? name : "Unknown";
     }
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
