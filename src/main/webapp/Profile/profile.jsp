@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="./profile.css">
     <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
-
+    <link rel="stylesheet" href="hashtag.css">
     <script src="../formatDate.js" ></script>
     <style>
         body {
@@ -498,4 +498,5 @@
         // Proceed with form submission
     });
 </script>
+<script src="hashtag.js"></script>
 </html>

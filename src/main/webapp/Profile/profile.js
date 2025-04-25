@@ -56,6 +56,7 @@ async function fetchPosts(userId) {
         } else {
             renderPosts(posts);
         }
+        processHashtags();
 
     } catch (error) {
         console.error("Post loading failed:", {
