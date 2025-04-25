@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
                               /* Share Popup Styles */
   .share-popup {
@@ -288,6 +289,7 @@
 
     <%--      survey questions javascripts      --%>
 
+
     <script>
       // Define questions for this specific survey
       const questions${status.index} = [
@@ -300,7 +302,7 @@
             {
               answerId: "${answer.answerId}",
               text: "${answer.answerText}",
-              img: "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg"
+              img: "${pageContext.request.contextPath}/images/user_${survey.user[0].userId}/user_surveys/${answer.imageUrl}"
             }<c:if test="${!aStatus.last}">,</c:if>
             </c:forEach>
           ],
@@ -355,8 +357,8 @@
 
 
             html += '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote' + ${status.index} +'(' + optIndex + ')">' +
-                    (opt.img && opt.img !== ''
-                            ? '<img src="' + opt.img + '" alt="' + opt.text + '" />'
+                    (opt.img && opt.img !== 'null'
+                            ? '<img  src="' + opt.img + '"  />'
                             : '') +
                     '<div class="text">' +
                     '<div><strong>' + opt.text + '</strong></div>' +
@@ -369,6 +371,7 @@
 
           return html;
         }
+
 
         function showSlide(index, direction) {
           if (isTransitioning) return;
@@ -574,6 +577,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
       document.addEventListener('DOMContentLoaded', () => {
         const viewAnalyticsBtn = document.getElementById('viewAnalyticsBtn${status.index}');
         const analyticsPopup = document.getElementById('analyticsPopup${status.index}');
