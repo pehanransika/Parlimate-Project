@@ -283,7 +283,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-item f-row">
+				<a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row ">
 					<i class="fa-regular fa-cards-blank"></i>
 					<span>post management</span>
 				</a>
