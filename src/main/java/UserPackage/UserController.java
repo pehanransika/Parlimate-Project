@@ -1,6 +1,7 @@
 package UserPackage;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -242,6 +243,48 @@ public class UserController {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static List<Integer> getUserRegistrationsLast5Days() {
+        List<Integer> registrations = new ArrayList<>();
+        String query = "SELECT DATE(created_at) AS signup_date, COUNT(*) AS count " +
+                "FROM users " +
+                "WHERE created_at >= ? AND created_at < ? " +
+                "GROUP BY DATE(created_at) " +
+                "ORDER BY signup_date DESC";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            // Set date range: from 5 days ago to tomorrow
+            LocalDate today = LocalDate.now();
+            LocalDate fiveDaysAgo = today.minusDays(5);
+            ps.setDate(1, java.sql.Date.valueOf(fiveDaysAgo));
+            ps.setDate(2, java.sql.Date.valueOf(today.plusDays(1)));
+
+            ResultSet rs = ps.executeQuery();
+
+            // Initialize counts for the last 5 days (most recent to oldest)
+            for (int i = 0; i < 5; i++) {
+                registrations.add(0); // Default to 0 for each day
+            }
+
+            // Populate counts from query results
+            while (rs.next()) {
+                LocalDate signupDate = rs.getDate("signup_date").toLocalDate();
+                int count = rs.getInt("count");
+                // Calculate days ago (0 = today, 1 = yesterday, etc.)
+                long daysAgo = java.time.temporal.ChronoUnit.DAYS.between(signupDate, today);
+                if (daysAgo >= 0 && daysAgo < 5) {
+                    registrations.set((int) daysAgo, count);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Return list of zeros on error
+            return new ArrayList<>(List.of(0, 0, 0, 0, 0));
+        }
+
+        return registrations;
     }
 
 }
