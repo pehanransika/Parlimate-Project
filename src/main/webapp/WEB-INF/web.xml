@@ -721,6 +721,24 @@
     <servlet-name>SupportMessageServlet</servlet-name>
     <url-pattern>/Help/SupportMessageServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetSupportMesssageServlet</servlet-name>
+    <servlet-class>supportmessage.GetSupportMesssageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSupportMesssageServlet</servlet-name>
+    <url-pattern>/admin/UserSupport/GetSupportMesssageServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>updateSupportServlet</servlet-name>
+    <servlet-class>supportmessage.updateSupportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateSupportServlet</servlet-name>
+    <url-pattern>/admin/UserSupport/updateSupportServlet</url-pattern>
+  </servlet-mapping>
 <!--  <servlet>-->
 <!--    <servlet-name>LogoutServlet</servlet-name>-->
 <!--    <servlet-class>UserPackage.LogoutServlet</servlet-class>-->

@@ -68,13 +68,19 @@
         margin-top: 10px;
         height: 20px;
     }
+
+    /* Ensure no-results message styling */
+    #noResults {
+        text-align: center;
+        color: #666;
+        margin-top: 20px;
+        font-size: 18px;
+    }
 </style>
-<%--  Share pop up styles end--%>
+<%-- Share pop up styles end --%>
 
-<%-- Survey Prototype  --%>
-
+<%-- Survey Prototype --%>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<!-- Inside the loop -->
 <c:forEach var="survey" items="${surveys}" varStatus="status">
     <div class="survey-container" id="surveyContainer${status.index}">
         <div class="top f-row">
@@ -105,19 +111,14 @@
                 });
             </script>
             <div style="display: flex;">
-
-
-                    <button id="deleteSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
-                        <i class='fas fa-trash' style='font-size:20px'></i>
-                    </button> &nbsp;
-
-
-                <button id="viewAnalyticsBtn${status.index}">View Analytics</button> &nbsp
+                <button id="deleteSurveyBtn${status.index}" style='font-size:12px;background-color:white;'>
+                    <i class='fas fa-trash' style='font-size:20px'></i>
+                </button>
+                <button id="viewAnalyticsBtn${status.index}">View Analytics</button>
                 <button id="share-btn${status.index}" class="f-row">
                     Share <i class="fa-solid fa-share"></i>
                 </button>
             </div>
-
         </div> <br>
         <div class="survey-topic" style="justify-content: center;font-size: larger;">
             Survey Topic : ${survey.surveyTopic}
@@ -129,7 +130,7 @@
         </div>
     </div> <br>
 
-    <!-- submit ok Popup HTML and javascript -->
+    <!-- Submit OK Popup -->
     <div id="popup1" class="popup">
         <div class="popup-content1">
             <p style="font-size: 15px;">Your vote has been successfully recorded.</p> <br>
@@ -138,16 +139,11 @@
     </div>
 
     <script>
-        // Wait until the DOM is fully loaded
         document.addEventListener("DOMContentLoaded", function() {
-            // Select the "OK" button and the popup container
             var okBtn = document.getElementById("ok-btn");
             var popup = document.getElementById("popup1");
-
-            // Check if the elements exist before adding event listener
             if (okBtn && popup) {
                 okBtn.addEventListener("click", function() {
-                    // Hide the popup by setting display to 'none'
                     window.location.reload();
                     popup.style.display = "none";
                 });
@@ -155,12 +151,10 @@
         });
     </script>
 
-    <%--    share button pop up     --%>
-
-
+    <!-- Share Popup -->
     <div id="sharePopup${status.index}" class="share-popup">
         <div class="share-popup-content">
-            <span class="share-close" onclick="closeSharePopup(${status.index})">&times;</span>
+            <span class="share-close" onclick="closeSharePopup(${status.index})">×</span>
             <h3 style="font-size: 19px;">Share Survey</h3> <br>
             <div class="share-input-group">
                 <input type="text"
@@ -175,9 +169,7 @@
         </div>
     </div>
 
-
     <script>
-
         function showSharePopup(index) {
             const popup = document.getElementById("sharePopup"+index);
             popup.style.display = 'flex';
@@ -214,82 +206,67 @@
             });
         };
 
-        // Add event listener to share button
         document.getElementById("share-btn${status.index}").addEventListener('click', () => {
             showSharePopup(${status.index});
         });
     </script>
 
-
-    <!-- Delete Popup HTML and Javascript -->
-
-
-
-        <div id="deletepopup" class="popup">
-            <div  style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
-                  class="popup-content">
-                <span class="close-btn" onclick="closeDeletePopup()">&times;</span> <br>
-
-                <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
-                <button onclick="deleteSurvey()" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
-
-            </div>
+    <!-- Delete Popup -->
+    <div id="deletepopup" class="popup">
+        <div style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
+             class="popup-content">
+            <span class="close-btn" onclick="closeDeletePopup()">×</span> <br>
+            <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
+            <button onclick="deleteSurvey()" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
         </div>
-
-        <script>
-            function closeDeletePopup() {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        document.getElementById('deletepopup').classList.remove('show');
-                    });
-                });
-                document.body.style.overflow = "hidden";
-
-            }
-            function deleteSurvey(){
-
-                const params = new URLSearchParams();
-                params.append('surveyId', ${survey.surveyId});
-
-                fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
-                    body: params
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Server returned"+response.status);
-                        }
-                        return response.text();
-                    })
-                    .then(msg => {
-                        // on success, reload to reflect changes
-                        window.location.reload();
-                    })
-                    .catch(err => {
-                        console.error('Deletion error:', err);
-                        alert('Failed to delete survey: ' + err.message);
-                    });
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        document.getElementById('deletepopup').classList.remove('show');
-                        window.location.reload();
-                    });
-                });
-                document.body.style.overflow = "hidden";
-            }
-        </script>
-
-
-    <!-- Delete Popup HTML and Javascript End-->
-
-
-    <%--      survey questions javascripts      --%>
+    </div>
 
     <script>
-        // Define questions for this specific survey
+        function closeDeletePopup() {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.getElementById('deletepopup').classList.remove('show');
+                });
+            });
+            document.body.style.overflow = "hidden";
+        }
+
+        function deleteSurvey() {
+            const params = new URLSearchParams();
+            params.append('surveyId', ${survey.surveyId});
+
+            fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                },
+                body: params
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Server returned "+response.status);
+                    }
+                    return response.text();
+                })
+                .then(msg => {
+                    window.location.reload();
+                })
+                .catch(err => {
+                    console.error('Deletion error:', err);
+                    alert('Failed to delete survey: ' + err.message);
+                });
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.getElementById('deletepopup').classList.remove('show');
+                    window.location.reload();
+                });
+            });
+            document.body.style.overflow = "hidden";
+        }
+    </script>
+
+    <!-- Survey Questions JavaScript -->
+    <script>
         const questions${status.index} = [
             <c:forEach items="${survey.questions}" var="question" varStatus="qStatus">
             {
@@ -312,26 +289,21 @@
                 ],
                 userVote: <c:choose>
                     <c:when test="${not empty question.userVotes}">
-                    [${question.userVotes[0].userId},
-                        ${question.userVotes[0].answerId}]
+                    [${question.userVotes[0].userId}, ${question.userVotes[0].answerId}]
                 </c:when>
                 <c:otherwise>
                 "null"
                 </c:otherwise>
                 </c:choose>
-
-            }<c:if test="${!qStatus.last}">, </c:if>
+            }<c:if test="${!qStatus.last}">,</c:if>
             </c:forEach>
         ];
 
-        // Initialize the survey
         (function() {
             const questionSlider = document.getElementById('question-slider${status.index}');
             const prevBtn = document.getElementById('prev-btn${status.index}');
             const nextBtn = document.getElementById('next-btn${status.index}');
-
             const deleteBtn = document.getElementById('deleteSurveyBtn${status.index}');
-
 
             let currentQuestion = 0;
             const selectedAnswers = Array(questions${status.index}.length).fill(null);
@@ -346,12 +318,7 @@
                 q.options.forEach((opt, optIndex) => {
                     const percent = totalVotes ? ((q.votes[optIndex] / totalVotes) * 100).toFixed(1) : 0;
                     let answerIdId = Number(q.options[optIndex].answerId);
-                    console.log("user vote:", q.userVote[0], ",", q.userVote[1]);
-                    console.log("answerId", answerIdId);
-                    console.log("selected answerid:", q.userVote[1]);
                     const isSelected = answerIdId === q.userVote[1];
-                    console.log("isSelected:", isSelected);
-
 
                     html += '<div class="option ' + (isSelected ? 'selected' : '') + '" style="--percent: ' + percent + '%" onclick="vote' + ${status.index} +'(' + optIndex + ')">' +
                         (opt.img && opt.img !== ''
@@ -405,29 +372,22 @@
             }
 
             const userId = ${user.userId != null ? user.userId : 'null'};
-            console.log("User ID:", userId);
-
             const surveyId = ${survey.surveyId};
-            console.log("Survey ID:", surveyId);
 
             window['vote' + ${status.index}] = function (optIndex) {
-                console.log("Vote function called for option:", optIndex);
                 if (!userId) {
-                    console.log("User ID is null or undefined");
                     alert('Please log in to vote.');
                     return;
                 }
 
                 const q = questions${status.index}[currentQuestion];
-                console.log("Question:", q);
                 const answerId = q.options[optIndex].answerId;
                 const questionId = q.questionId;
-                console.log("Sending vote - Survey ID:", surveyId, "Question ID:", questionId, "Answer ID:", answerId, "User ID:", userId);
 
-                const prev = selectedAnswers[currentQuestion]; // Store the previously selected option
-                if (prev !== null) q.votes[prev]--; // Decrease vote count for previous selection
-                q.votes[optIndex]++; // Increase vote count for new selection
-                selectedAnswers[currentQuestion] = optIndex; // Update the selected answer
+                const prev = selectedAnswers[currentQuestion];
+                if (prev !== null) q.votes[prev]--;
+                q.votes[optIndex]++;
+                selectedAnswers[currentQuestion] = optIndex;
                 const slide = document.querySelector('#question-slider${status.index} .question-slide');
                 slide.innerHTML = renderQuestion(currentQuestion);
 
@@ -444,31 +404,21 @@
                     })
                 })
                     .then(response => {
-                        console.log("Vote response status:", response.status);
                         if (!response.ok) throw new Error('Network response was not ok');
                         return response.json();
                     })
                     .then(data => {
-                        console.log("Vote response data:", data);
-                        console.log("user vote:", q.userVote[0], ",", q.userVote[1])
                         if (data.success) {
-                            // Fetch the latest user vote for this question and update userVote
                             fetch('<%= request.getContextPath() %>/getUserVote?question_id=' + questionId + '&user_id=' + userId)
                                 .then(response => response.json())
                                 .then(latestAnswerId => {
-                                    q.userVote = [${user.userId}, latestAnswerId]; // Update userVote with the latest vote from the server
-                                    console.log("new user vote:", q.userVote[1]);
-                                    console.log("latest answer id:", latestAnswerId)
-                                    console.log("hello im manuja");
-                                    // Fetch updated vote counts
+                                    q.userVote = [${user.userId}, latestAnswerId];
                                     fetch('<%= request.getContextPath() %>/getVotes?question_id=' + questionId)
                                         .then(response => {
-                                            console.log("GetVotes response status:", response.status);
                                             if (!response.ok) throw new Error('GetVotes response was not ok');
                                             return response.json();
                                         })
                                         .then(votes => {
-                                            console.log("Updated votes:", votes);
                                             q.votes = votes;
                                             const slide = document.querySelector('#question-slider${status.index} .question-slide');
                                             slide.innerHTML = renderQuestion(currentQuestion);
@@ -477,26 +427,23 @@
                                 })
                                 .catch(error => console.error('Error fetching user vote:', error));
                         } else {
-                            console.log("Vote failed:", data);
                             alert('Failed to record vote');
-                            if (prev !== null) q.votes[prev]++; // Restore previous vote count
-                            q.votes[optIndex]--; // Remove the failed vote
-                            selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                            if (prev !== null) q.votes[prev]++;
+                            q.votes[optIndex]--;
+                            selectedAnswers[currentQuestion] = prev;
                             const slide = document.querySelector('#question-slider${status.index} .question-slide');
                             slide.innerHTML = renderQuestion(currentQuestion);
                         }
                     })
                     .catch(error => {
                         console.error('Error sending vote:', error);
-                        if (prev !== null) q.votes[prev]++; // Restore previous vote count
-                        q.votes[optIndex]--; // Remove the failed vote
-                        selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                        if (prev !== null) q.votes[prev]++;
+                        q.votes[optIndex]--;
+                        selectedAnswers[currentQuestion] = prev;
                         const slide = document.querySelector('#question-slider${status.index} .question-slide');
                         slide.innerHTML = renderQuestion(currentQuestion);
                     });
             };
-
-
 
             prevBtn.addEventListener('click', () => {
                 if (currentQuestion > 0) {
@@ -516,32 +463,20 @@
                 }
             });
 
-
             deleteBtn.addEventListener('click', () => {
                 const deletepopup = document.getElementById('deletepopup');
                 deletepopup.style.display = 'flex';
                 deletepopup.classList.add("show");
             });
 
-
-
-
-            // Popup close functionality
-            document.getElementById('ok-btn').addEventListener('click', () => {
-                document.getElementById('popup').style.display = 'none';
-            });
-
-
-            // Initial render
             showSlide(currentQuestion, 0);
         })();
     </script>
 
-    <!-- Analytics popup -->
-
+    <!-- Analytics Popup -->
     <div id="analyticsPopup${status.index}" class="analytics-popup">
         <div class="analytics-popup-content">
-            <span id="closePopup${status.index}" class="analytics-close">&times;</span>
+            <span id="closePopup${status.index}" class="analytics-close">×</span>
             <h2>Analytics</h2>
             <div class="analytics-filters">
                 <select id="provinceFilter${status.index}" style="display: none;">
@@ -566,11 +501,7 @@
         </div>
     </div>
 
-    <!-- Analytics popup  end -->
-
-    <!-- Analytics pop up javascripts -->
-
-
+    <!-- Analytics JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -582,7 +513,6 @@
             const totalVotesEl = document.getElementById('totalVotes${status.index}');
             const answerVotesEl = document.getElementById('answerVotes${status.index}');
 
-            // Sample data with varying answer counts (1–6)
             const analyticsData = {
                 All_Island: {
                     <c:forEach items="${survey.questions}" var="question" varStatus="qStatus">
@@ -615,10 +545,10 @@
                             </c:forEach>
                         ]
                     }<c:if test="${!qStatus.last}">,</c:if>
-                    </c:forEach>}
+                    </c:forEach>
+                }
             };
 
-            // Initialize Chart.js
             const ctx = document.getElementById('barGraph${status.index}').getContext('2d');
             let barChart = new Chart(ctx, {
                 type: 'bar',
@@ -627,7 +557,7 @@
                     datasets: [{
                         label: 'Percentage',
                         data: [],
-                        backgroundColor: '#8952c5', // Purple
+                        backgroundColor: '#8952c5',
                         borderColor: '#000',
                         borderWidth: 1
                     }]
@@ -678,9 +608,7 @@
                 }
             });
 
-            // Open popup
             viewAnalyticsBtn.addEventListener('click', () => {
-                console.log("nice");
                 analyticsPopup.style.display = "flex";
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
@@ -691,18 +619,14 @@
                 updateAnalytics();
             });
 
-            // Close popup
             closePopup.addEventListener('click', () => {
                 analyticsPopup.classList.remove("show");
                 setTimeout(() => {
                     analyticsPopup.style.display = "none";
-
                 }, 300);
                 document.body.style.overflow = "auto";
-                analyticsPopup.style.display = 'none';
             });
 
-            // Update analytics on filter change
             provinceFilter.addEventListener('change', updateAnalytics);
             questionFilter.addEventListener('change', updateAnalytics);
 
@@ -723,7 +647,6 @@
                 barChart.data.labels = data.answers;
                 barChart.data.datasets[0].data = data.percentages;
 
-                // Adjust bar thickness based on number of answers
                 const numAnswers = data.answers.length;
                 barChart.options.barPercentage = numAnswers === 1 ? 0.4 : numAnswers === 2 ? 0.45 : 0.9 / numAnswers;
                 barChart.options.categoryPercentage = numAnswers === 1 ? 0.5 : numAnswers === 2 ? 0.8 : 0.95;
@@ -737,6 +660,5 @@
             }
         });
     </script>
-
 </c:forEach>
-<%-- Survey Prototype  End--%>
+<%-- Survey Prototype End --%>
