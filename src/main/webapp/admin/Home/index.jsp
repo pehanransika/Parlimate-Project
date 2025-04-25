@@ -26,11 +26,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Home | Admin Dashboard</title>
 
-	<link rel="stylesheet" href="./dashboard.css">
+<%--	<link rel="stylesheet" href="./dashboard.css">--%>
 	<link rel="stylesheet" href="../index.css">
+	<link rel="stylesheet" href="home.css">
+
 
 	<!-- Chart.js CDN -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<%--	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--%>
 
 	<!-- icons -->
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -69,126 +71,126 @@
 			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
 	/>
 	<style>
-		/* Enhanced Grid Layout */
-		.stats-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 20px;
-			width: 100%;
-			padding: 20px 0;
-			max-width: 1400px;
-			margin: 0 auto;
-		}
+<%--		/* Enhanced Grid Layout */--%>
+<%--		.stats-grid {--%>
+<%--			display: grid;--%>
+<%--			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));--%>
+<%--			gap: 20px;--%>
+<%--			width: 100%;--%>
+<%--			padding: 20px 0;--%>
+<%--			max-width: 1400px;--%>
+<%--			margin: 0 auto;--%>
+<%--		}--%>
 
-		/* Stat Card Styling */
-		.stat-card {
-			background: #ffffff;
-			border-radius: 12px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-			padding: 20px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			text-decoration: none;
-			color: #333;
-		}
-		.stat-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-		}
-		.card-icon i {
-			font-size: 2rem;
-			color: #007bff;
-		}
-		.card-data {
-			text-align: right;
-		}
-		.card-amount {
-			font-size: 1.8rem;
-			font-weight: 600;
-			color: #333;
-		}
-		.card-title {
-			font-size: 1rem;
-			color: #666;
-			margin-top: 5px;
-		}
+<%--		/* Stat Card Styling */--%>
+<%--		.stat-card {--%>
+<%--			background: #ffffff;--%>
+<%--			border-radius: 12px;--%>
+<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
+<%--			padding: 20px;--%>
+<%--			display: flex;--%>
+<%--			align-items: center;--%>
+<%--			justify-content: space-between;--%>
+<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
+<%--			text-decoration: none;--%>
+<%--			color: #333;--%>
+<%--		}--%>
+<%--		.stat-card:hover {--%>
+<%--			transform: translateY(-5px);--%>
+<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
+<%--		}--%>
+<%--		.card-icon i {--%>
+<%--			font-size: 2rem;--%>
+<%--			color: #007bff;--%>
+<%--		}--%>
+<%--		.card-data {--%>
+<%--			text-align: right;--%>
+<%--		}--%>
+<%--		.card-amount {--%>
+<%--			font-size: 1.8rem;--%>
+<%--			font-weight: 600;--%>
+<%--			color: #333;--%>
+<%--		}--%>
+<%--		.card-title {--%>
+<%--			font-size: 1rem;--%>
+<%--			color: #666;--%>
+<%--			margin-top: 5px;--%>
+<%--		}--%>
 
-		/* Chart Card Styling */
-		.chart-card {
-			background: #ffffff;
-			border-radius: 12px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-			padding: 20px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			min-height: 300px;
-		}
-		.chart-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-		}
-		.chart-card canvas {
-			max-width: 100%;
-			max-height: 250px;
-		}
+<%--		/* Chart Card Styling */--%>
+<%--		.chart-card {--%>
+<%--			background: #ffffff;--%>
+<%--			border-radius: 12px;--%>
+<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
+<%--			padding: 20px;--%>
+<%--			display: flex;--%>
+<%--			flex-direction: column;--%>
+<%--			align-items: center;--%>
+<%--			justify-content: center;--%>
+<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
+<%--			min-height: 300px;--%>
+<%--		}--%>
+<%--		.chart-card:hover {--%>
+<%--			transform: translateY(-5px);--%>
+<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
+<%--		}--%>
+<%--		.chart-card canvas {--%>
+<%--			max-width: 100%;--%>
+<%--			max-height: 250px;--%>
+<%--		}--%>
 
-		/* Button Card Styling */
-		.button-card {
-			background: linear-gradient(135deg, #007bff, #0056b3);
-			border-radius: 12px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-			padding: 20px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			min-height: 150px;
-		}
-		.button-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-		}
-		.button-card a {
-			color: #ffffff;
-			text-decoration: none;
-			font-size: 1.2rem;
-			font-weight: 500;
-			padding: 15px 30px;
-			border-radius: 8px;
-			background: rgba(255, 255, 255, 0.1);
-			transition: background 0.3s ease;
-		}
-		.button-card a:hover {
-			background: rgba(255, 255, 255, 0.2);
-		}
+<%--		/* Button Card Styling */--%>
+<%--		.button-card {--%>
+<%--			background: linear-gradient(135deg, #007bff, #0056b3);--%>
+<%--			border-radius: 12px;--%>
+<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
+<%--			padding: 20px;--%>
+<%--			display: flex;--%>
+<%--			align-items: center;--%>
+<%--			justify-content: center;--%>
+<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
+<%--			min-height: 150px;--%>
+<%--		}--%>
+<%--		.button-card:hover {--%>
+<%--			transform: translateY(-5px);--%>
+<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
+<%--		}--%>
+<%--		.button-card a {--%>
+<%--			color: #ffffff;--%>
+<%--			text-decoration: none;--%>
+<%--			font-size: 1.2rem;--%>
+<%--			font-weight: 500;--%>
+<%--			padding: 15px 30px;--%>
+<%--			border-radius: 8px;--%>
+<%--			background: rgba(255, 255, 255, 0.1);--%>
+<%--			transition: background 0.3s ease;--%>
+<%--		}--%>
+<%--		.button-card a:hover {--%>
+<%--			background: rgba(255, 255, 255, 0.2);--%>
+<%--		}--%>
 
-		/* Responsive Adjustments */
-		@media (max-width: 768px) {
-			.stats-grid {
-				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-				gap: 15px;
-			}
-			.stat-card, .chart-card, .button-card {
-				padding: 15px;
-			}
-			.card-amount {
-				font-size: 1.5rem;
-			}
-			.card-title {
-				font-size: 0.9rem;
-			}
-			.button-card a {
-				font-size: 1rem;
-				padding: 10px 20px;
-			}
-		}
+<%--		/* Responsive Adjustments */--%>
+<%--		@media (max-width: 768px) {--%>
+<%--			.stats-grid {--%>
+<%--				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));--%>
+<%--				gap: 15px;--%>
+<%--			}--%>
+<%--			.stat-card, .chart-card, .button-card {--%>
+<%--				padding: 15px;--%>
+<%--			}--%>
+<%--			.card-amount {--%>
+<%--				font-size: 1.5rem;--%>
+<%--			}--%>
+<%--			.card-title {--%>
+<%--				font-size: 0.9rem;--%>
+<%--			}--%>
+<%--			.button-card a {--%>
+<%--				font-size: 1rem;--%>
+<%--				padding: 10px 20px;--%>
+<%--			}--%>
+<%--		}--%>
 
-		/* Popup Modal Styles */
+		 /*Popup Modal Styles*/
 		.popup-modal {
 			display: none;
 			position: fixed;
@@ -201,19 +203,54 @@
 			align-items: center;
 		}
 
+		.title{
+			font-weight: 600;
+			color:black;
+			font-size: 1.25rem;
+			gap: 1rem;
+
+			&& .icon{
+				width: 2.5rem;
+				height: 2.5rem;
+				border: 1px solid grey;
+				border-radius: 50%;
+				display: flex;
+				align-content: center;
+				justify-content: center;
+				font-size: 1rem;
+
+				&& i{
+					margin-top: 0.7rem;
+				}
+			}
+		}
+
 		.popup {
 			background-color: white;
-			padding: 20px;
-			border-radius: 10px;
+			z-index: 1;
+			padding: 1rem 1.5rem;
+			border-radius: 1.5rem;
 			width: 400px;
 			position: relative;
 		}
 
 		.popup .close-btn {
 			position: absolute;
-			top: 10px;
-			right: 10px;
+			top: 1rem;
+			right: 1.5rem;
 			cursor: pointer;
+			width: 1.75rem;
+			height: 1.75rem;
+			border-radius: 50%;
+			display: flex;
+			align-content: center;
+			justify-content: center;
+			background: #cfcfcf;
+
+			&& i {
+				line-height: normal;
+				margin-top: 0.25rem;
+			}
 		}
 
 		.formSection {
@@ -333,9 +370,10 @@
 	</div>
 </div>
 
-<div class="pageContent">
+<div class="pageContent" style="width: 100%">
 	<div class="container f-col">
 		<div class="top f-row">
+
 			<div class="page f-col">
 				<div class="sUser">
 					<div class="greet">
@@ -344,161 +382,274 @@
 					</div>
 				</div>
 				<div class="page-desc">
-					Monitor platform statistics
+					Track the platform progress here
 				</div>
 			</div>
 			<div class="date">
-				24 Apr, 2025
+				18 Jan, 2025
 			</div>
 		</div>
-		<div class="stats-grid">
-			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-users"></i>
+		<div class="action-btns f-row">
+			<button id="add-announcement-btn" class="f-row"> <i class="fa-solid fa-bullhorn"></i> Add announcement</button>
+			<button id="view-user-support" onclick="window.location.href='<%= request.getContextPath() %>/admin/UserSupport/GetSupportMesssageServlet'">view user support</button>
+		</div>
+		<div class="analytics f-col">
+			<div class="row-1 f-row">
+				<div class="an-sec sec-1 f-row">
+					<div class="icon">
+						<i class="fa-regular fa-user"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">total users</div>
+						<div class="amount">${userCount}</div>
+					</div>
 				</div>
-				<div class="card-data">
-					<div class="card-amount">66.6k</div>
-					<div class="card-title">Total Users</div>
+				<div class="an-sec sec-2 f-row">
+					<div class="icon">
+						<i class="fa-solid fa-podium-star"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">Politicains</div>
+						<div class="amount">${politicianCount}</div>
+					</div>
 				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-user-tie"></i>
+				<div class="an-sec sec-3 f-row">
+					<div class="icon">
+						<i class="fa-solid fa-people-group"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">political party</div>
+						<div class="amount">${politicalPartyCount}</div>
+					</div>
 				</div>
-				<div class="card-data">
-					<div class="card-amount">1.2k</div>
-					<div class="card-title">Politicians</div>
+				<div class="an-sec sec-4 f-row">
+					<div class="icon">
+						<i class="fa-solid fa-person"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">Citizens</div>
+						<div class="amount">${citizenCount}</div>
+					</div>
 				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-flag"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">45</div>
-					<div class="card-title">Political Parties</div>
-				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class-builder>
-				<div class="card-icon">
-					<i class="fa-regular fa-user"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">65.3k</div>
-					<div class="card-title">Citizens</div>
-				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/GetAllMeetingRequestAdminServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-calendar-check"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">320</div>
-					<div class="card-title">Meetings</div>
-				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-briefcase"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">85</div>
-					<div class="card-title">Fundraisers</div>
-				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-check-to-slot"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">150</div>
-					<div class="card-title">Surveys</div>
-				</div>
-			</a>
-			<a href="${pageContext.request.contextPath}/GetProfileListServlet" class="stat-card">
-				<div class="card-icon">
-					<i class="fa-regular fa-id-card"></i>
-				</div>
-				<div class="card-data">
-					<div class="card-amount">2.5k</div>
-					<div class="card-title">Public Profiles</div>
-				</div>
-			</a>
-			<div class="chart-card">
-				<canvas id="userTypePieChart"></canvas>
 			</div>
-			<div class="chart-card">
-				<canvas id="userRegistrationBarChart"></canvas>
+			<div class="row-1 f-row">
+				<div class="an-sec sec-1 f-row">
+					<div class="icon">
+						<i class="fa-regular fa-video"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">Meetings</div>
+						<div class="amount">${meetingCount}</div>
+					</div>
+				</div>
+				<div class="an-sec sec-2 f-row">
+					<div class="icon">
+						<i class="fa-regular fa-sack-dollar"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">Fundraisers</div>
+						<div class="amount">40</div>
+					</div>
+				</div>
+				<div class="an-sec sec-3 f-row">
+					<div class="icon">
+						<i class="fa-regular fa-clipboard-check"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">Posts</div>
+						<div class="amount">${postCount}</div>
+					</div>
+				</div>
+				<div class="an-sec sec-4 f-row">
+					<div class="icon">
+						<i class="fa-regular fa-clipboard-check"></i>
+					</div>
+					<div class="data f-col">
+						<div class="title">surveys</div>
+						<div class="amount">40</div>
+					</div>
+				</div>
 			</div>
-			<div class="chart-card">
-				<canvas id="postsLineChart"></canvas>
+		</div>
+		<div class="engagements f-row">
+			<div class="user-eng engagement f-col">
+				<div class="title">User engagement</div>
+
+				<div class="graph"></div>
 			</div>
-			<div class="chart-card">
-				<canvas id="fundraisersLineChart"></canvas>
+			<div class="surv-eng engagement f-col">
+				<div class="title capitalize">surveys</div>
+				<div class="graph"></div>
 			</div>
-			<div class="button-card">
-				<a href="#" id="add-announcement-btn">Add Announcement</a>
-			</div>
-			<div class="button-card">
-				<a href="${pageContext.request.contextPath}/admin/UserSupport/GetSupportMesssageServlet">View User Support</a>
+			<div class="surv-eng engagement f-col">
+				<div class="title capitalize">surveys</div>
+
+				<div class="graph"></div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="popup-modal" id="popup-modal">
-	<div class="popup">
-		<!-- Announcement Form -->
-		<form action="PublishAnnouncementAdminServlet" method="post">
-			<div class="title">
-				New Announcement
-				<div class="close-btn btn" id="popup-close-btn">
-					<i class="fa-solid fa-times"></i>
-				</div>
-				<div class="breakLine"></div>
-			</div>
-			<div class="content">
-				<!-- User ID (hidden field) -->
-				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />
+<%--<div class="fund-popup col">--%>
+<%--	<div class="head row">--%>
+<%--		<div class="close-btn">--%>
+<%--			<i class="fa-solid fa-xmark"></i>--%>
+<%--		</div>--%>
+<%--		<div class="icon">--%>
+<%--			<i class="fa-regular fa-briefcase"></i>--%>
+<%--		</div>--%>
+<%--		<div class="title">Publish an announcement</div>--%>
+<%--		<div class="separator"></div>--%>
+<%--	</div>--%>
+<%--	<input type="hidden" name="userId" id="userId" value="<%= userId %>" />--%>
+<%--	<div class="body col">--%>
+<%--		<div class="fund-title field">--%>
+<%--			<label for="add-post-title" class="title">Title</label>--%>
+<%--			<input type="text" autocapitalize="off" required placeholder="Enter the title of the announcement" name="title" id="add-post-title">--%>
+<%--		</div>--%>
+<%--		<input type="hidden" name="userid" id="useri" value="${user.userId}" />--%>
+<%--		<input type="hidden" name="username" id="usernam" value="${userProfile.name}" />--%>
+<%--		<div class="fund-decs field">--%>
+<%--			<label for="fund-desc" class="title">Description</label>--%>
+<%--			<textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>--%>
+<%--		</div>--%>
+<%--		<div class="fund-contact" style="margin-bottom: 20px; font-family: Arial, sans-serif;">--%>
+<%--			<label class="title" style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">--%>
+<%--				Contact Number--%>
+<%--			</label>--%>
+<%--			<input--%>
+<%--					type="tel"--%>
+<%--					name="contact_no"--%>
+<%--					required--%>
+<%--					pattern="[0-9]{10}"--%>
+<%--					maxlength="10"--%>
+<%--					placeholder="Enter your contact number"--%>
+<%--					title="Contact number must be exactly 10 digits"--%>
+<%--					style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"--%>
+<%--			>--%>
+<%--		</div>--%>
+<%--		<div class="multi-fields row">--%>
+<%--			<div class="fund-cat field">--%>
+<%--				<label for="fund-categ" class="title">Category</label>--%>
+<%--				<select required name="category" id="fund-categ">--%>
+<%--					<option value="educational">Educational</option>--%>
+<%--					<option value="social">Social</option>--%>
+<%--					<option value="community-se">Community Service</option>--%>
+<%--				</select>--%>
+<%--			</div>--%>
+<%--			<div class="fund-amount field col">--%>
+<%--				<label class="title" for="fund-amount">Fund Target</label>--%>
+<%--				<div class="content row">--%>
+<%--					<div class="curr">--%>
+<%--						<select required name="currency" id="fund-currency">--%>
+<%--							<option value="lkr">LKR</option>--%>
+<%--							<option value="usd">USD</option>--%>
+<%--						</select>--%>
+<%--					</div>--%>
+<%--					<div class="amount">--%>
+<%--						<input required type="number" name="targetamount" id="fund-amount" min="1" placeholder="1,000,000.00">--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--		<div class="fund-attach field">--%>
+<%--			<span for="" class="title">Upload Attachments</span>--%>
+<%--			<div class="att-container">--%>
+<%--				<div class="action row">--%>
+<%--					<label for="fund-att" class="att-btn">Select File</label>--%>
+<%--					<input type="file" required name="attachmentUrl" id="fund-att" multiple>--%>
+<%--					<div class="sep"></div>--%>
+<%--				</div>--%>
+<%--				<div class="att-content">--%>
+<%--					<span class="no-of-files">No file attached</span>--%>
+<%--					<ul id="att-list" class="col">--%>
+<%--						<!-- uploaded files will be listed here -->--%>
+<%--					</ul>--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--		<div class="fund-photo field">--%>
+<%--			<span for="" class="title">Upload Photos</span>--%>
+<%--			<div class="att-container-photo">--%>
+<%--				<div class="action row-photo">--%>
+<%--					<label for="fund-photo" class="photo-btn">Select Photo</label>--%>
+<%--					<input type="file" name="photos" id="fund-photo" multiple>--%>
+<%--					<div class="sep"></div>--%>
+<%--				</div>--%>
+<%--				<div class="photo-content">--%>
+<%--					<span class="no-of-files">No Photo attached</span>--%>
+<%--					<ul id="photo-list" class="col">--%>
+<%--						<!-- uploaded files will be listed here -->--%>
+<%--					</ul>--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--	</div>--%>
+<%--	<div class="bottom row">--%>
+<%--		<button type="button" class="cancel-btn form-btn">Cancel</button>--%>
+<%--		<button type="submit" class="submit-btn form-btn row">--%>
+<%--			<i class="fa-duotone fa-solid fa-check"></i>--%>
+<%--			Publish--%>
+<%--		</button>--%>
+<%--	</div>--%>
+<%--</div>--%>
 
-				<!-- Announcement Title -->
-				<div class="discussion-title col">
-					<label for="add-post-title">Title</label>
-					<input
-							autocomplete="off"
-							type="text"
-							name="title"
-							id="add-post-title"
-							placeholder="Enter the title of the announcement"
-							required
-					/>
-				</div>
+<%--<div class="popup-modal" id="popup-modal" style="display: flex">--%>
+<%--	<div class="popup">--%>
+<%--		<!-- Announcement Form -->--%>
+<%--		<form action="PublishAnnouncementAdminServlet" method="post">--%>
+<%--			<div class="title f-row">--%>
+<%--				<div class="icon">--%>
+<%--					<i class="fa-solid fa-megaphone"></i>--%>
+<%--				</div>--%>
+<%--				New Announcement--%>
+<%--				<div class="close-btn btn" id="popup-close-btn">--%>
+<%--					<i class="fa-solid fa-xmark"></i>--%>
+<%--				</div>--%>
+<%--				<div class="breakLine"></div>--%>
+<%--			</div>--%>
+<%--			<div class="content">--%>
+<%--				<!-- User ID (hidden field) -->--%>
+<%--				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />--%>
 
-				<!-- Announcement Content -->
-				<div class="caption-box col content-pd">
-					<label for="add-post-caption">Content</label>
-					<textarea
-							autocomplete="off"
-							name="content"
-							id="add-post-caption"
-							placeholder="Enter the content of the announcement"
-							required
-					></textarea>
-				</div>
+<%--				<!-- Announcement Title -->--%>
+<%--				<div class="discussion-title col">--%>
+<%--					<label for="add-post-title">Title</label>--%>
+<%--					<input--%>
+<%--							autocomplete="off"--%>
+<%--							type="text"--%>
+<%--							name="title"--%>
+<%--							id="add-post-title"--%>
+<%--							placeholder="Enter the title of the announcement"--%>
+<%--							required--%>
+<%--					/>--%>
+<%--				</div>--%>
 
-				<!-- Form Buttons -->
-				<div class="popbtns capitalize">
-					<button type="reset" class="clear-btn" id="popup-clear-btn">
-						Clear <i class="fa-solid fa-rotate-left"></i>
-					</button>
-					<button type="submit" class="post-btn" id="popup-post-btn">
-						Post Announcement <i class="fa-solid fa-check"></i>
-					</button>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
+<%--				<!-- Announcement Content -->--%>
+<%--				<div class="caption-box col content-pd">--%>
+<%--					<label for="add-post-caption">Content</label>--%>
+<%--					<textarea--%>
+<%--							autocomplete="off"--%>
+<%--							name="content"--%>
+<%--							id="add-post-caption"--%>
+<%--							placeholder="Enter the content of the announcement"--%>
+<%--							required--%>
+<%--					></textarea>--%>
+<%--				</div>--%>
+
+<%--				<!-- Form Buttons -->--%>
+<%--				<div class="popbtns capitalize">--%>
+<%--					<button type="reset" class="clear-btn" id="popup-clear-btn">--%>
+<%--						Clear <i class="fa-solid fa-rotate-left"></i>--%>
+<%--					</button>--%>
+<%--					<button type="submit" class="post-btn" id="popup-post-btn">--%>
+<%--						Post Announcement <i class="fa-solid fa-check"></i>--%>
+<%--					</button>--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</form>--%>
+<%--	</div>--%>
+<%--</div>--%>
 
 </body>
 <script>
@@ -516,6 +667,7 @@
 	addAnnouncementBtn.addEventListener('click', (e) => {
 		e.preventDefault(); // Prevent default link behavior
 		popupModal.style.display = 'flex';
+		console.log("clicked")
 	});
 
 	// Close popup when close button is clicked

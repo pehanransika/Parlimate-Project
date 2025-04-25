@@ -166,4 +166,18 @@ public class PoliticalPartyController {
         return politicalParties;
     }
 
+    public static int getCount() {
+        String query = "SELECT COUNT(*) FROM politicalparty";
+        try (Connection connection = meetings.DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

@@ -70,7 +70,7 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/Home/GetAnalyticsCountServlet" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>home</span>
                 </a>
@@ -112,7 +112,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row active" >
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
@@ -180,7 +180,7 @@
                         />
                     </div>
                     <div class="scheduled-meeting">
-                        <button class="filter-btn f-row" id="schedule-btn" onclick="window.location.href='admin/Home/index.jsp'">
+                        <button class="filter-btn f-row" id="schedule-btn" onclick="window.location.href='${pageContext.request.contextPath}/admin/Home/index.jsp'">
                             <i class="fa-solid fa-house"></i>
                             Home Page
                         </button>

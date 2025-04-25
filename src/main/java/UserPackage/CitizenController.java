@@ -137,5 +137,19 @@ public class CitizenController {
         return false; // Default return if something goes wrong
     }
 
+    public static int getCount() {
+        String query = "SELECT COUNT(*) FROM citizen";
+        try (Connection connection = meetings.DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
 }

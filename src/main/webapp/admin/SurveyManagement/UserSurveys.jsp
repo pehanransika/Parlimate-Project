@@ -38,13 +38,13 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/GetAnalyticsCountServlet" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="../userManagement/UserManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
                     <span>user management</span>
                 </a>

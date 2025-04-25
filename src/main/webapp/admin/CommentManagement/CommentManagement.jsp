@@ -69,7 +69,7 @@
   <div class="navigation">
     <ul>
       <li>
-        <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
+        <a href="${pageContext.request.contextPath}/admin/Home/GetAnalyticsCountServlet" class="nav-item f-row">
           <i class="fa-regular fa-house"></i>
           <span>home</span>
         </a>
