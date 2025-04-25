@@ -35,7 +35,7 @@ input{
     text-transform: capitalize;
 }
 .scContainer {
-    margin-top: 3rem;
+    margin-top: 1rem;
     padding: 1rem 1rem 2rem;
     width: 100%;
     background: #fff;
@@ -223,7 +223,7 @@ tr.detail-begin td {
 }
 
 .suggestion-box {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     max-height: 150px;
     overflow-y: auto;
     position: absolute;
@@ -242,4 +242,13 @@ tr.detail-begin td {
 
 .suggestion-box li:hover {
     background-color: #f0f0f0;
+}
+
+.image {
+    && img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        object-fit: contain;
+    }
 }

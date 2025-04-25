@@ -50,54 +50,75 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="admin/assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="<%= request.getContextPath() %>/Home/index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
-                    <span>Home</span>
+                    <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/userManagment.jsp" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
-                    <span>User Management</span>
+                    <span>users</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
-                    <span>Fundraise Management</span>
+                    <span>fundraise management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/Surveys/GetParlimateSurveysServlet" class="nav-item f-row">
                     <i class="fa-regular fa-check-to-slot"></i>
-                    <span>Survey Management</span>
+                    <span>survey management</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-cards-blank"></i>
-                    <span>Post Management</span>
+                    <span>post management</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/meetingManagement/meetingManagement.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Comment Management</span>
+                </a>
+            </li>
+            <%--				<li>--%>
+            <%--					<a href="#" class="nav-item f-row">--%>
+            <%--						<i class="fa-regular fa-circle-check"></i>--%>
+            <%--						<span>requests</span>--%>
+            <%--					</a>--%>
+            <%--				</li>--%>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+                    <i class="fa-regular fa-money-bill-transfer"></i>
+                    <span>bank transfer management</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-item f-row">
+                <a href="<%= request.getContextPath() %>/GetProfileListServlet" class="nav-item f-row">
                     <i class="fa-regular fa-sliders-up"></i>
-                    <span>Platform Settings</span>
+                    <span>Profile Management</span>
                 </a>
             </li>
         </ul>
@@ -112,9 +133,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="f-row log-out">
+                <a href="#" class="f-row log-out" onclick="logoutUser()">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    Log out
+                    log out
                 </a>
             </li>
         </ul>
@@ -150,9 +171,10 @@
                         </label>
                         <input
                                 type="search"
-                                placeholder="Search by name/userId"
+                                placeholder="Search by topic"
                                 name="user-search"
                                 id="user-search"
+                                oninput="searchByTopic()"
                         />
                     </div>
                     <div class="scheduled-meeting">
@@ -161,31 +183,48 @@
                             Scheduled Meetings
                         </button>
                     </div>
+                    <div class="status-filter">
+                        <select id="status-filter" onchange="filterByStatus()">
+                            <option value="all">All Meetings</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="non-accepted">Non-Accepted</option>
+                        </select>
+                    </div>
+                    <div class="date-filter">
+                        <input
+                                type="date"
+                                id="date-filter"
+                                onchange="filterByDate()"
+                                placeholder="Filter by date"
+                        />
+                    </div>
                 </div>
             </div>
             <h2 class="section-title">Meeting Requests</h2>
+
             <div class="total-records f-row">
-                Total <span>560</span> records
+                Total <span>${totalCount}</span> records
             </div>
+
             <div class="data f-col">
                 <table class="users">
                     <thead>
                     <tr>
                         <td>Meeting Request ID</td>
-                        <td>Politician ID</td>
+                        <td>User Name</td>
                         <td>Title</td>
                         <td>Purpose of the Meeting</td>
                         <td>Date</td>
                         <td>Time</td>
                         <td>Duration</td>
+                        <td>Status</td>
                         <td>No of Participants</td>
-
-                        <td>Action</td> <!-- New Column for Button -->
+                        <td>Action</td>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="meeting-table-body">
                     <c:forEach var="meeting" items="${allMeetingRequestsAdmin}">
-                        <tr>
+                        <tr data-status="${meeting.status}" data-date="${meeting.proposaldate}">
                             <td>${meeting.meetingrequestid}</td>
                             <td>${meeting.politician_id}</td>
                             <td>${meeting.topic}</td>
@@ -193,6 +232,7 @@
                             <td>${meeting.proposaldate}</td>
                             <td>${meeting.proposaltime}</td>
                             <td>${meeting.estimatedduration}</td>
+                            <td>${meeting.status}</td>
                             <td>${meeting.participantcount}</td>
                             <td>
                                 <button
@@ -226,12 +266,13 @@
         </div>
     </div>
 </div>
+
 <!-- Main Meeting Details Popup -->
 <div id="popup-container" style="display: none;">
     <div class="popup-box">
         <h2>Meeting Details</h2>
 
-        <p><strong>Meeting ID:</strong> <span id="popup-id"></span></p>
+        <p><strong>Meeting Request ID:</strong> <span id="popup-id"></span></p>
         <p><strong>User:</strong> <span id="popup-user"></span></p>
         <p><strong>Title:</strong> <span id="popup-title"></span></p>
         <p><strong>Purpose:</strong> <span id="popup-purpose"></span></p>
@@ -240,7 +281,7 @@
         <p><strong>Duration:</strong> <span id="popup-duration"></span></p>
         <p><strong>No of Participants:</strong> <span id="popup-participants"></span></p>
         <p><strong>Type of the Meeting:</strong> <span id="popup-typeofthemeeting"></span></p>
-        <p><strong>Host :</strong> <span id="popup-host"></span></p>
+        <p><strong>Host:</strong> <span id="popup-host"></span></p>
 
         <!-- Buttons -->
         <div id="response-buttons">
@@ -253,58 +294,44 @@
             <h3>Confirm and Provide Details</h3>
 
             <form method="post" action="CreateMeetingServlet">
-                <p><strong>ID:</strong><br>
+                <input type="hidden" name="meetingrequestid" id="accepted-meetingrequestid" />
+                <p><strong>Politician ID:</strong><br>
                     <input type="text" name="politicianId" id="accepted-politicianId" readonly required />
                 </p>
                 <p><strong>Final Topic:</strong><br>
                     <input type="text" name="topic" id="accepted-topic" required />
                 </p>
-
                 <p><strong>Description:</strong><br>
                     <textarea name="description" id="accepted-description" rows="3" required></textarea>
                 </p>
-
                 <p><strong>Date:</strong><br>
                     <input type="date" name="date" id="accepted-date" required />
                 </p>
-
                 <p><strong>Final Time:</strong><br>
                     <input type="time" name="time" id="accepted-time" required />
                 </p>
-
                 <p><strong>Type of the Meeting:</strong><br>
                     <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required />
                 </p>
-
                 <p><strong>Platform:</strong><br>
                     <input type="text" name="platform" id="accepted-platform" required />
                 </p>
-
                 <p><strong>Host:</strong><br>
                     <input type="text" name="host" id="accepted-host" required />
                 </p>
-
                 <p><strong>Deadline to Register:</strong><br>
                     <input type="date" name="deadlinetoregister" id="accepted-deadline" required />
                 </p>
-
                 <p><strong>Number of Slots:</strong><br>
                     <input type="number" name="slots" id="accepted-slots" required />
                 </p>
-
                 <button type="submit">Submit</button>
             </form>
-
-
-
-
         </div>
-
         <br>
         <button onclick="closePopup()">Close</button>
     </div>
 </div>
-
 
 <script>
     function openPopup(id, user, title, purpose, date, time, duration, participants, typeofthemeeting, host) {
@@ -318,29 +345,32 @@
         document.getElementById("popup-participants").innerText = participants || "Not Specified";
         document.getElementById("popup-typeofthemeeting").innerText = typeofthemeeting || "Not Specified";
         document.getElementById("popup-host").innerText = host || "Not Specified";
-        document.getElementById("accepted-politicianId").value = document.getElementById("popup-id").textContent;
-        document.getElementById("accepted-topic").value = document.getElementById("popup-title").textContent;
-        document.getElementById("accepted-description").value = document.getElementById("popup-purpose").textContent;
-        document.getElementById("accepted-date").value = document.getElementById("popup-date").textContent;
-        document.getElementById("accepted-time").value = document.getElementById("popup-time").textContent;
-        document.getElementById("accepted-typeofthemeeting").value = document.getElementById("popup-typeofthemeeting").textContent;
-        document.getElementById("accepted-host").value = document.getElementById("popup-host").textContent;
-
-        // Optional: Set placeholders for platform, deadline, and slots if not in popup
+        document.getElementById("accepted-meetingrequestid").value = id || "";
+        document.getElementById("accepted-politicianId").value = user || "";
+        document.getElementById("accepted-topic").value = title || "";
+        document.getElementById("accepted-description").value = purpose || "";
+        document.getElementById("accepted-date").value = date || "";
+        document.getElementById("accepted-time").value = time || "";
+        document.getElementById("accepted-typeofthemeeting").value = typeofthemeeting || "";
+        document.getElementById("accepted-host").value = host || "";
         document.getElementById("accepted-platform").placeholder = "Enter platform (e.g. Zoom, Google Meet)";
-        document.getElementById("accepted-deadline").value = ""; // Let user pick
-        document.getElementById("accepted-slots").value = ""; // Let user enter
-
+        document.getElementById("accepted-deadline").value = "";
+        document.getElementById("accepted-slots").value = "";
 
         document.getElementById("popup-container").style.display = "block";
     }
 
-
     function closePopup() {
         document.getElementById("popup-container").style.display = "none";
+        document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("response-buttons").style.display = "block";
+        document.getElementById("accepted-meetingrequestid").value = "";
+        document.getElementById("accepted-topic").value = "";
+        document.getElementById("accepted-description").value = "";
+        document.getElementById("accepted-time").value = "";
     }
 
-document.querySelectorAll('.actbtn button').forEach(button => {
+    document.querySelectorAll('.actbtn button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.actbtn .menu').forEach(menu => {
                 if (menu !== button.nextElementSibling) {
@@ -356,8 +386,6 @@ document.querySelectorAll('.actbtn button').forEach(button => {
             window.location.href = "<%= request.getContextPath() %>/GetAllMeetingServlet";
         });
 
-
-        // Close popup when close button is clicked
         document.querySelectorAll(".close-btn").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.remove("popup-active");
@@ -373,12 +401,42 @@ document.querySelectorAll('.actbtn button').forEach(button => {
 
     function rejectMeeting() {
         alert("Meeting Rejected.");
-        // Send rejection to servlet here if needed
         closePopup();
     }
 
+    function filterByStatus() {
+        const filterValue = document.getElementById("status-filter").value;
+        const dateFilter = document.getElementById("date-filter").value;
+        const searchQuery = document.getElementById("user-search").value.toLowerCase();
+        const rows = document.querySelectorAll("#meeting-table-body tr");
+
+        rows.forEach(row => {
+            const status = row.getAttribute("data-status").toLowerCase();
+            const date = row.getAttribute("data-date");
+            const topic = row.cells[2].textContent.toLowerCase();
+
+            const matchesStatus = filterValue === "all" ||
+                (filterValue === "accepted" && status === "false") ||
+                (filterValue === "non-accepted" && status === "true");
+
+            const matchesDate = !dateFilter || date === dateFilter;
+
+            const matchesSearch = !searchQuery || topic.includes(searchQuery);
+
+            row.style.display = matchesStatus && matchesDate && matchesSearch ? "" : "none";
+        });
+    }
+
+    function filterByDate() {
+        filterByStatus();
+    }
+
+    function searchByTopic() {
+        filterByStatus();
+    }
+
     function submitAcceptedDetails() {
-        // Get values from the popup labels (view-only data)
+        const meetingrequestid = document.getElementById('accepted-meetingrequestid').value;
         const politicianId = document.getElementById('accepted-politicianId').value;
         const typeofthemeeting = document.getElementById('accepted-typeofthemeeting').value;
         const topic = document.getElementById('accepted-topic').value;
@@ -391,6 +449,7 @@ document.querySelectorAll('.actbtn button').forEach(button => {
         const slots = document.getElementById('accepted-slots').value;
 
         console.log("=== Debug Values Before Form Submission ===");
+        console.log("meetingrequestid:", meetingrequestid);
         console.log("politicianId:", politicianId);
         console.log("topic:", topic);
         console.log("description:", description);
@@ -403,8 +462,8 @@ document.querySelectorAll('.actbtn button').forEach(button => {
         console.log("slots:", slots);
         console.log("===========================================");
 
-        // Create FormData to send data via POST
         const formData = new FormData();
+        formData.append("meetingrequestid", meetingrequestid);
         formData.append("politicianId", politicianId);
         formData.append("topic", topic);
         formData.append("description", description);
@@ -415,9 +474,8 @@ document.querySelectorAll('.actbtn button').forEach(button => {
         formData.append("platform", platform);
         formData.append("deadlinetoregister", deadline);
         formData.append("slots", slots);
-        formData.append("availableSlots", slots); // Optional: keep if needed
+        formData.append("availableslots", slots);
 
-        // Submit to backend
         fetch("CreateMeetingServlet", {
             method: "POST",
             body: formData
@@ -425,7 +483,7 @@ document.querySelectorAll('.actbtn button').forEach(button => {
             .then(response => {
                 if (response.ok) {
                     alert("Meeting accepted and sent to servlet.");
-                    closePopup(); // Assuming this closes the popup
+                    closePopup();
                 } else {
                     alert("Error submitting meeting details.");
                 }
@@ -435,20 +493,6 @@ document.querySelectorAll('.actbtn button').forEach(button => {
                 alert("Something went wrong while submitting.");
             });
     }
-
-
-
-    function closePopup() {
-        document.getElementById("popup-container").style.display = "none";
-        document.getElementById("accept-extra-fields").style.display = "none";
-        document.getElementById("response-buttons").style.display = "block";
-
-        // Clear inputs
-        document.getElementById("accepted-topic").value = "";
-        document.getElementById("accepted-description").value = "";
-        document.getElementById("accepted-time").value = "";
-    }
-
 </script>
 </body>
 </html>

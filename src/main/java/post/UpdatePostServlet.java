@@ -1,4 +1,3 @@
-
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -22,12 +21,13 @@ public class UpdatePostServlet extends HttpServlet {
             int postid = Integer.parseInt(request.getParameter("postid"));
 
             String content = request.getParameter("content");
+            String images = request.getParameter("images");
 
             // Set the current timestamp
             LocalDateTime datetime = LocalDateTime.now();
 
             // Call the controller to update the announcement
-            boolean isUpdated = PostController.updatePost(postid, content, datetime);
+            boolean isUpdated = PostController.updatePost(postid, content, datetime,images);
 
             if (isUpdated) {
                 // If successful, retrieve the updated list of posts
@@ -36,7 +36,7 @@ public class UpdatePostServlet extends HttpServlet {
 
                 // Show alert and redirect to GetPostAllServlet
                 String alertMessage = "Post Updated Successfully";
-               // response.getWriter().println("<script>alert('" + alertMessage + "'); </script>");
+                // response.getWriter().println("<script>alert('" + alertMessage + "'); </script>");
                 response.setContentType("text/html");
                 response.getWriter().println("<script>");
                 response.getWriter().println("window.history.back();");
@@ -55,4 +55,3 @@ public class UpdatePostServlet extends HttpServlet {
         }
     }
 }
-

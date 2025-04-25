@@ -33,7 +33,7 @@ public class AddToWishlistServlet extends HttpServlet {
                 // If insertion fails due to duplicate key, return a custom error message
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write("{\"status\":\"error\", \"message\":\"You have already registered for this meeting.\"}");
+                response.getWriter().write("{\"status\":\"error\", \"message\":\"You are already in the wishlist for this meeting.\"}");
             }
         } catch (SQLException e) {
             e.printStackTrace();

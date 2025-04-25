@@ -47,6 +47,7 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="">
 
@@ -297,7 +298,7 @@
                         <div class="item-content live col">
                             <div class="item-title">
                                 <div class="title" style="font-size: 15px;">
-                                        ${registeredmeetings.topic}
+                                        ${registeredmeetings.topic} by ${registeredmeetings.politicianName}
                                 </div>
                                 <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
                                     <div>

@@ -1,23 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<c:set var="pendingParties" value="${parties.stream().filter(p -> p.status == 'pending').toList()}" />
+<c:set var="acceptedParties" value="${parties.stream().filter(p -> p.status == 'accepted').toList()}" />
+<c:set var="rejectedParties" value="${parties.stream().filter(p -> p.status == 'rejected').toList()}" />
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-
-
-    </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>User Management | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="./userManagment.css" />
-    <link rel="stylesheet" href="../index.css" />
-    <link rel="stylesheet" href="./profile.css"/>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/userManagement/userManagment.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/userManagement/userManagement2.css"/>
     <!-- icons -->
     <link
             rel="stylesheet"
@@ -50,36 +49,244 @@
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
     />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/solid.css"
-    />
+
     <link
             rel="stylesheet"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
+    <link rel="stylesheet" href="userManagement2.css"/>
 </head>
 <body class="">
+<div class="popup-overlay"></div>
+<div class="delete-user-popup f-col popup">
+    <div class="close-btn">
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="head f-col">
+        <div class="title">
+            Are you sure you want to <span class="red">delete</span> user <span class="username capitalize">manuja ransara</span>?
+            (user id :<span class="userid">null</span>)s
+        </div>
+        <%--        <img src="--%>
+        <%--            ${pageContext.request.contextPath}/admin/assetsFrame 297.png--%>
+        <%--" alt="delete user" width="200px">--%>
+    </div>
+    <div class="warns">
+        <ul class="f-col">
+            <li class="warn f-row">
+                <div class="icon">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+                <div class="details f-col">
+                    <div class="title">This action cannot be undone</div>
+                    <div class="desc">Deleting this user is permanent and can not be reversed.</div>
+                </div>
+            </li>
+            <li class="warn f-row">
+                <div class="icon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <div class="details f-col">
+                    <div class="title">System-Wide Impact</div>
+                    <div class="desc">This action will affect multiple systems and can not be reversed.</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="actions f-col">
+        <div class="desc f-col">
+            By selecting “Continue” you agree to the
+            <a href="#">Parlimate User privacy policy</a>
+        </div>
+        <div class="btns f-row">
+            <div class="cancel"></div>
+            <button class="proceed" id="proceed-delete-btn">proceed with caution</button>
+        </div>
+    </div>
+</div>
+
+<div class="party-req-modal f-col popup" style="padding-block: 1rem">
+    <div class="close-btn" id="party-req-close-btn">
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="top f-row">
+        <div class="title f-row">
+            Political party requests
+            <span class="requestsAmount">
+                <c:choose>
+                    <c:when test="${fn:length(pendingParties) > 9}">
+                        9+
+                    </c:when>
+                    <c:otherwise>
+                        ${fn:length(pendingParties)}
+                    </c:otherwise>
+                </c:choose>
+            </span>
+        </div>
+    </div>
+    <div class="content f-col">
+
+        <input type="checkbox" id="pending-request-table">
+        <label class="f-col pending-table" for="pending-request-table">
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-pending">pending requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                    <th>action</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty pendingParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500; font-style: italic">
+                                No pending requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'pending'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+                                        <td data-reqid="${party.reqId}">
+                                            <button class="btn-approve" data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-reqId="${party.reqId}" data-email="${party.email}" data-phone="${party.phoneNumber}" , data-pswd="${party.password}">Approve</button>
+                                            <button data-name="${party.name}" data-address="${party.address}" data-leader="${party.leader}" data-reqId="${party.reqId}" data-email="${party.email}" data-phone="${party.phoneNumber}" , data-pswd="${party.password}" class="btn-reject">Reject</button>
+                                        </td>
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </label>
+
+        <input type="checkbox" id="accepted-request-table">
+        <label class="f-col accept-table" for="accepted-request-table" >
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-accepted">accepted requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty acceptedParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500;  font-style: italic">
+                                No accepted requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'accepted'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </label>
+
+        <input type="checkbox" id="rejected-request-table">
+        <label class="f-col reject-table" for="rejected-request-table" >
+            <div class="dropdown title f-row">
+                <span class="status capitalize status-rejected">rejected requests</span>
+                <i class="fa-regular fa-circle-chevron-down"></i>
+            </div>
+            <table style="width: 100%">
+                <tr class="capitalize">
+                    <th>Party name</th>
+                    <th>HQ address</th>
+                    <th>party leader</th>
+                    <th>email</th>
+                    <th>contact phone</th>
+                    <th>submitted   date</th>
+                </tr>
+                <c:choose>
+                    <c:when test="${empty acceptedParties}">
+                        <tr>
+                            <td colspan="7" style="font-weight: 500; font-style: italic">
+                                No rejected requests were found
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${parties}" var="party">
+                            <c:choose>
+                                <c:when test="${party.status == 'rejected'}">
+                                    <tr>
+                                        <td>${party.name}</td>
+                                        <td>${party.address}</td>
+                                        <td>${party.leader}</td>
+                                        <td>${party.email}</td>
+                                        <td>${party.phoneNumber}</td>
+                                        <td>${party.submittedDate}</td>
+
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </label>
+
+    </div>
+    <div class="footer">
+        <button id="generate-csv-btn" class="f-row">Export CSV <i class="fa-regular fa-arrow-down-to-line"></i></button>
+    </div>
+</div>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="../assets/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/admin/assets/logo.png" alt="Parlimate" id="logo"/>
     </div>
     <div class="navigation">
         <ul>
             <li>
-                <a href="../Home/index.jsp" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row">
                     <i class="fa-regular fa-house"></i>
                     <span>home</span>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row active">
+                <a href="#" class="nav-item f-row active">
                     <i class="fa-regular fa-users"></i>
                     <span>user management</span>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
+                <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -91,27 +298,15 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/PostManagement/PostManagementServlet" class="nav-item f-row ">
+                <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-cards-blank"></i>
                     <span>post management</span>
-                </a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
-                    <i class="fa-regular fa-comments"></i>
-                    <span>Comment Management</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-item f-row">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>requests</span>
-                </a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
-                    <i class="fa-regular fa-money-bill-transfer"></i>
-                    <span>bank transfer management</span>
                 </a>
             </li>
             <li>
@@ -140,7 +335,6 @@
         </ul>
     </div>
 </div>
-
 <div class="pageContent">
     <div class="container f-col">
         <div class="top f-row">
@@ -150,20 +344,15 @@
                     Manage user roles, permissions, and activity logs.
                 </div>
             </div>
-
+            <div class="date">
+                <fmt:formatDate value="<%= new java.util.Date() %>" pattern="dd MMM, yyyy"/>
+            </div>
         </div>
         <div class="content f-col">
             <div class="topS f-row">
-                <div class="show f-row">
-                    Shows
-                    <select name="rows" id="rows">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    entries per page
+                <div class="total-records f-row">
+                    total <span> ${AllUsers.size()} </span> records
                 </div>
-
                 <div class="actions f-row">
                     <div class="search-bar">
                         <label for="user-search">
@@ -176,246 +365,304 @@
                                 id="user-search"
                         />
                     </div>
-                    <div class="filter">
-                        <button class="filter-btn f-row" id="filter-btn">
-                            <i class="fa-solid fa-filter"></i>
-                            Filter
-                        </button>
-                    </div>
-                    <button class="add-btn f-row" id="openPopup">
-                        <i class="fa-sharp fa-solid fa-plus"></i>
-                        Add User
+<%--                    <div class="filter">--%>
+<%--                        <button class="filter-btn f-row" id="filter-btn">--%>
+<%--                            <i class="fa-solid fa-filter"></i>--%>
+<%--                            Filter--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
+                    <button class="party-req-btn f-row" id="party-req-btn">
+                        Political Party Requests
                     </button>
-
                 </div>
             </div>
-            <div class="total-records f-row">
-                total <span> 560 </span> records
-            </div>
+
             <div class="data f-col">
                 <table class="users">
                     <thead>
                     <tr>
                         <td>User ID</td>
-                        <td>Email</td>
+                        <td>User Name</td>
                         <td>Role</td>
-                        <td>status</td>
-                        <td class="head-row f-row">joined on</td>
-                        <td>View Profile</td>
+                        <td class="head-row f-row">Joined on</td>
+                        <td>Actions</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="user" items="${getallUsers}">
-                        <tr>
-                            <td>${user.userId}</td>
-                            <td >
-                                <div class="p-img"></div>
-                                <div class="credentials f-col">
-                                    <div class="name">${user.email}</div>
-
-
-                                </div>
-                            </td>
-
-
-                            <td class="role">
-                                <span class="${user.userType.toLowerCase()}">${user.userType}</span>
-                            </td>
-                            <td>Active</td>
-                            <td>${user.created_at}</td>
-                            <td class="actbtn">
-                                <button>
-                                    <i class="fa-regular fa-ellipsis-vertical"></i>
-                                </button>
-                                <ul class="menu">
-                                    <li class="f-row" >
-                                        <i class="fa-regular fa-user"></i>
-                                        <button class="view-profile-btn" data-user-id="${user.userId}">
-                                            <i class="fa-regular fa-user"></i>
-                                            View Profile
-                                        </button>
-                                    </li>
-
-
-                                    <li class="f-row del-user">
-                                        <i class="fa-regular fa-trash"></i>
-                                        delete user
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
+                    <c:choose>
+                        <c:when test="${empty AllUsers}">
+                            <tr>
+                                <td colspan="5">No users found.</td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="user" items="${AllUsers}">
+                                <tr>
+                                    <td>${user.userId}</td>
+                                    <td class="profile f-row">
+                                        <div class="p-img"></div>
+                                        <div class="credentials f-col">
+                                            <div class="name">${user.name}</div>
+                                            <div class="email">${user.email}</div>
+                                        </div>
+                                    </td>
+                                    <td class="role capitalize">
+                                        <span class="${user.userType}">${user.userType}</span>
+                                    </td>
+                                    <td class="formatDate" data-date="${user.created_at}">${user.created_at}</td>
+                                    <td class="actbtn">
+                                        <button><i class="fa-regular fa-ellipsis-vertical"></i></button>
+                                        <ul class="menu">
+                                            <li class="f-row"><i class="fa-regular fa-user"></i>view profile</li>
+<%--                                            <li class="f-row"><i class="fa-regular fa-pencil"></i>edit details</li>--%>
+<%--                                            <li class="f-row"><i class="fa-regular fa-lock"></i>change permission</li>--%>
+                                            <li class="f-row del-user"
+                                                data-userid="${user.userId}"
+                                                data-username="${user.name}"
+                                                data-userType="${user.userType}">
+                                                <i class="fa-regular fa-trash"></i>
+                                                delete user
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
 
                     </tbody>
-                    <div class="pagination capitalize f-row">
-                        <span>prev</span>
-                        <span class="curr-page">1</span>
-                        <span>next</span>
-                    </div>
+                </table>
+
+
+<%--                <div class="pagination capitalize f-row">--%>
+<%--                    <span>prev</span>--%>
+<%--                    <span class="curr-page">1</span>--%>
+<%--                    <span>next</span>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
 </div>
-</div>
-<!-- Popup -->
-<!-- Profile Popup -->
-<div id="profilePopup" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closeProfilePopup()">&times;</span>
-        <h2>Profile Details</h2>
-        <div id="profileDetails">
-            <!-- User details will be loaded here dynamically -->
-        </div>
-    </div>
-</div>
-
-
 <script>
+
+<%--    sending party request to servlet--%>
+const partyApproveBtns = document.querySelectorAll(".btn-approve");
+const partyRejectBtns = document.querySelectorAll(".btn-reject");
+partyApproveBtns.forEach(approveBtn => {
+    approveBtn.addEventListener("click", async () => {
+        const partyData = {
+            name: approveBtn.dataset.name,
+            reqId: approveBtn.dataset.reqid,
+            address: approveBtn.dataset.address,
+            leader: approveBtn.dataset.leader,
+            email: approveBtn.dataset.email,
+            phone: approveBtn.dataset.phone,
+            password: approveBtn.dataset.pswd
+        };
+
+        if (!confirm(`Are you sure you want to approve ${partyData.name}?`)) {
+            return;
+        }
+
+        try {
+            // CORRECT URL CONSTRUCTION
+            const url = `${window.location.origin}/Parlimate/ProcessPartyRequestServlet`;
+            console.log("Final request URL:", url); // Debugging
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                },
+                body: new URLSearchParams({
+                    action: 'approve',
+                    reqId: partyData.reqId,
+                    name: partyData.name,
+                    address: partyData.address,
+                    leader: partyData.leader,
+                    email: partyData.email,
+                    phone: partyData.phone,
+                    password: partyData.password
+                }).toString()
+            });
+
+            const result = await response.text();
+
+            if (!response.ok) {
+                throw new Error(result || `Server returned ${response.status}`);
+            }
+
+            if (result === "success") {
+                window.location.reload();
+            } else {
+                alert("Server response: " + result);
+            }
+        } catch (error) {
+            console.error("Full error:", error);
+            alert('Error approving party: ' + error.message);
+        }
+    });
+});
+
+// reject requests
+partyRejectBtns.forEach(rejectBtn => {
+    rejectBtn.addEventListener("click", async () => {
+        const reqId = rejectBtn.dataset.reqid;
+        const partyName = rejectBtn.dataset.name;
+
+        if (!confirm(`Are you sure you want to reject ${partyName}'s request?`)) {
+            return;
+        }
+
+        try {
+            const url = `${window.location.origin}/Parlimate/ProcessPartyRequestServlet`;
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                },
+                body: new URLSearchParams({
+                    action: 'reject',
+                    reqId: reqId
+                }).toString()
+            });
+
+            const result = await response.text();
+
+            if (!response.ok) {
+                throw new Error(result || `Server returned ${response.status}`);
+            }
+
+            if (result === "success") {
+                window.location.reload(); // Refresh to show updated status
+            } else {
+                alert("Server response: " + result);
+            }
+        } catch (error) {
+            console.error("Error rejecting request:", error);
+            alert('Error rejecting request: ' + error.message);
+        }
+    });
+});
+
+
     document.addEventListener("DOMContentLoaded", function() {
+        // Toggle action menus
         document.querySelectorAll('.actbtn button').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevents closing immediately after opening
-                let menu = this.nextElementSibling;
-                document.querySelectorAll('.actbtn .menu').forEach(m => {
-                    if (m !== menu) {
-                        m.classList.remove('nav-active');
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.actbtn .menu').forEach(menu => {
+                    if (menu !== button.nextElementSibling) {
+                        menu.classList.remove('nav-active');
                     }
                 });
-                menu.classList.toggle('nav-active');
+                button.nextElementSibling.classList.toggle('nav-active');
             });
         });
 
-        // Close the menu when clicking outside
-        document.addEventListener("click", function (event) {
-            if (event.target.classList.contains("view-profile-btn")) {
-                let userId = event.target.getAttribute("data-user-id");
-                openProfilePopup(userId);
-            }
-        });
-
-    });
-
-
-    // Function to close profile popup
-    function closeProfilePopup() {
-        document.getElementById("profilePopup").style.display = "none";
-    }
-
-    // Attach event listeners
-    document.querySelectorAll(".view-profile-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            const userId = this.getAttribute("data-user-id");
-            openProfilePopup(userId);
-        });
-    });
-
-    // Attach functions to the window object so they can be accessed in inline onclick events
-    window.openProfilePopup = openProfilePopup;
-    window.closeProfilePopup = closeProfilePopup;
-    });
-
-    function openProfilePopup(userId) {
-        fetch(`/UserDetailsServlet?userId=${userId}`)
-            .then(response => response.json())
-            .then(user => {
-                if (user.error) {
-                    document.getElementById("profileDetails").innerHTML = `<p>${user.error}</p>`;
-                } else {
-                    document.getElementById("profileDetails").innerHTML = `
-                    <p><strong>User ID:</strong> ${user.userId}</p>
-                    <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Role:</strong> ${user.userType}</p>
-                    <p><strong>Joined On:</strong> ${user.created_at}</p>
-                `;
-                    document.getElementById("profilePopup").style.display = "block";
-                }
+        // close all action menu
+        function closeActionMenus() {
+            document.querySelectorAll('.actbtn button').forEach(button => {
+                document.querySelectorAll('.actbtn .menu').forEach(menu => {
+                    menu.classList.contains('nav-active') ? menu.classList.remove('nav-active'): null;
+                })
             })
-            .catch(error => {
-                console.error("Error fetching user details:", error);
-                document.getElementById("profileDetails").innerHTML = "<p>Failed to load user details.</p>";
-            });
-    }
+        }
 
-    function closeProfilePopup() {
-        document.getElementById("profilePopup").style.display = "none";
-    }
+        // Toggle filter popup
+        document.getElementById("filter-btn")?.addEventListener("click", function() {
+            document.body.classList.toggle("popup-active");
+            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
+        });
 
-    // Sample user data (Replace with actual data fetching logic)
-    const usersData = [
-        <c:forEach var="user" items="${allUsers}">
-        {
-            userId: "${user.userId}",
-            email: "${user.email}",
-            userType: "${user.userType}",
-            created_at: "${user.created_at}"
-        },
-        </c:forEach>
-    ];
+        // Delete user popup logic
+        const deleteModal = document.querySelector(".delete-user-popup");
+        let selectedUserId = null; // Store selected user ID globally
 
-    // Attach event listeners dynamically
-    document.addEventListener("DOMContentLoaded", function () {
-        // Toggle dropdown menu
-        document.querySelectorAll('.actbtn button').forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.stopPropagation();
-                let menu = this.nextElementSibling;
-                document.querySelectorAll('.actbtn .menu').forEach(m => {
-                    if (m !== menu) {
-                        m.classList.remove('nav-active');
-                    }
-                });
-                menu.classList.toggle('nav-active');
+        document.querySelectorAll(".del-user").forEach(button => {
+            button.addEventListener("click", function() {
+                const userNameElement = deleteModal.querySelector(".head .username");
+                const userIdElement = deleteModal.querySelector(".head .userid");
+
+                selectedUserId = button.dataset.userid; // Store the ID for later use
+                userNameElement.textContent = button.dataset.username;
+                userIdElement.textContent = selectedUserId;
+
+                document.body.classList.add("popup-active");
+                deleteModal.classList.add("popup-show");
             });
         });
 
-        // Close the menu when clicking outside
-        document.addEventListener("click", function (event) {
-            document.querySelectorAll('.actbtn .menu').forEach(menu => {
-                if (!menu.contains(event.target)) {
-                    menu.classList.remove('nav-active');
-                }
-            });
-        });
-
-        // Open profile popup
-        document.addEventListener("click", function (event) {
-            if (event.target.classList.contains("view-profile-btn")) {
-                let userId = event.target.getAttribute("data-user-id");
-                openProfilePopup(userId);
+        // Proceed with deletion
+        document.querySelector("#proceed-delete-btn")?.addEventListener("click", () => {
+            if (selectedUserId) {
+                closeActionMenus();
+                removeUserServlet(selectedUserId);
             }
         });
-    });
 
-
-
-    // Toggle popup-active class on body when delete user button is clicked
-    document.querySelectorAll(".del-user").forEach(button => {
-        button.addEventListener("click", function() {
-            document.body.classList.add("popup-active");
-            document.querySelector(".delete-user-popup").classList.add("popup-show");
+        // Close popups
+        document.querySelectorAll(".close-btn, .proceed").forEach(button => {
+            button.addEventListener("click", function() {
+                document.body.classList.remove("popup-active");
+                document.querySelector(".filter-user-popup").classList.remove("popup-show");
+                deleteModal.classList.remove("popup-show");
+            });
         });
     });
 
-    // Close popup when close button is clicked
-    document.querySelectorAll(".close-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            document.body.classList.remove("popup-active");
-            document.querySelector(".filter-user-popup").classList.remove("popup-show");
-            document.querySelector(".delete-user-popup").classList.remove("popup-show");
-        });
-    });
-
-    // Close popup when proceed button is clicked
-    document.querySelector(".proceed").addEventListener("click", function() {
-        document.body.classList.remove("popup-active");
-        document.querySelector(".delete-user-popup").classList.remove("popup-show");
-    });
-    });
-
-
-
+    // Delete user function
+    function removeUserServlet(userId) {
+        const basePath = window.location.origin;
+        fetch(basePath+"/Parlimate/DeleteUserFromUMServlet", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `userId=`+encodeURIComponent(userId)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Network response was not ok");
+                return res.text();
+            })
+            .then(data => {
+                console.log("User deleted:", data);
+                location.reload();
+            })
+            .catch(err => {
+                console.error("Delete failed:", err);
+                alert("Failed to delete user. Please try again.");
+            });
+    }
 </script>
-</body>
+<script>
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
 
+    document.querySelectorAll('.formatDate').forEach(el => {
+        const rawDate = el.getAttribute('data-date');
+        el.textContent = formatDate(rawDate);
+    });
+</script>
+<script>
+    const partyReqBtn = document.getElementById("party-req-btn");
+    const partyModal = document.querySelector(".party-req-modal");
+
+    partyReqBtn.addEventListener("click", ()=> {
+        console.log(partyModal);
+        document.querySelector("body").classList.add("popup-active")
+        partyModal.classList.add("popup-show");
+    })
+</script>
+
+</body>
 </html>

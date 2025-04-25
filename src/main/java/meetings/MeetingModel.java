@@ -12,7 +12,8 @@ public class MeetingModel {
     private String platform;
     private java.sql.Date deadlinetoregister;
     private int slots;
-    private int availableSlots; // ✅ Newly added
+    private int availableSlots;
+    private String politicianName; // ✅ New field for politician's name
 
     // Constructor with all fields
     public MeetingModel(int meetingId, int politicianId, String topic, String description, java.sql.Date date,
@@ -133,12 +134,21 @@ public class MeetingModel {
         this.availableSlots = availableSlots;
     }
 
+    public String getPoliticianName() {
+        return politicianName;
+    }
+
+    public void setPoliticianName(String politicianName) {
+        this.politicianName = politicianName;
+    }
+
     // toString method
     @Override
     public String toString() {
         return "MeetingModel [meetingId=" + meetingId + ", politicianId=" + politicianId + ", topic=" + topic
                 + ", description=" + description + ", date=" + date + ", time=" + time
                 + ", typeofthemeeting=" + typeofthemeeting + ", host=" + host + ", platform=" + platform
-                + ", deadlinetoregister=" + deadlinetoregister + ", slots=" + slots + ", availableSlots=" + availableSlots + "]";
+                + ", deadlinetoregister=" + deadlinetoregister + ", slots=" + slots + ", availableSlots=" + availableSlots
+                + ", politicianName=" + politicianName + "]";
     }
 }

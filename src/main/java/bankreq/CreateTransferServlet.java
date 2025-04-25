@@ -24,27 +24,21 @@ public class CreateTransferServlet extends HttpServlet {
             // Retrieve form data
             String fundraiserIdStr = request.getParameter("fundraiser_id");
             String userIdStr = request.getParameter("user_id");
-            String bankName = request.getParameter("bank_name");
-            String accountHolder = request.getParameter("account_holder_name");
-            String accountNumber = request.getParameter("account_number");
-            String branch = request.getParameter("branch");
-            String amountStr = request.getParameter("amount");
+            String amountStr = request.getParameter("amount");  // Retrieve amount as string
             String currency = request.getParameter("currency");
-            String referenceCode = request.getParameter("reference_code");
-            String receipt_image_path=request.getParameter("receipt_image_path");
+
             // Validate required fields
-            validateRequiredFields(fundraiserIdStr, userIdStr, bankName, accountHolder,
-                    accountNumber, amountStr, currency);
+            validateRequiredFields(fundraiserIdStr, userIdStr, amountStr, currency);
 
             // Parse numeric values
             int fundraiserId = Integer.parseInt(fundraiserIdStr);
             int userId = Integer.parseInt(userIdStr);
-            BigDecimal amount = validateAmount(amountStr);
+            BigDecimal amount = validateAmount(amountStr);  // Correct amount validation
 
-            // Process file upload with null check
+            // Process file upload
             Part receiptPart = request.getPart("receipt_image_path");
-            if (receiptPart == null) {
-                throw new ServletException("No file part in request");
+            if (receiptPart == null || receiptPart.getSize() == 0) {
+                throw new ServletException("Receipt file is required");
             }
 
             String receiptPath = saveUploadedFile(receiptPart);
@@ -53,14 +47,9 @@ public class CreateTransferServlet extends HttpServlet {
             boolean isCreated = TransferController.createBankTransfer(
                     userId,
                     fundraiserId,
-                    bankName,
-                    accountHolder,
-                    accountNumber,
-                    branch,
                     amount,
                     currency,
                     receiptPath,
-                    referenceCode,
                     new Timestamp(System.currentTimeMillis())
             );
 
@@ -71,13 +60,24 @@ public class CreateTransferServlet extends HttpServlet {
         }
     }
 
-    private void validateRequiredFields(String... fields) throws ServletException {
-        for (String field : fields) {
-            if (field == null || field.trim().isEmpty()) {
-                throw new ServletException("All required fields must be filled");
-            }
+    private void validateRequiredFields(String fundraiserIdStr, String userIdStr, String amountStr, String currency) throws ServletException {
+        if (fundraiserIdStr == null || fundraiserIdStr.trim().isEmpty()) {
+            throw new ServletException("Fundraiser ID is required");
+        }
+
+        if (userIdStr == null || userIdStr.trim().isEmpty()) {
+            throw new ServletException("User ID is required");
+        }
+
+        if (amountStr == null || amountStr.trim().isEmpty()) {
+            throw new ServletException("Amount is required");
+        }
+
+        if (currency == null || currency.trim().isEmpty()) {
+            throw new ServletException("Currency is required");
         }
     }
+
 
     private BigDecimal validateAmount(String amountStr) throws ServletException {
         try {
@@ -92,10 +92,6 @@ public class CreateTransferServlet extends HttpServlet {
     }
 
     private String saveUploadedFile(Part filePart) throws IOException, ServletException {
-        if (filePart == null || filePart.getSize() == 0) {
-            throw new ServletException("Receipt file is required");
-        }
-
         String uploadDirPath = getServletContext().getRealPath("") + File.separator + "uploads";
         File uploadDir = new File(uploadDirPath);
         if (!uploadDir.exists()) {
@@ -123,8 +119,7 @@ public class CreateTransferServlet extends HttpServlet {
         return "receipt_" + System.currentTimeMillis();
     }
 
-    private void handleResponse(HttpServletResponse response, boolean success)
-            throws IOException {
+    private void handleResponse(HttpServletResponse response, boolean success) throws IOException {
         if (success) {
             response.getWriter().println(
                     "<script>alert('Transfer submitted successfully!'); " +

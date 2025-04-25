@@ -10,7 +10,7 @@ public class PoliticalPartyModel {
     private int noOfMembers;
 
     public PoliticalPartyModel(int politicalPartyId, int userId, String name, String phoneNumber,
-                          String address, String logoImg, int noOfMembers) {
+                               String address, String logoImg, int noOfMembers) {
         this.politicalPartyId = politicalPartyId;
         this.userId = userId;
         this.name = name;
@@ -42,4 +42,3 @@ public class PoliticalPartyModel {
     public int getNoOfMembers() { return noOfMembers; }
     public void setNoOfMembers(int noOfMembers) { this.noOfMembers = noOfMembers; }
 }
-

@@ -1,0 +1,302 @@
+@import url("https://fonts.cdnfonts.com/css/satoshi");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Satoshi", sans-serif;
+}
+a,
+button,
+select {
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+}
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+.f-row {
+    display: flex;
+}
+input {
+    font-family: inherit;
+}
+.subTitle {
+    color: rgb(170, 170, 170);
+    font-size: 0.9rem;
+}
+.caps {
+    text-transform: capitalize;
+}
+.scContainer {
+    margin-top: 3rem;
+    padding: 1rem 1rem 2rem;
+    width: 100%;
+    background: #fff;
+    border-radius: 1rem;
+    min-height: 20rem;
+    border: 1px solid #6b6b6b;
+}
+select {
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table tr:first-child {
+    border: 0;
+}
+table tr:first-child .search-2 {
+    padding: 0.35rem 1.5rem 0.35rem 2rem;
+    border: 1px solid #D2D2D2;
+    border-radius: 0.5rem;
+    transition: border-radius 0.25s ease, border 0.25s ease;
+    outline: 0;
+    width: 100%;
+    font-weight: 500;
+}
+table tr:first-child .search-2::placeholder {
+    font-weight: 500;
+}
+table tr:first-child .search-2:focus {
+    border: 1px solid #4a4a4a;
+    outline: 0;
+    border-radius: 0.95rem;
+}
+table tr:first-child .search {
+    position: relative;
+    width: 100%;
+}
+table tr:first-child .search label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.75rem;
+    font-size: 0.9rem;
+    color: #5c5c5c;
+}
+table tr:first-child td {
+    display: table-cell;
+}
+table tr:first-child td .image {
+    width: 20rem;
+    height: 12rem;
+    border-radius: 0.75rem;
+    margin-inline: auto;
+    background: #D9D9D9;
+}
+table tr:first-child td .content {
+    gap: 1rem;
+    width: fit-content;
+    align-items: center;
+    flex: 1;
+}
+table tr:first-child td .content .name-shown {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4E4E4E;
+}
+table tr td {
+    padding: 0.75rem 2rem;
+    vertical-align: top;
+}
+tr {
+    border-bottom: 1px solid #eeecec;
+}
+tr td {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1E1E1E;
+}
+tr .select-attributes {
+    justify-content: center;
+    margin-top: 4rem;
+    gap: 0.45rem;
+}
+tr .select-attributes label {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #2C2C2C;
+    background: #fff;
+    color: #2C2C2C;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+tr .select-attributes input:checked + label {
+    background: #2C2C2C;
+    color: #fff;
+}
+tr .select-attributes input[type="radio"] {
+    display: none;
+}
+tr.row-title {
+    background: #F2F2F2;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+tr.row-title .details-title {
+    font-weight: 600;
+    padding: 0.25rem 0;
+}
+tr.detail-section:not(:first-child) {
+    background: #fff;
+}
+tr .row-head {
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #717171;
+}
+tr td::first-letter {
+    text-transform: capitalize;
+}
+tr:last-child {
+    border: 0;
+}
+tr.detail-begin td {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+.suggestions-dropdown {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    top: calc(100% + 1rem);
+    overflow-y: auto;
+    background: white;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+}
+.suggestion-item {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+.suggestion-item:hover {
+    background-color: #f5f5f5;
+}
+.suggestion-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.politician-party {
+    font-size: 0.75rem;
+    color: #5d5d5d;
+}
+.suggestion-box {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin-top: 2px;
+    z-index: 999;
+}
+.suggestion-box li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+.suggestion-box li:hover {
+    background-color: #f0f0f0;
+}
+.container {
+    margin-left: 18rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+button {
+    padding: 0.25rem 0.55rem;
+    border: 1px solid #b8b8b8;
+    border-radius: 0.7rem;
+    font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    color: #1e1e1e;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+button:hover {
+    background: #1e1e1e;
+    color: white;
+    border: 1px solid #1e1e1e;
+}
+button:active {
+    transform: scale(0.95);
+}
+button:not(:hover) {
+    background: transparent;
+    color: #1e1e1e;
+    border: 1px solid #b8b8b8;
+}
+/* Profile Table Styling (Adapted from Meeting Management) */
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    height: fit-content;
+    border-radius: 1rem;
+    background: #fff;
+}
+.profile-table button {
+    border: none;
+}
+.profile-table thead {
+    text-transform: capitalize;
+    font-weight: 600;
+    background: #e2e2e2;
+    color: rgb(89, 89, 89);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.profile-table thead tr {
+    border-radius: 1rem;
+    font-size: 0.85rem;
+}
+.profile-table thead tr td:first-of-type {
+    border-top-left-radius: 1rem;
+    overflow: hidden;
+}
+.profile-table thead tr td:last-of-type {
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+}
+.profile-table td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: "Poppins", sans-serif;
+}
+.profile-table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #e2e2e2;
+}
+.profile-table tbody tr:hover {
+    background: #fbfbfb;
+}
+/* Content Container Styling (Adapted from Meeting Management) */
+.content {
+    padding: 1rem;
+    background: #fff;
+    border-radius: 1rem;
+    gap: 1.5rem;
+}

@@ -9,6 +9,29 @@
 <%!
   String baseURL = "http://localhost:8080/Parlimate/images"; // define base URL here
 %>
+<%@ page import="UserPackage.UserModel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+  HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+  if (session1 == null || session1.getAttribute("user") == null) {
+    // User is not logged in, redirect to login page
+    response.sendRedirect("../index.jsp");
+    return;
+  }
+
+  // Session exists and user is logged in
+  UserModel user = (UserModel) session1.getAttribute("user");
+  int userId = user.getUserId();
+  String userEmail = user.getEmail(); // Assuming UserModel has getEmail() method
+  boolean isGmail = userEmail != null && userEmail.toLowerCase().endsWith("@gmail.com");
+%>
+
+<% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+  response.setHeader("Pragma","no-cache"); //HTTP 1.0
+  response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+
 <html>
 <head>
   <meta charset="UTF-8" />
@@ -52,6 +75,7 @@
           rel="stylesheet"
           href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
   />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -60,23 +84,24 @@
 
 <div class="container">
   <div class="pageTitles">
-    <h2 class="title">Fundraisers</h2>
+    <h2 class="title">Search and Compare</h2>
     <div class="subTitle">
       Fueling Change Through Collective Action
     </div>
   </div>
   <div class="scContainer">
+    <select hidden="hidden" name="role" id="roleSelect" class="roleType caps">
+      <option value="politician">Politician</option>
+      <option value="political-party">Political Party</option>
+    </select>
+    <button name="view" class="btn btn-primary"><a  href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp">Edit My Profile</a></button>
+
+    <div id="politicianSection">
     <table>
       <form action="GetPoliticianProfileDetailsServlet" method="get">
         <tr>
-          <td>
-            <select name="role" id="roleSelect" class="roleType caps">
-              <option value="politician">Politician</option>
-              <option value="political-party">Political Party</option>
-            </select>
-          </td>
-
           <!-- Politician 1 -->
+          <td></td>
           <td class="column-head f-col">
             <div class="content f-col">
               <div class="search">
@@ -144,7 +169,7 @@
         <tr>
           <td colspan="3" style="text-align: center; padding-top: 10px;">
             <button type="submit" name="view" value="1" class="btn btn-info">View Profile 1</button>
-            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>
+<%--            <button type="submit" name="view" value="2" class="btn btn-info">View Profile 2</button>--%>
             <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Profiles</button>
           </td>
         </tr>
@@ -513,6 +538,387 @@
       </div>
     </table>
   </div>
+
+
+
+
+
+    <div id="partySection" style="display: none;">
+      <table>
+        <form action="GetPartyProfileDetailsServlet" method="get">
+          <tr>
+            <!-- Politician 1 -->
+            <td></td>
+            <td class="column-head f-col">
+              <div class="content f-col">
+                <div class="search">
+                  <input
+                          type="text"
+                          name="partyName1"
+                          placeholder="Enter Party Name"
+                          class="search-2"
+                          id="col1-search-party"
+                          autocomplete="off"
+                          required
+                  />
+                  <ul id="col1-suggestions-party" class="suggestion-box"></ul>
+                  <label for="col1-search-party">
+                    <i class="fa-regular fa-magnifying-glass"></i>
+                  </label>
+                </div>
+                <%--              <div class="image">--%>
+                <%--                <!-- Displaying Image 1 -->--%>
+                <%--                <c:forEach var="politician" items="${profiles}">--%>
+                <%--                  <img--%>
+                <%--                          id="img1"--%>
+                <%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? politician.imagePath.split(',')[0] : ''}"--%>
+                <%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[0] != '' ? 'display:block;' : 'display:none;'}"--%>
+                <%--                  />--%>
+                <%--                </c:forEach>--%>
+                <%--              </div>--%>
+                <div class="name-shown">Party 1</div>
+              </div>
+            </td>
+
+            <!-- Politician 2 -->
+            <td class="column-head f-col">
+              <div class="content f-col">
+                <div class="search">
+                  <input
+                          type="text"
+                          name="partyName2"
+                          placeholder="Enter Party Name (optional)"
+                          class="search-2"
+                          id="col2-search-party"
+                          autocomplete="off"
+                  />
+                  <ul id="col2-suggestions-party" class="suggestion-box"></ul>
+                  <label for="col2-search-party">
+                    <i class="fa-regular fa-magnifying-glass"></i>
+                  </label>
+                </div>
+                <%--              <div class="image">--%>
+                <%--                <!-- Displaying Image 2 -->--%>
+                <%--                <c:forEach var="politician" items="${profiles}">--%>
+                <%--                  <img--%>
+                <%--                          id="img2"--%>
+                <%--                          src="../images/${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? politician.imagePath.split(',')[1] : ''}"--%>
+                <%--                          style="max-width: 100px; ${politician.imagePath != null && politician.imagePath.split(',')[1] != '' ? 'display:block;' : 'display:none;'}"--%>
+                <%--                  />--%>
+                <%--                </c:forEach>--%>
+                <%--              </div>--%>
+                <div class="name-shown">Party 2</div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Submit button row -->
+          <tr>
+            <td colspan="3" style="text-align: center; padding-top: 10px;">
+              <button type="submit" name="view" value="1" class="btn btn-info">View Party 1</button>
+              <button type="submit" name="view" value="2" class="btn btn-info">View Party 2</button>
+              <button type="submit" name="view" value="compare" class="btn btn-primary">Compare Parties</button>
+            </td>
+          </tr>
+        </form>
+
+        <tr>
+          <td class="row-head">Logo</td>
+          <c:forEach var="party" items="${party}">
+            <td>
+              <div class="image">
+                <!-- Check if the politician has an image path and display it -->
+                <img src="../images/${party.imagePath}" alt="Photo" style="max-width: 100px; height: auto;">
+                <script>
+                  // Log the image URL to the console to test
+                  console.log('Image URL:', '../image${party.imagePath}');
+                </script>
+              </div>
+            </td>
+          </c:forEach>
+        </tr>
+
+        <tr style="border: 0">
+          <td colspan="3">
+            <div class="select-attributes f-row">
+              <input type="radio" name="select-attr" id="all-attr-party" data-target="" checked />
+              <label for="all-attr">All</label>
+
+              <input type="radio" name="select-attr" id="gen-info-attr-party" data-target="general-info" />
+              <label for="gen-info-attr">General Information</label>
+
+
+              <input type="radio" name="select-attr" id="pol-details-attr-party" data-target="political-details" />
+              <label for="pol-details-attr">Political Details</label>
+
+              <input type="radio" name="select-attr" id="key-attr-party" data-target="key-policies" />
+              <label for="key-attr">Key Policies</label>
+
+              <input type="radio" name="select-attr" id="socialmedia-attr-party" data-target="social-media" />
+              <label for="socialmedia-attr">Social Media</label>
+
+              <input type="radio" name="select-attr" id="election-results-attr-party" data-target="election-results" />
+              <label for="election-results-attr">Latest Election Results</label>
+            </div>
+          </td>
+        </tr>
+
+        <!-- from here we will update details :) -->
+        <div class="gen-inf detail-section">
+          <tr class="detail-begin row-title">
+            <td colspan="3">
+              <div class="details-title" id="general-info-party">General Information</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="row-head">Party Name</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.name}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Founder</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.founder}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Founding Year</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.foundYear}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Leader</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.leader}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">General Secretary</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.generalSecretary}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Public Contact Number</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.publicContactNumber}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Public Email Address</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.publicEmailAddress}</td>
+            </c:forEach>
+          </tr>
+
+
+          <tr class="detail-begin row-title">
+            <td colspan="3">
+              <div class="details-title" id="political-details-party">Political Details</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="row-head">Party Ideology</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.ideology}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Coalitions</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.coalitions}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Membership</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.membership}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Head Office</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.address}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Years active in Politics</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.yearsActiveInPolitics}</td>
+            </c:forEach>
+          </tr>
+
+          <tr class="detail-begin row-title">
+            <td colspan="3">
+              <div class="details-title" id="election-results-party">Latest Election Results</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="row-head">Seats in Parliament</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.seatsParliament}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Year</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.electionYear}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Type of Election</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.typeOfElection}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">No of Votes</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.numberOfVotes}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Result</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.electionResult}</td>
+            </c:forEach>
+          </tr>
+
+          <tr class="detail-begin row-title">
+            <td colspan="3">
+              <div class="details-title" id="key-policies-party">Policies</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="row-head">Vision / Slogan </td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.visionOrSlogan}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Economic</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.economicPolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">healthcare</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.healthcarePolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Infrastructure</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.infrastructurePolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Education</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.educationPolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Youth Development</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.youthDevelopmentPolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Agriculture</td>
+            <c:forEach var="party" items="${party}">
+              <td>${party.agriculturePolicy}</td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Other</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+
+          <tr class="detail-begin row-title">
+            <td colspan="3">
+              <div class="details-title" id="social-media-party">Social Media</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="row-head">Website</td>
+            <c:forEach var="party" items="${party}">
+              <td>
+                <a href="${party.website}" target="_blank">${party.website}</a>
+              </td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Facebook</td>
+            <c:forEach var="party" items="${party}">
+              <td>
+                <a href="${party.facebook}" target="_blank">${party.facebook}</a>
+              </td>
+            </c:forEach>
+          </tr>
+
+<%--          <tr>--%>
+<%--            <td class="row-head">X</td>--%>
+<%--            <c:forEach var="party" items="${party}">--%>
+<%--              <td>--%>
+<%--                <a href="${party.xLink}" target="_blank">${party.xLink}</a>--%>
+<%--              </td>--%>
+<%--            </c:forEach>--%>
+<%--          </tr>--%>
+
+          <tr>
+            <td class="row-head">LinkedIn</td>
+            <c:forEach var="party" items="${party}">
+              <td>
+                <a href="${party.linkedin}" target="_blank">${party.linkedin}</a>
+              </td>
+            </c:forEach>
+          </tr>
+
+          <tr>
+            <td class="row-head">Instagram</td>
+            <c:forEach var="party" items="${party}">
+              <td>
+                <a href="${party.instagram}" target="_blank">${party.instagram}</a>
+              </td>
+            </c:forEach>
+          </tr>
+
+        </div>
+      </table>
+    </div>
+  </div>
 </div>
 </body>
 
@@ -520,39 +926,31 @@
 
 <script>
   // Sample politician data (replace with your actual data source)
+  const roleSelect = document.getElementById("roleSelect");
+  const politicianSection = document.getElementById("politicianSection");
+  const partySection = document.getElementById("partySection");
 
-  const politicians = [
-    {
-      name: "Mahinda Rajapaksa",
-      party: "SLPP",
-    },
-    { name: "Ranil Wickremesinghe", party: "UNP" },
-    { name: "Sajith Premadasa", party: "SJB" },
-    {
-      name: "Anura Kumara Dissanayake",
-      party: "JVP",
-    },
-    {
-      name: "Maithripala Sirisena",
-      party: "SLFP",
-    },
-    {
-      name: "Chandrika Kumaratunga",
-      party: "SLFP",
-    },
-    { name: "Dullas Alahapperuma", party: "SLPP" },
-    {
-      name: "Patali Champika Ranawaka",
-      party: "SJB",
-    },
-    { name: "Wimal Weerawansa", party: "NPP" },
-    { name: "Udaya Gammanpila", party: "SLPP" },
-    { name: "Rosy Senanayake", party: "UNP" },
-    { name: "Harin Fernando", party: "SJB" },
-  ];
+  roleSelect.addEventListener("change", function () {
+    if (this.value === "political-party") {
+      politicianSection.style.display = "none";
+      partySection.style.display = "block";
+    } else {
+      politicianSection.style.display = "block";
+      partySection.style.display = "none";
+    }
+  });
+
+  // Optional: Set correct view on load
+  document.addEventListener("DOMContentLoaded", () => {
+    roleSelect.dispatchEvent(new Event("change"));
+  });
+
 
   const searchInput = document.getElementById("col1-search");
   const suggestionsContainer = document.getElementById("suggestions");
+
+  const searchInputParty = document.getElementById("col1-search-party");
+  const suggestionsContainerParty = document.getElementById("col1-suggestions-party")
 
   searchInput.addEventListener("input", function () {
     const searchTerm = this.value.toLowerCase();
@@ -560,6 +958,7 @@
 
     if (searchTerm.length < 1) {
       suggestionsContainer.style.display = "none";
+      suggestionsContainer.style.border = "none";
       return;
     }
 
@@ -593,6 +992,45 @@
     }
   });
 
+  searchInputParty.addEventListener("input", function () {
+    const searchTermParty = this.value.toLowerCase();
+    suggestionsContainerParty.innerHTML = "";
+
+    if (searchTermParty.length < 1) {
+      suggestionsContainerParty.style.display = "none";
+      return;
+    }
+
+    const filteredParties = party.filter(
+            (politician) =>
+                    party.name.toLowerCase().includes(searchTerm) ||
+                    party.party.toLowerCase().includes(searchTerm)
+    );
+
+    if (filteredParties.length > 0) {
+      filteredParties.forEach((party) => {
+        const suggestionItemParty = document.createElement("div");
+        suggestionItemParty.className = "suggestion-item-Party";
+        suggestionItemParty.innerHTML = `
+      <img src="https://i.pravatar.cc/50" alt="${party.name}">
+      <div>
+        <div class="politician-name">${party.name}</div>
+        <div class="politician-party">${party.party}</div>
+      </div>
+    `;
+        suggestionItemParty.addEventListener("click", () => {
+          searchInputParty.value = party.name;
+          suggestionsContainerParty.style.display = "none";
+          // You can trigger search or selection action here
+        });
+        suggestionsContainerParty.appendChild(suggestionItemParty);
+      });
+      suggestionsContainerParty.style.display = "block";
+    } else {
+      suggestionsContainerParty.style.display = "none";
+    }
+  });
+
   // Close suggestions when clicking outside
   document.addEventListener("click", function (e) {
     if (
@@ -600,6 +1038,15 @@
             !suggestionsContainer.contains(e.target)
     ) {
       suggestionsContainer.style.display = "none";
+    }
+  });
+
+  document.addEventListener("click", function (e) {
+    if (
+            !searchInputParty.contains(e.target) &&
+            !suggestionsContainerParty.contains(e.target)
+    ) {
+      suggestionsContainerParty.style.display = "none";
     }
   });
 
@@ -619,6 +1066,7 @@
       }
     });
   });
+
   function setupAutoSuggest(inputId, suggestionBoxId) {
     const input = document.getElementById(inputId);
     const suggestionBox = document.getElementById(suggestionBoxId);
@@ -660,9 +1108,52 @@
     });
   }
 
+  function setupAutoSuggestParty(inputId, suggestionBoxId) {
+    const inputParty = document.getElementById(inputId);
+    const suggestionBoxParty = document.getElementById(suggestionBoxId);
+
+    input.addEventListener("inputParty", function () {
+      const query = inputParty.value.trim();
+
+      if (query.length === 0) {
+        suggestionBoxParty.innerHTML = "";
+        return;
+      }
+
+      fetch("PartySearchServlet?query=" + encodeURIComponent(query))
+              .then(response => response.text())
+              .then(text => {
+                const names = text.trim().split("\n");
+                suggestionBoxParty.innerHTML = "";
+                names.forEach(name => {
+                  const option = document.createElement("div");
+                  option.className = "suggestion-item-Party";
+                  option.textContent = name;
+                  option.onclick = function () {
+                    inputParty.value = name;
+                    suggestionBoxParty.innerHTML = "";
+                  };
+                  suggestionBoxParty.appendChild(option);
+                });
+              })
+              .catch(err => {
+                console.error("Error fetching suggestions:", err);
+              });
+    });
+
+    // Optional: hide suggestions when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!suggestionBoxParty.contains(e.target) && e.target !== input) {
+        suggestionBoxParty.innerHTML = "";
+      }
+    });
+  }
+
   // Initialize for both input fields
   setupAutoSuggest("col1-search", "col1-suggestions");
   setupAutoSuggest("col2-search", "col2-suggestions");
+  setupAutoSuggest("col1-search-party", "col1-suggestions-party");
+  setupAutoSuggest("col2-search-party", "col2-suggestions-party");
 
 </script>
 

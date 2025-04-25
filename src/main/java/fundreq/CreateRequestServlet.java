@@ -25,6 +25,7 @@ public class CreateRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        System.out.println("here at create request servlet");
         // Set response content type
         response.setContentType("text/html;charset=UTF-8");
 

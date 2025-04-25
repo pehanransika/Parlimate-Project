@@ -34,13 +34,13 @@ public class PaymentService{
             Payment approvedPayment = requestPayment.create(apiContext);
 
             if (approvedPayment == null) {
-                System.err.println("❌ PayPal returned null payment object.");
+                System.err.println(" PayPal returned null payment object.");
                 return null;
             }
 
             String approvalLink = getApprovalLink(approvedPayment);
             if (approvalLink == null) {
-                System.err.println("❌ Approval URL not found.");
+                System.err.println(" Approval URL not found.");
                 return null;
             }
 
@@ -68,48 +68,49 @@ public class PaymentService{
         return approvalLink;
     }
     private List<Transaction> getTransactionInformation(OrderDetail orderDetail) {
-        // Create amount details (simplified since we don't have breakdown)
+        // Calculate total amount in USD (convert if LKR)
+        BigDecimal totalAmount;
+        if ("LKR".equalsIgnoreCase(orderDetail.getCurrency())) {
+            // Convert LKR to USD (using exchange rate 300 LKR = 1 USD)
+            double exchangeRate = 300.0;
+            totalAmount = BigDecimal.valueOf(orderDetail.getAmount().doubleValue() / exchangeRate)
+                    .setScale(2, RoundingMode.HALF_UP);
+        } else {
+            totalAmount = orderDetail.getAmount().setScale(2, RoundingMode.HALF_UP);
+        }
+
+        // Create amount details - must sum to total amount
         Details details = new Details();
-        details.setShipping(String.valueOf(BigDecimal.ZERO));  // No shipping info available
-        details.setSubtotal(String.valueOf(orderDetail.getAmount())); // Using total as subtotal
-        details.setTax(String.valueOf(BigDecimal.ZERO));      // No tax info available
+        details.setShipping("0.00");
+        details.setTax("0.00");
+        details.setSubtotal(totalAmount.toString()); // Subtotal must equal item total
 
         // Create amount object
         Amount amount = new Amount();
-        amount.setCurrency(orderDetail.getCurrency()); // Use currency from order
-
-        // Ensure the total amount is correctly represented for the selected currency (USD or LKR)
-        amount.setTotal(String.valueOf(orderDetail.getAmount()));
-
+        amount.setCurrency("USD"); // Always use USD for PayPal
+        amount.setTotal(totalAmount.toString());
         amount.setDetails(details);
+
+        // Create single item
+        Item item = new Item();
+        item.setName("Payment");
+        item.setCurrency("USD");
+        item.setPrice(totalAmount.toString()); // Must match subtotal
+        item.setQuantity("1");
+        item.setTax("0.00");
+
+        // Create item list
+        ItemList itemList = new ItemList();
+        itemList.setItems(Collections.singletonList(item));
 
         // Create transaction
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setDescription("Payment #" + orderDetail.getTransactionId());
-
-        // Create item list (simplified with a single item)
-        ItemList itemList = new ItemList();
-        List<Item> items = new ArrayList<>();
-
-        Item item = new Item();
-        item.setCurrency(orderDetail.getCurrency()); // Use the same currency as the transaction
-        item.setName("Payment");  // Generic name since no product info
-        item.setPrice(String.valueOf(orderDetail.getAmount())); // Ensure price matches the amount
-        item.setTax(String.valueOf(BigDecimal.ZERO)); // No tax info available
-        item.setQuantity("1");
-
-        items.add(item);
-        itemList.setItems(items);
         transaction.setItemList(itemList);
 
-        // Return as list with a single transaction
-        List<Transaction> listTransaction = new ArrayList<>();
-        listTransaction.add(transaction);
-
-        return listTransaction;
+        return Collections.singletonList(transaction);
     }
-
 
 
     private RedirectUrls getRedirectURLs(OrderDetail orderDetail) {

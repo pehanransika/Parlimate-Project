@@ -1,0 +1,14 @@
+.hashtag {
+    color: #144461; /* Twitter-like blue color */
+    background: #e6f4ff;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hashtag:hover {
+    opacity: 0.9;
+}

@@ -29,12 +29,10 @@ public class ApprovedTransferController {
 
             // 2. Insert into approved_transfers
             String insertSql = "INSERT INTO approved_transfers " +
-                    "(transfer_id, user_id, fundraiser_id, bank_name, account_holder_name, " +
-                    "account_number, branch, amount, currency, receipt_image_path, " +
-                    "reference_code, transfer_date, verified_at) " +
-                    "SELECT transfer_id, user_id, fundraiser_id, bank_name, account_holder_name, " +
-                    "account_number, branch, amount, currency, receipt_image_path, " +
-                    "reference_code, transfer_date, NOW() " +
+                    "(transfer_id, user_id, fundraiser_id,amount, currency, receipt_image_path, " +
+                    " transfer_date, verified_at) " +
+                    "SELECT transfer_id, user_id, fundraiser_id,  amount, currency, receipt_image_path, " +
+                    " transfer_date, NOW() " +
                     "FROM bank_transfers WHERE transfer_id = ?";
 
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
@@ -95,14 +93,9 @@ public class ApprovedTransferController {
                         rs.getInt("transfer_id"),
                         rs.getInt("user_id"),
                         rs.getInt("fundraiser_id"),
-                        rs.getString("bank_name"),
-                        rs.getString("account_holder_name"),
-                        rs.getString("account_number"),
-                        rs.getString("branch"),
                         rs.getBigDecimal("amount"),
                         rs.getString("currency"),
                         rs.getString("receipt_image_path"),
-                        rs.getString("reference_code"),
                         rs.getTimestamp("transfer_date"),
                         rs.getInt("verified_by"),
                         rs.getTimestamp("verified_at")
@@ -130,16 +123,11 @@ public class ApprovedTransferController {
                             rs.getInt("transfer_id"),
                             rs.getInt("user_id"),
                             rs.getInt("fundraiser_id"),
-                            rs.getString("bank_name"),
-                            rs.getString("account_holder_name"),
-                            rs.getString("account_number"),
-                            rs.getString("branch"),
                             rs.getBigDecimal("amount"),
                             rs.getString("currency"),
                             rs.getString("receipt_image_path"),
-                            rs.getString("reference_code"),
                             rs.getTimestamp("transfer_date"),
-                      rs.getInt("verified_by"),
+                            rs.getInt("verified_by"),
                             rs.getTimestamp("verified_at")
 
 

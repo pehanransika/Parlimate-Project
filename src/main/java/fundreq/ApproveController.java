@@ -11,13 +11,9 @@ public class ApproveController {
     // Get all approved fundraising requests
     public static List<ApproveModel> getAllApprovedRequests() {
         List<ApproveModel> requests = new ArrayList<>();
-        String sql = "SELECT ar.*, COALESCE(SUM(cft.total_lkr), 0) AS total_lkr " +
+        String sql = "SELECT ar.*, COALESCE(ft.total_amount_lkr, 0) AS total_lkr " +
                 "FROM approved_requests ar " +
-                "LEFT JOIN combined_fundraiser_totals cft " +
-                "  ON ar.requestid = cft.fundraiser_id OR ar.requestid = cft.approved_fundraiser_id " +
-                "GROUP BY ar.requestid, ar.title, ar.description, ar.contact_no, ar.category, " +
-                "         ar.targetamount, ar.attachment_url, ar.photos, ar.approval_date, " +
-                "         ar.status, ar.name, ar.userid " +
+                "LEFT JOIN fundraiser_totals_lkr ft ON ar.requestid = ft.requestid " +
                 "ORDER BY ar.approval_date DESC";
 
 
@@ -264,7 +260,7 @@ public class ApproveController {
         List<ApproveModel> requests = new ArrayList<>();
         String sql = "SELECT * FROM approved_requests ar " +
                 "WHERE userid = ?" +
-                "ORDER BY ar.approval_date DESC";
+                " ORDER BY ar.approval_date DESC";
 
 
         try (Connection conn = getConnection();

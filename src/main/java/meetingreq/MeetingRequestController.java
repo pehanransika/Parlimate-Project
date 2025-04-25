@@ -74,6 +74,7 @@ public class MeetingRequestController {
                 LocalTime proposaltime = rs.getTime("proposaltime").toLocalTime();
                 String estimatedduration = rs.getString("estimatedduration");
                 int participantcount = rs.getInt("participantcount");
+                boolean status = rs.getBoolean("status"); // New line
 
                 MeetingRequestModel request = new MeetingRequestModel(
                         meetingrequestid,
@@ -87,16 +88,16 @@ public class MeetingRequestController {
                         partyaffiliation,
                         discussionformat,
                         preferredhost,
-                        participantcount
+                        participantcount,
+                        status // New value passed to constructor
                 );
 
                 requests.add(request);
             }
-
         }
-
         return requests;
     }
+
 
     public static List<MeetingRequestModel> getMyMeetingRequests(int politicianId) throws SQLException {
         List<MeetingRequestModel> requests = new ArrayList<>();
@@ -123,6 +124,7 @@ public class MeetingRequestController {
                     LocalTime proposaltime = rs.getTime("proposaltime").toLocalTime();
                     String estimatedduration = rs.getString("estimatedduration");
                     int participantcount = rs.getInt("participantcount");
+                    boolean status = rs.getBoolean("status"); // New line
 
                     MeetingRequestModel request = new MeetingRequestModel(
                             meetingrequestid,
@@ -136,7 +138,8 @@ public class MeetingRequestController {
                             partyaffiliation,
                             discussionformat,
                             preferredhost,
-                            participantcount
+                            participantcount,
+                            status // Pass the status to the constructor
                     );
 
                     requests.add(request);
@@ -149,9 +152,11 @@ public class MeetingRequestController {
 
 
 
+
     public static MeetingRequestModel getMeetingRequestById(int meetingrequestid) throws SQLException {
-        String query = "SELECT topic, purposeofmeeting, opponentname, partyaffiliation, " +
-                "discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration , participantcount" +
+        String query = "SELECT meetingrequestid, politician_id, topic, purposeofmeeting, opponentname, " +
+                "partyaffiliation, discussionformat, preferredhost, proposaldate, proposaltime, " +
+                "estimatedduration, participantcount, status " +
                 "FROM meetingrequest WHERE meetingrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -161,7 +166,6 @@ public class MeetingRequestController {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-
                     int politician_id = rs.getInt("politician_id");
                     String topic = rs.getString("topic");
                     String purposeofmeeting = rs.getString("purposeofmeeting");
@@ -173,17 +177,32 @@ public class MeetingRequestController {
                     LocalTime proposaltime = rs.getTime("proposaltime").toLocalTime();
                     String estimatedduration = rs.getString("estimatedduration");
                     int participantcount = rs.getInt("participantcount");
+                    boolean status = rs.getBoolean("status");
 
-                    // Return the model with the fetched data
-                    return new MeetingRequestModel(meetingrequestid, topic,politician_id, purposeofmeeting, proposaldate, proposaltime,opponentname,partyaffiliation,discussionformat, preferredhost,estimatedduration,participantcount);
+                    return new MeetingRequestModel(
+                            meetingrequestid,
+                            topic,
+                            politician_id,
+                            purposeofmeeting,
+                            proposaldate,
+                            proposaltime,
+                            estimatedduration,
+                            opponentname,
+                            partyaffiliation,
+                            discussionformat,
+                            preferredhost,
+                            participantcount,
+                            status
+                    );
                 }
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving meeting request: " + e.getMessage());
-            throw e;  // Rethrow the exception after logging it
+            throw e;
         }
         return null;
     }
+
     public static boolean updateMeetingRequest(int meetingrequestid, String topic, String purposeofmeeting,
                                                String opponentname, String partyaffiliation, String discussionformat,
                                                String preferredhost, LocalDate proposaldate, LocalTime proposaltime,

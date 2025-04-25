@@ -12,10 +12,14 @@ public class MeetingController {
 
     public MeetingController() {}
 
-    public boolean insertMeeting(MeetingModel meeting) {
-        String query = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean insertMeeting(MeetingModel meeting, int meetingrequestid) {
+        String insertQuery = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String updateRequestStatusQuery = "UPDATE meetingrequest SET status = ? WHERE meetingrequestid = ?";
 
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            // Set values for the insert statement
             ps.setInt(1, meeting.getPoliticianId());
             ps.setString(2, meeting.getTopic());
             ps.setString(3, meeting.getDescription());
@@ -29,12 +33,25 @@ public class MeetingController {
             ps.setInt(11, meeting.getSlots());
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+
+            if (rowsAffected > 0) {
+                // Update meetingrequest status to false
+                try (PreparedStatement updatePs = connection.prepareStatement(updateRequestStatusQuery)) {
+                    updatePs.setBoolean(1, false);
+                    updatePs.setInt(2, meetingrequestid);
+                    updatePs.executeUpdate();
+                }
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public boolean deleteMeeting(int meetingId) {
         String query = "DELETE FROM meetings WHERE meetingid = ?";

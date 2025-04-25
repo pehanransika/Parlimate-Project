@@ -6,43 +6,62 @@
     <servlet-name>PublishAnnouncementServlet</servlet-name>
     <servlet-class>com.ann.PublishAnnouncementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>PublishAnnouncementServlet</servlet-name>
     <url-pattern>/Announcements/PublishAnnouncementServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PublishAnnouncementAdminServlet</servlet-name>
+    <servlet-class>com.ann.PublishAnnouncementServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishAnnouncementAdminServlet</servlet-name>
+    <url-pattern>/admin/Home/PublishAnnouncementAdminServlet</url-pattern>
   </servlet-mapping>
   <!-- Servlet for GetAllServlet -->
   <servlet>
     <servlet-name>GetAllServlet</servlet-name>
     <servlet-class>com.ann.GetAllServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>GetAllServlet</servlet-name>
     <url-pattern>/Announcements/GetAllServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>GetListServlet</servlet-name>
     <servlet-class>com.ann.GetListServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>GetListServlet</servlet-name>
     <url-pattern>/Announcements/GetListServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>UpdateServlet</servlet-name>
     <servlet-class>com.ann.UpdateServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>UpdateServlet</servlet-name>
     <url-pattern>/Announcements/UpdateServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteServlet</servlet-name>
     <servlet-class>com.ann.DeleteServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteServlet</servlet-name>
     <url-pattern>/Announcements/DeleteServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>PublishCommentServlet</servlet-name>
     <servlet-class>comment.PublishCommentServlet</servlet-class>
@@ -52,6 +71,7 @@
     <servlet-name>PublishCommentServlet</servlet-name>
     <url-pattern>/PublishCommentServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteCommentServlet</servlet-name>
     <servlet-class>comment.DeleteCommentServlet</servlet-class>
@@ -61,18 +81,22 @@
     <servlet-name>DeleteCommentServlet</servlet-name>
     <url-pattern>/DeleteCommentServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>CommentManagementServlet</servlet-name>
     <servlet-class>comment.CommentManagementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>CommentManagementServlet</servlet-name>
     <url-pattern>/admin/CommentManagement/CommentManagementServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>CommentDeleteAdminServlet</servlet-name>
     <servlet-class>comment.CommentDeleteAdminServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>CommentDeleteAdminServlet</servlet-name>
     <url-pattern>/admin/CommentManagement/CommentDeleteAdminServlet</url-pattern>
@@ -82,6 +106,7 @@
     <servlet-name>PublishPostServlet</servlet-name>
     <servlet-class>post.PublishPostServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>PublishPostServlet</servlet-name>
     <url-pattern>/PublishPostServlet</url-pattern>
@@ -91,137 +116,169 @@
     <servlet-name>PostManagementServlet</servlet-name>
     <servlet-class>post.PostManagementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>PostManagementServlet</servlet-name>
     <url-pattern>/admin/PostManagement/PostManagementServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteAdminPostServlet</servlet-name>
     <servlet-class>post.DeleteAdminPostServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteAdminPostServlet</servlet-name>
     <url-pattern>/admin/PostManagement/DeleteAdminPostServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPostAllServlet</servlet-name>
     <servlet-class>post.GetPostAllServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>GetPostAllServlet</servlet-name>
     <url-pattern>/GetPostAllServlet</url-pattern>
     <url-pattern>/Profile/GetPostAllServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>UpdatePostServlet</servlet-name>
     <servlet-class>post.UpdatePostServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>UpdatePostServlet</servlet-name>
     <url-pattern>/Profile/UpdatePostServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeletePostServlet</servlet-name>
     <servlet-class>post.DeletePostServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeletePostServlet</servlet-name>
     <url-pattern>/Profile/DeletePostServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPostListServlet</servlet-name>
     <servlet-class>post.GetPostListServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>GetPostListServlet</servlet-name>
     <url-pattern>/GetPostListServlet</url-pattern>
   </servlet-mapping>
 
-
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>UserPackage.LoginServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginNewServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>UserInsertServlet</servlet-name>
     <servlet-class>UserPackage.UserInsertServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>UserInsertServlet</servlet-name>
     <url-pattern>/UserInsertServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>UpdateUserServlet</servlet-name>
     <servlet-class>UserPackage.UpdateUserServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>UpdateUserServlet</servlet-name>
     <url-pattern>/UpdateUserServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteUserServlet</servlet-name>
     <servlet-class>UserPackage.DeleteUserServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteUserServlet</servlet-name>
     <url-pattern>/DeleteUserServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>UserManagementServlet</servlet-name>
     <servlet-class>UserPackage.UserManagementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>UserManagementServlet</servlet-name>
     <url-pattern>/admin/userManagement/UserManagementServlet </url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>BankTransferManagementServlet</servlet-name>
     <servlet-class>bankreq.BankTransferManagementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>BankTransferManagementServlet</servlet-name>
     <url-pattern>/admin/BankTransferManagement/BankTransferManagementServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>FundraisingManagementServlet</servlet-name>
     <servlet-class>fundreq.FundraisingManagementServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>FundraisingManagementServlet</servlet-name>
     <url-pattern>/admin/Fundraising/FundraisingManagementServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
-    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-name>/admin/Fundraising/GetApproveFundraisingServlet</servlet-name>
     <servlet-class>fundreq.GetApprovalFundraisingServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
-    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-name>/admin/Fundraising/GetApproveFundraisingServlet</servlet-name>
     <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
   </servlet-mapping>
+
+
+
   <servlet>
     <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
     <servlet-class>fundreq.ApproveFundraisingRequestServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>ApproveFundraisingRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/ApproveFundraisingRequestServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteAdminRequestServlet</servlet-name>
     <servlet-class>fundreq.DeleteAdminRequestServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>DeleteAdminRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/DeleteAdminRequestServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>DeleteApproveRequestServlet</servlet-name>
     <servlet-class>fundreq.DeleteApproveRequestServlet</servlet-class>
-  </servlet>66
+  </servlet>
   <servlet-mapping>
     <servlet-name>DeleteApproveRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/DeleteApproveRequestServlet</url-pattern>
@@ -265,14 +322,6 @@
   <servlet-mapping>
     <servlet-name>HoldApprovedRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/HoldApprovedRequestServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>SendEmailServlet </servlet-name>
-    <servlet-class>fundreq.SendEmailServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SendEmailServlet</servlet-name>
-    <url-pattern>/admin/Fundraising/SendEmailServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>FinalDeleteApprovedFundraisingRequestServlet</servlet-name>
@@ -432,7 +481,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateSurveyRequestServlet</servlet-name>
-
     <url-pattern>/Surveys/CreateSurveyRequestServlet</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -499,6 +547,14 @@
     <servlet-class>meetingreq.UpdateMeetingRequestServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>GetRegisteredWishlistServlet</servlet-name>
+    <servlet-class>meetings.GetRegisteredWishlistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRegisteredWishlistServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/GetRegisteredWishlistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>GetAllMeetingUserServlet</servlet-name>
     <servlet-class>meetings.GetAllMeetingUserServlet</servlet-class>
   </servlet>
@@ -548,10 +604,6 @@
 </servlet>
   <servlet-mapping>
     <servlet-name>CreateMeetingServlet</servlet-name>
-    <servlet-class>meetings.CreateMeetingServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CreateMeetingServlet</servlet-name>
     <url-pattern>/admin/meetingManagement/CreateMeetingServlet</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -578,6 +630,7 @@
     <servlet-name>GetOngoingMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetOngoingMeetingsServlet</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
     <servlet-class>meetings.GetRegisteredMeetingsServlet</servlet-class>
@@ -586,6 +639,16 @@
     <servlet-name>GetRegisteredMeetingsServlet</servlet-name>
     <url-pattern>/DiscussionRoom/GetRegisteredMeetingsServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PoliticianDetailsServlet</servlet-name>
+    <servlet-class>UserPackage.PoliticianDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PoliticianDetailsServlet</servlet-name>
+    <url-pattern>/DiscussionRoom/PoliticianDetailsServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
     <servlet-class>publicprofile.GetPoliticianProfileDetailsServlet</servlet-class>
@@ -594,6 +657,34 @@
     <servlet-name>GetPoliticianProfileDetailsServlet</servlet-name>
     <url-pattern>/SearchCompare/GetPoliticianProfileDetailsServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetPoliticianProfileDetailsAdminServlet</servlet-name>
+    <servlet-class>publicprofile.GetPoliticianProfileDetailsAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPoliticianProfileDetailsAdminServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/GetPoliticianProfileDetailsAdminServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetProfileListServlet</servlet-name>
+    <servlet-class>publicprofile.GetProfileListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetProfileListServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/GetProfileListServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UpdatePolitcianDetailsServlet</servlet-name>
+    <servlet-class>publicprofile.UpdatePolitcianDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePolitcianDetailsServlet</servlet-name>
+    <url-pattern>/admin/ProfileManagement/UpdatePolitcianDetailsServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>GetPartyProfileDetailsServlet</servlet-name>
     <servlet-class>publicprofile.GetPartyProfileDetailsServlet</servlet-class>
@@ -609,6 +700,14 @@
   <servlet-mapping>
     <servlet-name>NameSuggestionsServlet</servlet-name>
     <url-pattern>/Parlimate/SearchCompare/NameSuggestionsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NameSuggestionsAdminServlet</servlet-name>
+    <servlet-class>publicprofile.NameSuggestionsAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NameSuggestionsAdminServlet</servlet-name>
+    <url-pattern>/Parlimate/admin/ProfileManagement/NameSuggestionsAdminServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GetProfileImageServlet</servlet-name>
@@ -634,6 +733,115 @@
     <servlet-name>SupportMessageServlet</servlet-name>
     <url-pattern>/Help/SupportMessageServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetSupportMesssageServlet</servlet-name>
+    <servlet-class>supportmessage.GetSupportMesssageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSupportMesssageServlet</servlet-name>
+    <url-pattern>/admin/UserSupport/GetSupportMesssageServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>updateSupportServlet</servlet-name>
+    <servlet-class>supportmessage.updateSupportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateSupportServlet</servlet-name>
+    <url-pattern>/admin/UserSupport/updateSupportServlet</url-pattern>
+  </servlet-mapping>
+<!--  <servlet>-->
+<!--    <servlet-name>LogoutServlet</servlet-name>-->
+<!--    <servlet-class>UserPackage.LogoutServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>LogoutServlet</servlet-name>-->
+<!--    <url-pattern>/LogoutServlet</url-pattern>-->
+<!--  </servlet-mapping>-->
+  <!--       survey servlets     -->
+
+
+  <servlet>
+    <servlet-name>CreateSurveyServlet</servlet-name>
+    <servlet-class>surveys.CreateSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateSurveyServlet</servlet-name>
+    <url-pattern>/Surveys/CreateSurveyServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <servlet-class>surveys.DeleteSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSurveyServlet</servlet-name>
+    <url-pattern>/Surveys/DeleteSurveyServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetUserSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetUserSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>GetParlimateSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetParlimateSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetParlimateSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetParlimateSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetYourSurveysServlet</servlet-name>
+    <servlet-class>surveys.GetYourSurveysServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetYourSurveysServlet</servlet-name>
+    <url-pattern>/Surveys/GetYourSurveysServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>vote</servlet-name>
+    <servlet-class>surveys.VoteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vote</servlet-name>
+    <url-pattern>/Surveys/vote</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <servlet-class>surveys.GetVotesServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetVotesServlet</servlet-name>
+    <url-pattern>/Surveys/getVotes</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <servlet-class>surveys.GetUserVoteServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>GetUserVoteServlet</servlet-name>
+    <url-pattern>/Surveys/getUserVote</url-pattern>
+  </servlet-mapping>
+
+
+  <!--      survey servlets end  -->
   <filter>
     <filter-name>UserSessionFilter</filter-name>
     <filter-class>UserPackage.UserSessionFilter</filter-class>
