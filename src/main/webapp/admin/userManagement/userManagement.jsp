@@ -568,12 +568,6 @@ partyRejectBtns.forEach(rejectBtn => {
             })
         }
 
-        // Toggle filter popup
-        document.getElementById("filter-btn")?.addEventListener("click", function() {
-            document.body.classList.toggle("popup-active");
-            document.querySelector(".filter-user-popup").classList.toggle("popup-show");
-        });
-
         // Delete user popup logic
         const deleteModal = document.querySelector(".delete-user-popup");
         let selectedUserId = null; // Store selected user ID globally
@@ -604,11 +598,23 @@ partyRejectBtns.forEach(rejectBtn => {
         document.querySelectorAll(".close-btn, .proceed").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.remove("popup-active");
-                document.querySelector(".filter-user-popup").classList.remove("popup-show");
+                // document.querySelector(".filter-user-popup").classList.remove("popup-show");
                 deleteModal.classList.remove("popup-show");
             });
         });
     });
+
+    document.querySelectorAll(".close-btn").forEach(closeBtn => {
+        closeAllPopups();
+    })
+
+    function closeAllPopups(){
+        const partyReqModal = document.querySelector(".party-req-modal");
+        const deleteUserModal = document.querySelector(".delete-user-popup");
+
+        partyReqModal.classList.remove("popup-show");
+        deleteUserModal.classList.remove("popup-show");
+    }
 
     // Delete user function
     function removeUserServlet(userId) {

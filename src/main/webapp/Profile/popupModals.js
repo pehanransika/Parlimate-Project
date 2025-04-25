@@ -13,10 +13,14 @@ function setupModals() {
     const modalCancelBtns = document.querySelectorAll('.cancel-btn');
     const interestsModal = document.getElementById('interestsModal');
     const intrstBtn = document.querySelector('.intrst-btn');
+    const partyReqModal = document.querySelector(".party-req-modal");
+    const deleteUserPopup = document.querySelector(".delete-user-popup");
 
     // Initialize modals as hidden
     modal.style.display = "none";
     interestsModal.style.display = "none";
+    partyReqModal.classList.remove("popup-show")
+    deleteUserPopup.classList.remove("popup-show")
 
     // Modal event listeners
     intrstBtn.addEventListener('click', (e) => {
@@ -36,6 +40,8 @@ function setupModals() {
         btn.addEventListener('click', () => {
             interestsModal.style.display = "none";
             modal.style.display = "none";
+            partyReqModal.classList.remove("popup-show")
+            deleteUserPopup.classList.remove("popup-show")
         });
     });
 
@@ -46,6 +52,8 @@ function setupModals() {
             }
             interestsModal.style.display = "none";
             modal.style.display = "none";
+            partyReqModal.classList.remove("popup-show")
+            deleteUserPopup.classList.remove("popup-show")
         });
     });
 
@@ -53,6 +61,9 @@ function setupModals() {
         if (event.target === interestsModal || event.target === editModal) {
             interestsModal.style.display = "none";
             modal.style.display = "none";
+            partyReqModal.style.display = "none";
+            deleteUserPopup.classList.remove("popup-show")
+            partyReqModal.classList.remove("popup-show")
 
         }
     });
