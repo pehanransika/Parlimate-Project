@@ -253,6 +253,15 @@
     <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>GetAnalyticsCountServlet</servlet-name>
+    <servlet-class>adminDashboard.GetAnalyticsCountServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAnalyticsCountServlet</servlet-name>
+    <url-pattern>/admin/Home/GetAnalyticsCountServlet</url-pattern>
+  </servlet-mapping>
 
 
   <servlet>

@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
                     case "moderator":
                         List<AdminModel> admins = AdminController.AdminProfile(userid);
                         if (!admins.isEmpty()) userProfile = admins.get(0);
-                        redirectUrl = "admin/Home/index.jsp";
+                        redirectUrl = "/Parlimate/admin/Home/GetAnalyticsCountServlet";
                         break;
                 }
 

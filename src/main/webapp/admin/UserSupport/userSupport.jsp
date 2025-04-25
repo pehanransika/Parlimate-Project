@@ -180,7 +180,7 @@
                         />
                     </div>
                     <div class="scheduled-meeting">
-                        <button class="filter-btn f-row" id="schedule-btn" onclick="window.location.href='admin/Home/index.jsp'">
+                        <button class="filter-btn f-row" id="schedule-btn" onclick="window.location.href='${pageContext.request.contextPath}/admin/Home/index.jsp'">
                             <i class="fa-solid fa-house"></i>
                             Home Page
                         </button>
