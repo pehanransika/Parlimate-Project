@@ -90,15 +90,11 @@
     </div>
   </div>
   <div class="scContainer">
-    <%
-      // Check if userType is Politician
-      if (user.getUserType() != null && user.getUserType().equals("Politician")) {
-    %>
-    <button name="view" value="1" class="btn btn-info">
-    <a href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp" class="btn btn-info">Edit My Details</a></button>
-    <%
-      }
-    %>
+    <select hidden="hidden" name="role" id="roleSelect" class="roleType caps">
+      <option value="politician">Politician</option>
+      <option value="political-party">Political Party</option>
+    </select>
+    <button name="view" class="btn btn-primary"><a  href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp">Edit My Profile</a></button>
 
     <div id="politicianSection">
     <table>
