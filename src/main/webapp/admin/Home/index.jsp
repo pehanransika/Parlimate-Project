@@ -187,6 +187,68 @@
 				padding: 10px 20px;
 			}
 		}
+
+		/* Popup Modal Styles */
+		.popup-modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center;
+		}
+
+		.popup {
+			background-color: white;
+			padding: 20px;
+			border-radius: 10px;
+			width: 400px;
+			position: relative;
+		}
+
+		.popup .close-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+		}
+
+		.formSection {
+			margin-bottom: 15px;
+		}
+
+		.formSection label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		.formSection input, .formSection textarea {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.popbtns {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.post-btn {
+			background-color: #6a5acd;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.post-btn:hover {
+			background-color: #5b4ab5;
+		}
+
 	</style>
 </head>
 <body>
@@ -317,7 +379,7 @@
 					<div class="card-title">Political Parties</div>
 				</div>
 			</a>
-			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="stat-card">
+			<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class-builder>
 				<div class="card-icon">
 					<i class="fa-regular fa-user"></i>
 				</div>
@@ -375,7 +437,7 @@
 				<canvas id="fundraisersLineChart"></canvas>
 			</div>
 			<div class="button-card">
-				<a href="${pageContext.request.contextPath}/admin/Announcements/CreateAnnouncementServlet">Add Announcement</a>
+				<a href="#" id="add-announcement-btn">Add Announcement</a>
 			</div>
 			<div class="button-card">
 				<a href="${pageContext.request.contextPath}/admin/UserSupport/GetSupportMesssageServlet">View User Support</a>
@@ -383,11 +445,95 @@
 		</div>
 	</div>
 </div>
+
+<div class="popup-modal" id="popup-modal">
+	<div class="popup">
+		<!-- Announcement Form -->
+		<form action="PublishAnnouncementAdminServlet" method="post">
+			<div class="title">
+				New Announcement
+				<div class="close-btn btn" id="popup-close-btn">
+					<i class="fa-solid fa-times"></i>
+				</div>
+				<div class="breakLine"></div>
+			</div>
+			<div class="content">
+				<!-- User ID (hidden field) -->
+				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />
+
+				<!-- Announcement Title -->
+				<div class="discussion-title col">
+					<label for="add-post-title">Title</label>
+					<input
+							autocomplete="off"
+							type="text"
+							name="title"
+							id="add-post-title"
+							placeholder="Enter the title of the announcement"
+							required
+					/>
+				</div>
+
+				<!-- Announcement Content -->
+				<div class="caption-box col content-pd">
+					<label for="add-post-caption">Content</label>
+					<textarea
+							autocomplete="off"
+							name="content"
+							id="add-post-caption"
+							placeholder="Enter the content of the announcement"
+							required
+					></textarea>
+				</div>
+
+				<!-- Form Buttons -->
+				<div class="popbtns capitalize">
+					<button type="reset" class="clear-btn" id="popup-clear-btn">
+						Clear <i class="fa-solid fa-rotate-left"></i>
+					</button>
+					<button type="submit" class="post-btn" id="popup-post-btn">
+						Post Announcement <i class="fa-solid fa-check"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
 </body>
 <script>
 	function logoutUser() {
 		window.location.href = "../../index.jsp";
 	}
+
+	// Popup Modal Handling
+	const popupModal = document.getElementById('popup-modal');
+	const addAnnouncementBtn = document.getElementById('add-announcement-btn');
+	const closeBtn = document.getElementById('popup-close-btn');
+	const clearBtn = document.getElementById('popup-clear-btn');
+
+	// Open popup when Add Announcement button is clicked
+	addAnnouncementBtn.addEventListener('click', (e) => {
+		e.preventDefault(); // Prevent default link behavior
+		popupModal.style.display = 'flex';
+	});
+
+	// Close popup when close button is clicked
+	closeBtn.addEventListener('click', () => {
+		popupModal.style.display = 'none';
+	});
+
+	// Clear form when clear button is clicked
+	clearBtn.addEventListener('click', () => {
+		document.querySelector('form').reset();
+	});
+
+	// Close popup when clicking outside the popup content
+	popupModal.addEventListener('click', (e) => {
+		if (e.target === popupModal) {
+			popupModal.style.display = 'none';
+		}
+	});
 
 	// Pie Chart for User Types
 	const userTypePieChart = new Chart(document.getElementById('userTypePieChart'), {

@@ -11,6 +11,16 @@
     <servlet-name>PublishAnnouncementServlet</servlet-name>
     <url-pattern>/Announcements/PublishAnnouncementServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PublishAnnouncementAdminServlet</servlet-name>
+    <servlet-class>com.ann.PublishAnnouncementServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PublishAnnouncementAdminServlet</servlet-name>
+    <url-pattern>/admin/Home/PublishAnnouncementAdminServlet</url-pattern>
+  </servlet-mapping>
   <!-- Servlet for GetAllServlet -->
   <servlet>
     <servlet-name>GetAllServlet</servlet-name>
