@@ -177,7 +177,6 @@
 
 
         <!-- Fundraising Tabs -->
-
         <div class="fundraising-tabs">
             <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')">Fundraising Request</div>
             <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')">
@@ -186,11 +185,15 @@
 
         </div>
 
-
         <!-- Fundraising Request Tab -->
         <div id="fundraising-request" class="fundraising-content active">
             <div class="actions f-row">
-
+                <div class="search-bar">
+                    <label for="fundraising-search"><i class="fa-solid fa-magnifying-glass"></i></label>
+                    <input type="search" placeholder="Search by title/category" name="fundraising-search" id="fundraising-search" />
+                </div>
+                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
+                <button class="add-btn f-row" id="openFundPopup"><i class="fa-sharp fa-solid fa-plus"></i> Add Fundraising</button>
             </div>
 
             <div class="data f-col">
@@ -212,16 +215,14 @@
                     <c:forEach var="fund" items="${allFundraisings}">
                         <tr>
                             <td>${fund.title}</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${fn:length(fund.description) > 12}">
-                                        ${fn:substring(fund.description, 0, 12)}...
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${fund.description}
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
+                            <td><c:choose>
+                                <c:when test="${fn:length(fund.description) > 12}">
+                                    ${fn:substring(fund.description, 0, 12)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${fund.description}
+                                </c:otherwise>
+                            </c:choose></td>
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
                             <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
@@ -260,23 +261,24 @@
 
                                     <button type="submit" class="approve-btn">Approve</button>
                                 </form>
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/ViewAllFundraisingServlet" method="GET">
-                                    <input type="hidden" name="requestId" value="${fund.requestId}" />
-                                    <button type="submit" class="view-all-btn">View</button>
-                                </form>
-
+                                    <form action="${pageContext.request.contextPath}/admin/Fundraising/ViewAllFundraisingServlet" method="GET">
+                                        <input type="hidden" name="requestId" value="${fund.requestId}" />
+                                        <button type="submit" class="view-all-btn">View</button>
+                                    </form>
                                 <!-- Reject Button (will permanently delete) -->
                             <td class="actbtn">
                                 <!-- Simple Delete Form with Confirmation -->
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/RejectRequestServlet"
                                       method="post"  onsubmit="return confirmDeleteWithReason(this)"
-
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                    <input type="hidden" name="userId" value="${fund.userId}"/>
+                                    <input type="hidden" name="title" value="${fund.title}"/>
                                     <button type="submit" class="delete-btn">
                                         <i class="fas fa-trash-alt"></i> Delete
                                     </button>
                                 </form>
+
                             </td>
                             </td>
                             </c:if>
@@ -313,7 +315,13 @@
 
         <!-- Approval Fundraisers Tab -->
         <div id="approval-fundraisers" class="fundraising-content">
-
+            <div class="actions f-row">
+                <div class="search-bar">
+                    <label for="approval-search"><i class="fa-solid fa-magnifying-glass"></i></label>
+                    <input type="search" placeholder="Search approved fundraisers" name="approval-search" id="approval-search" />
+                </div>
+                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
+            </div>
 
             <div class="data f-col">
                 <table class="fundraising">
@@ -531,7 +539,7 @@
     });
 
     function refreshFundraisingTable() {
-        $.get('${pageContext.request.contextPath}/GetApprovalFundraisingServlet',
+        $.get('${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet',
             function (data) {
                 $('#approval-fundraisers').html($(data).find('#approval-fundraisers').html());
             }
@@ -688,8 +696,8 @@
                 .then(response => {
                     if (response.ok) {
                         // Update UI
-                        document.getElementById(action-buttons-${requestId}).style.display = 'none';
-                        document.getElementById(restore-form-${requestId}).style.display = 'inline';
+                        document.getElementById(`action-buttons-${requestId}`).style.display = 'none';
+                        document.getElementById(`restore-form-${requestId}`).style.display = 'inline';
                         hideRejectionModal();
                         alert('Request has been rejected');
                     } else {
@@ -706,11 +714,11 @@
     function confirmRejection(requestId) {
         if (confirm('Are you sure you want to reject this request?')) {
             // Submit the rejection form
-            document.getElementById(reject-form-${requestId}).submit();
+            document.getElementById(`reject-form-${requestId}`).submit();
 
             // Hide reject button and show restore button (will be fully applied after page reload)
-            document.getElementById(action-buttons-${requestId}).style.display = 'none';
-            document.getElementById(restore-form-${requestId}).style.display = 'inline';
+            document.getElementById(`action-buttons-${requestId}`).style.display = 'none';
+            document.getElementById(`restore-form-${requestId}`).style.display = 'inline';
         }
     }
 
@@ -718,7 +726,7 @@
 
     function handleDelete(event, requestId) {
         event.preventDefault();
-        currentDeleteForm = document.getElementById(delete-form-${requestId});
+        currentDeleteForm = document.getElementById(`delete-form-${requestId}`);
         document.getElementById('reasonInput').value = '';
         document.getElementById('reasonModal').style.display = 'block';
         return false;
@@ -732,7 +740,7 @@
         }
 
         // Set the hidden reason field
-        document.getElementById(delete-reason-${currentDeleteForm.id.split('-')[2]}).value = reason;
+        document.getElementById(`delete-reason-${currentDeleteForm.id.split('-')[2]}`).value = reason;
 
         // Submit the form
         if (confirm('Are you sure you want to permanently delete this request?')) {
