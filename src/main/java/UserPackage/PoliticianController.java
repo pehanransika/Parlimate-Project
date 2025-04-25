@@ -51,7 +51,10 @@ public class PoliticianController {
                         rs.getString("name"),
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
-                        rs.getInt("politicalPartyId")
+                        rs.getInt("politicalPartyId"),
+                        rs.getString("district"),
+                        rs.getString("province"),
+                        rs.getString("political_view")
                 );
             }
             conn.close();
@@ -96,8 +99,11 @@ public class PoliticianController {
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
+                    String district = rs.getString("district");
+                    String province = rs.getString("province");
+                    String politicalView = rs.getString("political_view");
 
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId , district, province, politicalView);
                     politicians.add(politician);
                     System.out.println("Fetched politician: " + name);
                 }
@@ -150,6 +156,36 @@ public class PoliticianController {
             System.err.println("Error deleting politician: " + e.getMessage());
         }
         return false;
+    }
+
+    public static List<PoliticianModel> getPoliticianList() {
+        List<PoliticianModel> politicians = new ArrayList<>();
+        String sql = "SELECT * FROM politician order by name ASC";
+
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int userId = rs.getInt("user_id");
+                int politicianId = rs.getInt("politician_id");
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phone_number");
+                int politicalPartyId = rs.getInt("political_party_id");
+                String district = rs.getString("district");
+                String province = rs.getString("province");
+                String political_view = rs.getString("political_view");
+
+                PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province, political_view);
+                politicians.add(politician);
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return politicians;
     }
 
 }

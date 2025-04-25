@@ -44,7 +44,9 @@ public class CitizenController {
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
                         rs.getString("name"),
-                        rs.getString("district")
+                        rs.getString("district"),
+                        rs.getString("province"),
+                        rs.getString("political_view")
                 );
             }
             conn.close();
@@ -71,9 +73,11 @@ public class CitizenController {
                     String phoneNumber = rs.getString("phone_number");
                     String name = rs.getString("name");
                     String district = rs.getString("district");
+                    String province = rs.getString("province");
+                    String political_view = rs.getString("political_view");
 
 
-                    CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district);
+                    CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district,province,political_view);
                     citizens.add(citizen);
                 }
             }

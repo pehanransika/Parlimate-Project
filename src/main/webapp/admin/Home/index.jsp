@@ -265,7 +265,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
+				<a href="${pageContext.request.contextPath}/admin/userManagement" class="nav-item f-row">
 					<i class="fa-regular fa-users"></i>
 					<span>users</span>
 				</a>

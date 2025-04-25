@@ -1,4 +1,3 @@
-
 package post;
 
 import java.sql.Timestamp;
@@ -9,16 +8,18 @@ public class PostModel {
     private String content;
     private Timestamp datetime;
     private String name;
+    private String images;
 
 
 
 
-    public PostModel(int userId, int postId, Timestamp datetime, String content,String name) {
+    public PostModel(int userId, int postId, Timestamp datetime, String content,String name,String images) {
         this.userId = userId;
         this.postId = postId;
         this.datetime = datetime;
         this.content = content;
         this.name = name;
+        this.images=images;
 
     }
 
@@ -63,6 +64,11 @@ public class PostModel {
         this.name = name;
     }
 
+    public String getImages(){
+        return images;
+    }
+    public void setImages(String images){
+        this.images=images;
+    }
+
 }
-
-

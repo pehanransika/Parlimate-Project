@@ -41,7 +41,7 @@ public class ConfirmPaymentServlet extends HttpServlet {
                     int rowsInserted = stmt.executeUpdate();
 
                     if (rowsInserted > 0) {
-                        request.getRequestDispatcher("${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet").forward(request, response);
+                        request.getRequestDispatcher("success.jsp").forward(request, response);
                     } else {
                         request.setAttribute("errorMessage", "Failed to insert order.");
                         request.getRequestDispatcher("errorpayment.jsp").forward(request, response);

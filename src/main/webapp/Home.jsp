@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
 <%HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
-if (session1 == null || session.getAttribute("user") == null) {
+  if (session1 == null || session.getAttribute("user") == null) {
 // User is not logged in, redirect to login page
-response.sendRedirect("index.jsp");
-return;
-}%>
+    response.sendRedirect("index.jsp");
+    return;
+  }%>
 
 
 <!DOCTYPE html>
@@ -50,6 +52,7 @@ return;
 </head>
 
 <body class="">
+
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
   <div class="bg"></div>
   <div class="fund-popup col">
@@ -121,7 +124,7 @@ return;
         <div class="att-container">
           <div class="action row">
             <label for="fund-att" class="att-btn">Select File</label>
-            <input type="file" required name="attachmentUrl" id="fund-att" multiple>
+            <input type="file" name="attachmentUrl" id="fund-att" multiple>
             <div class="sep"></div>
           </div>
           <div class="att-content">
@@ -158,9 +161,77 @@ return;
     </div>
   </div>
 </form>
+<div class="notification-msg capitalize"></div>
+<div class="popup-modal">
+  <div class="popup">
+    <div class="title">
+      New Post
+      <div class="close-btn btn" id="popup-close-btn">
+        <i class="fa-solid fa-times"></i>
+      </div>
+      <div class="breakLine"></div>
+    </div>
+    <div class="content">
+      <div class="account row">
+        <div class="user-profile">
+          <div class="prof-img"></div>
+          <div class="user-name">${userProfile.name}</div>
+        </div>
+        <div class="switch-btn capitalize">
+          <a href="#">switch account
+            <i class="fa-regular fa-chevron-down"></i></a>
+        </div>
+      </div>
+      <form method="POST" action="PublishNewPostServlet" enctype="multipart/form-data">
+
+        <div class="caption-box col content-pd">
+          <div class="title capitalize" >caption</div>
+          <input type="hidden" name="userid" id="userid" value="${user.userId}" />
+          <input type="hidden" name="username" id="username" value="${userProfile.name}" />
+
+          <textarea autocomplete="off" name="content"  id="post-desc" placeholder="Enter the caption of the discussion"></textarea>
+        </div>
+        <div class="popbtns capitalize">
+          <div class="clear-btn" id="popup-clear-btn">
+            Clear
+            <i class="fa-sharp fa-solid fa-rotate-left"></i>
+          </div>
+
+          <div class="fund-photo field">
+            <span for="" class="title">Upload Photos</span>
+            <div class="att-container-photo">
+              <div class="action row-photo">
+                <label for="fund-photo" class="photo-btn">Select Photo</label>
+                <input type="file" name="images" id="fund-photo"  >
+                <div class="sep"></div>
+              </div>
+              <div class="photo-content">
+                <span class="no-of-files">No Photo attached</span>
+                <ul id="photo-list" class="col">
+                  <!-- uploaded files will be listed here -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use a div or any other element with a click event to trigger form submission -->
+        <div class="post-btn" id="popup-post-btn" onclick="this.closest('form').submit();">
+          post discussion
+        </div>
+        <i class="fa-duotone fa-solid fa-check"></i>
+      </form>
     </div>
   </div>
 </div>
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
 
 
 
@@ -226,30 +297,7 @@ return;
         <div class="prof-img"></div>
       </div>
 
-      <form method="POST" action="PublishCommentServlet">
-        <div class="caption-box col content-pd">
-          <div class="title capitalize">Caption</div>
-          <input type="hidden" name="userid" id="userid" value="${user.userId}" />  <!-- User ID -->
-          <input type="hidden" name="postId" id="postId" value="" />
-          <input type="hidden" name="username" id="username" value="${userProfile.name}" />
 
-          <!-- Post ID -->
-
-          <textarea autocomplete="off" name="content" id="post-desc1" placeholder="Enter the caption of the discussion"></textarea>  <!-- Comment content -->
-        </div>
-        <div class="popbtns capitalize">
-          <div class="clear-btn" id="popup-clear-btnn">
-            Clear
-            <i class="fa-sharp fa-solid fa-rotate-left"></i>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="post-btn" id="popup-post-btnn" onclick="this.closest('form').submit();">
-            Post Discussion
-          </div>
-          <i class="fa-duotone fa-solid fa-check"></i>
-        </div>
-      </form>
 
 
     </div>
@@ -269,15 +317,6 @@ return;
   </div>
 </div>
 
-<script>
-  // Function to handle the redirect when the logout button is clicked
-  function logoutRedirect() {
-    // Check if the checkbox is checked (logout button clicked)
-    if (document.getElementById('logoutBtn').checked) {
-      window.location.href = 'http://localhost:8080/Parlimate/';
-    }
-  }
-</script>
 
 </div>
 
@@ -359,95 +398,167 @@ return;
 
 
 
-  <ul class="post-list" style="list-style-type: none; padding: 0; margin-right: 20px; gap: 1.5rem;">
+  <ul class="post-list" style="list-style-type: none; padding: 0; margin-right: 20px; display: flex; flex-direction: column; gap: 1.5rem;">
     <c:forEach var="post" items="${allposts}">
+
+      <!-- Post Details -->
       <div class="post reactable reacted">
-        <div class="top">
-          <div class="post-details">
-            <a href="#" class="img"></a>
+        <div class="top" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="post-details" style="display: flex; align-items: center;">
+            <a href="#" class="img" style="width: 40px; height: 40px; background: #ccc; border-radius: 50%; display: inline-block; margin-right: 10px;"></a>
             <div class="details">
-              <a href="#" class="name">${post.name}</a>
-              <div class="posted-date">
+              <a href="#" class="name" style="font-weight: bold; text-decoration: none; color: #333;">${post.name}</a>
+              <div class="posted-date" style="font-size: 12px; color: #888;">
                 <i class="fa-light fa-clock"></i>
-                <div class="time">
-                  <span class="value">${post.datetime}</span>
-                </div>
+                <span class="value">${post.datetime}</span>
               </div>
             </div>
           </div>
           <div>
-            <input type="checkbox" name="post-menu" id="postMenu" class="menuBtn" />
-            <span class="tip">options</span>
-            <label for="postMenu" class="btn-2">
+
+            <div class="content" style="padding-top: 20px; padding-left: 20px; font-size: 14px; color: #333;">
+                ${post.content}
+            </div>
+            <span class="tip" style="font-size: 12px; color: #aaa;">options</span>
+            <label for="postMenu${post.postId}" class="btn-2" style="cursor: pointer;">
               <i class="fa-regular fa-ellipsis-vertical"></i>
             </label>
-            <div class="post-dropDownMenu">
-              <ul>
+            <div class="post-dropDownMenu" style="display: none;">
+              <ul style="margin: 0; padding: 0; list-style: none;">
                 <li><a href="#">report</a></li>
                 <li><a href="#">copy link</a></li>
               </ul>
             </div>
           </div>
         </div>
-
-        <div class="content">
-            ${post.content}
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <c:forEach var="img" items="${fn:split(post.images, ',')}">
+            <div class="img"
+                 style="width: 300px; height: 250px; background-size: cover; background-position: center;
+                         border-radius: 10px; background-image: url('${pageContext.request.contextPath}/${img}')">
+            </div>
+          </c:forEach>
         </div>
 
-        <div class="reactions">
-          <button class="like btn">
-          <span class="reactIcon">
-              <i class="fa-solid fa-thumbs-up"></i>
-          </span>
-            <span>like</span>
-            <span class="count">32k</span>
+        <!-- Post Content -->
+
+
+
+
+
+        <!-- Reactions -->
+        <div class="reactions" style="margin-top: 15px; display: flex; gap: 10px;">
+          <button class="like btn" style="background: #eee; padding: 6px 10px; border-radius: 6px; cursor: pointer;">
+            <span class="reactIcon"><i class="fa-solid fa-thumbs-up"></i></span> like
+            <span class="count" style="margin-left: 5px;">32k</span>
           </button>
 
-          <button class="comment btn"
-                  onclick="openCommentPopup('${post.content}', '${post.datetime}', '${post.postId}')">
-          <span class="reactIcon">
-              <i class="fa-solid fa-message"></i>
-          </span>
-            <span>comment</span>
-            <span class="count">1k</span>
-          </button>
 
-          <a href="GetAllCommentServlet?postId=${post.postId}" class="btn view-comment" style="text-decoration: none; padding: 6px 14px; background-color: #007bff; color: white; border-radius: 6px;">
+          <!-- Make sure the postId is printed out -->
+
+
+          <form method="POST" action="PublishCommentServlet" >
+            <div class="caption-box col content-pd">
+
+              <input type="hidden" name="userid" id="userid" value="${user.userId}" />  <!-- User ID -->
+              <input type="hidden" name="postId" value="${post.postId}" />
+              <input type="hidden" name="username" id="username" value="${userProfile.name}" />
+
+              <br>
+              <br>
+
+              <textarea autocomplete="off"  name="content" required id="post-desc1" placeholder="Enter the caption of the discussion"></textarea>  <!-- Comment content -->
+              <br>
+            </div>
+            <div class="popbtns capitalize">
+
+              <br>
+              <!-- Submit Button -->
+              <button>
+                <div class="post-btn" id="popup-post-btnn"
+                     onclick="validateAndSubmitComment(this);"
+                     style="background-color: black; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px; border-radius: 5px; transition: background-color 0.3s ease;"
+                     onmouseover="this.style.backgroundColor='#d3d3d3'; this.style.color='black';"
+                     onmouseout="this.style.backgroundColor='black'; this.style.color='white';">
+                  Publish Comment
+                </div>
+
+              </button>
+
+            </div>
+          </form>
+
+          <!-- View Comments Link -->
+          <a href="GetAllCommentServlet?postId=${post.postId}" class="btn view-comment"
+             style="text-decoration: none; padding: 6px 14px; background-color: black; color: white; border-radius: 6px; display: inline-block; transition: background-color 0.3s ease;"
+             onmouseover="this.style.backgroundColor='#d3d3d3'; this.style.color='black';"
+             onmouseout="this.style.backgroundColor='black'; this.style.color='white';">
             <i class="fa-solid fa-comments"></i> View Comments
           </a>
 
-          <button class="share btn">
-          <span class="reactIcon">
-              <i class="fa-duotone fa-solid fa-share-all"></i>
-          </span>
-            <span>share</span>
+
+          <button class="share btn" style="background: #eee; padding: 6px 10px; border-radius: 6px; cursor: pointer;">
+            <span class="reactIcon"><i class="fa-duotone fa-solid fa-share-all"></i></span> share
           </button>
         </div>
       </div>
-      &nbsp;&nbsp;
+
+      </li>
+
     </c:forEach>
   </ul>
 
 </div>
 </body>
-<script>function openCommentPopup(content, datetime, postId) {
-  document.getElementById("popup-content").innerText = content;
-  document.getElementById("popup-time").innerText = datetime;
-  document.getElementById("postId").value = postId;  // this was missing or wrong
-  document.querySelector(".comment-popup").style.display = "block";
-}
+<script>
+  function validateAndSubmitComment(button) {
+    // Find the closest form
+    const form = button.closest('form');
 
-function closeCommentPopup() {
-  document.body.classList.remove("cmnt-visible");
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const popupOverlay = document.querySelector(".comment-popup");
-  const popupContainer = document.querySelector(".comment-container");
+    // Find the comment input/textarea - adjust the selector based on your actual input field
+    const commentInput = form.querySelector('textarea[name="commentText"]') ||
+            form.querySelector('input[name="commentText"]');
 
-  popupOverlay.addEventListener("click", function (e) {
-    if (!popupContainer.contains(e.target)) {
-      closeCommentPopup();
+    // Check if comment is empty
+    if (!commentInput || commentInput.value.trim() === '') {
+
+      commentInput.focus(); // Focus on the input field
+      return false; // Prevent form submission
     }
+
+    // If validation passes, submit the form
+    form.submit();
+  }
+  // Function to handle the redirect when the logout button is clicked
+  function logoutRedirect() {
+    // Check if the checkbox is checked (logout button clicked)
+    if (document.getElementById('logoutBtn').checked) {
+      window.location.href = 'http://localhost:8080/Parlimate/';
+    }
+  }
+  // Get the value of the hidden postId input
+  function openCommentPopup(content, datetime, postId) {
+    document.getElementById("popup-content").innerText = content;
+    document.getElementById("popup-time").innerText = datetime;
+    document.getElementById("postId").value = postId;  // this was missing or wrong
+    document.querySelector(".comment-popup").style.display = "block";
+  }
+  function closeCommentPopup() {
+    // Close the comment popup and remove the 'cmnt-visible' class
+    document.querySelector(".comment-popup").style.display = "none";
+    document.body.classList.remove("cmnt-visible");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const popupOverlay = document.querySelector(".comment-popup");
+    const popupContainer = document.querySelector(".comment-container");
+
+    // Close popup when clicked outside of the container
+    popupOverlay.addEventListener("click", function (e) {
+      if (!popupContainer.contains(e.target)) {
+        closeCommentPopup();
+      }
+    });
   });
 
   document.addEventListener("keydown", function (e) {
@@ -455,7 +566,6 @@ document.addEventListener("DOMContentLoaded", function () {
       closeCommentPopup();
     }
   });
-});
 </script>
 <script src="script.js"></script>
 <script src="home.js"></script>

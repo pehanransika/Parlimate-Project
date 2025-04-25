@@ -1,73 +1,87 @@
-
 package post;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.SQLException;
 
 @WebServlet("/PublishNewPostServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
 public class PublishPostServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private static final String UPLOAD_DIR = "uploads";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Default user ID to use when no user ID is provided
             int defaultUserId = 2;
-
-            // Retrieve user ID from the form
             String userIdStr = request.getParameter("userid");
             String username = request.getParameter("username");
-            int userId = (userIdStr != null && !userIdStr.isEmpty())
-                    ? Integer.parseInt(userIdStr)
-                    : defaultUserId;
+            int userId = (userIdStr != null && !userIdStr.isEmpty()) ? Integer.parseInt(userIdStr) : defaultUserId;
 
-            // Retrieve post content from the form
             String content = request.getParameter("content");
-
-            // Validate input content
             if (content == null || content.trim().isEmpty()) {
                 throw new IllegalArgumentException("Content cannot be empty.");
             }
 
-            // Call the PostController to publish the post
-            boolean isPublished = PostController.PublishPost(userId, content,username);
+            Part filePart = request.getPart("images"); // form input name="images"
+            String fileName = getFileName(filePart);
+
+            String imagePath = null;
+            if (fileName != null && !fileName.isEmpty()) {
+                // Get the absolute path to the web application root
+                String appPath = request.getServletContext().getRealPath(""); // Get the absolute path of the web application
+                String uploadPath = appPath + File.separator + UPLOAD_DIR; // Define the upload folder path
+
+                // Create uploads directory if it doesn't exist
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs(); // Create the uploads directory
+                }
+
+                // Save the uploaded file to this folder
+                String filePath = uploadPath + File.separator + fileName; // Full path for the file
+                try (InputStream input = filePart.getInputStream()) {
+                    Files.copy(input, new File(filePath).toPath()); // Save the file
+                }
+
+                // Store the relative path for saving in DB or returning to frontend
+                imagePath = UPLOAD_DIR + "/" + fileName; // Relative path for usage in DB
+            }
+
+
+            // Publish post
+            boolean isPublished = PostController.PublishPost(userId, content, username, imagePath);
 
             if (isPublished) {
-                // If successful, redirect with a success message
-                String alertMessage = "Post Published Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetPostListServlet';</script>");
+                response.getWriter().println("<script>alert('Post Published Successfully'); window.location.href='GetPostListServlet';</script>");
             } else {
-                // If not successful, forward to the error page
-                String alertMessage = "Failed to publish post.";
-                request.setAttribute("error", alertMessage);
+                request.setAttribute("error", "Failed to publish post.");
                 RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
                 dis.forward(request, response);
             }
-        } catch (NumberFormatException e) {
-            // Handle invalid user ID format
+        } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Invalid User ID. Please enter a numeric value.");
-            RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
-            dis.forward(request, response);
-        } catch (IllegalArgumentException e) {
-            // Handle empty or invalid content
-            e.printStackTrace();
-            request.setAttribute("error", e.getMessage());
-            RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
-            dis.forward(request, response);
-        } catch (SQLException e) {
-            // Handle SQL exceptions
-            e.printStackTrace();
-            request.setAttribute("error", "Database error occurred. Please try again.");
+            request.setAttribute("error", "Error: " + e.getMessage());
             RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
             dis.forward(request, response);
         }
     }
-}
 
+    private String getFileName(Part part) {
+        String header = part.getHeader("content-disposition");
+        for (String content : header.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+}

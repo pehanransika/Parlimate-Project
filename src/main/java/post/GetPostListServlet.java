@@ -1,4 +1,3 @@
-
 package post;
 
 import javax.servlet.RequestDispatcher;
@@ -44,4 +43,3 @@ public class GetPostListServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

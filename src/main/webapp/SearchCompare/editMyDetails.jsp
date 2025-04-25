@@ -95,7 +95,7 @@
             if (user.getUserType() != null && user.getUserType().equals("Politician")) {
         %>
         <button name="view" value="1" class="btn btn-info">
-            <a href="${pageContext.request.contextPath}/SearchCompare/searchCompare.jsp.jsp" class="btn btn-info">Search and Compare</a></button>
+            <a href="${pageContext.request.contextPath}/SearchCompare/searchCompare.jsp" class="btn btn-info">Search and Compare</a></button>
         <%
             }
         %>

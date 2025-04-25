@@ -244,14 +244,16 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-name>/admin/Fundraising/GetApproveFundraisingServlet</servlet-name>
     <servlet-class>fundreq.GetApprovalFundraisingServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>GetApprovalFundraisingServlet</servlet-name>
+    <servlet-name>/admin/Fundraising/GetApproveFundraisingServlet</servlet-name>
     <url-pattern>/admin/Fundraising/GetApprovalFundraisingServlet</url-pattern>
   </servlet-mapping>
+
+
 
   <servlet>
     <servlet-name>ApproveFundraisingRequestServlet</servlet-name>

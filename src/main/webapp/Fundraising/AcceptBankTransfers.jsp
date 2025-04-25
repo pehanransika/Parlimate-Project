@@ -22,7 +22,7 @@
     .transfer-card {
       background-color: #fff;
       border: 1px solid #ddd;
-      border-left: 5px solid #4CAF50;
+      border-left: 5px solid black;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
       padding: 20px;
@@ -50,8 +50,8 @@
     }
 
     .status-badge.approved {
-      background-color: #e6ffed;
-      color: #22863a;
+      background-color: black;
+      color: white;
       font-size: 14px;
       font-weight: 600;
       padding: 6px 12px;
@@ -147,30 +147,17 @@
           </div>
 
           <div class="card-body">
-            <div class="info-row f-row">
-              <div class="info-label">User ID:</div>
-              <div class="info-value">${transfer.user_id}</div>
-            </div>
+
             <div class="info-row f-row">
               <div class="info-label">Fundraiser ID:</div>
               <div class="info-value">${transfer.fundraiser_id}</div>
             </div>
-            <div class="info-row f-row">
-              <div class="info-label">Bank:</div>
-              <div class="info-value">${transfer.bank_name}</div>
-            </div>
-            <div class="info-row f-row">
-              <div class="info-label">Account Holder:</div>
-              <div class="info-value">${transfer.account_holder_name}</div>
-            </div>
+
             <div class="info-row f-row">
               <div class="info-label">Amount:</div>
               <div class="info-value">${transfer.currency} ${transfer.amount}</div>
             </div>
-            <div class="info-row f-row">
-              <div class="info-label">Reference Code:</div>
-              <div class="info-value">${transfer.reference_code}</div>
-            </div>
+
           </div>
         </div>
       </c:forEach>

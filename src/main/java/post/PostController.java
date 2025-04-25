@@ -1,4 +1,3 @@
-
 package post;
 
 import java.sql.Connection;
@@ -29,12 +28,12 @@ public class PostController {
     }
 
     // Method to publish a post
-    public static boolean PublishPost(int userId, String content,String name) throws SQLException {
+    public static boolean PublishPost(int userId, String content, String name, String images) throws SQLException {
         if (!isUserExists(userId)) {
             throw new SQLException("User ID does not exist.");
         }
 
-        String query = "INSERT INTO post (userid, content, datetime,name) VALUES (?, ?, ?,?)";
+        String query = "INSERT INTO post (userid, content, datetime, name, images) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -42,6 +41,7 @@ public class PostController {
             stmt.setString(2, content);
             stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             stmt.setString(4, name);
+            stmt.setString(5, images);
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public class PostController {
 
     public static List<PostModel> getAllPosts(int user_id) throws SQLException {
         List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime , name FROM post WHERE userid = ?";
+        String query = "SELECT postid, userid, content, datetime, name, images FROM post WHERE userid = ? ORDER BY datetime DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -67,8 +67,9 @@ public class PostController {
                     String content = rs.getString("content");
                     Timestamp datetime = rs.getTimestamp("datetime");
                     String name = rs.getString("name");
+                    String images = rs.getString("images");
 
-                    PostModel post = new PostModel(userId, postId, datetime, content, name);
+                    PostModel post = new PostModel(userId, postId, datetime, content, name, images);
                     posts.add(post);
                 }
             }
@@ -76,15 +77,13 @@ public class PostController {
         return posts;
     }
 
-
     public static List<PostModel> getListPosts() throws SQLException {
         List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime , name FROM post ";
+        String query = "SELECT postid, userid, content, datetime, name, images FROM post";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
-
 
             while (rs.next()) {
                 int postId = rs.getInt("postid");
@@ -92,10 +91,9 @@ public class PostController {
                 String content = rs.getString("content");
                 Timestamp datetime = rs.getTimestamp("datetime");
                 String name = rs.getString("name");
-                //   String username= rs.getString("username");
+                String images = rs.getString("images");
 
-
-                PostModel post = new PostModel(userId, postId, datetime,content,name);
+                PostModel post = new PostModel(userId, postId, datetime, content, name, images);
                 posts.add(post);
             }
         }
@@ -105,7 +103,7 @@ public class PostController {
     // Method to get a single post by ID
     public static List<PostModel> getById(String postid) {
         int convertedID = Integer.parseInt(postid);
-        String query = "SELECT postid, userid, content, datetime ,name FROM post";
+        String query = "SELECT postid, userid, content, datetime, name, images FROM post WHERE postid = ?";
 
         List<PostModel> posts = new ArrayList<>();
 
@@ -120,9 +118,10 @@ public class PostController {
                     int userId = rs.getInt("userid");
                     String content = rs.getString("content");
                     Timestamp datetime = rs.getTimestamp("datetime");
-                    String name= rs.getString("name");
+                    String name = rs.getString("name");
+                    String images = rs.getString("images");
 
-                    PostModel post = new PostModel(userId, postId, datetime, content,name);
+                    PostModel post = new PostModel(userId, postId, datetime, content, name, images);
                     posts.add(post);
                 }
             }
@@ -135,14 +134,15 @@ public class PostController {
     }
 
     // Method to update a post
-    public static boolean updatePost(int postid, String content, LocalDateTime datetime) {
-        String query = "UPDATE post SET content = ?, datetime = ? WHERE postid = ?";
+    public static boolean updatePost(int postid, String content, LocalDateTime datetime, String images) {
+        String query = "UPDATE post SET content = ?, datetime = ?, images = ? WHERE postid = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, content);
             stmt.setTimestamp(2, Timestamp.valueOf(datetime));
-            stmt.setInt(3, postid);
+            stmt.setString(3, images);
+            stmt.setInt(4, postid);
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -164,5 +164,34 @@ public class PostController {
         }
         return false;
     }
-}
 
+    // GET POST BY USERID
+    public static List<PostModel> getPostByID(String userId) {
+        List<PostModel> posts = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT postid, userid, content, datetime, name, images FROM post WHERE userid = ? ORDER BY datetime DESC";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, Integer.parseInt(userId));
+
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    posts.add(new PostModel(
+                            rs.getInt("userid"),
+                            rs.getInt("postid"),
+                            rs.getTimestamp("datetime"),
+                            rs.getString("content"),
+                            rs.getString("name"),
+                            rs.getString("images")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR in getPostByID: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return posts;
+    }
+}
