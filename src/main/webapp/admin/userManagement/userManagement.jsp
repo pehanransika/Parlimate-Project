@@ -103,181 +103,7 @@
         </div>
     </div>
 </div>
-<%--<div class="filter-user-popup f-col popup">--%>
-<%--    <div class="close-btn">--%>
-<%--        <i class="fa-solid fa-xmark"></i>--%>
-<%--    </div>--%>
-<%--    <div class="head f-col">--%>
-<%--        <div class="title f-col">--%>
-<%--            Filter Users--%>
-<%--            <div class="desc">--%>
-<%--                Filter users by type, activity, location, and more to manage your list efficiently--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="content">--%>
-<%--            <ul class="f-col">--%>
-<%--                <li>--%>
-<%--                    <input type="checkbox" name="filter-user-type" id="user-type">--%>
-<%--                    <label for="user-type" class="f-row">--%>
-<%--                        <span>User Type</span>--%>
-<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
-<%--                    </label>--%>
-<%--                    <div class=" dropdown-content users wrap f-row">--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-all" checked>--%>
-<%--                            <label for="user-type-all" class="toggle-btn-check">--%>
-<%--                                all--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-citizen">--%>
-<%--                            <label for="user-type-citizen" class="toggle-btn-check">--%>
-<%--                                Citizen--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-politician">--%>
-<%--                            <label for="user-type-politician" class="toggle-btn-check">--%>
-<%--                                politician--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-political-party">--%>
-<%--                            <label for="user-type-political-party" class="toggle-btn-check">--%>
-<%--                                political party--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-moderator">--%>
-<%--                            <label for="user-type-moderator" class="toggle-btn-check">--%>
-<%--                                moderator--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-type-filter" id="user-type-admin">--%>
-<%--                            <label for="user-type-admin" class="toggle-btn-check">--%>
-<%--                                admin--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </li>--%>
-<%--                <li>--%>
-<%--                    <input type="checkbox" name="filter-user-status" id="user-status">--%>
-<%--                    <label for="user-status" class="f-row">--%>
-<%--                        <span>User status</span>--%>
-<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
-<%--                    </label>--%>
-<%--                    <div class=" dropdown-content users f-row">--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-status-filter" id="user-status-all" checked>--%>
-<%--                            <label for="user-status-all" class="toggle-btn-check">--%>
-<%--                                all--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-status-filter" id="user-status-active">--%>
-<%--                            <label for="user-status-active" class="toggle-btn-check">--%>
-<%--                                active--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-status-filter" id="user-status-banned">--%>
-<%--                            <label for="user-status-banned" class="toggle-btn-check">--%>
-<%--                                banned--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div>--%>
-<%--                            <input type="checkbox" name="user-status-filter" id="user-status-inactive">--%>
-<%--                            <label for="user-status-inactive" class="toggle-btn-check">--%>
-<%--                                inactive--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
 
-<%--                    </div>--%>
-<%--                </li>--%>
-<%--                <li>--%>
-<%--                    <div class="city f-row">--%>
-<%--                        <span>City :</span>--%>
-<%--                        <select name="filter-city" id="filter-city">--%>
-<%--                            <option value="all">all</option>--%>
-<%--                            <option value="kandy">kandy</option>--%>
-<%--                            <option value="jaffna">jaffna</option>--%>
-<%--                            <option value="colombo">colombo</option>--%>
-<%--                            <option value="galle">galle</option>--%>
-<%--                        </select>--%>
-<%--                    </div>--%>
-<%--                </li>--%>
-<%--                <div class="divider-line"></div>--%>
-<%--                <li>--%>
-<%--                    <input type="checkbox" name="filter-user-sort" id="user-sort">--%>
-<%--                    <label for="user-sort" class="f-row">--%>
-<%--                        <span>sort by</span>--%>
-<%--                        <i class="fa-solid fa-chevron-down"></i>--%>
-<%--                    </label>--%>
-<%--                    <div class=" dropdown-content sort users f-col">--%>
-<%--                        <div class="attribute f-row">--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-id" checked>--%>
-<%--                                <label for="user-sort-id" class="toggle-btn-check">--%>
-<%--                                    id--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-username">--%>
-<%--                                <label for="user-sort-username" class="toggle-btn-check">--%>
-<%--                                    user name--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-lastactive">--%>
-<%--                                <label for="user-sort-lastactive" class="toggle-btn-check">--%>
-<%--                                    last active--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-joinddate">--%>
-<%--                                <label for="user-sort-joinddate" class="toggle-btn-check">--%>
-<%--                                    joind date--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-contribution">--%>
-<%--                                <label for="user-sort-contribution" class="toggle-btn-check">--%>
-<%--                                    contribution--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter" id="user-sort-reports">--%>
-<%--                                <label for="user-sort-reports" class="toggle-btn-check">--%>
-<%--                                    reports--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-
-<%--                        </div>--%>
-<%--                        <div class="order wrap f-row">--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter-sort" id="user-sort-asc" checked>--%>
-<%--                                <label for="user-sort-asc" class="toggle-btn-check">--%>
-<%--                                    ascending--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                            <div>--%>
-<%--                                <input type="radio" name="user-sort-filter-sort" id="user-sort-desc">--%>
-<%--                                <label for="user-sort-desc" class="toggle-btn-check">--%>
-<%--                                    descending order--%>
-<%--                                </label>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </li>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
-<%--        <div class="action btns">--%>
-<%--            <button class="cancel-btn">cancel</button>--%>
-<%--            <button class="apply-btn">apply filter</button>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 <div class="party-req-modal f-col popup" style="padding-block: 1rem">
     <div class="close-btn" id="party-req-close-btn">
         <i class="fa-solid fa-xmark"></i>
@@ -523,16 +349,9 @@
         </div>
         <div class="content f-col">
             <div class="topS f-row">
-<%--                <div class="show f-row">--%>
-<%--                    Shows--%>
-<%--                    <select name="rows" id="rows">--%>
-<%--                        <option value="10">10</option>--%>
-<%--                        <option value="20">20</option>--%>
-<%--                        <option value="50">50</option>--%>
-<%--                    </select>--%>
-<%--                    entries per page--%>
-<%--                </div>--%>
-
+                <div class="total-records f-row">
+                    total <span> ${AllUsers.size()} </span> records
+                </div>
                 <div class="actions f-row">
                     <div class="search-bar">
                         <label for="user-search">
@@ -556,9 +375,7 @@
                     </button>
                 </div>
             </div>
-            <div class="total-records f-row">
-                total <span> ${AllUsers.size()} </span> records
-            </div>
+
             <div class="data f-col">
                 <table class="users">
                     <thead>

@@ -43,7 +43,8 @@
             gap: 1.5rem;
 
             && .topS {
-                justify-content: flex-end;
+                justify-content: space-between;
+                align-items: center;
                 && .show {
                     gap: 0.5rem;
                     font-weight: 600;
