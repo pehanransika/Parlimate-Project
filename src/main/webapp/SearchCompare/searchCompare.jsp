@@ -9,6 +9,29 @@
 <%!
   String baseURL = "http://localhost:8080/Parlimate/images"; // define base URL here
 %>
+<%@ page import="UserPackage.UserModel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+  HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+  if (session1 == null || session1.getAttribute("user") == null) {
+    // User is not logged in, redirect to login page
+    response.sendRedirect("../index.jsp");
+    return;
+  }
+
+  // Session exists and user is logged in
+  UserModel user = (UserModel) session1.getAttribute("user");
+  int userId = user.getUserId();
+  String userEmail = user.getEmail(); // Assuming UserModel has getEmail() method
+  boolean isGmail = userEmail != null && userEmail.toLowerCase().endsWith("@gmail.com");
+%>
+
+<% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+  response.setHeader("Pragma","no-cache"); //HTTP 1.0
+  response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+
 <html>
 <head>
   <meta charset="UTF-8" />
@@ -67,10 +90,15 @@
     </div>
   </div>
   <div class="scContainer">
-    <select name="role" id="roleSelect" class="roleType caps">
-      <option value="politician">Politician</option>
-      <option value="political-party">Political Party</option>
-    </select>
+    <%
+      // Check if userType is Politician
+      if (user.getUserType() != null && user.getUserType().equals("Politician")) {
+    %>
+    <button name="view" value="1" class="btn btn-info">
+    <a href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp" class="btn btn-info">Edit My Details</a></button>
+    <%
+      }
+    %>
 
     <div id="politicianSection">
     <table>
