@@ -33,7 +33,7 @@ public class DeleteBankTransferRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                
+
                 String alertMessage;
 
                 alertMessage = "Transaction Deleted Successfully";
