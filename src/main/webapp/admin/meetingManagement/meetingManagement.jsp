@@ -158,29 +158,26 @@
             </div>
         </div>
         <div class="content f-col">
-            <div class="topS f-row">
-                <div class="show f-row">
-                    Shows
-                    <select name="rows" id="rows">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    entries per page
+            <h2 class="section-title">Meeting Requests</h2>
+            <div class="total-records f-row">
+
+                Total <span>${totalCount}</span> records
+            </div>
+            <div class="topS f-row" style="justify-content: space-between">
+                <div class="search-bar">
+                    <label for="user-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                    <input
+                            type="search"
+                            placeholder="Search by topic"
+                            name="user-search"
+                            id="user-search"
+                            oninput="searchByTopic()"
+                    />
                 </div>
-                <div class="actions f-row">
-                    <div class="search-bar">
-                        <label for="user-search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </label>
-                        <input
-                                type="search"
-                                placeholder="Search by topic"
-                                name="user-search"
-                                id="user-search"
-                                oninput="searchByTopic()"
-                        />
-                    </div>
+                <div class="actions f-row" style="justify-content: space-between;">
+
                     <div class="scheduled-meeting">
                         <button class="filter-btn f-row" id="schedule-btn">
                             <i class="fa-solid fa-filter"></i>
@@ -205,11 +202,7 @@
                 </div>
             </div>
 
-            <h2 class="section-title">Meeting Requests</h2>
-            <div class="total-records f-row">
 
-                Total <span>${totalCount}</span> records
-            </div>
             <div class="data f-col">
                 <table class="users">
                     <thead>
@@ -264,11 +257,6 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <div class="pagination capitalize f-row">
-                    <span>prev</span>
-                    <span class="curr-page">1</span>
-                    <span>next</span>
-                </div>
             </div>
 
 
@@ -392,80 +380,83 @@
                 <p><strong>Type of the Meeting:</strong> <span id="popup-typeofthemeeting"></span></p>
                 <p><strong>Host:</strong> <span id="popup-host"></span></p>
             </div>
-            <div class="footer" id="response-buttons">
-                <button class="prmry-btn" onclick="showAcceptFields()">Accept</button>
-                <button class="scndry-btn" onclick="showRejectFields()">Reject</button>
-            </div>
 
-            <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
+
+            <div id="accept-extra-fields" style="display: none; margin-top: 15px; border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem;">
                 <div class="formSection">
                     <h3>Confirm and Provide Details</h3>
-                    <form method="post" action="<%= request.getContextPath() %>/CreateMeetingServlet">
+                    <form method="post" id="accept-fields" class="accept-fields f-col" action="<%= request.getContextPath() %>/CreateMeetingServlet">
                         <input type="hidden" name="meetingrequestid" id="accept-meetingrequestid" />
-                        <div>
-                            <label for="accepted-politicianId">Politician ID:</label>
+                        <div class="f-col">
+                            <label for="accepted-politicianId" class="title italic">Politician ID:</label>
                             <input type="text" name="politicianId" id="accepted-politicianId" readonly required />
                         </div>
-                        <div>
-                            <label for="accepted-topic">Final Topic:</label>
+                        <div class="f-col">
+                            <label for="accepted-topic" class="title italic">Final Topic:</label>
                             <input type="text" name="topic" id="accepted-topic" required />
                         </div>
-                        <div>
-                            <label for="accepted-description">Description:</label>
+                        <div class="f-col">
+                            <label for="accepted-description" class="title italic">Description:</label>
                             <textarea name="description" id="accepted-description" rows="3" required></textarea>
                         </div>
-                        <div>
-                            <label for="accepted-date">Date:</label>
+                        <div class="f-col">
+                            <label for="accepted-date" class="title italic">Date:</label>
                             <input type="date" name="date" id="accepted-date" required min="2025-04-27" />
                         </div>
-                        <div>
-                            <label for="accepted-time">Final Time:</label>
+                        <div class="f-col">
+                            <label for="accepted-time" class="title italic">Final Time:</label>
                             <input type="time" name="time" id="accepted-time" required />
                         </div>
-                        <div>
-                            <label for="accepted-typeofthemeeting">Type of the Meeting:</label>
+                        <div class="f-col">
+                            <label for="accepted-typeofthemeeting" class="title italic">Type of the Meeting:</label>
                             <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required />
                         </div>
-                        <div>
-                            <label for="accepted-platform">Platform:</label>
+                        <div class="f-col">
+                            <label for="accepted-platform" class="title italic">Platform:</label>
                             <input type="text" name="platform" id="accepted-platform" required placeholder="e.g., Zoom, Google Meet" />
                         </div>
-                        <div>
-                            <label for="accepted-host">Host:</label>
+                        <div class="f-col">
+                            <label for="accepted-host" class="title italic">Host:</label>
                             <input type="text" name="host" id="accepted-host" required />
                         </div>
-                        <div>
-                            <label for="accepted-deadline">Deadline to Register:</label>
+                        <div class="f-col">
+                            <label for="accepted-deadline" class="title italic">Deadline to Register:</label>
                             <input type="date" name="deadlinetoregister" id="accepted-deadline" required min="2025-04-27" />
                         </div>
-                        <div>
-                            <label for="accepted-slots">Number of Slots:</label>
+                        <div class="f-col">
+                            <label for="accepted-slots" class="title italic">Number of Slots:</label>
                             <input type="number" name="slots" id="accepted-slots" required min="1" />
                             <input type="hidden" name="availableslots" id="accepted-availableslots" />
                         </div>
-                        <div class="footer">
-                            <button type="submit" class="prmry-btn">Submit</button>
-                            <button type="button" class="scndry-btn" onclick="closePopup()">Close</button>
-                        </div>
+
                     </form>
                 </div>
             </div>
 
             <div id="reject-extra-fields" style="display: none; margin-top: 15px;">
                 <div class="formSection">
-                    <form method="post" action="<%= request.getContextPath() %>/RejectMeetingServlet">
-                        <div>
+                    <form method="post" id="reject-fields" action="<%= request.getContextPath() %>/RejectMeetingServlet">
+                        <div class="f-col">
                             <input type="hidden" name="meetingrequestid" id="reject-meetingrequestid" />
-                            <label for="reject-reason">Reject Reason:</label>
-                            <input type="text" name="rejectreason" id="reject-reason" required style="height: 5rem" />
+                            <label for="reject-reason" class="title italic">Reject Reason:</label>
+                            <input type="text" name="rejectreason" id="reject-reason" required />
                         </div>
-                        <div class="footer">
-                            <button type="submit" class="prmry-btn">Submit</button>
-                            <button type="button" class="scndry-btn" onclick="closePopup()">Close</button>
-                        </div>
+
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="footer" id="response-buttons">
+            <button class="scndry-btn" onclick="showRejectFields()">Reject</button>
+            <button class="prmry-btn" onclick="showAcceptFields()">Accept</button>
+        </div>
+        <div class="footer f-row" id="accept-form-btns">
+            <button type="button" class="scndry-btn" onclick="closePopup()">Close</button>
+            <button type="submit" class="prmry-btn">Submit</button>
+        </div>
+        <div class="footer f-row" id="reject-field-btns">
+            <button type="button" class="scndry-btn" onclick="closePopup()">Close</button>
+            <button type="submit" class="prmry-btn" form="accept-fields">Submit</button>
         </div>
     </div>
 </div>
@@ -517,12 +508,15 @@
         const rejectForm = document.querySelector("#reject-extra-fields form");
         if (acceptForm) acceptForm.reset();
         if (rejectForm) rejectForm.reset();
+        document.getElementById("accept-form-btns").style.display = "none";
+        document.getElementById("reject-field-btns").style.display = "none";
     }
 
     function showAcceptFields() {
         document.getElementById("accept-extra-fields").style.display = "block";
         document.getElementById("reject-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "none";
+        document.getElementById("accept-form-btns").style.display = "flex";
     }
 
     function showRejectFields() {
@@ -532,6 +526,7 @@
         document.getElementById("reject-extra-fields").style.display = "block";
         document.getElementById("accept-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "none";
+        document.getElementById("reject-field-btns").style.display = "flex";
     }
 
     document.addEventListener("DOMContentLoaded", function() {

@@ -23,13 +23,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Meeting Management | Admin Dashboard</title>
 
     <!-- CSS Links -->
-    <link rel="stylesheet" href="admin/meetingManagement/meetingManagement.css" />
-    <link rel="stylesheet" href="admin/index.css" />
+    <link rel="stylesheet" href="admin/meetingManagement/meetingManagement.css"/>
+    <link rel="stylesheet" href="admin/index.css"/>
 
     <!-- Inline CSS for Date Filter, View Button, and Meeting Status Filter -->
     <style>
@@ -38,10 +38,12 @@
             align-items: center;
             margin-right: 10px;
         }
+
         .date-filter label {
             margin-right: 5px;
             color: #555;
         }
+
         .date-filter input[type="date"] {
             padding: 5px;
             border: 1px solid #ccc;
@@ -49,15 +51,18 @@
             font-size: 14px;
             font-family: "Poppins", sans-serif;
         }
+
         .date-filter input[type="date"]:focus {
             outline: none;
             border-color: #1f1f1f;
         }
+
         .meeting-status-filter {
             display: flex;
             align-items: center;
             margin-right: 10px;
         }
+
         .meeting-status-filter select {
             padding: 5px;
             border: 1px solid #ccc;
@@ -65,10 +70,12 @@
             font-size: 14px;
             font-family: "Poppins", sans-serif;
         }
+
         .meeting-status-filter select:focus {
             outline: none;
             border-color: #1f1f1f;
         }
+
         .view-btn {
             gap: 0.5rem;
             border-radius: 0.5rem;
@@ -83,21 +90,26 @@
             cursor: pointer;
             transition: background 0.25s ease;
         }
+
         .view-btn:hover {
             background: #333333;
         }
+
         .view-btn:active {
             background: #0f0f0f;
         }
+
         #view-details p {
             margin: 0.5rem 0;
             font-family: "Poppins", sans-serif;
             font-size: 0.8rem;
         }
+
         #view-details p strong {
             color: #6b6b6b;
             font-weight: 600;
         }
+
         #view-details p span {
             color: #1e1e1e;
             font-weight: 400;
@@ -140,7 +152,7 @@
 <body>
 <div class="navMenu f-col center">
     <div class="logo">
-        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Parlimate" id="logo"/>
     </div>
     <div class="navigation">
         <ul>
@@ -151,13 +163,15 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet"
+                   class="nav-item f-row">
                     <i class="fa-regular fa-users"></i>
                     <span>users</span>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet"
+                   class="nav-item f-row">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -175,19 +189,22 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet"
+                   class="nav-item f-row">
                     <i class="fa-regular fa-comments"></i>
                     <span>Comment Management</span>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet"
+                   class="nav-item f-row">
                     <i class="fa-regular fa-money-bill-transfer"></i>
                     <span>bank transfer management</span>
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row active" >
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet"
+                   class="nav-item f-row active">
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
@@ -204,7 +221,8 @@
                 <a href="#" class="f-row profile">
                     <div class="p-img"><img src="<%= request.getContextPath() %>/images/Admin/admin.png"></div>
                     <div class="sUser f-col">
-                        <div class="name"><%= adminName != null ? adminName : "Unknown Admin" %></div>
+                        <div class="name"><%= adminName != null ? adminName : "Unknown Admin" %>
+                        </div>
                         <div class="role">Admin</div>
                     </div>
                 </a>
@@ -230,33 +248,21 @@
             </div>
         </div>
         <div class="content f-col">
-            <div class="topS f-row">
-                <div class="show f-row">
-                    Shows
-                    <select name="rows" id="rows">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    entries per page
+            <div class="topS f-row" style="justify-content: space-between">
+                <div class="search-bar">
+                    <label for="user-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                    <input
+                            type="search"
+                            placeholder="Search by topic"
+                            name="user-search"
+                            id="user-search"
+                    />
                 </div>
-
                 <div class="actions f-row">
-                    <div class="search-bar">
-                        <label for="user-search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </label>
-                        <input
-                                type="search"
-                                placeholder="Search by topic"
-                                name="user-search"
-                                id="user-search"
-                        />
-                    </div>
                     <div class="date-filter">
-                        <label for="date-filter">
-                            <i class="fa-solid fa-calendar-day"></i>
-                        </label>
+
                         <input
                                 type="date"
                                 name="date-filter"
@@ -291,7 +297,7 @@
             <div class="data f-col">
                 <table class="users">
                     <thead>
-                    <tr>
+                    <tr style="font-size: 0.7rem">
                         <td>Meeting ID</td>
                         <td>Politician ID</td>
                         <td>Topic</td>
@@ -323,19 +329,20 @@
                             <td>${meetings.availableSlots}</td>
                             <td>
                                 <form action="GetRegisteredUserServlet" method="get">
-                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
+                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}"/>
                                     <button type="submit">View</button>
                                 </form>
                             </td>
                             <td>
                                 <form action="GetRegisteredWishlistServlet" method="get">
-                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
-                                    <button  type="submit">View</button>
+                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}"/>
+                                    <button type="submit">View</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="SendDeleteEmailServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this meeting?');">
-                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}" />
+                                <form action="SendDeleteEmailServlet" method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this meeting?');">
+                                    <input type="hidden" name="meetingId" value="${meetings.meetingId}"/>
                                     <button type="submit" style="color: red;">Delete</button>
                                 </form>
                             </td>
@@ -353,7 +360,8 @@
                                         deadline: '${fn:escapeXml(meetings.deadlinetoregister)}',
                                         slots: '${fn:escapeXml(meetings.slots)}',
                                         availableSlots: '${fn:escapeXml(meetings.availableSlots)}'
-                                        })">View</button>
+                                        })">View
+                                </button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -371,65 +379,121 @@
 </div>
 
 <div id="popup-container" style="display: none;">
-    <div class="popup-box">
-        <h2 id="popup-title">Meeting Details</h2>
+    <div class="popup-box popup-content">
 
+        <button id="popupbox-close" onclick="closePopup()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="top">
+            <h2 id="popup-title">Meeting Details</h2>
+        </div>
         <!-- View Meeting Details (Read-Only) -->
-        <div id="view-details" style="display: none; margin-top: 15px;">
-            <p><strong>Meeting ID:</strong> <span id="view-meetingId"></span></p>
-            <p><strong>Politician ID:</strong> <span id="view-politicianId"></span></p>
-            <p><strong>Topic:</strong> <span id="view-topic"></span></p>
-            <p><strong>Description:</strong> <span id="view-description"></span></p>
-            <p><strong>Date:</strong> <span id="view-date"></span></p>
-            <p><strong>Time:</strong> <span id="view-time"></span></p>
-            <p><strong>Type of Meeting:</strong> <span id="view-type"></span></p>
-            <p><strong>Host:</strong> <span id="view-host"></span></p>
-            <p><strong>Platform:</strong> <span id="view-platform"></span></p>
-            <p><strong>Deadline to Register:</strong> <span id="view-deadline"></span></p>
-            <p><strong>Slots:</strong> <span id="view-slots"></span></p>
-            <p><strong>Available Slots:</strong> <span id="view-availableSlots"></span></p>
+        <div class="table-container">
+            <table id="view-details">
+                <tr>
+                    <td><strong>Meeting ID:</strong></td>
+                    <td><span id="view-meetingId"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Politician ID:</strong></td>
+                    <td><span id="view-politicianId"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Topic:</strong></td>
+                    <td><span id="view-topic"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Description:</strong></td>
+                    <td><span id="view-description"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Date:</strong></td>
+                    <td><span id="view-date"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Time:</strong></td>
+                    <td><span id="view-time"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Type of Meeting:</strong></td>
+                    <td><span id="view-type"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Host:</strong></td>
+                    <td><span id="view-host"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Platform:</strong></td>
+                    <td><span id="view-platform"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Deadline to Register:</strong></td>
+                    <td><span id="view-deadline"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Slots:</strong></td>
+                    <td><span id="view-slots"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Available Slots:</strong></td>
+                    <td><span id="view-availableSlots"></span></td>
+                </tr>
+            </table>
         </div>
-
-        <!-- Schedule Meeting Form -->
-        <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
-            <form method="post" action="CreateMeetingServlet">
-                <p><strong>Admin ID:</strong><br>
-                    <input type="text" name="politicianId" id="accepted-politicianId" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Topic:</strong><br>
-                    <input type="text" name="topic" id="accepted-topic" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Description:</strong><br>
-                    <textarea name="description" id="accepted-description" rows="3" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"></textarea>
-                </p>
-                <p><strong>Date:</strong><br>
-                    <input type="date" name="date" id="accepted-date" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Time:</strong><br>
-                    <input type="time" name="time" id="accepted-time" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Type of the Meeting:</strong><br>
-                    <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Platform:</strong><br>
-                    <input type="text" name="platform" id="accepted-platform" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Host:</strong><br>
-                    <input type="text" name="host" id="accepted-host" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Deadline to Register:</strong><br>
-                    <input type="date" name="deadlinetoregister" id="accepted-deadline" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <p><strong>Number of Slots:</strong><br>
-                    <input type="number" name="slots" id="accepted-slots" required style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;" />
-                </p>
-                <button type="submit" style="gap: 0.5rem; border-radius: 0.5rem; outline: none; border: none; color: #eeeeee; font-weight: 600; background: #1e1e1e; padding: 0.6rem 1rem; font-family: Poppins; font-size: 0.8rem;">Submit</button>
-            </form>
-        </div>
-
-        <br>
-        <button onclick="closePopup()" style="gap: 0.5rem; border-radius: 0.5rem; outline: none; border: 1px solid #d6d6d6; color: #242424; font-weight: 600; background: #eeeeee; padding: 0.6rem 1rem; font-family: Poppins; font-size: 0.8rem;">Close</button>
     </div>
+
+    <!-- Schedule Meeting Form -->
+    <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
+        <form method="post" action="CreateMeetingServlet">
+            <p><strong>Admin ID:</strong><br>
+                <input type="text" name="politicianId" id="accepted-politicianId" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Topic:</strong><br>
+                <input type="text" name="topic" id="accepted-topic" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Description:</strong><br>
+                <textarea name="description" id="accepted-description" rows="3" required
+                          style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"></textarea>
+            </p>
+            <p><strong>Date:</strong><br>
+                <input type="date" name="date" id="accepted-date" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Time:</strong><br>
+                <input type="time" name="time" id="accepted-time" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Type of the Meeting:</strong><br>
+                <input type="text" name="typeofthemeeting" id="accepted-typeofthemeeting" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Platform:</strong><br>
+                <input type="text" name="platform" id="accepted-platform" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Host:</strong><br>
+                <input type="text" name="host" id="accepted-host" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Deadline to Register:</strong><br>
+                <input type="date" name="deadlinetoregister" id="accepted-deadline" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <p><strong>Number of Slots:</strong><br>
+                <input type="number" name="slots" id="accepted-slots" required
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #8e8e8e; border-radius: 0.5rem; font-family: Poppins; font-size: 0.8rem;"/>
+            </p>
+            <button type="submit"
+                    style="gap: 0.5rem; border-radius: 0.5rem; outline: none; border: none; color: #eeeeee; font-weight: 600; background: #1e1e1e; padding: 0.6rem 1rem; font-family: Poppins; font-size: 0.8rem;">
+                Submit
+            </button>
+        </form>
+    </div>
+
+    <br>
+</div>
 </div>
 
 <script>
@@ -483,12 +547,12 @@
             scheduleBtn.addEventListener("click", openPopup);
         }
 
-        document.getElementById("request-btn").addEventListener("click", function() {
+        document.getElementById("request-btn").addEventListener("click", function () {
             window.location.href = "<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet";
         });
 
         document.querySelectorAll(".close-btn").forEach(button => {
-            button.addEventListener("click", function() {
+            button.addEventListener("click", function () {
                 document.body.classList.remove("popup-active");
                 document.querySelector(".filter-user-popup").classList.remove("popup-show");
             });

@@ -1,3 +1,9 @@
+input,
+label,
+textarea{
+    font-family: inherit;
+}
+
 .pageContent {
     min-height: 100vh;
     background: #f2f2f2;
@@ -8,7 +14,7 @@
         font-family: "Poppins";
         padding-block: 2rem;
         font-size: 0.8rem;
-        padding-right: 8rem;
+        padding-right: 3rem;
         gap: 2rem;
         width: 100%;
 
@@ -36,9 +42,10 @@
             }
         }
 
-        && .content {
+        &&>.content {
             padding: 1rem;
             background: #fff;
+            width: 100%;
             border-radius: 1rem;
             gap: 1.5rem;
 
@@ -63,39 +70,41 @@
                     }
                 }
 
+                && .search-bar {
+                    position: relative;
+
+                    && label {
+                        position: absolute;
+                        top: 50%;
+                        left: 0.75rem;
+                        transform: translateY(-50%);
+                        color: #565656;
+                        font-size: 0.8rem;
+                    }
+
+                    && input[type="search"] {
+                        padding: 0.5rem;
+                        padding-left: 2rem;
+                        border-radius: 0.5rem;
+                        border: 1px solid #8e8e8e;
+                        transition: border 0.25s ease;
+                    }
+
+                    && input[type="search"]:focus {
+                        outline: none;
+                        border: 1px solid #1f1f1f;
+                    }
+
+                    && input[type="search"]::placeholder {
+                        color: #8e8e8e;
+                    }
+                }
+
                 && .actions {
                     gap: 0.5rem;
                     align-items: center;
 
-                    && .search-bar {
-                        position: relative;
 
-                        && label {
-                            position: absolute;
-                            top: 50%;
-                            left: 0.75rem;
-                            transform: translateY(-50%);
-                            color: #565656;
-                            font-size: 0.8rem;
-                        }
-
-                        && input[type="search"] {
-                            padding: 0.5rem;
-                            padding-left: 2rem;
-                            border-radius: 0.5rem;
-                            border: 1px solid #8e8e8e;
-                            transition: border 0.25s ease;
-                        }
-
-                        && input[type="search"]:focus {
-                            outline: none;
-                            border: 1px solid #1f1f1f;
-                        }
-
-                        && input[type="search"]::placeholder {
-                            color: #8e8e8e;
-                        }
-                    }
 
                     && .scheduled-meeting button {
                         gap: 0.5rem;
@@ -138,9 +147,13 @@
 
                 && table {
                     width: 100%;
-                    border-collapse: collapse;
+                    border-collapse: separate;
+                    display: table-cell;
                     height: fit-content;
                     border-radius: 1rem;
+                    border-spacing: 0;
+                    border: 1px solid #e1e1e1;
+                    overflow-y: hidden;
 
                     && button {
                         border: none;
@@ -171,6 +184,7 @@
                     }
 
                     && td {
+                        border-bottom: 1px solid #f1f1f1;
                         padding: 0.5rem 0.75rem;
                     }
 
@@ -427,14 +441,60 @@
 
 .popup-box {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
+    border-radius: 1rem;
+    width: 30rem;
+    position: relative;
+
+    && .table-container{
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        padding: 2rem 1rem 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ededed;
+        &&> #view-details{
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #d6d6d6;
+            border-radius: 1rem;
+            overflow-y: hidden;
+
+            && tr{
+                && td{
+                    background: #fff;
+                    border-bottom: 1px solid #e6e6e6;
+                    padding: 0.5rem;
+                    font-size: 0.9rem;
+                    &&:not(:first-child){
+                        font-size: 1rem;
+                    }
+                    &&:first-child{
+                        font-style: italic;
+                    }
+                }
+                &&:first-child{
+                    && td:first-child{
+                        border-top-left-radius: 1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    && .top{
+        padding: 1rem 1.5rem 0.5rem;
+        border-bottom: 1px solid #efefef;
+
+        #popup-title{
+            font-size: 1.2rem;
+        }
+    }
+
 }
 
 .view-button {
     position: relative;
-    z-index: 10;
 }
 
 #popup-container {
@@ -448,14 +508,6 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5); /* Optional: dark background */
     z-index: 9999;
-}
-
-.popup-box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px; /* adjust as needed */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal {
@@ -475,8 +527,7 @@
     width: 300px;
 }
 .close {
-    float: right;
-    font-size: 22px;
+    font-size: 1rem;
     cursor: pointer;
 }
 .status-filter select {
@@ -577,8 +628,9 @@ body.popup-active {
 
         && .popup-content {
             position: relative;
-            min-width: 20rem;
+            min-width: 25rem;
             min-height: 10rem;
+            max-height: 40rem;
             background: #fff;
             border-radius: 1rem;
             border: 1px solid #e3e3e3;
@@ -631,45 +683,88 @@ body.popup-active {
             && .content{
                 border-bottom: 1px solid #e3e3e3;
                 background: #f4f4f4;
+                max-height: 30rem;
+                overflow-y: auto;
                 font-size: 0.9rem;
-            }
 
-            && .footer {
-                display: flex;
-                padding-block: 0.75rem;
-                align-items: center;
-                gap: 0.5rem;
-                justify-content: flex-end;
-
-                && button{
-                    padding: 0.35rem 0.75rem;
-                    font-size: 0.75rem;
-                    border-radius: 0.5rem;
-                    font-weight: 500;
-                    outline: 0;
-                    border: 1px solid #e3e3e3;
-                    transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
-
-                    &&:active{
-                        scale: 0.95;
-                    }
-
-                }
-                && .prmry-btn{
-                    background: #1e1e1e;
-                    color: white;
-
-                    &&:hover{
-                        background: #3b3b3b;
-                    }
-                }
-                && .scndry-btn{
-                    &&:hover{
-                        background: #e8e8e8;
-                    }
-                }
 
             }
+                && .footer {
+                    display: flex;
+                    padding-block: 0.75rem;
+                    align-items: center;
+                    gap: 0.5rem;
+                    justify-content: flex-end;
+
+                    && button{
+                        padding: 0.35rem 0.75rem;
+                        font-size: 0.75rem;
+                        border-radius: 0.5rem;
+                        font-weight: 500;
+                        outline: 0;
+                        border: 1px solid #ffffff;
+                        transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+
+                        &&:active{
+                            scale: 0.95;
+                        }
+
+                    }
+                    && .prmry-btn{
+                        background: #1e1e1e;
+                        color: white;
+
+                        &&:hover{
+                            background: #3b3b3b;
+                        }
+                    }
+                    && .scndry-btn{
+                        &&:hover{
+                            background: #e8e8e8;
+                        }
+                    }
+
+                }
+
+
         }
     }
+}
+.accept-fields{
+    gap: 0.5rem;
+}
+.italic{
+    font-style: italic;
+    font-weight: 500;
+
+    &&~ input,
+    &&~textarea{
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        outline: 0;
+        border: 1px solid #afafaf;
+        resize: none;
+    }
+}
+#accept-form-btns,
+#reject-field-btns{
+    display: none ;
+}
+#reject-reason{
+    height: 5rem;
+}
+#popupbox-close{
+    position: absolute;
+    top: 2rem;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid rgb(214, 214, 214);
+    right: 1.5rem;
+    border-radius: 50%;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(67, 67, 67);
 }
