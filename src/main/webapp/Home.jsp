@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="index.css"/>
     <link rel="stylesheet" href="edit.css"/>
     <link rel="stylesheet" href="fund-popup.css"/>
+    <link rel="stylesheet" href="hashtag.css"/>
 
 
     <!-- icons -->
@@ -341,8 +342,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="cmnt-body">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                <div class="cmnt-body hashtags">
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, #the_erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
                 </div>
             </div>
             <div class="comment f-col">
@@ -509,7 +510,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-content">
+                <div class="text-content hashtags">
                         ${post.content}
                 </div>
                 <div class="post-images">
@@ -547,6 +548,7 @@
 
 </div>
 </body>
+<script src="hashtag.js"></script>
 <script src="formatDate.js" ></script>
 <script>
     const commentSection = document.querySelector('.comment-section');
@@ -562,6 +564,7 @@
         commentSection.classList.remove('popup-active');
     })
 
+    document.addEventListener("DOMContentLoaded",processHashtags);
 </script>
 <script>
     function validateAndSubmitComment(button) {
