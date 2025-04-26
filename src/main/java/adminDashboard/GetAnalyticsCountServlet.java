@@ -17,6 +17,7 @@ import UserPackage.CitizenController;
 import post.PostController;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/GetAnalyticsCountServlet")
 public class GetAnalyticsCountServlet extends HttpServlet {
@@ -60,10 +61,18 @@ public class GetAnalyticsCountServlet extends HttpServlet {
             int politicalPartyCount = PoliticalPartyController.getCount();
             int citizenCount = CitizenController.getCount();
             int postCount = PostController.getCount();
+            List<Integer> userRegistrations = UserController.getUserRegistrationsLast5Days();
+
+            int day1Registrations = userRegistrations.size() > 0 ? userRegistrations.get(0) : 0;
+            int day2Registrations = userRegistrations.size() > 1 ? userRegistrations.get(1) : 0;
+            int day3Registrations = userRegistrations.size() > 2 ? userRegistrations.get(2) : 0;
+            int day4Registrations = userRegistrations.size() > 3 ? userRegistrations.get(3) : 0;
+            int day5Registrations = userRegistrations.size() > 4 ? userRegistrations.get(4) : 0;
 
             //int fundraiserCount = ApproveController.getCount();
             //int surveyCount = surveyController.getCount();
 
+            System.out.println("userRegistrations: " + userRegistrations);
             // Set counts as request attributes
             request.setAttribute("userCount", userCount);
             request.setAttribute("meetingCount", meetingCount);
@@ -71,6 +80,13 @@ public class GetAnalyticsCountServlet extends HttpServlet {
             request.setAttribute("citizenCount", citizenCount);
             request.setAttribute("postCount", postCount);
             request.setAttribute("politicalPartyCount", politicalPartyCount);
+            request.setAttribute("userRegistrations", userRegistrations);
+            request.setAttribute("day1Registrations", day1Registrations);
+            request.setAttribute("day2Registrations", day2Registrations);
+            request.setAttribute("day3Registrations", day3Registrations);
+            request.setAttribute("day4Registrations", day4Registrations);
+            request.setAttribute("day5Registrations", day5Registrations);
+
 
             //request.setAttribute("activeFundraiserCount", activeFundraiserCount);
             //request.setAttribute("completedSurveyCount", completedSurveyCount);

@@ -26,15 +26,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Home | Admin Dashboard</title>
 
-<%--	<link rel="stylesheet" href="./dashboard.css">--%>
 	<link rel="stylesheet" href="../index.css">
-	<link rel="stylesheet" href="home.css">
-
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/admin/Home/home.css">
 
 	<!-- Chart.js CDN -->
-<%--	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--%>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-	<!-- icons -->
+	<!-- Icons -->
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 	<link
 			rel="stylesheet"
@@ -71,209 +69,185 @@
 			href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
 	/>
 	<style>
-<%--		/* Enhanced Grid Layout */--%>
-<%--		.stats-grid {--%>
-<%--			display: grid;--%>
-<%--			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));--%>
-<%--			gap: 20px;--%>
-<%--			width: 100%;--%>
-<%--			padding: 20px 0;--%>
-<%--			max-width: 1400px;--%>
-<%--			margin: 0 auto;--%>
-<%--		}--%>
 
-<%--		/* Stat Card Styling */--%>
-<%--		.stat-card {--%>
-<%--			background: #ffffff;--%>
-<%--			border-radius: 12px;--%>
-<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
-<%--			padding: 20px;--%>
-<%--			display: flex;--%>
-<%--			align-items: center;--%>
-<%--			justify-content: space-between;--%>
-<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
-<%--			text-decoration: none;--%>
-<%--			color: #333;--%>
-<%--		}--%>
-<%--		.stat-card:hover {--%>
-<%--			transform: translateY(-5px);--%>
-<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
-<%--		}--%>
-<%--		.card-icon i {--%>
-<%--			font-size: 2rem;--%>
-<%--			color: #007bff;--%>
-<%--		}--%>
-<%--		.card-data {--%>
-<%--			text-align: right;--%>
-<%--		}--%>
-<%--		.card-amount {--%>
-<%--			font-size: 1.8rem;--%>
-<%--			font-weight: 600;--%>
-<%--			color: #333;--%>
-<%--		}--%>
-<%--		.card-title {--%>
-<%--			font-size: 1rem;--%>
-<%--			color: #666;--%>
-<%--			margin-top: 5px;--%>
-<%--		}--%>
+		.card-icon i {
+			font-size: 2rem;
+			color: #007bff;
+		}
+		.chart-card canvas {
+			max-width: 100%;
+			max-height: 250px;
+		}
 
-<%--		/* Chart Card Styling */--%>
-<%--		.chart-card {--%>
-<%--			background: #ffffff;--%>
-<%--			border-radius: 12px;--%>
-<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
-<%--			padding: 20px;--%>
-<%--			display: flex;--%>
-<%--			flex-direction: column;--%>
-<%--			align-items: center;--%>
-<%--			justify-content: center;--%>
-<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
-<%--			min-height: 300px;--%>
-<%--		}--%>
-<%--		.chart-card:hover {--%>
-<%--			transform: translateY(-5px);--%>
-<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
-<%--		}--%>
-<%--		.chart-card canvas {--%>
-<%--			max-width: 100%;--%>
-<%--			max-height: 250px;--%>
-<%--		}--%>
+		.button-card a {
+			color: #ffffff;
+			text-decoration: none;
+			font-size: 1.2rem;
+			font-weight: 500;
+			padding: 15px 30px;
+			border-radius: 8px;
+			background: rgba(255, 255, 255, 0.1);
+			transition: background 0.3s ease;
+		}
+		.button-card a:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
 
-<%--		/* Button Card Styling */--%>
-<%--		.button-card {--%>
-<%--			background: linear-gradient(135deg, #007bff, #0056b3);--%>
-<%--			border-radius: 12px;--%>
-<%--			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);--%>
-<%--			padding: 20px;--%>
-<%--			display: flex;--%>
-<%--			align-items: center;--%>
-<%--			justify-content: center;--%>
-<%--			transition: transform 0.3s ease, box-shadow 0.3s ease;--%>
-<%--			min-height: 150px;--%>
-<%--		}--%>
-<%--		.button-card:hover {--%>
-<%--			transform: translateY(-5px);--%>
-<%--			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);--%>
-<%--		}--%>
-<%--		.button-card a {--%>
-<%--			color: #ffffff;--%>
-<%--			text-decoration: none;--%>
-<%--			font-size: 1.2rem;--%>
-<%--			font-weight: 500;--%>
-<%--			padding: 15px 30px;--%>
-<%--			border-radius: 8px;--%>
-<%--			background: rgba(255, 255, 255, 0.1);--%>
-<%--			transition: background 0.3s ease;--%>
-<%--		}--%>
-<%--		.button-card a:hover {--%>
-<%--			background: rgba(255, 255, 255, 0.2);--%>
-<%--		}--%>
+		/* Responsive Adjustments */
+		@media (max-width: 768px) {
+			.stats-grid {
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 15px;
+			}
+			.stat-card, .chart-card, .button-card {
+				padding: 15px;
+			}
+			.card-amount {
+				font-size: 1.5rem;
+			}
+			.card-title {
+				font-size: 0.9rem;
+			}
+			.button-card a {
+				font-size: 1rem;
+				padding: 10px 20px;
+			}
+		}
 
-<%--		/* Responsive Adjustments */--%>
-<%--		@media (max-width: 768px) {--%>
-<%--			.stats-grid {--%>
-<%--				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));--%>
-<%--				gap: 15px;--%>
-<%--			}--%>
-<%--			.stat-card, .chart-card, .button-card {--%>
-<%--				padding: 15px;--%>
-<%--			}--%>
-<%--			.card-amount {--%>
-<%--				font-size: 1.5rem;--%>
-<%--			}--%>
-<%--			.card-title {--%>
-<%--				font-size: 0.9rem;--%>
-<%--			}--%>
-<%--			.button-card a {--%>
-<%--				font-size: 1rem;--%>
-<%--				padding: 10px 20px;--%>
-<%--			}--%>
-<%--		}--%>
-
-		 /*Popup Modal Styles*/
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		body {
+			font-family: "poppins", sans-serif;
+			position: relative;
+		}
 		.popup-modal {
 			display: none;
 			position: fixed;
 			top: 0;
 			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 0, 0, 0.5);
-			justify-content: center;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.5); /* Slightly darker for better contrast */
+			z-index: 1000; /* Ensure popup is above other content */
 			align-items: center;
-		}
-
-		.title{
-			font-weight: 600;
-			color:black;
-			font-size: 1.25rem;
-			gap: 1rem;
-
-			&& .icon{
-				width: 2.5rem;
-				height: 2.5rem;
-				border: 1px solid grey;
-				border-radius: 50%;
-				display: flex;
-				align-content: center;
-				justify-content: center;
-				font-size: 1rem;
-
-				&& i{
-					margin-top: 0.7rem;
-				}
-			}
-		}
-
-		.popup {
-			background-color: white;
-			z-index: 1;
-			padding: 1rem 1.5rem;
-			border-radius: 1.5rem;
-			width: 400px;
-			position: relative;
-		}
-
-		.popup .close-btn {
-			position: absolute;
-			top: 1rem;
-			right: 1.5rem;
-			cursor: pointer;
-			width: 1.75rem;
-			height: 1.75rem;
-			border-radius: 50%;
-			display: flex;
-			align-content: center;
 			justify-content: center;
-			background: #cfcfcf;
-
-			&& i {
-				line-height: normal;
-				margin-top: 0.25rem;
-			}
+		}
+		button {
+			cursor: pointer;
+			text-transform: capitalize;
+			font-family: inherit;
+		}
+		body.popup-active .popup-modal {
+			display: flex;
+		}
+		.popup-content {
+			position: relative;
+			min-width: 20rem;
+			max-width: 90vw; /* Prevent overflow on small screens */
+			min-height: 10rem;
+			max-height: 80vh; /* Limit height to avoid overflow */
+			background: #fff;
+			border-radius: 1rem;
+			border: 1px solid #e3e3e3;
+			overflow-y: auto;
+		}
+		.popup-content > div {
+			padding: 1rem 1.25rem;
+		}
+		.close-btn {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			cursor: pointer;
+			top: 2rem;
+			transform: translateY(-50%);
+			padding: 0;
+			border-radius: 50%;
+			right: 1.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			background: #f0f0f0;
+			transition: all 0.25s ease-in-out;
+		}
+		.close-btn:hover {
+			background: #e0e0e0;
+		}
+		.top {
+			display: flex;
+			align-items: center;
+			border-bottom: 1px solid #e3e3e3;
+			gap: 1rem;
+			text-transform: capitalize;
+			font-weight: 500;
+			font-size: 1.1rem;
+		}
+		.top .icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2rem;
+			height: 2rem;
+			background: #ffffff;
+			border-radius: 50%;
+			border: 1px solid rgb(215, 215, 215);
+			color: rgb(74, 74, 74);
+		}
+		.content {
+			border-bottom: 1px solid #e3e3e3;
+			background: #f4f4f4;
+			font-size: 0.9rem;
+		}
+		.footer {
+			display: flex;
+			padding-block: 0.75rem;
+			align-items: center;
+			gap: 0.5rem;
+			justify-content: flex-end;
+		}
+		.footer button {
+			padding: 0.35rem 0.75rem;
+			font-size: 0.75rem;
+			border-radius: 0.5rem;
+			font-weight: 500;
+			outline: 0;
+			border: 1px solid #e3e3e3;
+			transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+		}
+		.footer button:active {
+			scale: 0.95;
+		}
+		.prmry-btn {
+			background: #1e1e1e;
+			color: white;
+		}
+		.prmry-btn:hover {
+			background: #3b3b3b;
+		}
+		.scndry-btn:hover {
+			background: #e8e8e8;
 		}
 
 		.formSection {
 			margin-bottom: 15px;
 		}
-
 		.formSection label {
 			display: block;
 			margin-bottom: 5px;
 		}
-
 		.formSection input, .formSection textarea {
 			width: 100%;
 			padding: 10px;
 			border: 1px solid #ccc;
 			border-radius: 5px;
 		}
-
 		.popbtns {
 			text-align: center;
 			margin-top: 20px;
 		}
-
 		.post-btn {
 			background-color: #6a5acd;
 			color: white;
@@ -281,11 +255,9 @@
 			border-radius: 5px;
 			cursor: pointer;
 		}
-
 		.post-btn:hover {
 			background-color: #5b4ab5;
 		}
-
 	</style>
 </head>
 <body>
@@ -373,7 +345,6 @@
 <div class="pageContent" style="width: 100%">
 	<div class="container f-col">
 		<div class="top f-row">
-
 			<div class="page f-col">
 				<div class="sUser">
 					<div class="greet">
@@ -472,186 +443,83 @@
 			</div>
 		</div>
 		<div class="engagements f-row">
-			<div class="user-eng engagement f-col">
+			<div class="user-eng engagement f-col" >
 				<div class="title">User engagement</div>
-
-				<div class="graph"></div>
+				<div class="graph" style="background:white; display: flex; justify-content: center; align-items: center; height: 300px;">
+					<canvas id="userTypePieChart"></canvas>
+				</div>
 			</div>
 			<div class="surv-eng engagement f-col">
 				<div class="title capitalize">surveys</div>
-				<div class="graph"></div>
+				<div class="graph" style="background:white; display: flex; justify-content: center; align-items: center; height: 300px;">
+					<canvas id="userRegistrationBarChart"></canvas>
+				</div>
 			</div>
 			<div class="surv-eng engagement f-col">
-				<div class="title capitalize">surveys</div>
-
-				<div class="graph"></div>
+				<div class="title capitalize">posts</div>
+				<div class="graph" style="background:white; display: flex; justify-content: center; align-items: center; height: 300px;">
+					<canvas id="postsLineChart"></canvas>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<%--<div class="fund-popup col">--%>
-<%--	<div class="head row">--%>
-<%--		<div class="close-btn">--%>
-<%--			<i class="fa-solid fa-xmark"></i>--%>
-<%--		</div>--%>
-<%--		<div class="icon">--%>
-<%--			<i class="fa-regular fa-briefcase"></i>--%>
-<%--		</div>--%>
-<%--		<div class="title">Publish an announcement</div>--%>
-<%--		<div class="separator"></div>--%>
-<%--	</div>--%>
-<%--	<input type="hidden" name="userId" id="userId" value="<%= userId %>" />--%>
-<%--	<div class="body col">--%>
-<%--		<div class="fund-title field">--%>
-<%--			<label for="add-post-title" class="title">Title</label>--%>
-<%--			<input type="text" autocapitalize="off" required placeholder="Enter the title of the announcement" name="title" id="add-post-title">--%>
-<%--		</div>--%>
-<%--		<input type="hidden" name="userid" id="useri" value="${user.userId}" />--%>
-<%--		<input type="hidden" name="username" id="usernam" value="${userProfile.name}" />--%>
-<%--		<div class="fund-decs field">--%>
-<%--			<label for="fund-desc" class="title">Description</label>--%>
-<%--			<textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>--%>
-<%--		</div>--%>
-<%--		<div class="fund-contact" style="margin-bottom: 20px; font-family: Arial, sans-serif;">--%>
-<%--			<label class="title" style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">--%>
-<%--				Contact Number--%>
-<%--			</label>--%>
-<%--			<input--%>
-<%--					type="tel"--%>
-<%--					name="contact_no"--%>
-<%--					required--%>
-<%--					pattern="[0-9]{10}"--%>
-<%--					maxlength="10"--%>
-<%--					placeholder="Enter your contact number"--%>
-<%--					title="Contact number must be exactly 10 digits"--%>
-<%--					style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"--%>
-<%--			>--%>
-<%--		</div>--%>
-<%--		<div class="multi-fields row">--%>
-<%--			<div class="fund-cat field">--%>
-<%--				<label for="fund-categ" class="title">Category</label>--%>
-<%--				<select required name="category" id="fund-categ">--%>
-<%--					<option value="educational">Educational</option>--%>
-<%--					<option value="social">Social</option>--%>
-<%--					<option value="community-se">Community Service</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--			<div class="fund-amount field col">--%>
-<%--				<label class="title" for="fund-amount">Fund Target</label>--%>
-<%--				<div class="content row">--%>
-<%--					<div class="curr">--%>
-<%--						<select required name="currency" id="fund-currency">--%>
-<%--							<option value="lkr">LKR</option>--%>
-<%--							<option value="usd">USD</option>--%>
-<%--						</select>--%>
-<%--					</div>--%>
-<%--					<div class="amount">--%>
-<%--						<input required type="number" name="targetamount" id="fund-amount" min="1" placeholder="1,000,000.00">--%>
-<%--					</div>--%>
-<%--				</div>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="fund-attach field">--%>
-<%--			<span for="" class="title">Upload Attachments</span>--%>
-<%--			<div class="att-container">--%>
-<%--				<div class="action row">--%>
-<%--					<label for="fund-att" class="att-btn">Select File</label>--%>
-<%--					<input type="file" required name="attachmentUrl" id="fund-att" multiple>--%>
-<%--					<div class="sep"></div>--%>
-<%--				</div>--%>
-<%--				<div class="att-content">--%>
-<%--					<span class="no-of-files">No file attached</span>--%>
-<%--					<ul id="att-list" class="col">--%>
-<%--						<!-- uploaded files will be listed here -->--%>
-<%--					</ul>--%>
-<%--				</div>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="fund-photo field">--%>
-<%--			<span for="" class="title">Upload Photos</span>--%>
-<%--			<div class="att-container-photo">--%>
-<%--				<div class="action row-photo">--%>
-<%--					<label for="fund-photo" class="photo-btn">Select Photo</label>--%>
-<%--					<input type="file" name="photos" id="fund-photo" multiple>--%>
-<%--					<div class="sep"></div>--%>
-<%--				</div>--%>
-<%--				<div class="photo-content">--%>
-<%--					<span class="no-of-files">No Photo attached</span>--%>
-<%--					<ul id="photo-list" class="col">--%>
-<%--						<!-- uploaded files will be listed here -->--%>
-<%--					</ul>--%>
-<%--				</div>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--	</div>--%>
-<%--	<div class="bottom row">--%>
-<%--		<button type="button" class="cancel-btn form-btn">Cancel</button>--%>
-<%--		<button type="submit" class="submit-btn form-btn row">--%>
-<%--			<i class="fa-duotone fa-solid fa-check"></i>--%>
-<%--			Publish--%>
-<%--		</button>--%>
-<%--	</div>--%>
-<%--</div>--%>
+<input hidden="hidden" name="">
 
-<%--<div class="popup-modal" id="popup-modal" style="display: flex">--%>
-<%--	<div class="popup">--%>
-<%--		<!-- Announcement Form -->--%>
-<%--		<form action="PublishAnnouncementAdminServlet" method="post">--%>
-<%--			<div class="title f-row">--%>
-<%--				<div class="icon">--%>
-<%--					<i class="fa-solid fa-megaphone"></i>--%>
-<%--				</div>--%>
-<%--				New Announcement--%>
-<%--				<div class="close-btn btn" id="popup-close-btn">--%>
-<%--					<i class="fa-solid fa-xmark"></i>--%>
-<%--				</div>--%>
-<%--				<div class="breakLine"></div>--%>
-<%--			</div>--%>
-<%--			<div class="content">--%>
-<%--				<!-- User ID (hidden field) -->--%>
-<%--				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />--%>
+<!-- Popup Modal -->
+<div class="popup-modal" id="popup-modal">
+	<div class="popup-content">
+		<div class="close-btn" id="popup-close-btn">
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+		<div class="top">
+			<div class="icon">
+				<i class="fa-regular fa-bullhorn"></i>
+			</div>
+			<div class="title">New Announcement</div>
+		</div>
+		<div class="content">
+			<!-- Announcement Form -->
+			<form action="PublishAnnouncementAdminServlet" method="post">
+				<!-- User ID (hidden field) -->
+				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />
 
-<%--				<!-- Announcement Title -->--%>
-<%--				<div class="discussion-title col">--%>
-<%--					<label for="add-post-title">Title</label>--%>
-<%--					<input--%>
-<%--							autocomplete="off"--%>
-<%--							type="text"--%>
-<%--							name="title"--%>
-<%--							id="add-post-title"--%>
-<%--							placeholder="Enter the title of the announcement"--%>
-<%--							required--%>
-<%--					/>--%>
-<%--				</div>--%>
+				<!-- Announcement Title -->
+				<div class="formSection">
+					<label for="add-post-title">Title</label>
+					<input
+							autocomplete="off"
+							type="text"
+							name="title"
+							id="add-post-title"
+							placeholder="Enter the title of the announcement"
+							required
+					/>
+				</div>
 
-<%--				<!-- Announcement Content -->--%>
-<%--				<div class="caption-box col content-pd">--%>
-<%--					<label for="add-post-caption">Content</label>--%>
-<%--					<textarea--%>
-<%--							autocomplete="off"--%>
-<%--							name="content"--%>
-<%--							id="add-post-caption"--%>
-<%--							placeholder="Enter the content of the announcement"--%>
-<%--							required--%>
-<%--					></textarea>--%>
-<%--				</div>--%>
+				<!-- Announcement Content -->
+				<div class="formSection">
+					<label for="add-post-caption">Content</label>
+					<textarea
+							autocomplete="off"
+							name="content"
+							id="add-post-caption"
+							placeholder="Enter the content of the announcement"
+							required
+					></textarea>
+				</div>
 
-<%--				<!-- Form Buttons -->--%>
-<%--				<div class="popbtns capitalize">--%>
-<%--					<button type="reset" class="clear-btn" id="popup-clear-btn">--%>
-<%--						Clear <i class="fa-solid fa-rotate-left"></i>--%>
-<%--					</button>--%>
-<%--					<button type="submit" class="post-btn" id="popup-post-btn">--%>
-<%--						Post Announcement <i class="fa-solid fa-check"></i>--%>
-<%--					</button>--%>
-<%--				</div>--%>
-<%--			</div>--%>
-<%--		</form>--%>
-<%--	</div>--%>
-<%--</div>--%>
+				<!-- Form Buttons -->
+				<div class="footer">
+					<button type="reset" class="scndry-btn" id="popup-clear-btn">Clear</button>
+					<button type="submit" class="prmry-btn" id="popup-post-btn">Post Announcement</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
-</body>
 <script>
 	function logoutUser() {
 		window.location.href = "../../index.jsp";
@@ -663,11 +531,16 @@
 	const closeBtn = document.getElementById('popup-close-btn');
 	const clearBtn = document.getElementById('popup-clear-btn');
 
+
+	const userCount = ${userCount};
+	const politicianCount = ${politicianCount};
+	const politicalPartyCount = ${politicalPartyCount};
+
+
 	// Open popup when Add Announcement button is clicked
 	addAnnouncementBtn.addEventListener('click', (e) => {
 		e.preventDefault(); // Prevent default link behavior
 		popupModal.style.display = 'flex';
-		console.log("clicked")
 	});
 
 	// Close popup when close button is clicked
@@ -693,7 +566,7 @@
 		data: {
 			labels: ['Citizens', 'Politicians', 'Political Parties'],
 			datasets: [{
-				data: [65300, 1200, 45], // Data from stat cards
+				data: [userCount, politicianCount, politicalPartyCount], // Data from stat cards
 				backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
 				hoverOffset: 20
 			}]
@@ -712,14 +585,40 @@
 		}
 	});
 
+	const day1Registrations = ${day1Registrations};
+	const day2Registrations = ${day2Registrations};
+	const day3Registrations = ${day3Registrations};
+	const day4Registrations = ${day4Registrations};
+	const day5Registrations = ${day5Registrations};
+
 	// Bar Chart for User Registrations Over Past 5 Days
+	// Function to get the last 5 days in 'MMM DD' format
+	function getLastFiveDays() {
+		const labels = [];
+		const today = new Date();
+
+		for (let i = 4; i >= 0; i--) {
+			const date = new Date(today);
+			date.setDate(today.getDate() - i);
+			// Format as 'Apr 19'
+			const formattedDate = date.toLocaleDateString('en-US', {
+				month: 'short',
+				day: 'numeric'
+			});
+			labels.push(formattedDate);
+		}
+
+		return labels;
+	}
+
+	// Your Chart.js code with dynamic labels
 	const userRegistrationBarChart = new Chart(document.getElementById('userRegistrationBarChart'), {
 		type: 'bar',
 		data: {
-			labels: ['Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23'], // Past 5 days
+			labels: getLastFiveDays(), // Use dynamic labels
 			datasets: [{
 				label: 'New Users',
-				data: [120, 150, 100, 180, 130], // Placeholder data
+				data: [day1Registrations, day2Registrations, day3Registrations, day4Registrations, day5Registrations], // Replace with actual data
 				backgroundColor: '#36A2EB',
 				borderColor: '#36A2EB',
 				borderWidth: 1
@@ -840,4 +739,5 @@
 		}
 	});
 </script>
+</body>
 </html>

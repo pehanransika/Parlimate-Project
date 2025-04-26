@@ -202,5 +202,29 @@ public class PoliticianController {
         return 0;
     }
 
+    public static String getPoliticianName(int politicianId) {
+        String query = "SELECT name FROM politician WHERE politician_id = ?";
+        try (Connection connection = meetings.DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            // Set the politician_id parameter
+            ps.setInt(1, politicianId);
+
+            // Execute the query and process the result
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("name");
+                }
+            }
+
+        } catch (SQLException e) {
+            // Log the exception for debugging
+            e.printStackTrace();
+        }
+
+        // Return null if no politician is found or an error occurs
+        return null;
+    }
+
 }
 

@@ -16,8 +16,12 @@ public class MeetingController {
         String insertQuery = "INSERT INTO meetings (politicianId, topic, description, date, time, typeofthemeeting, host, platform, deadlinetoregister, slots, availableslots) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String updateRequestStatusQuery = "UPDATE meetingrequest SET status = ? WHERE meetingrequestid = ?";
 
+        System.out.println(updateRequestStatusQuery);
+
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            System.out.println("Inside Insert MEeting COntroller"+ meeting.getPoliticianId());
 
             // Set values for the insert statement
             ps.setInt(1, meeting.getPoliticianId());

@@ -545,3 +545,131 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "poppins", sans-serif;
+    position: relative;
+}
+.popup-modal {
+    display: none;
+}
+button {
+    cursor: pointer;
+    text-transform: capitalize;
+    font-family: inherit;
+}
+body.popup-active {
+    && .popup-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #0000002f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        && .popup-content {
+            position: relative;
+            min-width: 20rem;
+            min-height: 10rem;
+            background: #fff;
+            border-radius: 1rem;
+            border: 1px solid #e3e3e3;
+
+            && > div {
+                padding: 1rem 1.25rem;
+            }
+            && .close-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                cursor: pointer;
+                top: 2rem;
+                transform: translateY(-50%);
+                padding: 0;
+                border-radius: 50%;
+                right: 1.5rem;
+                width: 1.5rem;
+                height: 1.5rem;
+                background: #f0f0f0;
+                transition: all 0.25s ease-in-out;
+                &&:hover {
+                    background: #e0e0e0;
+                }
+            }
+
+            && .top{
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e3e3e3;
+                gap: 1rem;
+                text-transform: capitalize;
+                font-weight: 500;
+                font-size: 1.1rem;
+
+                && .icon{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 2rem;
+                    height: 2rem;
+                    background: #ffffff;
+                    border-radius: 50%;
+                    border: 1px solid rgb(215, 215, 215);
+                    color: rgb(74, 74, 74);
+                }
+            }
+
+            && .content{
+                border-bottom: 1px solid #e3e3e3;
+                background: #f4f4f4;
+                font-size: 0.9rem;
+            }
+
+            && .footer {
+                display: flex;
+                padding-block: 0.75rem;
+                align-items: center;
+                gap: 0.5rem;
+                justify-content: flex-end;
+
+                && button{
+                    padding: 0.35rem 0.75rem;
+                    font-size: 0.75rem;
+                    border-radius: 0.5rem;
+                    font-weight: 500;
+                    outline: 0;
+                    border: 1px solid #e3e3e3;
+                    transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+
+                    &&:active{
+                        scale: 0.95;
+                    }
+
+                }
+                && .prmry-btn{
+                    background: #1e1e1e;
+                    color: white;
+
+                    &&:hover{
+                        background: #3b3b3b;
+                    }
+                }
+                && .scndry-btn{
+                    &&:hover{
+                        background: #e8e8e8;
+                    }
+                }
+
+            }
+        }
+    }
+}

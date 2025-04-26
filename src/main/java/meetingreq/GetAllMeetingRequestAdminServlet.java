@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import UserPackage.PoliticianController;
 
 @WebServlet("/GetAllMeetingRequestAdminServlet")
 public class GetAllMeetingRequestAdminServlet extends HttpServlet {
@@ -21,9 +25,20 @@ public class GetAllMeetingRequestAdminServlet extends HttpServlet {
             List<MeetingRequestModel> allMeetingRequestsAdmin = MeetingRequestController.getAllMeetingRequests();
             int totalCount = allMeetingRequestsAdmin.size();
 
-            // Set the list as a request attribute
+            // Create a map to store meeting request IDs and corresponding politician names
+            Map<Integer, String> politicianNames = new HashMap<>();
+
+            // Fetch politician name for each meeting request
+            for (MeetingRequestModel meetingRequest : allMeetingRequestsAdmin) {
+                int politicianId = meetingRequest.getPolitician_id();
+                String politicianName = PoliticianController.getPoliticianName(politicianId);
+                politicianNames.put(meetingRequest.getMeetingrequestid(), politicianName);
+            }
+
+            // Set the lists and map as request attributes
             request.setAttribute("allMeetingRequestsAdmin", allMeetingRequestsAdmin);
             request.setAttribute("totalCount", totalCount);
+            request.setAttribute("politicianNames", politicianNames); // Add politician names map to request
 
             // Forward to requestsDetail.jsp
             System.out.println("This is a debug message");
@@ -35,7 +50,7 @@ public class GetAllMeetingRequestAdminServlet extends HttpServlet {
             e.printStackTrace();
 
             // Set error message and forward to an error page
-            request.setAttribute("error", "Unable to retrieve meeting requests. Please try again later.");
+            request.setAttribute("error", "Unable to retrieve meeting requests or politician names. Please try again later.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
             dispatcher.forward(request, response);
         }
