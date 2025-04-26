@@ -33,7 +33,22 @@ public class FinalDeleteApprovedFundraisingRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Approved Request Deleted Successfully'); window.history.back();</script>");
+
+
+
+
+
+                String alertMessage;
+
+                alertMessage = "Approved Request Deleted Successfully";
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('" + alertMessage + "');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/Fundraising/GetApprovalFundraisingServlet';" +
+                                "</script>"
+                );
+
+
             } else {
                 // If the request is not found
                 response.setContentType("text/html");

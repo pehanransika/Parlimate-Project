@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/Fundraising/GetApproveFundraisingServlet")
+@WebServlet("/GetApprovalFundraisingServlet")
 public class GetApprovalFundraisingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -21,6 +21,8 @@ public class GetApprovalFundraisingServlet extends HttpServlet {
 
             // Set the list as a request attribute
             request.setAttribute("approvalrequests", approvalrequests);
+            System.out.println("Fetched Approval Requests: " + approvalrequests);
+            System.out.println("Size: " + (approvalrequests != null ? approvalrequests.size() : "null"));
 
             // Forward to requestsDetail.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/Fundraising/fundraisingManagement.jsp");

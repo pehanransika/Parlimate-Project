@@ -13,25 +13,21 @@
         /* Additional styles for tabbed interface */
         .fundraising-tabs {
             display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
         }
 
         .fundraising-tab {
             padding: 10px 20px;
-            cursor: pointer;
-            background-color: #f1f1f1;
-            border: 1px solid #ddd;
-            border-bottom: none;
+            background-color: #eee;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
             border-radius: 5px 5px 0 0;
-            margin-right: 5px;
-            transition: all 0.3s;
         }
 
         .fundraising-tab.active {
-            background-color: #2c3e50;
-            color: white;
-            border-color: #2c3e50;
+            background-color: #fff;
+            border-bottom: 2px solid #fff;
+            font-weight: bold;
         }
 
         .fundraising-content {
@@ -178,22 +174,21 @@
 
         <!-- Fundraising Tabs -->
         <div class="fundraising-tabs">
-            <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')">Fundraising Request</div>
-            <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')">
-                Approval Fundraisers
-            </div>
+            <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')"><a class="fundraising-tab active" href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" >
+                Fundraising Request</a></div>
+            <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')"><a class="fundraising-tab" href="${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet">
+
+            Approval Fundraisers
+            </a>   </div>
 
         </div>
+
+
 
         <!-- Fundraising Request Tab -->
         <div id="fundraising-request" class="fundraising-content active">
             <div class="actions f-row">
-                <div class="search-bar">
-                    <label for="fundraising-search"><i class="fa-solid fa-magnifying-glass"></i></label>
-                    <input type="search" placeholder="Search by title/category" name="fundraising-search" id="fundraising-search" />
-                </div>
-                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
-                <button class="add-btn f-row" id="openFundPopup"><i class="fa-sharp fa-solid fa-plus"></i> Add Fundraising</button>
+
             </div>
 
             <div class="data f-col">
@@ -316,11 +311,8 @@
         <!-- Approval Fundraisers Tab -->
         <div id="approval-fundraisers" class="fundraising-content">
             <div class="actions f-row">
-                <div class="search-bar">
-                    <label for="approval-search"><i class="fa-solid fa-magnifying-glass"></i></label>
-                    <input type="search" placeholder="Search approved fundraisers" name="approval-search" id="approval-search" />
-                </div>
-                <button class="filter-btn f-row"><i class="fa-solid fa-filter"></i> Filter</button>
+
+
             </div>
 
             <div class="data f-col">
@@ -339,6 +331,7 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:forEach var="fund" items="${approvalrequests}">
                         <tr>
                             <td>${fund.title != null ? fund.title : 'N/A'}</td>
@@ -378,7 +371,7 @@
                             <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
                                 <c:if test="${fund.status != 'HOLD'}">
-                                    <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
+
                                     <form action="${pageContext.request.contextPath}/admin/Fundraising/HoldApprovedRequestServlet"
                                           method="post"
                                           style="display:inline;">

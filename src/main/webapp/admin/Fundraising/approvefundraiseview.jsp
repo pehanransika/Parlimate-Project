@@ -133,7 +133,7 @@
         </div>
 
         <div class="actions">
-            <a href="${pageContext.request.contextPath}/admin/Fundraising/GetApproveFundraisingServlet" class="back-button">Back to All Requests</a>
+            <a href="${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet" class="back-button">Back to All Requests</a>
         </div>
     </c:forEach>
 </div>
