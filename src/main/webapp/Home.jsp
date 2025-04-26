@@ -563,6 +563,7 @@
     })
 
     document.addEventListener("DOMContentLoaded", processHashtags);
+
 </script>
 <script>
     function validateAndSubmitComment(button) {
@@ -661,6 +662,8 @@
             });
         }
     });
+
+
 
 </script>
 <script src="script.js"></script>

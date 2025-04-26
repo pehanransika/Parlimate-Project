@@ -65,6 +65,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
     />
 
+    <link rel="stylesheet" href="../hashtag.css"/>
 </head>
 
 <body class="">
@@ -73,55 +74,65 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <%@ include file="../index/header/header.jsp" %>
 
 <div class="container">
-    <div class="pageTitles">
-        <h2 class="title">My Announcements</h2>
-        <div class="subTitle">All your published announcements</div>
-    </div>
 
-    <div class="search">
-        <label for="searchInput" class="search-icon">
-            <i class="fa-classic fa-solid fa-magnifying-glass fa-fw"></i>
-        </label>
-        <input type="text" id="searchInput" placeholder="Search announcements..." onkeyup="filterAnnouncements()">
-    </div>
 
-    <ul class="announcement-list">
+    <ul class="announcement-list f-col">
+        <div class="top">
+            <div class="pageTitles">
+                <h2 class="title">My Announcements</h2>
+                <div class="subTitle">All your published announcements</div>
+            </div>
+
+            <div class="search">
+                <label for="searchInput" class="search-icon">
+                    <i class="fa-classic fa-solid fa-magnifying-glass fa-fw"></i>
+                </label>
+                <input type="text" id="searchInput" placeholder="Search announcements..."
+                       onkeyup="filterAnnouncements()">
+            </div>
+        </div>
         <c:forEach var="announcement" items="${allannouncements}">
-            <li class="announcement-item col">
-                <div class="announcement-header">
-                    <div class="announcement-info row">
-                        <div class="ann-pub-img"></div>
-                        <div class="publisher">
-                            <div class="ann-publisher">
-                                    ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}
+            <li class="announcement-item f-row">
+                <div class="ann-details">
+                    <div class="announcement-header">
+                        <div class="announcement-info">
+                            <div class="author f-col">
+                                <div class="postedby f-row"> by
+                                    <span class="pol-name" style="margin-left: 0.25rem">
+                                            ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}
+                                    </span>
+                                </div>
+                                <div class="ann-date f-row" style="margin-top: -1rem">
+                                    <i class="fa-solid fa-clock-seven"></i>
+                                    <span class=" formatDate" data-date="${announcement.datetime}">
+                                            ${announcement.datetime}
+                                    </span>
+                                </div>
                             </div>
-                            <p class="ann-date">
-                                <i class="fa-solid fa-clock"></i>
-                                    ${announcement.datetime}</p>
                         </div>
                     </div>
-                </div>
-                <div class="cont col">
-                    <p class="ann-title">${announcement.title}</p>
-                    <p class="announcement-content">
-                            ${announcement.content}
-                    </p>
+                    <div class="announcement-content f-col">
+                        <p class="ann-title">${announcement.title}</p>
+                        <p class="announcement-content hashtags">
+                                ${announcement.content}
+                        </p>
 
-                </div>
-                <div class="announcement-actions">
-                    <!-- Update Button triggers the popup modal with announcement data -->
-                    <button class="button button-update"
-                            onclick="openEditPopup('${announcement.announcementid}', '${announcement.politicianid}', '${fn:escapeXml(announcement.title)}', '${fn:escapeXml(announcement.content)}', '${announcement.datetime}')">
-                        Edit
-                    </button>
+                    </div>
+                    <div class="announcement-actions">
+                        <!-- Update Button triggers the popup modal with announcement data -->
+                        <button class="button button-update"
+                                onclick="openEditPopup('${announcement.announcementid}', '${announcement.politicianid}', '${fn:escapeXml(announcement.title)}', '${fn:escapeXml(announcement.content)}', '${announcement.datetime}')">
+                            Edit
+                        </button>
 
-                    <!-- Delete Button -->
-                    <form action="DeleteServlet" method="post"
-                          onsubmit="return confirm('Are you sure you want to delete this announcement?');"
-                          style="display:inline;">
-                        <input type="hidden" name="announcementid" value="${announcement.announcementid}"/>
-                        <button type="submit" class="button button-delete">remove</button>
-                    </form>
+                        <!-- Delete Button -->
+                        <form action="DeleteServlet" method="post"
+                              onsubmit="return confirm('Are you sure you want to delete this announcement?');"
+                              style="display:inline;">
+                            <input type="hidden" name="announcementid" value="${announcement.announcementid}"/>
+                            <button type="submit" class="button button-delete">remove</button>
+                        </form>
+                    </div>
                 </div>
             </li>
         </c:forEach>
@@ -222,7 +233,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         });
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateElements = document.querySelectorAll('.formatDate');
+        dateElements.forEach(element => {
+            const rawDate = element.getAttribute('data-date');
+            const date = new Date(rawDate);
+            const formattedDate = new Intl.DateTimeFormat('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            }).format(date);
+            element.textContent = formattedDate;
+        });
+
+        processHashtags();
+    });
 </script>
+<script src="../hashtag.js"></script>
+<script src="../formatDate.js"></script>
 <script src="../script.js"></script>
 </body>
 

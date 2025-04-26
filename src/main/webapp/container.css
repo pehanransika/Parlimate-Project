@@ -713,7 +713,7 @@ body.overlay-active  {
                     font-size: 1rem;
                 }
 
-                && #post-desc{
+                && textarea{
                     padding: 0.75rem 1rem;
                     border-radius: 1rem;
                     border: 1px solid rgb(215, 215, 215);
@@ -831,4 +831,9 @@ body.overlay-active  {
             border: 1px solid #ddd;
         }
     }
+}
+
+button,
+label{
+    user-select: none !important;
 }
