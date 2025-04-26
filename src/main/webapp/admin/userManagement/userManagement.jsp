@@ -3,6 +3,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%@ page import="UserPackage.UserModel" %>
+<%@ page import="UserPackage.AdminModel" %>
+
+<%
+    HttpSession session1 = request.getSession(false);
+    if (session1 == null || session1.getAttribute("user") == null) {
+        response.sendRedirect("../index.jsp");
+        return;
+    }
+
+    UserModel user = (UserModel) session1.getAttribute("user");
+    int userId = user.getUserId();
+
+    AdminModel admin = new AdminModel();
+    String adminName = admin.getAdminNameByUserId(userId);
+%>
+
+
 <c:set var="pendingParties" value="${parties.stream().filter(p -> p.status == 'pending').toList()}" />
 <c:set var="acceptedParties" value="${parties.stream().filter(p -> p.status == 'accepted').toList()}" />
 <c:set var="rejectedParties" value="${parties.stream().filter(p -> p.status == 'rejected').toList()}" />
@@ -280,9 +298,9 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/userManagement/UserManagementServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-users"></i>
-                    <span>users</span>
+                    <span>user Management</span>
                 </a>
             </li>
             <li>
@@ -316,7 +334,7 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row active" >
+                <a href="<%= request.getContextPath() %>/GetAllMeetingRequestAdminServlet" class="nav-item f-row" >
                     <i class="fa-regular fa-circle-check"></i>
                     <span>Meeting Management</span>
                 </a>
@@ -331,9 +349,9 @@
         <ul>
             <li>
                 <a href="#" class="f-row profile">
-                    <div class="p-img"></div>
+                    <div class="p-img"><img src="<%= request.getContextPath() %>/images/Admin/admin.png"></div>
                     <div class="sUser f-col">
-                        <div class="name">Naleeka Kumarasinghe</div>
+                        <div class="name"><%= adminName != null ? adminName : "Unknown Admin" %></div>
                         <div class="role">Admin</div>
                     </div>
                 </a>

@@ -264,7 +264,7 @@
 	<div class="navigation">
 		<ul>
 			<li>
-				<a href="${pageContext.request.contextPath}/admin/Home/index.jsp" class="nav-item f-row active">
+				<a href="${pageContext.request.contextPath}/admin/Home/GetAnalyticsCountServlet" class="nav-item f-row active">
 					<i class="fa-regular fa-house"></i>
 					<span>home</span>
 				</a>
@@ -272,7 +272,7 @@
 			<li>
 				<a href="${pageContext.request.contextPath}/admin/userManagement" class="nav-item f-row">
 					<i class="fa-regular fa-users"></i>
-					<span>users</span>
+					<span>user Management</span>
 				</a>
 			</li>
 			<li>
@@ -477,7 +477,7 @@
 		</div>
 		<div class="content">
 			<!-- Announcement Form -->
-			<form action="PublishAnnouncementAdminServlet" method="post">
+			<form action="${pageContext.request.contextPath}/PublishAnnouncementAdminServlet" method="post">
 				<!-- User ID (hidden field) -->
 				<input type="hidden" name="userId" id="userId" value="<%= userId %>" />
 

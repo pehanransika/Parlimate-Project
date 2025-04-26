@@ -6,6 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="UserPackage.UserModel" %>
+<%@ page import="UserPackage.AdminModel" %>
+
+<%
+    HttpSession session1 = request.getSession(false);
+    if (session1 == null || session1.getAttribute("user") == null) {
+        response.sendRedirect("../index.jsp");
+        return;
+    }
+
+    UserModel user = (UserModel) session1.getAttribute("user");
+    int userId = user.getUserId();
+
+    AdminModel admin = new AdminModel();
+    String adminName = admin.getAdminNameByUserId(userId);
+%>
 <html>
 <head>
     <title>Survey Management | Parlimate Surveys</title>
@@ -96,9 +112,9 @@
         <ul>
             <li>
                 <a href="#" class="f-row profile">
-                    <div class="p-img"></div>
+                    <div class="p-img"><img src="<%= request.getContextPath() %>/images/Admin/admin.png"></div>
                     <div class="sUser f-col">
-                        <div class="name">Naleeka Kumarasinghe</div>
+                        <div class="name"><%= adminName != null ? adminName : "Unknown Admin" %></div>
                         <div class="role">Admin</div>
                     </div>
                 </a>
