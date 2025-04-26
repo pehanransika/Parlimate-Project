@@ -105,7 +105,7 @@ public class MeetingRequestController {
 
     public static List<MeetingRequestModel> getMyMeetingRequests(int politicianId) throws SQLException {
         List<MeetingRequestModel> requests = new ArrayList<>();
-        String query = "SELECT * FROM meetingrequest WHERE politician_id = ? ORDER BY proposaldate ASC";
+        String query = "SELECT * FROM meetingrequest WHERE politician_id = ? ORDER BY rejectstatus , proposaldate ASC";
 
         System.out.println(query);
 
