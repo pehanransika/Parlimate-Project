@@ -349,3 +349,178 @@ body.popup-active  {
         }
     }
 }
+#editPopup{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    && .popup{
+        background: #fff;
+        border: 1px solid #e3e3e3;
+        border-radius: 1rem;
+        position: relative;
+        min-width: 30rem;
+        max-width: 40rem;
+        && .close-btn{
+            background: #e3e3e3;
+            width: 2rem;
+            border-radius: 50%;
+            border: 1px solid #cccccc;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            background: #f3f3f3;
+            justify-content: center;
+            right: 1rem;
+            top: 2rem;
+            transform: translateY(-50%);
+            position: absolute;
+        }
+        &&>div{
+            padding: 1rem 1.5rem;
+        }
+        && .top{
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e3e3e3;
+            gap: 0.75rem;
+            text-transform: capitalize;
+            font-weight: 500;
+            font-size: 1.2rem;
+            justify-content: left;
+
+            && .icon{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                font-size: 1rem;
+                background: #ffffff;
+                border-radius: 50%;
+                border: 1px solid rgb(215, 215, 215);
+                color: rgb(74, 74, 74);
+
+                && i {
+                    color: inheri;
+                }
+            }
+        }
+        && .popup-content{
+            height: fit-content !important;
+            border-bottom: 1px solid #e3e3e3;
+            background: #f4f4f4;
+            font-size: 0.9rem;
+            padding: 1rem 1.5rem;
+            gap: 1.5rem;
+
+            && .title{
+                font-weight: 500;
+                font-size: 1rem;
+                width: fit-content;
+            }
+
+            && input[type='text']{
+                padding: 0.75rem 1rem;
+                border-radius: 0.75rem;
+                font-size: 1rem;
+                border: 1px solid rgb(215, 215, 215);
+                transition: border 0.25s ease-in-out;
+                color: #505050;
+                outline: 0;
+                font-size: 1rem !important;
+
+                &&:focus{
+                    border: 1px solid rgb(175, 175, 175);
+                }
+            }
+            && textarea{
+                font-size: 1rem !important;
+                resize: none;
+                padding: 0.75rem 1rem;
+                border-radius: 1rem;
+                border: 1px solid rgb(215, 215, 215);
+                transition: border 0.25s ease-in-out;
+                scrollbar-width: none;
+                color: #505050;
+                height: 8rem;
+
+                &&:focus{
+                    border: 1px solid rgb(175, 175, 175);
+                }
+            }
+        }
+
+        && .footer {
+            display: flex;
+            padding-block: 0.75rem;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: flex-end;
+
+            && button{
+                padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-radius: 0.5rem;
+                font-weight: 500;
+                outline: 0;
+                border: 1px solid #e3e3e3;
+                transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+
+                &&:active{
+                    scale: 0.95;
+                }
+
+            }
+            && .prmry-btn{
+                background: #1e1e1e;
+                color: white;
+
+                &&:hover{
+                    background: #3b3b3b;
+                }
+            }
+            && .scndry-btn{
+                &&:hover{
+                    background: #e8e8e8;
+                }
+            }
+
+        }
+    }
+}
+
+.button-delete{
+    outline: 0;
+    background: #ffe0e0 !important;
+    color: #550f0f !important;
+    border: 1px solid #d6b8b8 !important;
+    transition: all 0.25s ease;
+    &&:hover{
+        background: #ffcaca !important;
+    }
+    &&:active{
+        scale: 0.95 !important;
+
+    }
+}
+.button-update{
+    outline: 0;
+    transition: all 0.25s ease;
+    &&:hover{
+        background: #f6f6f6 !important;
+    }
+    &&:active{
+        scale: 0.95 !important;
+
+    }
+}

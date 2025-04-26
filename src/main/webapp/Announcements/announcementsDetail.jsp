@@ -141,40 +141,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 </div>
 
 <!-- Update Announcement Popup Modal -->
-<div class="popup-modal" id="editPopup">
+<form action="UpdateServlet" method="post" class="popup-modal" id="editPopup">
     <div class="popup">
-        <div class="title">
-            <span>Edit Announcement</span>
-            <button class="close-btn" onclick="closeEditPopup()">
-                <i class="fa-solid fa-times"></i>
-            </button>
+        <button class="close-btn" type="button" onclick="closeEditPopup()">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <div class="top">
+            <div class="icon">
+                <i class="fa-regular fa-pencil"></i>
+            </div>
+            <div class="title">
+                <span>Edit Announcement</span>
+            </div>
         </div>
+        <div class="popup-content f-col">
+                <!-- Hidden fields for announcement ID and politician ID -->
+                <input type="hidden" name="announcementid" id="announcementid"/>
+                <input type="hidden" name="politicianid" id="politicianid"/>
 
-        <form action="UpdateServlet" method="post">
-            <!-- Hidden fields for announcement ID and politician ID -->
-            <input type="hidden" name="announcementid" id="announcementid"/>
-            <input type="hidden" name="politicianid" id="politicianid"/>
+                <!-- Title Section -->
+                <div class="formSection f-col">
+                    <label for="editTitle" class="title">Title</label>
+                    <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required/>
+                </div>
 
-            <!-- Title Section -->
-            <div class="formSection">
-                <label for="editTitle">Title</label>
-                <input type="text" id="editTitle" name="title" placeholder="Edit title here..." required/>
-            </div>
-
-            <!-- Content Section -->
-            <div class="formSection">
-                <label for="editContent">Content</label>
-                <textarea id="editContent" name="content" placeholder="Edit content here..." required></textarea>
-            </div>
+                <!-- Content Section -->
+                <div class="formSection f-col">
+                    <label for="editContent" class="title">Content</label>
+                    <textarea id="editContent" name="content" placeholder="Edit content here..." required></textarea>
+                </div>
 
 
-            <div class="popbtns">
-                <button type="submit" class="post-btn">Save Changes</button>
-            </div>
-        </form>
+
+        </div>
+                <div class="footer">
+                    <button type="submit" class="prmry-btn post-btn">Save Changes</button>
+                </div>
+
     </div>
 
-</div>
+</form>
 
 <script>
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
@@ -213,7 +219,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         document.getElementById('politicianid').value = politicianid;
         document.getElementById('editTitle').value = title;
         document.getElementById('editContent').value = content;
-        // document.getElementById('editDatetime').value = formattedDatetime;
+        document.getElementById('editDatetime').value = formattedDatetime;
     }
 
     // Function to close the popup modal
