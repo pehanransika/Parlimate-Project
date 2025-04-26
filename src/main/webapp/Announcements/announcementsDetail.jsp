@@ -213,7 +213,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         document.getElementById('politicianid').value = politicianid;
         document.getElementById('editTitle').value = title;
         document.getElementById('editContent').value = content;
-        document.getElementById('editDatetime').value = formattedDatetime;
+        // document.getElementById('editDatetime').value = formattedDatetime;
     }
 
     // Function to close the popup modal

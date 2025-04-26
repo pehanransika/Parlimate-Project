@@ -278,6 +278,7 @@
         min-width: 30rem;
         max-width: 40rem;
         min-height: 10rem;
+        max-height: 50rem;
         border: 1px solid #efefef;
         position: relative;
         &&> div{
@@ -381,6 +382,7 @@
         }
         && .footer{
             border-top: 1px solid #dcdcdc;
+            overflow: auto;
 
             && .comment-input-field{
                 position: relative;
