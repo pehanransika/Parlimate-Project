@@ -16,23 +16,23 @@
     boolean isGmail = userEmail != null && userEmail.toLowerCase().endsWith("@gmail.com");
 %>
 
-<% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+<% response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+    response.setDateHeader("Expires", 0); //prevents caching at the proxy server
 %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet" />
-    <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet" />
+    <link href="http://localhost:8080/Parlimate/index/sidebar1.css" rel="stylesheet"/>
+    <link href="http://localhost:8080/Parlimate/index/header/header.css" rel="stylesheet"/>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Meeting room | Parlimate</title>
-    <link rel="stylesheet" href="../index.css" />
-    <link rel="stylesheet" href="./discussion-room.css" />
-    <link rel="stylesheet" href="./reqPop.css" />
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="./discussion-room.css"/>
+    <link rel="stylesheet" href="./reqPop.css"/>
     <!-- icons -->
     <link
             rel="stylesheet"
@@ -98,7 +98,8 @@
                     <div class="input-group form-active">
                         <div class="field">
                             <label class="title" for="disc-title">Proposed Title</label>
-                            <input type="hidden" name="politicianid" id="politicianid" value="${userProfile.politicianId}" />
+                            <input type="hidden" name="politicianid" id="politicianid"
+                                   value="${userProfile.politicianId}"/>
                             <input
                                     type="text"
                                     name="topic"
@@ -172,25 +173,29 @@
                         <div id="opponent-fields" style="display: none;">
                             <div class="field">
                                 <label class="title" for="opponent-name">Opponent Name</label>
-                                <input type="text" id="opponent-name" name="opponentname" placeholder="Enter opponent name">
+                                <input type="text" id="opponent-name" name="opponentname"
+                                       placeholder="Enter opponent name">
                             </div>
                             <div class="field">
                                 <label class="title" for="opponent-party">Opponent's Party</label>
-                                <input type="text" id="opponent-party" name="partyaffiliation" placeholder="Enter opponent's party">
+                                <input type="text" id="opponent-party" name="partyaffiliation"
+                                       placeholder="Enter opponent's party">
                             </div>
                         </div>
                         <div class="field">
                             <label class="title">
                                 <input type="checkbox" id="allow-participants" name="allowParticipants">
                                 Allow Live Participants
-                                <i class="fa-solid fa-circle-info" title="Ticking this will allow participants to join the meeting and interact"></i>
+                                <i class="fa-solid fa-circle-info"
+                                   title="Ticking this will allow participants to join the meeting and interact"></i>
                             </label>
                         </div>
 
                         <div id="participant-fields" style="display: none;">
                             <div class="field">
                                 <label class="title" for="participant-count">Number of Participants Allowed</label>
-                                <input type="number" id="participant-count" name="participantCount" min="1" placeholder="Enter number of participants">
+                                <input type="number" id="participant-count" name="participantCount" min="1"
+                                       placeholder="Enter number of participants">
                             </div>
                         </div>
 
@@ -225,34 +230,38 @@
             Engage with ongoing live video discussions
         </div>
     </div>
-    <div class="meeting-btns row">
-        <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-            <a href="GetMyMeetingRequests?userId=${user.userId}" class="myMeetings row">
-                <span>My meeting requests</span>
-                <i class="fa-solid fa-clock"></i>
-            </a>
-        </c:if>
-        <div class="newmeeting row">
-            <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
-                <span>Request meeting</span>
-                <i class="fa-solid fa-pencil"></i>
-            </c:if>
+    <div class="navigations row" style="align-self: center">
+        <div class="nav-btn">
+            <button value="upcoming" class="capitalize nav-active"
+                    onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet'">
+                Upcoming
+            </button>
+        </div>
+        <div class="nav-btn">
+            <button value="ongoing" class="capitalize"
+                    onclick="window.location.href='http://localhost:8080/Parlimate/GetOngoingMeetingsServlet'">
+                Ongoing
+            </button>
+        </div>
+        <div class="nav-btn">
+            <button value="registered" class="capitalize"
+                    onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
+                Registered
+            </button>
         </div>
     </div>
-    <div class="discussions col">
-        <!-- Search and Filter Section -->
+    <div class="meeting-top f-row">
         <div class="search-filter row">
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search by topic or politician name" />
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" placeholder="Search by topic or politician name"/>
             </div>
             <div class="filter-group">
-                <label for="date-filter">Filter by Date:</label>
-                <input type="date" id="date-filter" />
+                <input type="date" id="date-filter"/>
             </div>
             <div class="filter-group">
-                <label for="status-filter">Meeting Status:</label>
                 <select id="status-filter">
+                    <option selected value="all" disabled>Meeting Status</option>
                     <option value="all">All Meetings</option>
                     <option value="upcoming">Upcoming Meetings</option>
                     <option value="past">Past Meetings</option>
@@ -261,28 +270,29 @@
                 </select>
             </div>
         </div>
-
-        <div class="navigations row">
-            <div class="nav-btn">
-                <button value="upcoming" class="capitalize nav-active" onclick="window.location.href='http://localhost:8080/Parlimate/DiscussionRoom/GetAllMeetingUserServlet'">
-                    Upcoming
-                </button>
-            </div>
-            <div class="nav-btn">
-                <button value="ongoing" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetOngoingMeetingsServlet'">
-                    Ongoing
-                </button>
-            </div>
-            <div class="nav-btn">
-                <button value="registered" class="capitalize" onclick="window.location.href='http://localhost:8080/Parlimate/GetRegisteredMeetingsServlet'">
-                    Registered
+        <div class="dropdown">
+            <div class="main-btn f-row capitalize">meetings <i class="fa-regular fa-circle-chevron-down"></i></div>
+            <div class="meeting-btns f-col">
+                <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+                    <a href="GetMyMeetingRequests?userId=${user.userId}" class="myMeetings row">
+                        <i class="fa-regular fa-hourglass"></i>
+                        <span>My meeting requests</span>
+                    </a>
+                </c:if>
+                <button class="newmeeting row">
+                    <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
+                        <i class="fa-regular fa-video"></i>
+                        <span>Request meeting</span>
+                    </c:if>
                 </button>
             </div>
         </div>
+    </div>
+    <div class="discussions col">
         <div class="nav-body col">
             <div class="items col">
                 <c:forEach var="allmeetings" items="${allMeetingsUser}">
-                    <div class="item live row"
+                    <div class="item live f-col"
                          style="animation-delay: 0.25s"
                          data-meetingid="${allmeetings.meetingId}"
                          data-topic="${allmeetings.topic}"
@@ -293,54 +303,53 @@
                          data-image-url="GetProfileImageServlet?politicianId=${allmeetings.politicianId}"
                          data-politician-name="${allmeetings.politicianName}"
                          data-deadline="${allmeetings.deadlinetoregister}">
-                        <div class="panelists">
-                            <div class="pImgs row">
-                                <div class="prof-img">
-                                    <img src="GetProfileImageServlet?politicianId=${allmeetings.politicianId}" alt="Profile"
-                                         onerror="console.error('Error loading image: ' + this.src)"
-                                         onload="console.log('Image URL loaded: ' + this.src)" />
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="item-content live col">
-                            <div class="item-title">
-                                <div class="title" style="font-size: 15px;">
-                                        ${allmeetings.topic} by ${allmeetings.politicianName}
-                                </div>
-                                <div class="time-period small-text row" style="font-size: 15px; font-weight: bold; color: #4a4443;">
-                                    <div>
-                                        <i class="fa-solid fa-clock"></i>
-                                        <span class="start">Time - ${allmeetings.time}</span><br>
-                                        <span class="date">
-                                            <i class="fa-solid fa-calendar"></i> Date - ${allmeetings.date}
-                                        </span>
+                            <div class="body disc-type">${allmeetings.typeofthemeeting}</div>
+                            <div class="panelists">
+                                <div class="pImgs row">
+                                    <div class="prof-img">
+                                        <img src="GetProfileImageServlet?politicianId=${allmeetings.politicianId}"
+                                             alt="Profile"
+                                             onerror="console.error('Error loading image: ' + this.src)"
+                                             onload="console.log('Image URL loaded: ' + this.src)"/>
                                     </div>
                                 </div>
-                                <div class="body"><strong>Meeting is about: </strong> ${allmeetings.description}</div>
-                                <div class="body"><strong>Type of the Meeting: </strong> ${allmeetings.typeofthemeeting}</div>
-                                <div class="body"><strong>Meeting will be hosted by: </strong> ${allmeetings.host}</div>
+                            </div>
+                            <div class="item-title">
+                                <div class="title meeting">
+                                        ${allmeetings.topic} by <span
+                                        class="italic"> ${allmeetings.politicianName} </span>
+                                </div>
+                                <div class="time-period f-row ">
+                                    <span class="start">Scheduled on </span>
+                                    <span class="formatDateAndTime">${allmeetings.time} ${allmeetings.date}</span>
+                                </div>
+                                <div class="meeting-desc">${allmeetings.description}</div>
+                                <div class="meeting-host body">hosted by: ${allmeetings.host}
+                                    on ${allmeetings.platform}</div>
+                                <div class="meeting-deadline">Registration Deadline
+                                    - ${allmeetings.deadlinetoregister}</div>
                             </div>
                             <div class="item-interactive row">
                                 <a href="#" class="small-text item-yt">
                                     <i class="fa-brands fa-youtube"></i>
                                     Watch on Youtube
                                 </a>
-                                <a href="#" class="small-text item-sp">
-                                    <strong>Platform</strong> - ${allmeetings.platform}
-                                </a>
+
                                 <span class="small-text item-live request-join-btn">
                                     <i class="fa-solid fa-signal-stream"></i>
                                     Request to Join
                                 </span>
-                                <div class="body" style="color: #ea2f07">Registration Deadline - ${allmeetings.deadlinetoregister}</div>
+
                             </div>
                         </div>
-                        <div class="post-options col">
-                            <div class="status capitalize row">
-                                <span>${allmeetings.politicianId}</span>
-                            </div>
-                        </div>
+
+                            <%--                        <div class="post-options col">--%>
+                            <%--                            <div class="status capitalize row">--%>
+                            <%--                                <span>${allmeetings.politicianId}</span>--%>
+                            <%--                            </div>--%>
+                            <%--                        </div>--%>
                     </div>
                 </c:forEach>
             </div>
@@ -350,31 +359,37 @@
 
 <div class="live-meeting-popup" style="display: none; background: rgba(0,0,0,0.6);">
     <div class="popup-container">
-        <div class="head row">
-            <div class="title">Request to Join</div>
-            <div class="cls-btn btn">
-                <i class="fa-solid fa-x"></i>
+        <div class="close-btn btn">
+            <i class="fa-solid fa-x"></i>
+        </div>
+        <div class="top f-row">
+            <div class="icon">
+                <i class="fa-solid fa-hand"></i>
             </div>
+            <div class="title">Request to Join</div>
+
         </div>
         <div class="content">
+            <div class="f-col meeting-send" style="align-items: center;gap: 2.5rem">
+                <img id="popup-profile-img" src="" alt="Profile"/>
+                <div class="f-col" style="gap: 0.5rem">
+                    <div class="slots">[slot count]</div>
+                    <div class="gmail-input">
+                        <input type="email" id="gmail" name="gmail"
+                               placeholder="yourname@gmail.com"
+                            <%= isGmail ? "value=\"" + userEmail + "\" readonly" : "required" %>>
+                        <% if (!isGmail) { %>
+                        <span id="gmail-error" style="color: red; display: none;">Please enter a valid Gmail address (@gmail.com)</span>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
             <div class="body" id="meetingid">MeetingID</div>
             <div class="meeting-title">Topic</div>
             <div class="date capitalize">Date</div>
             <div class="body" id="description">Description</div>
             <div class="body" id="time">Time</div>
-            <div class="profs row">
-                <div class="prof-img"><img id="popup-profile-img" src="" alt="Profile" /></div>
-            </div>
-            <div class="slots">[slot count]</div>
-            <div class="gmail-input">
-                <label for="gmail">Enter your Gmail address:</label>
-                <input type="email" id="gmail" name="gmail"
-                       placeholder="yourname@gmail.com"
-                    <%= isGmail ? "value=\"" + userEmail + "\" readonly" : "required" %>>
-                <% if (!isGmail) { %>
-                <span id="gmail-error" style="color: red; display: none;">Please enter a valid Gmail address (@gmail.com)</span>
-                <% } %>
-            </div>
+
             <div class="conf">
                 Are you sure you want to join the live meeting via Zoom?
             </div>
@@ -384,9 +399,9 @@
                 in the live meeting. Any unnecessary behavior may lead to permanent/temporary ban from this platform.
             </div>
         </div>
-        <div class="btns row">
-            <button class="close">Close</button>
-            <button class="confirm row">
+        <div class="footer row">
+            <button class="close scndry-btn">Close</button>
+            <button class="confirm prmry-btn row">
                 Confirm <i class="fa-solid fa-check"></i>
             </button>
         </div>
@@ -398,6 +413,8 @@
 <script src="../loadSidebar.js"></script>
 <script src="./reqPop.js"></script>
 <script>
+
+
     const loggedInUserId = <%= userId %>;
     const isUserEmailGmail = <%= isGmail %>;
     console.log("User ID from session:", loggedInUserId);
@@ -488,7 +505,7 @@
                 const slots = item.dataset.availableSlots;
                 const imageUrl = item.dataset.imageUrl;
 
-                console.log("📦 Data:", { topic, date, description, time, slots });
+                console.log("📦 Data:", {topic, date, description, time, slots});
 
                 const popup = document.querySelector(".live-meeting-popup");
                 popup.querySelector("#meetingid").textContent = meetingid;
@@ -627,7 +644,7 @@
             document.querySelector(".live-meeting-popup").style.display = 'none';
         });
 
-        document.querySelector(".live-meeting-popup .cls-btn").addEventListener("click", () => {
+        document.querySelector(".live-meeting-popup .close-btn").addEventListener("click", () => {
             document.body.classList.remove("overlay-active");
             document.querySelector(".live-meeting-popup").style.display = 'none';
         });

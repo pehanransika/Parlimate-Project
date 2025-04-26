@@ -30,7 +30,7 @@
     <title>Meeting room | Parlimate</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}DiscussionRoom/reqPop.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/DiscussionRoom/discussion-room-ongoing.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/DiscussionRoom/discussion-room.css">
     <!-- icons -->
     <link
             rel="stylesheet"

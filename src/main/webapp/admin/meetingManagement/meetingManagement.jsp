@@ -334,6 +334,45 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Target all elements with class "formatDateAndTime"
+        const dateElements = document.querySelectorAll('.formatDateAndTime');
+
+        dateElements.forEach(element => {
+            // Get raw text (e.g., "04:12:00 2025-05-07")
+            const rawText = element.textContent.trim();
+
+            // Split into time and date
+            const [timeStr, dateStr] = rawText.split(' ');
+
+            if (timeStr && dateStr) {
+                // Format and update
+                element.textContent = formatDateTime(timeStr, dateStr);
+            }
+        });
+
+        // Format function (converts to "4:12 AM, Wednesday, May 7, 2025")
+        function formatDateTime(timeStr, dateStr) {
+            const date = new Date(`${dateStr}T${timeStr}`);
+
+            // Time options (e.g., "4:12 AM")
+            const timeOptions = {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            };
+
+            // Date options (e.g., "Wednesday, May 7, 2025")
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            return `${date.toLocaleTimeString('en-US', timeOptions)}, ${date.toLocaleDateString('en-US', dateOptions)}`;
+        }
+    });
     function openPopup(id, user, title, purpose, date, time, duration, participants, typeofthemeeting, host) {
         document.getElementById("popup-id").innerText = id || "Not Specified";
         document.getElementById("popup-user").innerText = user || "Not Specified";

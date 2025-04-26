@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcementlist.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcements.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Announcements/announcementsDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Announcements" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/DiscussionRoom/discussion-room.jsp" value="file://$PROJECT_DIR$/src/main/webapp/DiscussionRoom" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/fundraising.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/myApprovedfundraises.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Fundraising/rejectedrequest.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Fundraising" />
