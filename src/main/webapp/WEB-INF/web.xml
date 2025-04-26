@@ -43,6 +43,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>GetMyAnnouncements</servlet-name>
+    <servlet-class>com.ann.GetMyAnnouncements</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetMyAnnouncements</servlet-name>
+    <url-pattern>/Announcements/GetMyAnnouncements</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>UpdateServlet</servlet-name>
     <servlet-class>com.ann.UpdateServlet</servlet-class>
   </servlet>

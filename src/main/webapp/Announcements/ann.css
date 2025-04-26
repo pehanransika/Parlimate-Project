@@ -1,579 +1,546 @@
-body.sidebar-deactive .sidebar {
-    transform: translateX(-100%);
+.popup-modal {
+    display: none;
 }
 
-.container .pageTitles{
-    align-self: start;
-    margin-bottom: 2rem;
-}
-html{
-    font-size: 13px;
-}
-body {
-    font-family: "Poppins", sans-serif;
-    background: var(--bg);
-    margin: 0;
-    padding: 0;
-}
-.container {
-    transition: margin-left 0.3s;
-    gap: 0;
-}
-.container > .row {
-    align-items: start;
-    gap: 2rem;
-    justify-content: space-between;
-}
-.announcements {
-    gap: 1.5rem;
-    width: 100%;
-}
-.announcement-card {
-    border-radius: 0.75rem;
-    border-left: 0.75rem solid rgba(185, 185, 185, 0.548);
-    padding: 1.5rem 2rem ;
-    width: 100%;
-    transition: outline 0.3s ease, border-left 0.3s ease;
+button {
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-}
-.announcement-card:hover {
-    outline: 1px solid rgb(185, 185, 185);
-    border-left: 0.75rem solid #5490FF;
-}
-.post-details {
-    gap: 1rem;
-}
-.post-details .img {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background-color: #ddd;
-}
-.post-details .name {
-    font-weight: 500;
-    font-size: 1rem;
-}
-.announcements .posted-date {
-    font-size: 0.7rem;
-    color: #777;
-    font-weight: 500;
-    gap: 0.75rem;
-}
-.announcement-card .content{
-    gap: 0.25rem;
-}
-.content .post-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #333;
-    margin-top: 0.5rem;
-}
-.content p {
-    font-size: 0.9rem;
-    color: #727272;
-}
-.location {
-    margin-top: 0.75rem;
-    font-size: 0.8em;
-    color: #888;
-    text-align: end;
-}
-/* Politician Card */
-.politician-container{
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-}
-.politician-card {
-    min-width: 15rem;
-    background-color: #fff;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Image Styling */
-.politician-card img {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background-color: #ddd; /* Fallback for no image */
-}
-
-/* Politician Details */
-.politician-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.politician-details h3 {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.politician-details p {
-    font-size: 0.8rem;
-    color: #555;
-}
-
-.add-announcement {
-    cursor: pointer !important;
-    width: 16rem;
-    min-height: 10rem;
-    border-radius: 1rem;
-    padding: 2rem;
-    border: 1px solid #b9d1ff;
-    background: #5490FF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    color: white;
     text-transform: capitalize;
-    font-weight: 600;
+    font-family: inherit;
 }
 
-.add-announcement i {
-    font-size: 3rem;
-}
-
-
-/* Styling for the View My Announcement button */
-.view-my-announcement {
-    cursor: pointer !important;
-    width: 16rem;
-    min-height: 10rem;
-    border-radius: 1rem;
-    padding: 2rem;
-    border: 1px solid #b9d1ff;
-    background: #5490FF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  margin-left: auto ;
-    margin-top: -11rem;
-    color: white;
-    text-transform: capitalize;
-    font-weight: 600;
-}
-.view-my-announcement i {
-    font-size: 3rem;
-}
-.more_announcements {
-    cursor: pointer !important;
-    width: 16rem;
-    min-height: 8rem;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    border: 1px solid #b9d1ff;
-    background: #4a8fe5;  /* Set a blue background */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    color: white;
-    text-transform: capitalize;
-    font-weight: 600;
-    border: none;  /* Remove the default button border */
-}
-
-/* Icon inside the button */
-.more_announcements i {
-    font-size: 2.5rem;  /* Icon size */
-}
-
-/* Text inside the button */
-.more_announcements span {
-    font-size: 1rem;  /* Text size */
-}
-
-/* Hover effect for the link */
-a:hover .more_announcements {
-    transform: scale(1.05);  /* Slightly enlarge the button on hover */
-    transition: transform 0.3s ease;  /* Smooth transition effect */
-}
-/* change this later */
-.popup-modal{
+body.popup-active .popup-modal {
+    z-index: 999;
     position: fixed;
-    z-index: 100;
     top: 0;
     left: 0;
-    bottom: 0;
-    right: 0;
-    background: #2e2e2e37;
-}
-
-body:not(.popup-active) .popup-modal{
-    display: none;
-}
-body.popup-active .popup-modal{
-    display: initial;
-}
-.popup {
-    margin-top: 8rem;
-    margin-inline: auto;
-    cursor: auto;
-    padding: 1.25rem 2rem 2.5rem;
-    border-radius: 1rem;
-    border: 1px solid var(--grey-1);
-    background: var(--main-color);
-    width: fit-content;
-    transition: top 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.popup .title {
-    font-size: 1.25rem;
-    font-weight: 600;
+    width: 100vw;
+    height: 100vh;
+    background: #0000002f;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
-.popup .breakLine {
-    height: 1px;
-    background: var(--grey-3);
-}
-.popup div:has( .breakLine){
+
+body.popup-active .popup-modal .popup-content {
+    max-height: 40rem;
     position: relative;
-}
-.breakLine{
-    position: absolute;
-    left: -2rem;
-    right: -2rem;
-    bottom: -1rem;
-}
-#popup-close-btn{
-    padding: 0.25rem 0.5rem;
-}
-.popup .content {
-    margin-top: 4.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-.popup .content > div:not(.popbtns) {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem;
-    border: 1px solid var(--grey-4);
-    border-radius: 0.5rem;
-}
-.popup .content .popbtns {
-    align-self: flex-end;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--grey-3);
-    margin-top: 2rem;
-}
-.popup .content .popbtns div{
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    border: 1px solid var(--grey-3);
-    cursor: pointer;
-    transition: scale 0.25s ease, color 0.25s ease, background 0.25s ease, border 0.25s ease;
-    user-select: none;
+    min-width: 30rem;
+    max-width: 30rem;
+    min-height: 10rem;
+    background: #fff;
+    border-radius: 1rem;
+    border: 1px solid #e3e3e3;
 }
 
-.popup .content .popbtns div:active{
-    scale: 0.9;
+body.popup-active .popup-modal .popup-content > div {
+    padding: 1rem 1.25rem;
 }
-.popup .content .popbtns div:hover{
-    color: var(--black-1);
-    background: var(--grey-1);
-}
-.popup .content .popbtns .post-btn {
-    color: var(--main-color);
-    background: #5490FF;
-    border: 1px solid #5490FF;
-}
-.popup .content .popbtns .post-btn:hover{
-    background: #5490FF;
-    color: var(--main-color);
-    border: 1px solid #5490FF;
-}
-.popup .content > .row{
-    align-items: center;
-    flex-direction: row;
-    gap: 8rem;
-}
-.popup .content > .col{
-    flex-direction: column;
-    gap: 1rem;
-}
-.popup .content .user-profile{
+
+body.popup-active .popup-modal .popup-content .close-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    width: fit-content;
-}
-.popup .content .user-profile .prof-img {
-    background: var(--grey-3);
-    width: 40px;
-    height: 40px;
-}
-.switch-btn a{
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    border-radius: 1rem;
-    border: 1px solid black;
-    transition: color 0.25s ease, background 0.25s ease;
-}
-.switch-btn a:hover{
-    color: var(--main-color);
-    background: var(--black-2);
-}
-.content .content-pd{
-    padding: 1rem 1rem 1.5rem !important;
-}
-.popup input[type="text"],
-.popup textarea{
-    flex-wrap: wrap;
-    width: 100%;
-    border: 1px solid var(--grey-4);
-    background: var(--grey-1);
-    padding: 0.75rem 0.5rem;
-    border-radius: 0.75rem;
-}
-.popup input[type="text"]:focus{
-    border: 1px solid var(--black-1);
-    outline: 0;
-}
-.error {
-    outline: 1px solid #ff3333;
-}
-textarea{
-    height: 8rem !important;
-    resize: none !important;
-}
-.edit-btn {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #1e1e1e;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
+    justify-content: center;
+    position: absolute;
     cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    align-self: end;
-    transition: background 0.3s ease;
+    top: 2rem;
+    transform: translateY(-50%);
+    padding: 0;
+    border-radius: 50%;
+    right: 1.5rem;
+    font-size: 1.1rem;
+    width: 2rem;
+    height: 2rem;
+    background: #f0f0f0;
+    transition: all 0.25s ease-in-out;
 }
-.edit-btn:hover {
-    background-color: #393939;
+
+body.popup-active .popup-modal .popup-content .close-btn:hover {
+    background: #e0e0e0;
 }
-#editPopup .popup{
-    min-width: 30rem;
+
+body.popup-active .popup-modal .popup-content .top {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    gap: 0.75rem;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 1.2rem;
+    justify-content: left;
 }
-#editPopup .popup .content{
-    align-items: flex-start;
+
+body.popup-active .popup-modal .popup-content .top .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    background: #ffffff;
+    border-radius: 50%;
+    border: 1px solid rgb(215, 215, 215);
+    color: rgb(74, 74, 74);
+}
+
+body.popup-active .popup-modal .popup-content .content {
+    height: fit-content !important;
+    border-bottom: 1px solid #e3e3e3;
+    background: #f4f4f4;
+    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
     gap: 1.5rem;
 }
-body:not(.popup-active-edit) #editPopup{
-    display: none;
-}
-body.popup-active-edit #editPopup{
-    display: initial;
-}
-.formSection{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-.formSection input {
-    padding: 1rem !important;
-}
-#editPopup .post-btn{
-    background: #1e1e1e;
-    border: 0;
-}
-#editPopup label{
-    font-weight: 600;
-}
-#editPopup #popup-close-btn,
-#deletePopup #popup-close-btn{
-    border-radius: 50%;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 0px;
-}
-.delete-btn {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #ff3333;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    align-self: end;
-    transition: background 0.3s ease;
-}
 
-.delete-btn:hover {
-    background-color: #cc0000;
-}
-#deletePopup .content{
-    margin-top: 3rem;
-}
-
-#deletePopup .popbtns{
-    margin-top: 1rem;
-}
-#deletePopup .post-btn{
-    background: #1e1e1e;
-    border: 0;
-}
-.ann-btns{
-    align-self: flex-end;
-}
-#editPopup{
-    display: none;
-}
-body.popup-active-delete #editPopup{
-    display: initial;
-}
-.ann-btns-2{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-.announcement-item{
-    color: #1E1E1E;
-}
-.ann-publisher{
+body.popup-active .popup-modal .popup-content .content .title {
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 1rem;
+    width: fit-content;
 }
-.announcement-list{
+
+body.popup-active .popup-modal .popup-content .content input[type='text'] {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid rgb(215, 215, 215);
+    transition: border 0.25s ease-in-out;
+    color: #505050;
+    outline: 0;
+    font-size: 1rem !important;
+}
+
+body.popup-active .popup-modal .popup-content .content input[type='text']:focus {
+    border: 1px solid rgb(175, 175, 175);
+}
+
+body.popup-active .popup-modal .popup-content .content textarea {
+    font-size: 1rem !important;
+    resize: none;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(215, 215, 215);
+    transition: border 0.25s ease-in-out;
+    scrollbar-width: none;
+    color: #505050;
+    height: 8rem;
+}
+
+body.popup-active .popup-modal .popup-content .content textarea:focus {
+    border: 1px solid rgb(175, 175, 175);
+}
+
+body.popup-active .popup-modal .popup-content .footer {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 100%;
-    padding: 1rem 0.5rem;
+    padding-block: 0.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
 }
-.announcement-item{
-    padding: 1rem;
+
+body.popup-active .popup-modal .popup-content .footer button {
+    padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    outline: 0;
+    border: 1px solid #e3e3e3;
+    transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+}
+
+body.popup-active .popup-modal .popup-content .footer button:active {
+    scale: 0.95;
+}
+
+body.popup-active .popup-modal .popup-content .footer .prmry-btn {
+    background: #1e1e1e;
+    color: white;
+}
+
+body.popup-active .popup-modal .popup-content .footer .prmry-btn:hover {
+    background: #3b3b3b;
+}
+
+body.popup-active .popup-modal .popup-content .footer .scndry-btn:hover {
+    background: #e8e8e8;
+}
+
+.announcement-list {
+    background: white;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    border-radius: 1rem;
+    border: 1px solid #cccccc;
+    gap: 1.5rem;
+}
+
+.announcement-list ul {
+    gap: 1.5rem;
+}
+
+.announcement-list li {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    gap: 5rem;
     list-style: none;
     border-radius: 1rem;
-    background: #fff;
-    width: 100%;
-    height: fit-content;
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e3e3e3;
+    background: #fafafa;
+    transition: all 0.25s ease;
+}
+
+.announcement-list li:hover {
+    border: 1px solid #dce5ec;
+    background: #fafdff;
+}
+
+.ann-btns-2 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropdown-toggle {
+    background: #1E1E1E;
+    color: white;
+    font-weight: 500;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ececec;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.dropdown .dropdown-toggle:hover {
+    background: #373737;
+}
+
+.dropdown .dropdown-toggle i {
+    transition: transform 0.25s ease 0.15s;
+}
+
+.dropdown-menu {
+    width: max-content;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+    height: 0;
+    overflow: hidden !important;
+    transition: all 0.25s ease;
+    border-radius: 1rem !important;
+    border: 1px solid transparent;
     gap: 0.25rem;
-    border-left: 1rem solid #dae4ff;
-    transition: 0.25s ease;
-    position: relative;
+}
 
-    && .ann-date{
-        color: #5e5e5e;
-        font-size: 0.8rem;
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-    }
-    && .ann-title{
-        margin-top: 1rem;
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
-    && .announcement-content{
-        color: #5e5e5e;
-        margin-top: -0.5rem;
-        font-style: italic;
-        width: 100%;
-        height: max-content;
-    }
-
-    && .announcement-actions{
-        position: absolute;
-        top: 1rem;
-        right: 2rem;
-        align-self: flex-end;
-    }
-
-    && button {
-        text-transform: capitalize;
-        background: transparent;
-        border: none;
-        font-weight: 600;
-        padding: 0.25rem 1rem;
-        border-radius: 0.5rem;
-        font-size: 0.9rem;
-        transition: 0.25s ease;
-        border: 1px solid white;
-    }
-    && .button-update{
-        color: #4a8fe5;
-    }
-    && .button-update:hover{
-        background: #f4f9ff;
-        border: 1px solid #dbeeff;
-    }
-    && .button-delete{
-        color: #dc4242;
-    }
-    && .button-delete:hover{
-        background: #ffeeee;
-        border: 1px solid #ffdbdb;
-    }
-}
-.announcement-item:hover{
-    background: #fcfcff;
-    border: 1px solid #acacac;
-    border-left: 1rem solid #4a8fe5;
-}
-.ann-pub-img{
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: #a3a3a3;
-}
-.announcement-info{
-    gap: 0.5rem;
-}
-#searchInput{
-    padding: 1rem 1rem 1rem 3rem;
+.dropdown-menu button {
+    background: #ffffff;
+    width: 100%;
     border-radius: 0.75rem;
-    border: 1px solid #DDDDDD;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    transition: all 0.25s ease;
+    font-weight: 500;
 }
-.search{
-    position: relative;
-    width: 100%;
 
-    && .search-icon{
-        position: absolute;
-        top: 50%;
-        left: 1rem;
-        transform: translateY(-50%);
-        color: #777777;
-    }
+.dropdown-menu button:hover {
+    border: 1px solid #d8d8d8;
+    background: #ebebff;
+    color: #262668;
 }
-.popbtns{
-    && button[type="submit"]{}
+
+.dropdown:hover .dropdown-menu {
+    height: 7.8rem;
+    padding: 0.5rem;
+    box-shadow: 0px 2px 0.5rem rgba(0,0,0,0.1);
+    border: 1px solid #dedede;
 }
-.cont{
-    margin-left: 3.5rem;
+
+.dropdown:hover .dropdown-toggle {
+    background: #373737;
+}
+
+.dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.announcement-item {
+    gap: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.announcement-item .pImage {
+    width: 7rem;
+    height: 7rem;
+    background: #bababa;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.announcement-item .pImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.announcement-item .announcement-header .author {
+    gap: 0.75rem;
+}
+
+.announcement-item .announcement-header .author .postedby .pol-name {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.announcement-item .announcement-header .author .ann-date {
+    color: grey;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.announcement-item .announcement-content {
+    margin-top: 1rem;
+}
+
+.announcement-item .announcement-content .ann-title {
+    font-weight: 500;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+}
+
+.announcement-actions {
+    margin-top: 1rem;
+}
+
+.announcement-actions button {
+    background: #ffffff;
+    color: #1b1b1b;
+    font-weight: 600;
+    font-family: inherit;
+    border: 1px solid #e3e3e3;
+    border-radius: 1rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.search {
+    position: relative;
+}
+
+.search label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bababa;
+}
+
+.search input {
+    width: 20rem;
+    padding: 0.75rem 1.25rem 0.75rem 3rem;
+    border-radius: 1.5rem;
+    border: 1px solid #e3e3e3;
+    outline: 0;
+    transition: border 0.25s ease;
+}
+
+.search input:focus {
+    border: 1px solid #9f9f9f;
+}
+
+#editPopup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#editPopup .popup {
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    border-radius: 1rem;
+    position: relative;
+    min-width: 30rem;
+    max-width: 40rem;
+}
+
+#editPopup .popup .close-btn {
+    background: #e3e3e3;
+    width: 2rem;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    background: #f3f3f3;
+    justify-content: center;
+    right: 1rem;
+    top: 2rem;
+    transform: translateY(-50%);
+    position: absolute;
+}
+
+#editPopup .popup > div {
+    padding: 1rem 1.5rem;
+}
+
+#editPopup .popup .top {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    gap: 0.75rem;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 1.2rem;
+    justify-content: left;
+}
+
+#editPopup .popup .top .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    background: #ffffff;
+    border-radius: 50%;
+    border: 1px solid rgb(215, 215, 215);
+    color: rgb(74, 74, 74);
+}
+
+#editPopup .popup .top .icon i {
+    color: inherit;
+}
+
+#editPopup .popup .popup-content {
+    height: fit-content !important;
+    border-bottom: 1px solid #e3e3e3;
+    background: #f4f4f4;
+    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
+    gap: 1.5rem;
+}
+
+#editPopup .popup .popup-content .title {
+    font-weight: 500;
+    font-size: 1rem;
+    width: fit-content;
+}
+
+#editPopup .popup .popup-content input[type='text'] {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid rgb(215, 215, 215);
+    transition: border 0.25s ease-in-out;
+    color: #505050;
+    outline: 0;
+    font-size: 1rem !important;
+}
+
+#editPopup .popup .popup-content input[type='text']:focus {
+    border: 1px solid rgb(175, 175, 175);
+}
+
+#editPopup .popup .popup-content textarea {
+    font-size: 1rem !important;
+    resize: none;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(215, 215, 215);
+    transition: border 0.25s ease-in-out;
+    scrollbar-width: none;
+    color: #505050;
+    height: 8rem;
+}
+
+#editPopup .popup .popup-content textarea:focus {
+    border: 1px solid rgb(175, 175, 175);
+}
+
+#editPopup .popup .footer {
+    display: flex;
+    padding-block: 0.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+#editPopup .popup .footer button {
+    padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    outline: 0;
+    border: 1px solid #e3e3e3;
+    transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+}
+
+#editPopup .popup .footer button:active {
+    scale: 0.95;
+}
+
+#editPopup .popup .footer .prmry-btn {
+    background: #1e1e1e;
+    color: white;
+}
+
+#editPopup .popup .footer .prmry-btn:hover {
+    background: #3b3b3b;
+}
+
+#editPopup .popup .footer .scndry-btn:hover {
+    background: #e8e8e8;
+}
+
+.button-delete {
+    outline: 0;
+    background: #ffe0e0 !important;
+    color: #550f0f !important;
+    border: 1px solid #d6b8b8 !important;
+    transition: all 0.25s ease;
+}
+
+.button-delete:hover {
+    background: #ffcaca !important;
+}
+
+.button-delete:active {
+    scale: 0.95 !important;
+}
+
+.button-update {
+    outline: 0;
+    transition: all 0.25s ease;
+}
+
+.button-update:hover {
+    background: #f6f6f6 !important;
+}
+
+.button-update:active {
+    scale: 0.95 !important;
 }
