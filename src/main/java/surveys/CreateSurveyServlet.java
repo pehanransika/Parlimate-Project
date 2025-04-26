@@ -40,6 +40,7 @@ public class CreateSurveyServlet extends HttpServlet {
             String surveyTopic = request.getParameter("surveyTopic");
             String numberOfQuestionsStr = request.getParameter("numberOfQuestions");
             String userIdStr = request.getParameter("userId");
+            String surveyDescription = request.getParameter("surveyDescription");
 
             int defaultUserId = 1; // Default user ID if none provided
             int userId = (userIdStr != null && !userIdStr.isEmpty())
@@ -56,6 +57,7 @@ public class CreateSurveyServlet extends HttpServlet {
 
             // Create SurveyModel
             SurveyModel survey = new SurveyModel(0, surveyTopic, numberOfQuestions, userId, LocalDateTime.now());
+            survey.setSurveyDescription(surveyDescription);
             List<QuestionModel> questions = new ArrayList<>();
 
             // Process each question
