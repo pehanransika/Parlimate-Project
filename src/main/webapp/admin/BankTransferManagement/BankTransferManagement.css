@@ -56,76 +56,13 @@
     margin-bottom: 1.5rem;
 }
 
-.pageContent .container .actions .search-bar {
-    position: relative;
-    flex: 1;
-}
 
-.pageContent .container .actions .search-bar label {
-    position: absolute;
-    top: 50%;
-    left: 0.75rem;
-    transform: translateY(-50%);
-    color: #565656;
-    font-size: 0.8rem;
-}
 
-.pageContent .container .actions .search-bar input[type="search"] {
-    width: 100%;
-    padding: 0.5rem;
-    padding-left: 2rem;
-    border-radius: 0.5rem;
-    border: 1px solid #8e8e8e;
-    transition: border 0.25s ease;
-    font-size: 0.8rem;
-}
 
-.pageContent .container .actions .search-bar input[type="search"]:focus {
-    outline: none;
-    border: 1px solid #1f1f1f;
-}
 
-.pageContent .container .actions .search-bar input[type="search"]::placeholder {
-    color: #8e8e8e;
-}
 
-.pageContent .container .actions .filter-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.5rem;
-    outline: none;
-    border: 1px solid #8e8e8e;
-    color: #1e1e1e;
-    font-weight: 600;
-    background: #fff;
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
 
-.pageContent .container .actions .filter-btn:hover {
-    background: #f8f8f8;
-}
 
-.pageContent .container .actions .add-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.5rem;
-    outline: none;
-    border: none;
-    color: #fff;
-    font-weight: 600;
-    background: #1e1e1e;
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-
-.pageContent .container .actions .add-btn:hover {
-    background: #000;
-}
 
 /* Table Styling */
 .pageContent .container .data table {
@@ -179,21 +116,21 @@
 }
 
 .pageContent .container .data table .actbtn .approve-btn {
-    background-color: #2ecc71;
-    color: #fff;
+    background-color: black;
+    color: white;
 }
 
 .pageContent .container .data table .actbtn .approve-btn:hover {
-    background-color: #27ae60;
+    background-color: #b2beb5;
 }
 
 .pageContent .container .data table .actbtn .reject-btn {
-    background-color: #e74c3c;
-    color: #fff;
+    background-color: black;
+    color: white;
 }
 
 .pageContent .container .data table .actbtn .reject-btn:hover {
-    background-color: #c0392b;
+    background-color: #b2beb5;
 }
 /* Tabs */
 .tabs {
@@ -216,7 +153,7 @@
 }
 
 .tab-btn.active {
-    color: var(--primary-color);
+    color:black;
     background-color: var(--primary-light);
     border-bottom: 2px solid var(--primary-color);
 }
@@ -243,7 +180,7 @@
 }
 
 .transfer-card.approved {
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid black;
 }
 
 .card-header {
@@ -271,8 +208,8 @@
 }
 
 .status-badge.approved {
-    background-color: var(--success-light);
-    color: var(--success-color);
+    background-color: black;
+    color: #b2beb5;
 }
 
 .card-body {
@@ -322,12 +259,12 @@
 }
 
 .approve-btn {
-    background-color: var(--success-light);
-    color: var(--success-color);
+    background-color: black;
+    color: #b2beb5;
 }
 
 .approve-btn:hover {
-    background-color: var(--success-color);
+    background-color: black;
     color: white;
 }
 
