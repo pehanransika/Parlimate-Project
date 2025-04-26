@@ -131,8 +131,8 @@
         <div class="content">
             <!-- Tabs -->
             <div class="tabs f-row">
-                <button class="tab-btn active" data-tab="requests">Bank Transfer Requests</button>
-                <button class="tab-btn" data-tab="approved">Approved Bank Transfers</button>
+                <button class="tab-btn " data-tab="requests"><a class="fundraising-tab active" > <a href="${pageContext.request.contextPath}/admin/BankTransferManagement/BankTransferManagementServlet">Bank Transfer Requests</a></button>
+                <button class="tab-btn" data-tab="approved"><a href="${pageContext.request.contextPath}/admin/BankTransferManagement/GetAllApprovedTransfersServlet">Approved Bank Transfers</a></button>
             </div>
 
             <!-- Tab Content -->

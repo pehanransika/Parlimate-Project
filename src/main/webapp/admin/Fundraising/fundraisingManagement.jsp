@@ -174,7 +174,7 @@
 
         <!-- Fundraising Tabs -->
         <div class="fundraising-tabs">
-            <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')"><a class="fundraising-tab active" href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" >
+            <div class="fundraising-tab " onclick="openFundraisingTab(event, 'fundraising-request')"><a class="fundraising-tab active" href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" >
                 Fundraising Request</a></div>
             <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')"><a class="fundraising-tab" href="${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet">
 
