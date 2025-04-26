@@ -12,15 +12,29 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import UserPackage.UserModel;
 
-@WebServlet("/CreateNewMeetingRequestServlet")
+@WebServlet("/CreateMeetingRequestServlet")
 public class CreateMeetingRequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            System.out.println("DEBUG: Starting CreateMeetingRequestServlet doPost");
 
-            int defaultPoliticianId = 1;
+            // Check session and user
+            HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("user") == null) {
+                System.out.println("DEBUG: No valid session or user found");
+                response.sendRedirect("../index.jsp");
+                return;
+            }
+
+            // Retrieve userId from session
+            UserModel user = (UserModel) session.getAttribute("user");
+            int userId = user.getUserId();
+            System.out.println("DEBUG: Retrieved userId from session: " + userId);
+
             // Retrieve form data
             String politicianIdStr = request.getParameter("politicianid");
             String topic = request.getParameter("topic");
@@ -32,45 +46,91 @@ public class CreateMeetingRequestServlet extends HttpServlet {
             String proposaldateString = request.getParameter("proposaldate");
             String proposaltimeString = request.getParameter("proposaltime");
             String estimatedduration = request.getParameter("estimatedduration");
-            System.out.println(estimatedduration);
             String participantcountStr = request.getParameter("participantCount");
 
+            // Debug logging of all parameters
+            System.out.println("DEBUG: politicianIdStr: " + politicianIdStr);
+            System.out.println("DEBUG: topic: " + topic);
+            System.out.println("DEBUG: purposeofmeeting: " + purposeofmeeting);
+            System.out.println("DEBUG: opponentname: " + opponentname);
+            System.out.println("DEBUG: partyaffiliation: " + partyaffiliation);
+            System.out.println("DEBUG: discussionformat: " + discussionformat);
+            System.out.println("DEBUG: preferredhost: " + preferredhost);
+            System.out.println("DEBUG: proposaldateString: " + proposaldateString);
+            System.out.println("DEBUG: proposaltimeString: " + proposaltimeString);
+            System.out.println("DEBUG: estimatedduration: " + estimatedduration);
+            System.out.println("DEBUG: participantcountStr: " + participantcountStr);
+
+            // Validate politicianId
+            int politician_id;
+            if (politicianIdStr == null || politicianIdStr.trim().isEmpty()) {
+                System.out.println("DEBUG: politicianId is null or empty");
+                throw new IllegalArgumentException("Politician ID is required");
+            }
+            try {
+                politician_id = Integer.parseInt(politicianIdStr);
+                if (politician_id <= 0) {
+                    System.out.println("DEBUG: Invalid politicianId: " + politician_id);
+                    throw new IllegalArgumentException("Invalid Politician ID");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("DEBUG: Failed to parse politicianId: " + politicianIdStr);
+                throw new IllegalArgumentException("Invalid Politician ID format");
+            }
+
+            // Parse participant count
             int participantcount = 0;
             if (participantcountStr != null && !participantcountStr.isEmpty()) {
                 try {
                     participantcount = Integer.parseInt(participantcountStr);
+                    System.out.println("DEBUG: Parsed participantcount: " + participantcount);
                 } catch (NumberFormatException e) {
-                    // handle invalid input if needed
-                    e.printStackTrace();
+                    System.out.println("DEBUG: Invalid participant count format: " + participantcountStr);
+                    throw new IllegalArgumentException("Invalid participant count format");
                 }
             }
 
-            int politician_id= (politicianIdStr != null && !politicianIdStr.isEmpty())
-                    ? Integer.parseInt(politicianIdStr)
-                    : defaultPoliticianId;
             // Validate required fields
-            if (topic == null || purposeofmeeting == null || opponentname == null || partyaffiliation == null ||
-                    proposaldateString == null || proposaltimeString == null || estimatedduration == null) {
-                throw new IllegalArgumentException("Missing required parameters.");
+            if (topic == null || topic.trim().isEmpty() ||
+                    purposeofmeeting == null || purposeofmeeting.trim().isEmpty() ||
+                    proposaldateString == null || proposaldateString.trim().isEmpty() ||
+                    proposaltimeString == null || proposaltimeString.trim().isEmpty() ||
+                    estimatedduration == null || estimatedduration.trim().isEmpty()) {
+                System.out.println("DEBUG: Missing required parameters");
+                throw new IllegalArgumentException("Missing required parameters: topic, purpose, date, time, or duration");
             }
 
             // Parse proposalDate and proposalTime
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-            LocalDate proposaldate = LocalDate.parse(proposaldateString, dateFormatter);
-            LocalTime proposaltime = LocalTime.parse(proposaltimeString, timeFormatter);
+            LocalDate proposaldate;
+            LocalTime proposaltime;
+            try {
+                proposaldate = LocalDate.parse(proposaldateString, dateFormatter);
+                proposaltime = LocalTime.parse(proposaltimeString, timeFormatter);
+                System.out.println("DEBUG: Parsed proposaldate: " + proposaldate);
+                System.out.println("DEBUG: Parsed proposaltime: " + proposaltime);
+            } catch (Exception e) {
+                System.out.println("DEBUG: Failed to parse date/time: " + e.getMessage());
+                throw new IllegalArgumentException("Invalid date or time format");
+            }
 
             // Call the controller to create the meeting request
+            System.out.println("DEBUG: Calling MeetingRequestController.createMeetingRequest");
             boolean isTrue = MeetingRequestController.createMeetingRequest(
                     politician_id, topic, purposeofmeeting, opponentname, partyaffiliation,
-                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration,participantcount
+                    discussionformat, preferredhost, proposaldate, proposaltime, estimatedduration, participantcount
             );
 
             if (isTrue) {
-                // If successful, show alert and redirect to GetAllMeetingRequestServlet
-                String alertMessage = "Request Published Successfully";
-                response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetAllMeetingRequestServlet';</script>");
+                System.out.println("DEBUG: Meeting request created successfully");
+                // On success, dispatch to GetMyMeetingRequests with userId parameter
+                request.setAttribute("userId", userId); // Optional: Set as attribute for additional safety
+                RequestDispatcher dis = request.getRequestDispatcher("GetMyMeetingRequests?userId=" + userId); // Use userId instead of userid
+                dis.forward(request, response);
+
             } else {
+                System.out.println("DEBUG: Failed to create meeting request");
                 // If not successful, forward to the error page
                 String alertMessage = "Failed to publish request.";
                 request.setAttribute("error", alertMessage);
@@ -78,25 +138,28 @@ public class CreateMeetingRequestServlet extends HttpServlet {
                 dis.forward(request, response);
             }
 
-        } catch (NumberFormatException | SQLException e) {
-            // Log the exception for debugging
-            e.printStackTrace();
-
-            // Provide user-friendly error message
-            String alertMessage = "Invalid input or database error. Please try again.";
+        } catch (NumberFormatException e) {
+            System.out.println("DEBUG: NumberFormatException: " + e.getMessage());
+            String alertMessage = "Invalid numeric input. Please check your inputs.";
+            request.setAttribute("error", alertMessage);
+            RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
+            dis.forward(request, response);
+        } catch (SQLException e) {
+            System.out.println("DEBUG: SQLException: " + e.getMessage());
+            String alertMessage = "Database error occurred. Please try again.";
             request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
         } catch (IllegalArgumentException e) {
-            // Catch missing parameter exceptions
+            System.out.println("DEBUG: IllegalArgumentException: " + e.getMessage());
             String alertMessage = e.getMessage();
             request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
         } catch (Exception e) {
-            // Catch unexpected errors
-            e.printStackTrace();
-            request.setAttribute("error", "An unexpected error occurred. Please try again later.");
+            System.out.println("DEBUG: Unexpected error: " + e.getMessage());
+            String alertMessage = "An unexpected error occurred. Please try again later.";
+            request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
         }

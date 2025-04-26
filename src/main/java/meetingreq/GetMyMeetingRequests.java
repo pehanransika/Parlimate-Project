@@ -2,6 +2,7 @@ package meetingreq;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@WebServlet("/GetMyMeetingRequests")
 public class GetMyMeetingRequests extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
