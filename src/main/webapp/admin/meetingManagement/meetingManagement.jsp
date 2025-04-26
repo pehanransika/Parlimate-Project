@@ -211,7 +211,8 @@
                     <thead>
                     <tr>
                         <td>Meeting Request ID</td>
-                        <td>User Name</td>
+                        <td>Politician ID</td>
+                        <td>Politician Name</td>
                         <td>Title</td>
                         <td>Purpose of the Meeting</td>
                         <td>Date</td>
@@ -227,6 +228,7 @@
                         <tr data-status="${meeting.status}" data-date="${meeting.proposaldate}">
                             <td>${meeting.meetingrequestid}</td>
                             <td>${meeting.politician_id}</td>
+                            <td>${politicianNames[meeting.meetingrequestid]}</td>
                             <td>${meeting.topic}</td>
                             <td>${meeting.purposeofmeeting}</td>
                             <td>${meeting.proposaldate}</td>
