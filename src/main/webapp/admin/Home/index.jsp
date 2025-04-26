@@ -1,22 +1,18 @@
 <%@ page import="UserPackage.UserModel" %>
+<%@ page import="UserPackage.AdminModel" %>
 
 <%
-	HttpSession session1 = request.getSession(false); // Don't create a new session if one doesn't exist
+	HttpSession session1 = request.getSession(false);
 	if (session1 == null || session1.getAttribute("user") == null) {
-		// User is not logged in, redirect to login page
 		response.sendRedirect("../index.jsp");
 		return;
 	}
 
-	// Session exists and user is logged in
 	UserModel user = (UserModel) session1.getAttribute("user");
 	int userId = user.getUserId();
-%>
 
-<%
-	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-	response.setHeader("Pragma","no-cache"); //HTTP 1.0
-	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+	AdminModel admin = new AdminModel();
+	String adminName = admin.getAdminNameByUserId(userId);
 %>
 
 <!DOCTYPE html>
@@ -325,9 +321,9 @@
 		<ul>
 			<li>
 				<a href="#" class="f-row profile">
-					<div class="p-img"></div>
+					<div class="p-img"><img src="<%= request.getContextPath() %>/images/Admin/admin.png"></div>
 					<div class="sUser f-col">
-						<div class="name">Naleeka Kumarasinghe</div>
+						<div class="name"><%= adminName != null ? adminName : "Unknown Admin" %></div>
 						<div class="role">Admin</div>
 					</div>
 				</a>
@@ -349,16 +345,16 @@
 				<div class="sUser">
 					<div class="greet">
 						Welcome,
-						<span>Naleeka</span>
+						<span><%= adminName != null ? adminName : "Unknown Admin" %></span>
 					</div>
 				</div>
 				<div class="page-desc">
 					Track the platform progress here
 				</div>
 			</div>
-			<div class="date">
-				18 Jan, 2025
-			</div>
+			<<div class="date" id="dateDisplay">
+			18 Jan, 2025
+		</div>
 		</div>
 		<div class="action-btns f-row">
 			<button id="add-announcement-btn" class="f-row"> <i class="fa-solid fa-bullhorn"></i> Add announcement</button>
@@ -567,7 +563,7 @@
 			labels: ['Citizens', 'Politicians', 'Political Parties'],
 			datasets: [{
 				data: [userCount, politicianCount, politicalPartyCount], // Data from stat cards
-				backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+				backgroundColor: ['#610e87', '#000000', '#aa72c4'],
 				hoverOffset: 20
 			}]
 		},
@@ -619,8 +615,8 @@
 			datasets: [{
 				label: 'New Users',
 				data: [day1Registrations, day2Registrations, day3Registrations, day4Registrations, day5Registrations], // Replace with actual data
-				backgroundColor: '#36A2EB',
-				borderColor: '#36A2EB',
+				backgroundColor: '#610e87',
+				borderColor: '#000000',
 				borderWidth: 1
 			}]
 		},
@@ -738,6 +734,15 @@
 			}
 		}
 	});
+
+	const today = new Date();
+
+	// Format the date (e.g., "26 Apr, 2025")
+	const options = { day: 'numeric', month: 'short', year: 'numeric' };
+	const formattedDate = today.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+
+	// Update the content of the div
+	document.getElementById('dateDisplay').textContent = formattedDate;
 </script>
 </body>
 </html>
