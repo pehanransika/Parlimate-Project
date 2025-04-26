@@ -13,25 +13,21 @@
         /* Additional styles for tabbed interface */
         .fundraising-tabs {
             display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
         }
 
         .fundraising-tab {
             padding: 10px 20px;
-            cursor: pointer;
-            background-color: #f1f1f1;
-            border: 1px solid #ddd;
-            border-bottom: none;
+            background-color: #eee;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
             border-radius: 5px 5px 0 0;
-            margin-right: 5px;
-            transition: all 0.3s;
         }
 
         .fundraising-tab.active {
-            background-color: #2c3e50;
-            color: white;
-            border-color: #2c3e50;
+            background-color: #fff;
+            border-bottom: 2px solid #fff;
+            font-weight: bold;
         }
 
         .fundraising-content {
@@ -185,14 +181,16 @@
 
 
         <!-- Fundraising Tabs -->
-
         <div class="fundraising-tabs">
-            <div class="fundraising-tab active" onclick="openFundraisingTab(event, 'fundraising-request')">Fundraising Request</div>
-            <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')">
-                Approval Fundraisers
-            </div>
+            <div class="fundraising-tab " onclick="openFundraisingTab(event, 'fundraising-request')"><a class="fundraising-tab active" href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" >
+                Fundraising Request</a></div>
+            <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')"><a class="fundraising-tab" href="${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet">
+
+            Approval Fundraisers
+            </a>   </div>
 
         </div>
+
 
 
         <!-- Fundraising Request Tab -->
@@ -220,16 +218,14 @@
                     <c:forEach var="fund" items="${allFundraisings}">
                         <tr>
                             <td>${fund.title}</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${fn:length(fund.description) > 12}">
-                                        ${fn:substring(fund.description, 0, 12)}...
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${fund.description}
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
+                            <td><c:choose>
+                                <c:when test="${fn:length(fund.description) > 12}">
+                                    ${fn:substring(fund.description, 0, 12)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${fund.description}
+                                </c:otherwise>
+                            </c:choose></td>
                             <td>${fund.contact_no}</td>
                             <td>${fund.category}</td>
                             <td>${fund.targetAmount != null ? fund.targetAmount : 'N/A'}</td>
@@ -268,23 +264,24 @@
 
                                     <button type="submit" class="approve-btn">Approve</button>
                                 </form>
-                                <form action="${pageContext.request.contextPath}/admin/Fundraising/ViewAllFundraisingServlet" method="GET">
-                                    <input type="hidden" name="requestId" value="${fund.requestId}" />
-                                    <button type="submit" class="view-all-btn">View</button>
-                                </form>
-
+                                    <form action="${pageContext.request.contextPath}/admin/Fundraising/ViewAllFundraisingServlet" method="GET">
+                                        <input type="hidden" name="requestId" value="${fund.requestId}" />
+                                        <button type="submit" class="view-all-btn">View</button>
+                                    </form>
                                 <!-- Reject Button (will permanently delete) -->
                             <td class="actbtn">
                                 <!-- Simple Delete Form with Confirmation -->
                                 <form action="${pageContext.request.contextPath}/admin/Fundraising/RejectRequestServlet"
                                       method="post"  onsubmit="return confirmDeleteWithReason(this)"
-
                                       style="display:inline;">
                                     <input type="hidden" name="requestId" value="${fund.requestId}"/>
+                                    <input type="hidden" name="userId" value="${fund.userId}"/>
+                                    <input type="hidden" name="title" value="${fund.title}"/>
                                     <button type="submit" class="delete-btn">
                                         <i class="fas fa-trash-alt"></i> Delete
                                     </button>
                                 </form>
+
                             </td>
                             </td>
                             </c:if>
@@ -321,7 +318,10 @@
 
         <!-- Approval Fundraisers Tab -->
         <div id="approval-fundraisers" class="fundraising-content">
+            <div class="actions f-row">
 
+
+            </div>
 
             <div class="data f-col">
                 <table class="fundraising">
@@ -339,6 +339,7 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:forEach var="fund" items="${approvalrequests}">
                         <tr>
                             <td>${fund.title != null ? fund.title : 'N/A'}</td>
@@ -378,7 +379,7 @@
                             <td>${fund.status != null ? fund.status : 'N/A'}</td>
                             <td class="actbtn">
                                 <c:if test="${fund.status != 'HOLD'}">
-                                    <button class="edit-btn" data-fund-id="${fund.requestId}">Send Mail</button>
+
                                     <form action="${pageContext.request.contextPath}/admin/Fundraising/HoldApprovedRequestServlet"
                                           method="post"
                                           style="display:inline;">
@@ -539,7 +540,7 @@
     });
 
     function refreshFundraisingTable() {
-        $.get('${pageContext.request.contextPath}/GetApprovalFundraisingServlet',
+        $.get('${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet',
             function (data) {
                 $('#approval-fundraisers').html($(data).find('#approval-fundraisers').html());
             }
@@ -696,8 +697,8 @@
                 .then(response => {
                     if (response.ok) {
                         // Update UI
-                        document.getElementById(action-buttons-${requestId}).style.display = 'none';
-                        document.getElementById(restore-form-${requestId}).style.display = 'inline';
+                        document.getElementById(`action-buttons-${requestId}`).style.display = 'none';
+                        document.getElementById(`restore-form-${requestId}`).style.display = 'inline';
                         hideRejectionModal();
                         alert('Request has been rejected');
                     } else {
@@ -714,11 +715,11 @@
     function confirmRejection(requestId) {
         if (confirm('Are you sure you want to reject this request?')) {
             // Submit the rejection form
-            document.getElementById(reject-form-${requestId}).submit();
+            document.getElementById(`reject-form-${requestId}`).submit();
 
             // Hide reject button and show restore button (will be fully applied after page reload)
-            document.getElementById(action-buttons-${requestId}).style.display = 'none';
-            document.getElementById(restore-form-${requestId}).style.display = 'inline';
+            document.getElementById(`action-buttons-${requestId}`).style.display = 'none';
+            document.getElementById(`restore-form-${requestId}`).style.display = 'inline';
         }
     }
 
@@ -726,7 +727,7 @@
 
     function handleDelete(event, requestId) {
         event.preventDefault();
-        currentDeleteForm = document.getElementById(delete-form-${requestId});
+        currentDeleteForm = document.getElementById(`delete-form-${requestId}`);
         document.getElementById('reasonInput').value = '';
         document.getElementById('reasonModal').style.display = 'block';
         return false;
@@ -740,7 +741,7 @@
         }
 
         // Set the hidden reason field
-        document.getElementById(delete-reason-${currentDeleteForm.id.split('-')[2]}).value = reason;
+        document.getElementById(`delete-reason-${currentDeleteForm.id.split('-')[2]}`).value = reason;
 
         // Submit the form
         if (confirm('Are you sure you want to permanently delete this request?')) {

@@ -34,7 +34,19 @@ public class HoldApprovedRequestServlet extends HttpServlet {
                 // Redirect with success alert
                 response.setContentType("text/html");
 
-                response.getWriter().println("<script>alert('Hold Successfully'); window.history.back();</script>");
+
+
+                String alertMessage;
+
+                        alertMessage = "Hold Successfully";
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('" + alertMessage + "');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/Fundraising/GetApprovalFundraisingServlet';" +
+                                "</script>"
+                );
+
+
 
             } else {
                 // If the request is not found

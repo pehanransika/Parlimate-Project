@@ -52,7 +52,7 @@ public class ApproveFundraisingRequestServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String redirectUrl = request.getContextPath() + "/admin/Fundraising/GetApproveFundraisingServlet";
+        String redirectUrl = request.getContextPath() + "/admin/Fundraising/GetApprovalFundraisingServlet";
 
         try {
             // 1. Validate and parse request ID

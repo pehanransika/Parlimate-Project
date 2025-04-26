@@ -124,8 +124,9 @@ public class RequestController {
 
     // Method to retrieve a single fundraising request by ID
     public static RequestModel getFundraisingRequestById(int requestId) throws SQLException {
-        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, contact_no,photos,datetime, attachment_url , name,status" +
+        String query = "SELECT requestid, userid, title, description, category, targetamount, currency, contact_no, photos, datetime, attachment_url, name, status " +
                 "FROM fundraisingrequests WHERE requestid = ?";
+
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -134,6 +135,7 @@ public class RequestController {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+
                     int userId = rs.getInt("userid");
                     String title = rs.getString("title");
                     String description = rs.getString("description");
@@ -143,7 +145,7 @@ public class RequestController {
                     String contact_no = rs.getString("contact_no");
                     String photos = rs.getString("photos");
                     Timestamp datetime = rs.getTimestamp("datetime");
-                    String attachment_url = rs.getString(" attachment_url");
+                    String attachment_url = rs.getString("attachment_url");
                     String name = rs.getString("name");
                    String status=rs.getString("status");
                     return new RequestModel(requestId, userId, title, description, category, targetamount, currency, contact_no, photos, datetime, attachment_url, name,status);

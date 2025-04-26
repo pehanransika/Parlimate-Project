@@ -301,6 +301,14 @@
     <url-pattern>/Fundraising/GetAllFundraisingApprovelServlet </url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetApprovalFundraisingServlet </servlet-name>
+    <servlet-class>fundreq.GetApprovalFundraisingServlet </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApprovalFundraisingServlet </servlet-name>
+    <url-pattern>/Fundraising/GetApprovalFundraisingServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>DeleteRejectionServlet</servlet-name>
     <servlet-class>fundreq.DeleteRejectionServlet</servlet-class>
   </servlet>
@@ -420,6 +428,22 @@
   <servlet-mapping>
     <servlet-name>RestoreFundraisingRequestServlet</servlet-name>
     <url-pattern>/admin/Fundraising/RestoreFundraisingRequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewAllFundraisingServlet</servlet-name>
+    <servlet-class>fundreq.ViewAllFundraisingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAllFundraisingServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/ViewAllFundraisingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewAllApproveFundraisingServlet</servlet-name>
+    <servlet-class>fundreq.ViewAllApproveFundraisingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAllApproveFundraisingServlet</servlet-name>
+    <url-pattern>/admin/Fundraising/ViewAllApproveFundraisingServlet</url-pattern>
   </servlet-mapping>
 
   <servlet>

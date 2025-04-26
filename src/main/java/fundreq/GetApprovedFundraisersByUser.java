@@ -20,7 +20,7 @@ public class GetApprovedFundraisersByUser extends HttpServlet {
 
             // Check if postId is null or empty
             if (userId == null || userId.isEmpty()) {
-                request.setAttribute("error", "Post ID is missing.");
+                request.setAttribute("error", "User ID is missing.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
             }

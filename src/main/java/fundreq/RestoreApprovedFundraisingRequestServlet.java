@@ -33,7 +33,17 @@ public class RestoreApprovedFundraisingRequestServlet extends HttpServlet {
             if (isAdded) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Request Restore Successfully'); window.history.back();</script>");
+
+                String alertMessage;
+
+                alertMessage = "Request Restore Successfully";
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('" + alertMessage + "');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/Fundraising/GetApprovalFundraisingServlet';" +
+                                "</script>"
+                );
+
             } else {
                 // If the request is not found
                 response.setContentType("text/html");

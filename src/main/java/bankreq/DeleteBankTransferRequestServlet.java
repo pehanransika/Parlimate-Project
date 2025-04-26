@@ -33,7 +33,16 @@ public class DeleteBankTransferRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Transaction Deleted Successfully'); window.history.back();</script>");
+
+                String alertMessage;
+
+                alertMessage = "Transaction Deleted Successfully";
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('" + alertMessage + "');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/BankTransferManagement/BankTransferManagementServlet';" +
+                                "</script>"
+                );
             } else {
 
                 response.setContentType("text/html");

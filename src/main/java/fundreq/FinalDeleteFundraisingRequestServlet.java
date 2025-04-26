@@ -33,7 +33,17 @@ public class FinalDeleteFundraisingRequestServlet extends HttpServlet {
             if (isDeleted) {
                 // Redirect with success alert
                 response.setContentType("text/html");
-                response.getWriter().println("<script>alert('Request Permanatly Deleted Successfully'); window.history.back();</script>");
+
+
+                String alertMessage;
+
+                alertMessage = "Request Permanatly Deleted Successfully";
+                response.getWriter().println(
+                        "<script>" +
+                                "alert('" + alertMessage + "');" +
+                                "window.location.href = '" + request.getContextPath() + "/admin/Fundraising/FundraisingManagementServlet';" +
+                                "</script>"
+                );
             } else {
                 // If the request is not found
                 response.setContentType("text/html");
