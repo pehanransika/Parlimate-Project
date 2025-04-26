@@ -13,11 +13,7 @@ let weeklySurveyVoted = false;
 
 
 addPostBtn.addEventListener("click", () => {
-    if (body.classList.contains("overlay-active")) {
-        body.classList.remove("overlay-active")
-    } else {
-        body.classList.add("overlay-active")
-    }
+    body.classList.add("overlay-active")
 })
 
 popupCloseBtn.addEventListener("click", () => {

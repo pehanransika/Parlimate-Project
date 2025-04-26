@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="index/sidebar1.css"/>
     <link rel="stylesheet" href="index/header/header.css"/>
     <link rel="stylesheet" href="container.css"/>
-    <link rel="stylesheet" href="popup.css"/>
     <link rel="stylesheet" href="comment.css"/>
     <link rel="stylesheet" href="index.css"/>
     <link rel="stylesheet" href="edit.css"/>
@@ -56,7 +55,7 @@
     </style>
 </head>
 
-<body class="">
+<body class>
 
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
     <div class="bg"></div>
@@ -172,68 +171,49 @@
     </div>
 </form>
 <div class="notification-msg capitalize"></div>
-<div class="popup-modal">
-    <div class="popup">
-        <div class="title">
-            New Post
-            <div class="close-btn btn" id="popup-close-btn">
-                <i class="fa-solid fa-times"></i>
-            </div>
-            <div class="breakLine"></div>
+<div class="popup-modal popup">
+    <form method="POST" action="PublishNewPostServlet" enctype="multipart/form-data" class="popup-content">
+        <div class="close-btn" id="popup-close-btn">
+            <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="content">
-            <div class="account row">
-                <div class="user-profile">
-                    <div class="prof-img"></div>
-                    <div class="user-name">${userProfile.name}</div>
-                </div>
-                <div class="switch-btn capitalize">
-                    <a href="#">switch account
-                        <i class="fa-regular fa-chevron-down"></i></a>
+        <div class="top">
+            <div class="icon">
+                <i class="fa-regular fa-sparkles"></i>
+            </div>
+            <div class="title">create new post</div>
+        </div>
+        <div class="content f-col" enctype="multipart/form-data">
+
+            <div class="caption-box col content-pd">
+                <div class="title capitalize">whats on your mind?</div>
+                <input type="hidden" name="userid" id="userid" value="${user.userId}"/>
+                <input type="hidden" name="username" id="username" value="${userProfile.name}"/>
+
+                <textarea autocomplete="off" name="content" id="post-desc"
+                          placeholder="Share your thoughts, questions, or political insights..."></textarea>
+            </div>
+            <div class="new-post-photo field">
+                <span class="title">Add media</span>
+                <div class="action f-col row-photo">
+                    <label for="post-photo" class="custom-photo-btn">Select Photo</label>
+                    <input type="file" name="images" id="post-photo">
+                    <div id="file-preview" class="file-preview"></div>
+                    <div id="image-preview" class="image-preview"></div>
                 </div>
             </div>
-            <form method="POST" action="PublishNewPostServlet" enctype="multipart/form-data">
 
-                <div class="caption-box col content-pd">
-                    <div class="title capitalize">caption</div>
-                    <input type="hidden" name="userid" id="userid" value="${user.userId}"/>
-                    <input type="hidden" name="username" id="username" value="${userProfile.name}"/>
 
-                    <textarea autocomplete="off" name="content" id="post-desc"
-                              placeholder="Enter the caption of the discussion"></textarea>
-                </div>
-                <div class="popbtns capitalize">
-                    <div class="clear-btn" id="popup-clear-btn">
-                        Clear
-                        <i class="fa-sharp fa-solid fa-rotate-left"></i>
-                    </div>
-
-                    <div class="fund-photo field">
-                        <span for="" class="title">Upload Photos</span>
-                        <div class="att-container-photo">
-                            <div class="action row-photo">
-                                <label for="fund-photo" class="photo-btn">Select Photo</label>
-                                <input type="file" name="images" id="fund-photo">
-                                <div class="sep"></div>
-                            </div>
-                            <div class="photo-content">
-                                <span class="no-of-files">No Photo attached</span>
-                                <ul id="photo-list" class="col">
-                                    <!-- uploaded files will be listed here -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Use a div or any other element with a click event to trigger form submission -->
-                <div class="post-btn" id="popup-post-btn" onclick="this.closest('form').submit();">
-                    post discussion
-                </div>
+        </div>
+        <div class="popbtns footer capitalize f-row">
+            <button type="button" class="clear-btn scndry-btn" id="popup-clear-btn">
+                Clear
+            </button>
+            <button type class="post-btn prmry-btn" id="popup-post-btn" onclick="this.closest('form').submit();">
+                post discussion
                 <i class="fa-duotone fa-solid fa-check"></i>
-            </form>
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 
 <div class="comment-popup">
@@ -343,7 +323,9 @@
                     </div>
                 </div>
                 <div class="cmnt-body hashtags">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, #the_erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While
+                    healthy debate is essential, #the_erosion of compromise threatens functional governance. Electoral
+                    reforms, fact-based policymaking
                 </div>
             </div>
             <div class="comment f-col">
@@ -358,7 +340,9 @@
                     </div>
                 </div>
                 <div class="cmnt-body">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While
+                    healthy debate is essential, the erosion of compromise threatens functional governance. Electoral
+                    reforms, fact-based policymaking
                 </div>
             </div>
             <div class="comment f-col">
@@ -373,7 +357,9 @@
                     </div>
                 </div>
                 <div class="cmnt-body">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While
+                    healthy debate is essential, the erosion of compromise threatens functional governance. Electoral
+                    reforms, fact-based policymaking
                 </div>
             </div>
             <div class="comment f-col">
@@ -388,7 +374,9 @@
                     </div>
                 </div>
                 <div class="cmnt-body">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While
+                    healthy debate is essential, the erosion of compromise threatens functional governance. Electoral
+                    reforms, fact-based policymaking
                 </div>
             </div>
             <div class="comment f-col">
@@ -403,13 +391,16 @@
                     </div>
                 </div>
                 <div class="cmnt-body">
-                    This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+                    This polarization underscores the need for pragmatic solutions over ideological extremes. While
+                    healthy debate is essential, the erosion of compromise threatens functional governance. Electoral
+                    reforms, fact-based policymaking
                 </div>
             </div>
         </div>
         <div class="footer">
             <div class="comment-input-field">
-                <textarea autocomplete="off" required name="content" id="comment-input" rows="2" style="width: 100%; " placeholder="Enter your comment" ></textarea>
+                <textarea autocomplete="off" required name="content" id="comment-input" rows="2" style="width: 100%; "
+                          placeholder="Enter your comment"></textarea>
                 <button class="send-btn" onclick="validateAndSubmitComment(this);">send</button>
             </div>
         </div>
@@ -491,57 +482,64 @@
 
         <div class="posts-container f-col"
              style="list-style-type: none; padding: 0; margin-right: 20px; display: flex; flex-direction: column; gap: 1.5rem;">
-<%--            post here--%>
+            <%--            post here--%>
 
-    <c:forEach var="post" items="${allposts}">
+            <c:forEach var="post" items="${allposts}">
 
-        <!-- Post Details -->
-        <div class="post f-col">
-            <input type="hidden" name="userid" value="${user.userId}">
-            <input type="hidden" name="postId" value="${post.postId}">
-            <input type="hidden" name="username" value="${userProfile.name}">
-            <div class="content f-col">
-                <div class="profile f-row">
-                    <div class="pro-img"></div>
-                    <div class="post-details f-col">
-                        <div class="name capitalize">${post.name}</div>
-                        <div class="posted-date formatDate f-row">
-                            <span class="date">${post.datetime}</span>
+                <!-- Post Details -->
+                <div class="post f-col">
+                    <input type="hidden" name="userid" value="${user.userId}">
+                    <input type="hidden" name="postId" value="${post.postId}">
+                    <input type="hidden" name="username" value="${userProfile.name}">
+                    <div class="content f-col">
+                        <div class="profile f-row">
+                            <div class="pro-img"></div>
+                            <div class="post-details f-col">
+                                <div class="name capitalize">${post.name}</div>
+                                <div class="posted-date formatDate f-row">
+                                    <span class="date">${post.datetime}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-content hashtags">
+                                ${post.content}
+                        </div>
+                        <c:choose>
+                            <c:when test="${not empty post.images}">
+                                <div class="post-images">
+                                    <c:forEach var="img" items="${fn:split(post.images, ',')}">
+                                        <div class="img"
+                                             style="width: 300px; height: 250px; background-size: cover; background-position: center;
+                                                     border-radius: 10px; background-image: url('${pageContext.request.contextPath}/${img}')">
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:when>
+                        </c:choose>
+
+                    </div>
+                    <div class="footer f-row">
+                        <div class="post-reactions f-row">
+                            <button class="like-btn">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fa-regular fa-comment"></i>
+                            </button>
+                            <button class="share-btn">
+                                <i class="fa-regular fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="react-amount f-row">
+                            234 reacts
+                            <span class="dot"></span>
+                            96 comments
                         </div>
                     </div>
                 </div>
-                <div class="text-content hashtags">
-                        ${post.content}
-                </div>
-                <div class="post-images">
-                    <img
-                            src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBvbGl0aWNzfGVufDB8fHx8MTY5MjA3NTQ1Ng&ixlib=rb-4.0.3&q=80&w=400"
-                            alt="post image"
-                    />
-                </div>
-            </div>
-            <div class="footer f-row">
-                <div class="post-reactions f-row">
-                    <button class="like-btn">
-                        <i class="fa-regular fa-thumbs-up"></i>
-                    </button>
-                    <button class="comment-btn">
-                        <i class="fa-regular fa-comment"></i>
-                    </button>
-                    <button class="share-btn">
-                        <i class="fa-regular fa-share"></i>
-                    </button>
-                </div>
-                <div class="react-amount f-row">
-                    234 reacts
-                    <span class="dot"></span>
-                    96 comments
-                </div>
-            </div>
-        </div>
 
 
-    </c:forEach>
+            </c:forEach>
         </div>
     </div>
 
@@ -549,7 +547,7 @@
 </div>
 </body>
 <script src="hashtag.js"></script>
-<script src="formatDate.js" ></script>
+<script src="formatDate.js"></script>
 <script>
     const commentSection = document.querySelector('.comment-section');
     const commentBtns = document.querySelectorAll('.comment-btn');
@@ -564,7 +562,7 @@
         commentSection.classList.remove('popup-active');
     })
 
-    document.addEventListener("DOMContentLoaded",processHashtags);
+    document.addEventListener("DOMContentLoaded", processHashtags);
 </script>
 <script>
     function validateAndSubmitComment(button) {
@@ -625,6 +623,45 @@
             closeCommentPopup();
         }
     });
+
+
+    //     show selected images in new post
+    document.getElementById('post-photo').addEventListener('change', function (e) {
+        const fileNamesDiv = document.getElementById('file-preview');
+        fileNamesDiv.innerHTML = '';
+
+        if (this.files.length > 0) {
+            const fileList = document.createElement('ul');
+            fileList.style.listStyle = 'none';
+            fileList.style.padding = '0';
+
+            Array.from(this.files).forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+            });
+
+            fileNamesDiv.appendChild(fileList);
+        }
+
+        const previewDiv = document.getElementById('image-preview');
+        previewDiv.innerHTML = '';
+
+        if (this.files.length > 0) {
+            Array.from(this.files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        previewDiv.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
 </script>
 <script src="script.js"></script>
 <script src="home.js"></script>
