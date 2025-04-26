@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="styles.css" />
+
+        <link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-thin.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-solid.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-regular.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-light.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-thin.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-solid.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-regular.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-light.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-thin.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-regular.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-light.css"
+		/>
+	</head>
+	<body>
+		<div class="comment-section">
+			<div class="popup-container">
+				<div class="top f-row">
+					<div class="icon f-row">
+						<i class="fa-regular fa-comments"></i>
+					</div>
+					<div class="title capitalize">comments</div>
+					<div class="cls-btn">
+						<i class="fa-regular fa-xmark"></i>
+					</div>
+				</div>
+				<div class="content f-col">
+					<div class="comment f-col">
+						<div class="cmnt-head f-row">
+							<div class="profile-img"></div>
+							<div class="cmnt-details f-col">
+								<div class="name">liam gregor</div>
+								<div class="com-date f-row">
+									<div class="day">2025-04-20</div>
+									<div class="time">4:10 PM</div>
+								</div>
+							</div>
+						</div>
+						<div class="cmnt-body">
+							This polarization underscores the need for pragmatic solutions over ideological extremes. While healthy debate is essential, the erosion of compromise threatens functional governance. Electoral reforms, fact-based policymaking
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="comment-input-field">
+						<textarea autocomplete="off" required name="content" id="comment-input" rows="2" style="width: 100%; " placeholder="Enter your comment" ></textarea>
+						<button class="send-btn" onclick="validateAndSubmitComment(this);">send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="posts-container f-col">
+				<div class="post f-col">
+					<div class="content f-col">
+						<div class="profile f-row">
+							<div class="pro-img"></div>
+							<div class="post-details f-col">
+								<div class="name capitalize">steven asda</div>
+								<div class="posted-date f-row">
+									<span class="date">2025-04-25</span>
+									<span class="dot"></span>
+									<span class="time">4:20 PM</span>
+								</div>
+							</div>
+						</div>
+						<div class="text-content">
+							In today’s polarized political climate, the debate
+							over governance, rights, and economic policy
+							continues to divide nations. Populist movements
+							challenge traditional institutions, while
+							progressive and conservative factions clash over
+							issues like healthcare, immigration, and climate
+							action. Elections worldwide reflect growing voter
+							dissatisfaction, with demands for transparency and
+							accountability shaping campaigns. Meanwhile,
+							geopolitical tensions rise as superpowers compete
+							for influence, testing international alliances.
+							Social media amplifies political discourse, often
+							deepening ideological rifts. As leaders navigate
+							economic uncertainty and public distrust, the
+							question remains: Can democracies balance stability
+							with reform, or will deepening divisions lead to
+							further fragmentation? The coming years will test
+							the resilience of political systems globally
+						</div>
+						<div class="post-images">
+							<img
+								src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBvbGl0aWNzfGVufDB8fHx8MTY5MjA3NTQ1Ng&ixlib=rb-4.0.3&q=80&w=400"
+								alt="post image"
+							/>
+						</div>
+					</div>
+					<div class="footer f-row">
+                        <div class="reactions f-row">
+                            <button class="like-btn">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fa-regular fa-comment"></i>
+                            </button>
+                            <button class="share-btn">
+                                <i class="fa-regular fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="react-amount f-row">
+                            234 reacts
+                            <span class="dot"></span>
+                            96 comments
+                        </div>
+                    </div>
+				</div>
+
+                <c:forEach var="post" items="${allposts}">
+                <div class="post f-col">
+					<input type="hidden" name="userid" value="${user.userId}">
+					<input type="hidden" name="postId" value="${post.postId}">
+					<input type="hidden" name="username" id="username" value="${userProfile.name}">
+					<div class="content f-col">
+						<div class="profile f-row">
+							<div class="pro-img"></div>
+							<div class="post-details f-col">
+								<div class="name capitalize">${post.name}</div>
+								<div class="posted-date f-row">
+									<span class="date">${post.datetime}</span>
+									<span class="dot"></span>
+									<span class="time">4:20 PM</span>
+								</div>
+							</div>
+						</div>
+						<div class="text-content">
+							${post.content}
+						</div>
+						<div class="post-images">
+							<img
+								src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBvbGl0aWNzfGVufDB8fHx8MTY5MjA3NTQ1Ng&ixlib=rb-4.0.3&q=80&w=400"
+								alt="post image"
+							/>
+						</div>
+					</div>
+					<div class="footer f-row">
+                        <div class="post-reactions f-row">
+                            <button class="like-btn">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fa-regular fa-comment"></i>
+                            </button>
+                            <button class="share-btn">
+                                <i class="fa-regular fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="react-amount f-row">
+                            234 reacts
+                            <span class="dot"></span>
+                            96 comments
+                        </div>
+                    </div>
+				</div>
+
+            </c:forEach>
+			</div>
+            
+        </div>
+	</body>
+    <script>
+        const commentSection = document.querySelector('.comment-section');
+        const commentBtn = document.querySelector('.comment-btn');
+        const commentCloseBtn = commentSection.querySelector('.cls-btn');
+
+        commentBtn.addEventListener("click", () => {
+            commentSection.classList.add('popup-active');
+        })
+        commentCloseBtn.addEventListener("click", () => {
+            commentSection.classList.remove('popup-active');
+        })
+
+    </script>
+</html>
