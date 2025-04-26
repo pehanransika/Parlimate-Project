@@ -105,7 +105,7 @@ public class MeetingRequestController {
 
     public static List<MeetingRequestModel> getMyMeetingRequests(int politicianId) throws SQLException {
         List<MeetingRequestModel> requests = new ArrayList<>();
-        String query = "SELECT * FROM meetingrequest WHERE politician_id = ? ORDER BY proposaldate ASC";
+        String query = "SELECT * FROM meetingrequest WHERE politician_id = ? ORDER BY rejectstatus , proposaldate ASC";
 
         System.out.println(query);
 
@@ -218,24 +218,26 @@ public class MeetingRequestController {
     public static boolean updateMeetingRequest(int meetingrequestid, String topic, String purposeofmeeting,
                                                String opponentname, String partyaffiliation, String discussionformat,
                                                String preferredhost, LocalDate proposaldate, LocalTime proposaltime,
-                                               String estimatedduration , int participantcount) throws SQLException {
+                                               String estimatedduration, int participantcount) throws SQLException {
         String query = "UPDATE meetingrequest SET topic = ?, purposeofmeeting = ?, opponentname = ?, " +
                 "partyaffiliation = ?, discussionformat = ?, preferredhost = ?, proposaldate = ?, " +
-                "proposaltime = ?, estimatedduration = ? , participantcount = ? WHERE meetingrequestid = ?";
+                "proposaltime = ?, estimatedduration = ?, participantcount = ? WHERE meetingrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Input validation (basic example)
+            // Input validation
             if (topic == null || topic.trim().isEmpty() || purposeofmeeting == null || purposeofmeeting.trim().isEmpty()) {
                 throw new IllegalArgumentException("Topic and purpose of meeting cannot be null or empty.");
             }
 
             // Log input parameters for debugging
             System.out.println("Updating meeting request with ID: " + meetingrequestid);
-            System.out.println("Parameters: " + topic + ", " + purposeofmeeting + ", " + opponentname + ", "
-                    + partyaffiliation + ", " + discussionformat + ", " + preferredhost + ", "
-                    + proposaldate + ", " + proposaltime + ", " + estimatedduration + "," + participantcount);
+            System.out.println("Parameters: topic=" + topic + ", purpose=" + purposeofmeeting + ", opponentname=" + opponentname +
+                    ", partyaffiliation=" + partyaffiliation + ", discussionformat=" + discussionformat +
+                    ", preferredhost=" + preferredhost + ", proposaldate=" + proposaldate +
+                    ", proposaltime=" + proposaltime + ", estimatedduration=" + estimatedduration +
+                    ", participantcount=" + participantcount);
 
             // Set parameters in the correct order
             stmt.setString(1, topic);
@@ -247,8 +249,8 @@ public class MeetingRequestController {
             stmt.setDate(7, proposaldate != null ? Date.valueOf(proposaldate) : null);
             stmt.setTime(8, proposaltime != null ? Time.valueOf(proposaltime) : null);
             stmt.setString(9, estimatedduration);
-            stmt.setInt(10, meetingrequestid);
-            stmt.setInt(11, participantcount);
+            stmt.setInt(10, participantcount);
+            stmt.setInt(11, meetingrequestid); // Corrected: meetingrequestid is for WHERE clause
 
             // Execute the update query
             int rowsUpdated = stmt.executeUpdate();

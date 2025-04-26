@@ -104,6 +104,10 @@
                                     name="topic"
                                     id="disc-title"
                                     required
+                                    minlength="5"
+                                    maxlength="100"
+                                    pattern="[A-Za-z0-9\s.,'-]+"
+                                    title="Title must be 5-100 characters long and contain only letters, numbers, spaces, or basic punctuation."
                                     placeholder="Education reform policies"
                             />
                         </div>
@@ -113,6 +117,8 @@
                                     name="purposeofmeeting"
                                     id="disc-desc"
                                     required
+                                    minlength="10"
+                                    maxlength="500"
                                     placeholder="To discuss proposed funding strategies"
                                     aria-required="true"
                             ></textarea>
@@ -126,27 +132,66 @@
                                         id="disc-date"
                                         required
                                         min=""
+                                        oninput="this.setAttribute('min', new Date().toISOString().split('T')[0])"
                                 />
                             </div>
                             <div class="field">
                                 <label class="title" for="disc-time">Time</label>
-                                <input
-                                        type="time"
+                                <select
                                         name="proposaltime"
                                         id="disc-time"
                                         required
-                                />
+                                >
+                                    <option value="" disabled selected>Select a time</option>
+                                    <option value="07:00">7:00 AM</option>
+                                    <option value="07:30">7:30 AM</option>
+                                    <option value="08:00">8:00 AM</option>
+                                    <option value="08:30">8:30 AM</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="09:30">9:30 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="10:30">10:30 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="11:30">11:30 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="12:30">12:30 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="13:30">1:30 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="14:30">2:30 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="15:30">3:30 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                    <option value="16:30">4:30 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                    <option value="17:30">5:30 PM</option>
+                                    <option value="18:00">6:00 PM</option>
+                                    <option value="18:30">6:30 PM</option>
+                                    <option value="19:00">7:00 PM</option>
+                                    <option value="19:30">7:30 PM</option>
+                                    <option value="20:00">8:00 PM</option>
+                                    <option value="20:30">8:30 PM</option>
+                                    <option value="21:00">9:00 PM</option>
+                                    <option value="21:30">9:30 PM</option>
+                                    <option value="22:00">10:00 PM</option>
+                                    <option value="22:30">10:30 PM</option>
+                                    <option value="23:00">11:00 PM</option>
+                                </select>
                             </div>
                         </div>
                         <div class="field">
-                            <label class="title" for="disc-dur">Estimated duration</label>
+                            <label class="title" for="disc-dur">Estimated duration (hours)</label>
                             <div class="drop-type">
                                 <input
-                                        type="text"
+                                        type="number"
                                         name="estimatedduration"
                                         id="disc-dur"
                                         placeholder="2"
                                         required
+                                        min="0.5"
+                                        max="8"
+                                        step="0.5"
+                                        title="Duration must be between 0.5 and 8 hours."
                                 />
                             </div>
                             <div class="separator"></div>
@@ -161,7 +206,8 @@
                     <div class="input-group">
                         <div class="field">
                             <label class="title" for="disc-pref">Preferred Discussion Format</label>
-                            <select name="discussionformat" id="disc-pref">
+                            <select name="discussionformat" id="disc-pref" required>
+                                <option value="" disabled selected>Select a format</option>
                                 <option value="Open-debate">Open debate</option>
                                 <option value="Moderated-discussion">Moderated Discussion</option>
                                 <option value="QA">Q&A</option>
@@ -172,11 +218,25 @@
                         <div id="opponent-fields" style="display: none;">
                             <div class="field">
                                 <label class="title" for="opponent-name">Opponent Name</label>
-                                <input type="text" id="opponent-name" name="opponentname" placeholder="Enter opponent name">
+                                <input
+                                        type="text"
+                                        id="opponent-name"
+                                        name="opponentname"
+                                        placeholder="Enter opponent name"
+                                        pattern="[A-Za-z\s'-]+"
+                                        title="Name must contain only letters, spaces, or hyphens."
+                                />
                             </div>
                             <div class="field">
                                 <label class="title" for="opponent-party">Opponent's Party</label>
-                                <input type="text" id="opponent-party" name="partyaffiliation" placeholder="Enter opponent's party">
+                                <input
+                                        type="text"
+                                        id="opponent-party"
+                                        name="partyaffiliation"
+                                        placeholder="Enter opponent's party"
+                                        pattern="[A-Za-z\s'-]+"
+                                        title="Party name must contain only letters, spaces, or hyphens."
+                                />
                             </div>
                         </div>
                         <div class="field">
@@ -190,13 +250,22 @@
                         <div id="participant-fields" style="display: none;">
                             <div class="field">
                                 <label class="title" for="participant-count">Number of Participants Allowed</label>
-                                <input type="number" id="participant-count" name="participantCount" min="1" placeholder="Enter number of participants">
+                                <input
+                                        type="number"
+                                        id="participant-count"
+                                        name="participantCount"
+                                        min="1"
+                                        max="100"
+                                        placeholder="Enter number of participants"
+                                        title="Number of participants must be between 1 and 100."
+                                />
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="title" for="disc-party-host">Preferred Host <span>(Optional)</span></label>
                             <select id="disc-party-host" name="preferredhost">
+                                <option value="">Select a host (optional)</option>
                                 <option value="Hashan Perera">Hashan Perera</option>
                                 <option value="Gayan Fernando">Gayan Fernando</option>
                                 <option value="Jiranthan Rasamanikkam">Jiranthan Rasamanikkam</option>
