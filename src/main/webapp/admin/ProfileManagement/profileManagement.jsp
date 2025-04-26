@@ -238,7 +238,7 @@
         </div>
 
         <div class="scContainer">
-            <select name="role" id="roleSelect" class="roleType caps">
+            <select hidden="hidden" name="role" id="roleSelect" class="roleType caps">
                 <option value="politician">Politician</option>
                 <option value="political-party">Political Party</option>
             </select>
@@ -265,7 +265,7 @@
                                             <i class="fa-regular fa-magnifying-glass"></i>
                                         </label>
                                     </div>
-                                    <div class="name-shown">Politician 1</div>
+                                    <div class="name-shown">Politician Name</div>
                                 </div>
                             </td>
                         </tr>
@@ -278,7 +278,7 @@
                                         onmouseover="this.style.background='#d3d3d3'; this.style.color='#000000'; this.style.border='1px solid #b8b8b8';"
                                         onmouseout="this.style.background='#000000'; this.style.color='#ffffff'; this.style.border='1px solid #b8b8b8';"
                                         onmousedown="this.style.transform='scale(0.95)'"
-                                        onmouseup="this.style.transform='scale(1)'">View Profile 1</button>
+                                        onmouseup="this.style.transform='scale(1)'">View Profile</button>
 
                                 <button type="button" onclick="clearForm('politicianForm')" class="btn btn-secondary" style="padding: 0.25rem 0.55rem; border: 1px solid #b8b8b8; border-radius: 0.7rem; font-size: 0.75rem; font-family: 'Poppins', sans-serif; font-weight: 500; background: #000000; color: #ffffff; cursor: pointer; transition: background 0.25s ease, color 0.25s ease, scale 0.25s ease;"
                                         onmouseover="this.style.background='#d3d3d3'; this.style.color='#000000'; this.style.border='1px solid #b8b8b8';"
@@ -294,15 +294,30 @@
                             <td class="row-head">Photo</td>
                             <td>
                                 <div class="image">
-                                    <img src="<%= request.getContextPath() %>/images/${profiles1.imagePath}" alt="Photo" style="max-width: 100px; height: auto; ${profiles1.imagePath != null && profiles1.imagePath != '' ? 'display:block;' : 'display:none;'}">
+                                    <img id="imagePreview" src="<%= request.getContextPath() %>/images/${profiles1.imagePath}" alt="Photo" style="max-width: 100px; height: auto; ${profiles1.imagePath != null && profiles1.imagePath != '' ? 'display:block;' : 'display:none;'}">
                                     <br>
                                     <br>
-                                    <label style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; border-radius: 4px; cursor: pointer;">
-                                        Upload Image
-                                        <input type="file" name="photo" accept="image/*" style="display: none;" />
-                                    </label>
+                                    <div class="form-group">
+                                        <label for="photo">Upload Image</label>
+                                        <input type="file" id="photo" name="photo" accept="image/*"/>
+                                    </div>
                                     <script>
+                                        // Log the initial image URL
                                         console.log('Image URL:', '<%= request.getContextPath() %>/images/${profiles1.imagePath}');
+
+                                        // Add event listener for file input change
+                                        document.getElementById('photo').addEventListener('change', function(event) {
+                                            const file = event.target.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    const imgElement = document.getElementById('imagePreview');
+                                                    imgElement.src = e.target.result; // Set the image source to the file's data URL
+                                                    imgElement.style.display = 'block'; // Ensure the image is visible
+                                                };
+                                                reader.readAsDataURL(file); // Read the file as a data URL
+                                            }
+                                        });
                                     </script>
                                 </div>
                             </td>
@@ -341,7 +356,10 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Profile ID</td>
-                                <td><input type="text" name="profile_id" value="${profiles1.profileId}" readonly /></td>
+                                <td>
+                                    <span style="width: 10rem; display: inline-block;">${profiles1.profileId}</span>
+                                    <input type="hidden" name="profile_id" value="${profiles1.profileId}" />
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="hidden" name="politician_id" value="${profiles1.politicianId}" /></td>
@@ -352,23 +370,73 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Age</td>
-                                <td><input type="number" name="age" value="${profiles1.age}" /></td>
+                                <td><input type="number" name="age" value="${profiles1.age}" min="18"/></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Gender</td>
-                                <td><input type="text" name="gender" value="${profiles1.gender}" /></td>
+                                <td>
+                                    <label>
+                                        <input type="radio" name="gender" value="Male" ${profiles1.gender == 'Male' ? 'checked' : ''}> Male
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="gender" value="Female" ${profiles1.gender == 'Female' ? 'checked' : ''}> Female
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="gender" value="Other" ${profiles1.gender == 'Other' ? 'checked' : ''}> Other
+                                    </label>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Public Contact Number</td>
-                                <td><input type="tel" name="public_contact_number" value="${profiles1.publicContactNumber}" /></td>
+                                <td>
+                                    <input
+                                            type="tel"
+                                            name="public_contact_number"
+                                            value="${profiles1.publicContactNumber}"
+                                            pattern="0[0-9]{9}"
+                                            minlength="10"
+                                            maxlength="10"
+                                            title="Enter a valid 10-digit Sri Lankan phone number starting with 0"
+                                    />
+                                </td>
                             </tr>
+
                             <tr>
                                 <td class="row-head">Public Email Address</td>
-                                <td><input type="email" name="public_email_address" value="${profiles1.publicEmailAddress}" /></td>
+                                <td><input type="email" name="public_email_address" value="${profiles1.publicEmailAddress}" title="Enter a valid email address like example@example.com"/></td>
                             </tr>
                             <tr>
                                 <td class="row-head">District</td>
-                                <td><input type="text" name="district" value="${profiles1.district}" /></td>
+                                <td>
+                                    <select name="district" class="uniform-text-input">
+                                        <option value="" ${profiles1.district == '' ? 'selected' : ''}>Select District</option>
+                                        <option value="Ampara" ${profiles1.district == 'Ampara' ? 'selected' : ''}>Ampara</option>
+                                        <option value="Anuradhapura" ${profiles1.district == 'Anuradhapura' ? 'selected' : ''}>Anuradhapura</option>
+                                        <option value="Badulla" ${profiles1.district == 'Badulla' ? 'selected' : ''}>Badulla</option>
+                                        <option value="Batticaloa" ${profiles1.district == 'Batticaloa' ? 'selected' : ''}>Batticaloa</option>
+                                        <option value="Colombo" ${profiles1.district == 'Colombo' ? 'selected' : ''}>Colombo</option>
+                                        <option value="Galle" ${profiles1.district == 'Galle' ? 'selected' : ''}>Galle</option>
+                                        <option value="Gampaha" ${profiles1.district == 'Gampaha' ? 'selected' : ''}>Gampaha</option>
+                                        <option value="Hambantota" ${profiles1.district == 'Hambantota' ? 'selected' : ''}>Hambantota</option>
+                                        <option value="Jaffna" ${profiles1.district == 'Jaffna' ? 'selected' : ''}>Jaffna</option>
+                                        <option value="Kalutara" ${profiles1.district == 'Kalutara' ? 'selected' : ''}>Kalutara</option>
+                                        <option value="Kandy" ${profiles1.district == 'Kandy' ? 'selected' : ''}>Kandy</option>
+                                        <option value="Kegalle" ${profiles1.district == 'Kegalle' ? 'selected' : ''}>Kegalle</option>
+                                        <option value="Kilinochchi" ${profiles1.district == 'Kilinochchi' ? 'selected' : ''}>Kilinochchi</option>
+                                        <option value="Kurunegala" ${profiles1.district == 'Kurunegala' ? 'selected' : ''}>Kurunegala</option>
+                                        <option value="Mannar" ${profiles1.district == 'Mannar' ? 'selected' : ''}>Mannar</option>
+                                        <option value="Matale" ${profiles1.district == 'Matale' ? 'selected' : ''}>Matale</option>
+                                        <option value="Matara" ${profiles1.district == 'Matara' ? 'selected' : ''}>Matara</option>
+                                        <option value="Monaragala" ${profiles1.district == 'Monaragala' ? 'selected' : ''}>Monaragala</option>
+                                        <option value="Mullaitivu" ${profiles1.district == 'Mullaitivu' ? 'selected' : ''}>Mullaitivu</option>
+                                        <option value="Nuwara Eliya" ${profiles1.district == 'Nuwara Eliya' ? 'selected' : ''}>Nuwara Eliya</option>
+                                        <option value="Polonnaruwa" ${profiles1.district == 'Polonnaruwa' ? 'selected' : ''}>Polonnaruwa</option>
+                                        <option value="Puttalam" ${profiles1.district == 'Puttalam' ? 'selected' : ''}>Puttalam</option>
+                                        <option value="Ratnapura" ${profiles1.district == 'Ratnapura' ? 'selected' : ''}>Ratnapura</option>
+                                        <option value="Trincomalee" ${profiles1.district == 'Trincomalee' ? 'selected' : ''}>Trincomalee</option>
+                                        <option value="Vavuniya" ${profiles1.district == 'Vavuniya' ? 'selected' : ''}>Vavuniya</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
@@ -385,8 +453,56 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Highest Educational Qualification</td>
-                                <td><input type="text" name="highest_education_qualification" value="${profiles1.highestEducationQualification}" /></td>
+                                <td>
+                                    <select name="highest_education_qualification" id="educationSelect" class="uniform-text-input">
+                                        <option value="" ${profiles1.highestEducationQualification == '' ? 'selected' : ''}>Select Qualification</option>
+                                        <option value="PhD" ${profiles1.highestEducationQualification == 'PhD' ? 'selected' : ''}>PhD</option>
+                                        <option value="Master's" ${profiles1.highestEducationQualification == 'Master\'s' ? 'selected' : ''}>Master's</option>
+                                        <option value="Bachelor's" ${profiles1.highestEducationQualification == 'Bachelor\'s' ? 'selected' : ''}>Bachelor's</option>
+                                        <option value="Diploma" ${profiles1.highestEducationQualification == 'Diploma' ? 'selected' : ''}>Diploma</option>
+                                        <option value="Certificate" ${profiles1.highestEducationQualification == 'Certificate' ? 'selected' : ''}>Certificate</option>
+                                        <option value="A/L" ${profiles1.highestEducationQualification == 'A/L' ? 'selected' : ''}>A/L</option>
+                                        <option value="O/L" ${profiles1.highestEducationQualification == 'O/L' ? 'selected' : ''}>O/L</option>
+                                        <option value="Other" ${profiles1.highestEducationQualification != '' && profiles1.highestEducationQualification != 'PhD' && profiles1.highestEducationQualification != 'Master\'s' && profiles1.highestEducationQualification != 'Bachelor\'s' && profiles1.highestEducationQualification != 'Diploma' && profiles1.highestEducationQualification != 'Certificate' && profiles1.highestEducationQualification != 'A/L' && profiles1.highestEducationQualification != 'O/L' ? 'selected' : ''}>Other</option>
+                                    </select>
+                                    <input type="text"
+                                           id="otherEducation"
+                                           name="highest_education_qualification_other"
+                                           value="${profiles1.highestEducationQualification != '' && profiles1.highestEducationQualification != 'PhD' && profiles1.highestEducationQualification != 'Master\'s' && profiles1.highestEducationQualification != 'Bachelor\'s' && profiles1.highestEducationQualification != 'Diploma' && profiles1.highestEducationQualification != 'Certificate' && profiles1.highestEducationQualification != 'A/L' && profiles1.highestEducationQualification != 'O/L' ? profiles1.highestEducationQualification : ''}"
+                                           class="uniform-text-input"
+                                           style="display: none; margin-top: 8px;"
+                                           placeholder="Specify qualification" />
+                                </td>
                             </tr>
+                            <script>
+                                document.getElementById('educationSelect').addEventListener('change', function() {
+                                    const otherInput = document.getElementById('otherEducation');
+                                    if (this.value === 'Other') {
+                                        otherInput.style.display = 'block';
+                                        otherInput.name = 'highest_education_qualification'; // Use the main name for submission
+                                        this.name = 'highest_education_qualification_select'; // Avoid submitting select value
+                                    } else {
+                                        otherInput.style.display = 'none';
+                                        otherInput.name = 'highest_education_qualification_other'; // Reset to avoid submission
+                                        this.name = 'highest_education_qualification'; // Use select for submission
+                                    }
+                                });
+
+                                // Initialize visibility and names on page load
+                                window.addEventListener('load', function() {
+                                    const select = document.getElementById('educationSelect');
+                                    const otherInput = document.getElementById('otherEducation');
+                                    if (select.value === 'Other') {
+                                        otherInput.style.display = 'block';
+                                        otherInput.name = 'highest_education_qualification';
+                                        select.name = 'highest_education_qualification_select';
+                                    } else {
+                                        otherInput.style.display = 'none';
+                                        otherInput.name = 'highest_education_qualification_other';
+                                        select.name = 'highest_education_qualification';
+                                    }
+                                });
+                            </script>
                             <tr>
                                 <td class="row-head">Field of Study</td>
                                 <td><input type="text" name="field_of_study" value="${profiles1.fieldOfStudy}" /></td>
@@ -419,15 +535,61 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Electoral Level</td>
-                                <td><input type="text" name="electoral_level" value="${profiles1.electoralLevel}" /></td>
+                                <td>
+                                    <select name="electoral_level" class="uniform-text-input">
+                                        <option value="" ${profiles1.electoralLevel == '' ? 'selected' : ''}>None</option>
+                                        <option value="National" ${profiles1.electoralLevel == 'National' ? 'selected' : ''}>National</option>
+                                        <option value="Provincial" ${profiles1.electoralLevel == 'Provincial' ? 'selected' : ''}>Provincial</option>
+                                        <option value="Local" ${profiles1.electoralLevel == 'Local' ? 'selected' : ''}>Local</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Electoral Province</td>
-                                <td><input type="text" name="electoral_province" value="${profiles1.electoralProvince}" /></td>
+                                <td>
+                                    <select name="electoral_province" class="uniform-text-input">
+                                        <option value="" ${profiles1.electoralProvince == '' ? 'selected' : ''}>Select Province</option>
+                                        <option value="Central" ${profiles1.electoralProvince == 'Central' ? 'selected' : ''}>Central</option>
+                                        <option value="Eastern" ${profiles1.electoralProvince == 'Eastern' ? 'selected' : ''}>Eastern</option>
+                                        <option value="North Central" ${profiles1.electoralProvince == 'North Central' ? 'selected' : ''}>North Central</option>
+                                        <option value="Northern" ${profiles1.electoralProvince == 'Northern' ? 'selected' : ''}>Northern</option>
+                                        <option value="North Western" ${profiles1.electoralProvince == 'North Western' ? 'selected' : ''}>North Western</option>
+                                        <option value="Sabaragamuwa" ${profiles1.electoralProvince == 'Sabaragamuwa' ? 'selected' : ''}>Sabaragamuwa</option>
+                                        <option value="Southern" ${profiles1.electoralProvince == 'Southern' ? 'selected' : ''}>Southern</option>
+                                        <option value="Uva" ${profiles1.electoralProvince == 'Uva' ? 'selected' : ''}>Uva</option>
+                                        <option value="Western" ${profiles1.electoralProvince == 'Western' ? 'selected' : ''}>Western</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Electoral District</td>
-                                <td><input type="text" name="electoral_district" value="${profiles1.electoralDistrict}" /></td>
+                                <td>
+                                    <select name="electoral_district" class="uniform-text-input">
+                                        <option value="" ${profiles1.electoralDistrict == '' ? 'selected' : ''}>Select Electoral District</option>
+                                        <option value="Ampara" ${profiles1.electoralDistrict == 'Ampara' ? 'selected' : ''}>Ampara</option>
+                                        <option value="Anuradhapura" ${profiles1.electoralDistrict == 'Anuradhapura' ? 'selected' : ''}>Anuradhapura</option>
+                                        <option value="Badulla" ${profiles1.electoralDistrict == 'Badulla' ? 'selected' : ''}>Badulla</option>
+                                        <option value="Batticaloa" ${profiles1.electoralDistrict == 'Batticaloa' ? 'selected' : ''}>Batticaloa</option>
+                                        <option value="Colombo" ${profiles1.electoralDistrict == 'Colombo' ? 'selected' : ''}>Colombo</option>
+                                        <option value="Galle" ${profiles1.electoralDistrict == 'Galle' ? 'selected' : ''}>Galle</option>
+                                        <option value="Gampaha" ${profiles1.electoralDistrict == 'Gampaha' ? 'selected' : ''}>Gampaha</option>
+                                        <option value="Hambantota" ${profiles1.electoralDistrict == 'Hambantota' ? 'selected' : ''}>Hambantota</option>
+                                        <option value="Jaffna" ${profiles1.electoralDistrict == 'Jaffna' ? 'selected' : ''}>Jaffna</option>
+                                        <option value="Kalutara" ${profiles1.electoralDistrict == 'Kalutara' ? 'selected' : ''}>Kalutara</option>
+                                        <option value="Kandy" ${profiles1.electoralDistrict == 'Kandy' ? 'selected' : ''}>Kandy</option>
+                                        <option value="Kegalle" ${profiles1.electoralDistrict == 'Kegalle' ? 'selected' : ''}>Kegalle</option>
+                                        <option value="Kurunegala" ${profiles1.electoralDistrict == 'Kurunegala' ? 'selected' : ''}>Kurunegala</option>
+                                        <option value="Matale" ${profiles1.electoralDistrict == 'Matale' ? 'selected' : ''}>Matale</option>
+                                        <option value="Matara" ${profiles1.electoralDistrict == 'Matara' ? 'selected' : ''}>Matara</option>
+                                        <option value="Monaragala" ${profiles1.electoralDistrict == 'Monaragala' ? 'selected' : ''}>Monaragala</option>
+                                        <option value="Nuwara Eliya" ${profiles1.electoralDistrict == 'Nuwara Eliya' ? 'selected' : ''}>Nuwara Eliya</option>
+                                        <option value="Polonnaruwa" ${profiles1.electoralDistrict == 'Polonnaruwa' ? 'selected' : ''}>Polonnaruwa</option>
+                                        <option value="Puttalam" ${profiles1.electoralDistrict == 'Puttalam' ? 'selected' : ''}>Puttalam</option>
+                                        <option value="Ratnapura" ${profiles1.electoralDistrict == 'Ratnapura' ? 'selected' : ''}>Ratnapura</option>
+                                        <option value="Trincomalee" ${profiles1.electoralDistrict == 'Trincomalee' ? 'selected' : ''}>Trincomalee</option>
+                                        <option value="Vanni" ${profiles1.electoralDistrict == 'Vanni' ? 'selected' : ''}>Vanni</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Electoral Division</td>
@@ -443,7 +605,7 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Years Active in Politics</td>
-                                <td><input type="number" name="years_active_in_politics" value="${profiles1.yearsActiveInPolitics}" /></td>
+                                <td><input type="number" name="years_active_in_politics" value="${profiles1.yearsActiveInPolitics}" min="0" /></td>
                             </tr>
                             <tr class="detail-begin row-title">
                                 <td colspan="3">
@@ -452,7 +614,16 @@
                             </tr>
                             <tr>
                                 <td class="row-head">Year</td>
-                                <td><input type="text" name="election_year" value="${profiles1.electionYear}" /></td>
+                                <td>
+                                    <input type="number"
+                                           name="election_year"
+                                           value="${profiles1.electionYear}"
+                                           min="1947"
+                                           max="2025"
+                                           placeholder="Enter year"
+                                           class="uniform-text-input"
+                                           title="Year must be between 1947 and the current year"/>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="row-head">Type of Election</td>
@@ -460,7 +631,7 @@
                             </tr>
                             <tr>
                                 <td class="row-head">No of Votes</td>
-                                <td><input type="number" name="number_of_votes" value="${profiles1.numberOfVotes}" /></td>
+                                <td><input type="number" name="number_of_votes" value="${profiles1.numberOfVotes}" min="0"/></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Result</td>
@@ -472,33 +643,34 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="row-head">Vision / Slogan</td>
-                                <td><input type="text" name="vision_or_slogan" value="${profiles1.visionOrSlogan}" /></td>
-                            </tr>
+                            <td class="row-head"> Vision / Slogan</td>
+                            <td><textarea name="vision_or_slogan">${profiles1.visionOrSlogan}</textarea></td>
+                        </tr>
                             <tr>
                                 <td class="row-head">Economic</td>
-                                <td><input type="text" name="economic_policy" value="${profiles1.economicPolicy}" /></td>
+                                <td><textarea name="economic_policy">${profiles1.economicPolicy}</textarea></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Healthcare</td>
-                                <td><input type="text" name="healthcare_policy" value="${profiles1.healthcarePolicy}" /></td>
+                                <td><textarea name="healthcare_policy">${profiles1.healthcarePolicy}</textarea></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Infrastructure</td>
-                                <td><input type="text" name="infrastructure_policy" value="${profiles1.infrastructurePolicy}" /></td>
+                                <td><textarea name="infrastructure_policy">${profiles1.infrastructurePolicy}</textarea></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Education</td>
-                                <td><input type="text" name="education_policy" value="${profiles1.educationPolicy}" /></td>
+                                <td><textarea name="education_policy">${profiles1.educationPolicy}</textarea></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Youth Development</td>
-                                <td><input type="text" name="youth_development_policy" value="${profiles1.youthDevelopmentPolicy}" /></td>
+                                <td><textarea name="youth_development_policy">${profiles1.youthDevelopmentPolicy}</textarea></td>
                             </tr>
                             <tr>
                                 <td class="row-head">Agriculture</td>
-                                <td><input type="text" name="agriculture_policy" value="${profiles1.agriculturePolicy}" /></td>
+                                <td><textarea name="agriculture_policy">${profiles1.agriculturePolicy}</textarea></td>
                             </tr>
+
                             <tr class="detail-begin row-title">
                                 <td colspan="3"/>
                                     <div class="details-title" id="social-media">Social Media</div>

@@ -592,13 +592,33 @@
 	const day5Registrations = ${day5Registrations};
 
 	// Bar Chart for User Registrations Over Past 5 Days
+	// Function to get the last 5 days in 'MMM DD' format
+	function getLastFiveDays() {
+		const labels = [];
+		const today = new Date();
+
+		for (let i = 4; i >= 0; i--) {
+			const date = new Date(today);
+			date.setDate(today.getDate() - i);
+			// Format as 'Apr 19'
+			const formattedDate = date.toLocaleDateString('en-US', {
+				month: 'short',
+				day: 'numeric'
+			});
+			labels.push(formattedDate);
+		}
+
+		return labels;
+	}
+
+	// Your Chart.js code with dynamic labels
 	const userRegistrationBarChart = new Chart(document.getElementById('userRegistrationBarChart'), {
 		type: 'bar',
 		data: {
-			labels: ['Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23'], // Past 5 days
+			labels: getLastFiveDays(), // Use dynamic labels
 			datasets: [{
 				label: 'New Users',
-				data: [day1Registrations, day2Registrations, day3Registrations, day4Registrations, day5Registrations], // Placeholder data
+				data: [day1Registrations, day2Registrations, day3Registrations, day4Registrations, day5Registrations], // Replace with actual data
 				backgroundColor: '#36A2EB',
 				borderColor: '#36A2EB',
 				borderWidth: 1

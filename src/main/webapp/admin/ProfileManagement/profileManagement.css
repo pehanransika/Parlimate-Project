@@ -300,3 +300,34 @@ button:not(:hover) {
     border-radius: 1rem;
     gap: 1.5rem;
 }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type="file"] {
+    width: 13rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="url"] , input[type="email"]{
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins';
+}
+
