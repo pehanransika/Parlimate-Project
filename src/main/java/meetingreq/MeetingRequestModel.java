@@ -22,13 +22,15 @@ public class MeetingRequestModel {
     private String preferredhost;           // Preferred host for the meeting
     private int participantcount;
     private boolean status;  // New boolean field to indicate active/inactive
+    private boolean rejectstatus;
+    private String rejectreason;
 
 
     // Parameterized constructor
     public MeetingRequestModel(int meetingrequestid, String topic, int politician_id, String purposeofmeeting,
                                LocalDate proposaldate, LocalTime proposaltime, String estimatedduration, String opponentname,
                                String partyaffiliation, String discussionformat, String preferredhost, int participantcount,
-                               boolean status) {
+                               boolean status , boolean rejectstatus, String rejectreason) {
         this.meetingrequestid = meetingrequestid;
         this.topic = topic;
         this.politician_id = politician_id;
@@ -42,6 +44,8 @@ public class MeetingRequestModel {
         this.preferredhost = preferredhost;
         this.participantcount = participantcount;
         this.status = status;
+        this.rejectstatus = rejectstatus;
+        this.rejectreason = rejectreason;
     }
 
 
@@ -146,6 +150,12 @@ public class MeetingRequestModel {
         this.status = status;
     }
 
+    public boolean isRejectstatus() {return rejectstatus;}
+    public void setRejectstatus(boolean rejectstatus) {this.rejectstatus = rejectstatus;}
+    public String getRejectreason() {return rejectreason;}
+    public void setRejectreason(String rejectreason) {this.rejectreason = rejectreason;}
+
+
 
     // Override toString for better readabili
     @Override
@@ -163,7 +173,7 @@ public class MeetingRequestModel {
                 ", discussionformat='" + discussionformat + '\'' +
                 ", preferredhost='" + preferredhost + '\'' +
                 ", participantcount=" + participantcount +
-                ", status=" + status +
+                ", status=" + status + '\'' + ", rejectstatus=" + rejectstatus + '\'' + ", rejectreason='" + rejectreason + '\'' +
                 '}';
     }
 

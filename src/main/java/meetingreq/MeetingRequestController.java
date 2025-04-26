@@ -75,6 +75,8 @@ public class MeetingRequestController {
                 String estimatedduration = rs.getString("estimatedduration");
                 int participantcount = rs.getInt("participantcount");
                 boolean status = rs.getBoolean("status"); // New line
+                boolean rejectstatus = rs.getBoolean("rejectstatus");
+                String rejetctreason = rs.getString("rejectreason");
 
                 MeetingRequestModel request = new MeetingRequestModel(
                         meetingrequestid,
@@ -89,7 +91,9 @@ public class MeetingRequestController {
                         discussionformat,
                         preferredhost,
                         participantcount,
-                        status // New value passed to constructor
+                        status,
+                        rejectstatus,
+                        rejetctreason
                 );
 
                 requests.add(request);
@@ -125,6 +129,8 @@ public class MeetingRequestController {
                     String estimatedduration = rs.getString("estimatedduration");
                     int participantcount = rs.getInt("participantcount");
                     boolean status = rs.getBoolean("status"); // New line
+                    boolean rejectstatus = rs.getBoolean("rejectstatus");
+                    String rejetctreason = rs.getString("rejectreason");
 
                     MeetingRequestModel request = new MeetingRequestModel(
                             meetingrequestid,
@@ -139,7 +145,9 @@ public class MeetingRequestController {
                             discussionformat,
                             preferredhost,
                             participantcount,
-                            status // Pass the status to the constructor
+                            status,
+                            rejectstatus,
+                            rejetctreason// Pass the status to the constructor
                     );
 
                     requests.add(request);
@@ -156,7 +164,7 @@ public class MeetingRequestController {
     public static MeetingRequestModel getMeetingRequestById(int meetingrequestid) throws SQLException {
         String query = "SELECT meetingrequestid, politician_id, topic, purposeofmeeting, opponentname, " +
                 "partyaffiliation, discussionformat, preferredhost, proposaldate, proposaltime, " +
-                "estimatedduration, participantcount, status " +
+                "estimatedduration, participantcount, status , rejectstatus , rejectreason" +
                 "FROM meetingrequest WHERE meetingrequestid = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -178,6 +186,8 @@ public class MeetingRequestController {
                     String estimatedduration = rs.getString("estimatedduration");
                     int participantcount = rs.getInt("participantcount");
                     boolean status = rs.getBoolean("status");
+                    boolean rejectstatus = rs.getBoolean("rejectstatus");
+                    String rejectreason = rs.getString("rejectreason");
 
                     return new MeetingRequestModel(
                             meetingrequestid,
@@ -192,7 +202,9 @@ public class MeetingRequestController {
                             discussionformat,
                             preferredhost,
                             participantcount,
-                            status
+                            status,
+                            rejectstatus,
+                            rejectreason
                     );
                 }
             }
@@ -245,6 +257,31 @@ public class MeetingRequestController {
             return rowsUpdated > 0; // Returns true if at least one row was updated
         } catch (SQLException e) {
             System.err.println("Error updating meeting request: " + e.getMessage());
+            throw e; // Rethrow the exception after logging it
+        }
+    }
+
+    public static boolean rejectMeetingRequest(int meetingrequestid, String rejectreason) throws SQLException {
+        String query = "UPDATE meetingrequest SET rejectreason = ?, rejectstatus = true WHERE meetingrequestid = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Log input parameters for debugging
+            System.out.println("Updating meeting request with ID: " + meetingrequestid + "Reject Reason:" + rejectreason);
+
+
+            // Set parameters in the correct order
+            stmt.setString(1, rejectreason);
+            stmt.setInt(2, meetingrequestid);
+
+            // Execute the update query
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+
+            return rowsUpdated > 0; // Returns true if at least one row was updated
+        } catch (SQLException e) {
+            System.err.println("Error Rejecting meeting request: " + e.getMessage());
             throw e; // Rethrow the exception after logging it
         }
     }

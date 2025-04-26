@@ -185,8 +185,10 @@
                     </div>
                 </div>
             </div>
+
             <h2 class="section-title">Meeting Requests</h2>
             <div class="total-records f-row">
+
                 Total <span>${totalCount}</span> records
             </div>
             <div class="data f-col">
@@ -208,6 +210,7 @@
                     </thead>
                     <tbody id="meeting-table-body">
                     <c:forEach var="meeting" items="${allMeetingRequestsAdmin}">
+                        <c:if test="${meeting.rejectstatus == false}">
                         <tr data-status="${meeting.status}" data-date="${meeting.proposaldate}">
                             <td>${meeting.meetingrequestid}</td>
                             <td>${meeting.politician_id}</td>
@@ -238,6 +241,101 @@
                                 </button>
                             </td>
                         </tr>
+                        </c:if>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <div class="pagination capitalize f-row">
+                    <span>prev</span>
+                    <span class="curr-page">1</span>
+                    <span>next</span>
+                </div>
+            </div>
+
+
+
+            <h2 class="section-title">Rejected Meeting Requests</h2>
+            <div class="total-records f-row">
+                Total <span>${totalCount}</span> records
+            </div>
+            <div class="topS f-row">
+                <div class="show f-row">
+                    Shows
+                    <select name="rows" id="rows">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                    entries per page
+                </div>
+                <div class="actions f-row">
+                    <div class="search-bar">
+                        <label for="user-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </label>
+                        <input
+                                type="search"
+                                placeholder="Search by topic"
+                                name="user-search"
+                                id="user-search"
+                                oninput="searchByTopic()"
+                        />
+                    </div>
+                    <div class="scheduled-meeting">
+                        <button class="filter-btn f-row" id="schedule-btn">
+                            <i class="fa-solid fa-filter"></i>
+                            Scheduled Meetings
+                        </button>
+                    </div>
+                    <div class="status-filter">
+                        <select id="status-filter" onchange="filterByStatus()">
+                            <option value="all">All Meetings</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="non-accepted">Non-Accepted</option>
+                        </select>
+                    </div>
+                    <div class="date-filter">
+                        <input
+                                type="date"
+                                id="date-filter"
+                                onchange="filterByDate()"
+                                placeholder="Filter by date"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="data f-col">
+                <table class="users">
+                    <thead>
+                    <tr>
+                        <td>Meeting Request ID</td>
+                        <td>Politician ID</td>
+                        <td>Politician Name</td>
+                        <td>Title</td>
+                        <td>Purpose of the Meeting</td>
+                        <td>Date</td>
+                        <td>Time</td>
+                        <td>Duration</td>
+                        <td>Participant Count</td>
+                        <td>Reject Reason</td>
+                    </tr>
+                    </thead>
+                    <tbody id="meeting-table-body">
+                    <c:forEach var="meeting" items="${allMeetingRequestsAdmin}">
+                        <c:if test="${meeting.rejectstatus == true}">
+                        <tr data-status="${meeting.status}" data-date="${meeting.proposaldate}">
+                            <td>${meeting.meetingrequestid}</td>
+                            <td>${meeting.politician_id}</td>
+                            <td>${politicianNames[meeting.meetingrequestid]}</td>
+                            <td>${meeting.topic}</td>
+                            <td>${meeting.purposeofmeeting}</td>
+                            <td>${meeting.proposaldate}</td>
+                            <td>${meeting.proposaltime}</td>
+                            <td>${meeting.estimatedduration}</td>
+                            <td>${meeting.participantcount}</td>
+                            <td>${meeting.rejectreason}</td>
+                        </tr>
+                        </c:if>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -277,13 +375,14 @@
             </div>
             <div class="footer" id="response-buttons">
                 <button class="prmry-btn" onclick="showAcceptFields()">Accept</button>
-                <button class="scndry-btn" onclick="rejectMeeting()">Reject</button>
+                <button class="scndry-btn" onclick="showRejectFields()">Reject</button>
             </div>
+
             <div id="accept-extra-fields" style="display: none; margin-top: 15px;">
                 <div class="formSection">
                     <h3>Confirm and Provide Details</h3>
                     <form method="post" action="<%= request.getContextPath() %>/CreateMeetingServlet">
-                        <input type="hidden" name="meetingrequestid" id="accepted-meetingrequestid" />
+                        <input type="hidden" name="meetingrequestid" id="accept-meetingrequestid" />
                         <div>
                             <label for="accepted-politicianId">Politician ID:</label>
                             <input type="text" name="politicianId" id="accepted-politicianId" readonly required />
@@ -332,12 +431,33 @@
                     </form>
                 </div>
             </div>
+
+            <div id="reject-extra-fields" style="display: none; margin-top: 15px;">
+                <div class="formSection">
+                    <form method="post" action="<%= request.getContextPath() %>/RejectMeetingServlet">
+                        <div>
+                            <input type="hidden" name="meetingrequestid" id="reject-meetingrequestid" />
+                            <label for="reject-reason">Reject Reason:</label>
+                            <input type="text" name="rejectreason" id="reject-reason" required style="height: 5rem" />
+                        </div>
+                        <div class="footer">
+                            <button type="submit" class="prmry-btn">Submit</button>
+                            <button type="button" class="scndry-btn" onclick="closePopup()">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+    // Store meetingRequestId globally to access it in rejectMeeting
+    let currentMeetingRequestId = "";
+
     function openPopup(id, user, title, purpose, date, time, duration, participants, typeofthemeeting, host) {
+        console.log("Opening popup for meetingRequestId: " + id); // Debug
+        currentMeetingRequestId = id || ""; // Store ID for reject form
         document.getElementById("popup-id").innerText = id || "Not Specified";
         document.getElementById("popup-user").innerText = user || "Not Specified";
         document.getElementById("popup-title").innerText = title || "Not Specified";
@@ -348,7 +468,7 @@
         document.getElementById("popup-participants").innerText = participants || "Not Specified";
         document.getElementById("popup-typeofthemeeting").innerText = typeofthemeeting || "Not Specified";
         document.getElementById("popup-host").innerText = host || "Not Specified";
-        document.getElementById("accepted-meetingrequestid").value = id || "";
+        document.getElementById("accept-meetingrequestid").value = id || "";
         document.getElementById("accepted-politicianId").value = user || "";
         document.getElementById("accepted-topic").value = title || "";
         document.getElementById("accepted-description").value = purpose || "";
@@ -362,6 +482,7 @@
         document.getElementById("accepted-slots").value = "";
         document.getElementById("accepted-availableslots").value = "";
         document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("reject-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "flex";
         document.getElementById("popup-modal").style.display = "flex";
         document.body.classList.add("popup-active");
@@ -371,19 +492,27 @@
         document.getElementById("popup-modal").style.display = "none";
         document.body.classList.remove("popup-active");
         document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("reject-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "flex";
-        const form = document.querySelector("#accept-extra-fields form");
-        if (form) form.reset();
+        const acceptForm = document.querySelector("#accept-extra-fields form");
+        const rejectForm = document.querySelector("#reject-extra-fields form");
+        if (acceptForm) acceptForm.reset();
+        if (rejectForm) rejectForm.reset();
     }
 
     function showAcceptFields() {
         document.getElementById("accept-extra-fields").style.display = "block";
+        document.getElementById("reject-extra-fields").style.display = "none";
         document.getElementById("response-buttons").style.display = "none";
     }
 
-    function rejectMeeting() {
-        alert("Meeting Rejected.");
-        closePopup();
+    function showRejectFields() {
+        console.log("Showing reject fields for meetingRequestId: " + currentMeetingRequestId); // Debug
+        document.getElementById("reject-meetingrequestid").value = currentMeetingRequestId;
+        document.getElementById("reject-reason").value = ""; // Clear previous reason
+        document.getElementById("reject-extra-fields").style.display = "block";
+        document.getElementById("accept-extra-fields").style.display = "none";
+        document.getElementById("response-buttons").style.display = "none";
     }
 
     document.addEventListener("DOMContentLoaded", function() {
