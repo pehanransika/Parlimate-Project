@@ -3,10 +3,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- Check for session and user --%>
-
 <%
     HttpSession session1 = (HttpSession) request.getSession(false);
-    if (session1 == null || session.getAttribute("user") == null) {
+    if (session1 == null || session1.getAttribute("user") == null) {
         response.sendRedirect("../index.jsp");
         return;
     }
@@ -28,43 +27,80 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../index.css"/>
-    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="./profile.css"/>
     <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
-    <link rel="stylesheet" href="hashtag.css">
-    <script src="../formatDate.js" ></script>
+    <link rel="stylesheet" href="hashtag.css"/>
+    <script src="../formatDate.js"></script>
     <style>
         body {
             background: #f0f0f0;
             padding: 2rem;
         }
-
         .f-col {
             display: flex;
             flex-direction: column;
         }
-
         .f-row {
             display: flex;
             align-items: center;
         }
-
-        .post-card {
+        .post-card, .post-container {
             width: 100%;
         }
-
-        .post-container {
+        .password-input {
+            margin-bottom: 1rem;
+        }
+        .password-input label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .password-input input {
             width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error-message, .error {
+            color: red;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .success {
+            color: green;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .error.active, .success.active {
+            display: block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
         }
     </style>
-
     <script src="./profile.js" defer></script>
 </head>
 <body>
-
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
-
 <div class="container">
     <div id="interestsModal" class="modal">
         <div class="modal-content">
@@ -78,7 +114,7 @@
                 <div class="desc">
                     These are the political topics and parties this
                     person has shown interest on Parlimate. This might
-                    reflects their personal views and helps connect them
+                    reflect their personal views and helps connect them
                     with relevant discussions and representatives
                 </div>
                 <div class="politicians-pref table-cont f-col">
@@ -168,7 +204,7 @@
                 <div class="edit f-row">
                     <button id="pref-edit" class="pref-edit-btn f-row">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        Edit prefferences
+                        Edit preferences
                     </button>
                 </div>
                 <div class="pref-action f-row">
@@ -178,7 +214,7 @@
             </div>
         </div>
     </div>
-    <form id="editModal" class="modal" action="../UserDetailUpdateServlet" method="post">
+    <form id="editModal" class="modal" action="${pageContext.request.contextPath}/UserDetailUpdateServlet" method="post">
         <div class="modal-content f-col">
             <div class="top f-row caps">
                 <div class="title">Account settings</div>
@@ -186,7 +222,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <div class="center f-row" >
+            <div class="center f-row">
                 <div class="details f-col">
                     <div class="info f-col">
                         <div class="title">User information</div>
@@ -198,27 +234,12 @@
                     </div>
                     <div class="inputs f-row wrap">
                         <div class="email f-col">
-                            <label for="email-input" class="input-head"
-                            >Email address</label
-                            >
-                            <input
-                                    type="email"
-                                    name="email"
-                                    id="email-input"
-                                    value="${user.email}"
-                                    disabled
-                            />
+                            <label for="email-input" class="input-head">Email address</label>
+                            <input type="email" name="email" id="email-input" value="${user.email}" disabled />
                         </div>
                         <div class="full-name">
-                            <label for="name-input" class="input-head"
-                            >full name</label
-                            >
-                            <input
-                                    type="text"
-                                    name="full-name"
-                                    id="name-input"
-                                    value="${userProfile.name}"
-                            />
+                            <label for="name-input" class="input-head">full name</label>
+                            <input type="text" name="full-name" id="name-input" value="${userProfile.name}" />
                         </div>
                         <div class="phone-number">
                             <label for="phoneNumber" class="input-head">phone number</label>
@@ -229,45 +250,19 @@
                             <input type="text" name="address" id="address" value="${userProfile.address}">
                         </div>
                         <div class="city">
-                            <label
-                                    for="province-drop"
-                                    class="input-head"
-                            >location</label
-                            >
+                            <label for="province-drop" class="input-head">location</label>
                             <div class="dropdown f-row">
-                                <select
-                                        name="province"
-                                        id="province-drop"
-                                        onchange="updateCities()"
-                                >
+                                <select name="province" id="province-drop" onchange="updateCities()">
                                     <option value="" disabled selected>-- Select Province --</option>
-                                    <option value="western" ${userProfile.province eq 'western' ? 'selected' : ''}>
-                                        Western Province
-                                    </option>
-                                    <option value="central" ${userProfile.province eq 'central' ? 'selected' : ''}>
-                                        Central Province
-                                    </option>
-                                    <option value="southern" ${userProfile.province eq 'southern' ? 'selected' : ''}>
-                                        Southern Province
-                                    </option>
-                                    <option value="northern" ${userProfile.province eq 'northern' ? 'selected' : ''}>
-                                        Northern Province
-                                    </option>
-                                    <option value="eastern" ${userProfile.province eq 'eastern' ? 'selected' : ''}>
-                                        Eastern Province
-                                    </option>
-                                    <option value="north-western" ${userProfile.province eq 'north-western' ? 'selected' : ''}>
-                                        North Western Province
-                                    </option>
-                                    <option value="north-central" ${userProfile.province eq 'north-central' ? 'selected' : ''}>
-                                        North Central Province
-                                    </option>
-                                    <option value="uva" ${userProfile.province eq 'uva' ? 'selected' : ''}>
-                                        Uva Province
-                                    </option>
-                                    <option value="sabaragamuwa" ${userProfile.province eq 'sabaragamuwa' ? 'selected' : ''}>
-                                        Sabaragamuwa Province
-                                    </option>
+                                    <option value="western" ${userProfile.province eq 'western' ? 'selected' : ''}>Western Province</option>
+                                    <option value="central" ${userProfile.province eq 'central' ? 'selected' : ''}>Central Province</option>
+                                    <option value="southern" ${userProfile.province eq 'southern' ? 'selected' : ''}>Southern Province</option>
+                                    <option value="northern" ${userProfile.province eq 'northern' ? 'selected' : ''}>Northern Province</option>
+                                    <option value="eastern" ${userProfile.province eq 'eastern' ? 'selected' : ''}>Eastern Province</option>
+                                    <option value="north-western" ${userProfile.province eq 'north-western' ? 'selected' : ''}>North Western Province</option>
+                                    <option value="north-central" ${userProfile.province eq 'north-central' ? 'selected' : ''}>North Central Province</option>
+                                    <option value="uva" ${userProfile.province eq 'uva' ? 'selected' : ''}>Uva Province</option>
+                                    <option value="sabaragamuwa" ${userProfile.province eq 'sabaragamuwa' ? 'selected' : ''}>Sabaragamuwa Province</option>
                                 </select>
                                 <select id="city" name="district" ${empty userProfile.province ? 'disabled' : ''}>
                                     <c:choose>
@@ -302,13 +297,57 @@
             </div>
             <div class="footer f-row">
                 <div class="change-pw">
-                    <a href="#" target="_blank">change password</a>
+                    <button type="button" id="change-password-btn">change password</button>
                 </div>
                 <div class="action f-row">
-                    <button id="cancel-btn">cancel
-                    </button
-                    >
+                    <button id="cancel-btn">cancel</button>
                     <input type="submit" value="save changes" id="save-btn" class="caps"/>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Password Change Modal -->
+    <form id="passwordModal" class="modal" action="${pageContext.request.contextPath}/Profile/ChangePasswordServlet" method="post">
+        <div class="modal-content f-col">
+            <div class="top f-row caps">
+                <div class="title">Change Password</div>
+                <div class="close-btn f-row">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="center f-col">
+                <c:if test="${not empty errorMessage}">
+                    <div class="error active">${errorMessage}</div>
+                </c:if>
+                <c:if test="${not empty successMessage}">
+                    <div class="success active">${successMessage}</div>
+                </c:if>
+                <div class="info f-col">
+                    <div class="title">Update Your Password</div>
+                    <div class="desc">
+                        Enter your current password and your new password below.
+                        Make sure the new password is strong and secure.
+                    </div>
+                </div>
+                <div class="error-message" id="password-error"></div>
+                <div class="password-input f-col">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" name="currentPassword" required />
+                </div>
+                <div class="password-input f-col">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" name="newPassword" required />
+                </div>
+                <div class="password-input f-col">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" name="confirmPassword" required />
+                </div>
+                <input type="hidden" name="userId" value="${user.userId}" />
+            </div>
+            <div class="footer f-row caps">
+                <div class="action f-row">
+                    <button type="button" class="cancel-password-btn">Cancel</button>
+                    <input type="submit" value="Save Changes" id="save-password-btn" class="save-btn" />
                 </div>
             </div>
         </div>
@@ -327,33 +366,19 @@
                 <div class="name">${userProfile.name}</div>
                 <span class="dot">·</span>
                 <div class="joined-date">
-                    Joined on <span class="date"><c:if test="${not empty user}">
-                    ${user.created_at}
-                </c:if></span>
+                    Joined on <span class="date"><c:if test="${not empty user}">${user.created_at}</c:if></span>
                 </div>
                 <span class="dot">·</span>
-                <div class="role caps"><c:if test="${not empty user}">
-                    ${user.userType}
-                </c:if>
-                </div>
+                <div class="role caps"><c:if test="${not empty user}">${user.userType}</c:if></div>
             </div>
             <div class="profession">Product Designer at Senica</div>
-            <div class="city caps">
-                ${userProfile.district}  , ${userProfile.province} province &#127473;&#127472;
-            </div>
+            <div class="city caps">${userProfile.district}, ${userProfile.province} province 🇱🇰</div>
             <div class="political-view f-col">
-                <span class="content">
-                    ${userProfile.politicalView}
-                </span>
+                <span class="content">${userProfile.politicalView}</span>
             </div>
             <div class="buttons f-row">
                 <div class="prmry-btns f-row">
-                    <button class="intrst-btn">
-                        political interests
-                    </button>
-<%--                    <button class="message-btn">--%>
-<%--                        <i class="fa-solid fa-messages"></i>message--%>
-<%--                    </button>--%>
+                    <button class="intrst-btn">political interests</button>
                 </div>
                 <div class="scndry-btns">
                     <button class="user-edit-btn">
@@ -364,20 +389,14 @@
         </div>
     </div>
     <div class="recent-posts f-col">
-
         <div class="title caps f-col">
             <span>recent posts</span>
             <span class="desc">recently added posts and insights.</span>
         </div>
         <div class="post-container" id="posts-container" data-user-id="${userProfile.userId}">
-            <%--            sample Recent post--%>
             <div class="post-card">
                 <div class="post-header">
-                    <img
-                            src="https://i.pravatar.cc/50"
-                            alt="User Avatar"
-                            class="post-avatar"
-                    />
+                    <img src="https://i.pravatar.cc/50" alt="User Avatar" class="post-avatar"/>
                     <div class="post-user-info">
                         <h4 class="username">${userProfile.name}</h4>
                         <span class="post-time">2 hours ago</span>
@@ -388,30 +407,21 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="post-content">
                     <p>
-                        Just attended the parliamentary debate on the
-                        new education reforms. While the proposal has
-                        good intentions, we need stronger provisions for
-                        rural school infrastructure. What are your
+                        Just attended the parliamentary debate on the new education reforms. While the proposal has
+                        good intentions, we need stronger provisions for rural school infrastructure. What are your
                         thoughts? #EducationReform #SriLanka
                     </p>
-
                     <div class="post-image">
-                        <img
-                                src="debate-photo.jpg"
-                                alt="Parliament debate"
-                        />
+                        <img src="debate-photo.jpg" alt="Parliament debate"/>
                     </div>
-
                     <div class="post-tags">
                         <span class="tag">#EducationReform</span>
                         <span class="tag">#RuralDevelopment</span>
                         <span class="tag">#SriLanka</span>
                     </div>
                 </div>
-
                 <div class="post-footer">
                     <button class="action-btn like-btn">
                         <i class="fa-regular fa-thumbs-up"></i>
@@ -425,19 +435,16 @@
                     </button>
                 </div>
             </div>
-
-        </div
+        </div>
     </div>
 </div>
-
 </body>
 <script src="../script.js"></script>
 <script src="./popupModals.js"></script>
 <script>
     const dateField = document.querySelector(".joined-date .date");
-    const formatedDate = formatDate(dateField.innerHTML)
-    dateField.innerHTML= formatedDate;
-
+    const formatedDate = formatDate(dateField.innerHTML);
+    dateField.innerHTML = formatedDate;
 
     if (typeof '${userProfile.userId}' === 'undefined' || '${userProfile.userId}' === '') {
         console.error("userProfile.userId is missing or empty");
@@ -446,13 +453,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize city dropdown if province is already selected
         const savedProvince = document.getElementById('province-drop').value;
-        const savedDistrict = '${userProfile.district}'; // This comes from JSP
+        const savedDistrict = '${userProfile.district}';
 
         if (savedProvince) {
             updateCities();
-            // Set the saved district after a small delay to ensure dropdown is populated
             setTimeout(() => {
                 const citySelect = document.getElementById("city");
                 if (savedDistrict) {
@@ -466,19 +471,15 @@
         const provinceSelect = document.getElementById("province-drop");
         const citySelect = document.getElementById("city");
         const selectedProvince = provinceSelect.value;
-        const savedDistrict = `${userProfile.district}`; // Get from JSP
+        const savedDistrict = `${userProfile.district}`;
 
-        // Clear previous options but keep the first empty option if province not selected
         citySelect.innerHTML = selectedProvince ? "" : "<option value='' disabled>-- First select a province --</option>";
 
         if (selectedProvince) {
             citySelect.disabled = false;
             citySelect.add(new Option("-- Select City --", ""));
-
-            // Add cities for selected province
             citiesByProvince[selectedProvince].forEach((city) => {
                 const option = new Option(city, city);
-                // Select the option if it matches the saved district
                 if (city === savedDistrict) {
                     option.selected = true;
                 }
@@ -488,13 +489,94 @@
             citySelect.disabled = true;
         }
     }
+
     document.getElementById('save-btn').addEventListener('click', function(e) {
         const citySelect = document.getElementById("city");
         if (citySelect.value === "") {
-            // If no district selected, keep the original value
             citySelect.value = '${userProfile.district}';
         }
-        // Proceed with form submission
+    });
+</script>
+<script>
+    // Password Modal Handling
+    document.addEventListener('DOMContentLoaded', function() {
+        const changePasswordBtn = document.getElementById('change-password-btn');
+        const passwordModal = document.getElementById('passwordModal');
+        const cancelPasswordBtn = document.querySelector('.cancel-password-btn');
+        const closePasswordBtn = passwordModal.querySelector('.close-btn');
+        const passwordForm = passwordModal.querySelector('form');
+        const errorMessage = document.getElementById('password-error');
+        const serverError = document.querySelector('.error');
+        const serverSuccess = document.querySelector('.success');
+
+        // Show alerts for server messages
+        <c:if test="${not empty successMessage}">
+        alert("Success: ${successMessage}");
+        <% session.removeAttribute("successMessage"); %>
+        </c:if>
+        <c:if test="${not empty errorMessage}">
+        alert("Error: ${errorMessage}");
+        <% session.removeAttribute("errorMessage"); %>
+        </c:if>
+
+        // Open the password modal
+        changePasswordBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            passwordModal.style.display = 'block';
+            // Clear client-side error message
+            errorMessage.style.display = 'none';
+        });
+
+        // Close the modal when cancel is clicked
+        cancelPasswordBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            passwordModal.style.display = 'none';
+            passwordForm.reset();
+            errorMessage.style.display = 'none';
+        });
+
+        // Close the modal when the close button (x) is clicked
+        closePasswordBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            passwordModal.style.display = 'none';
+            passwordForm.reset();
+            errorMessage.style.display = 'none';
+        });
+
+        // Validate new password and confirm password on form submission
+        passwordForm.addEventListener('submit', function(e) {
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword !== confirmPassword) {
+                e.preventDefault();
+                errorMessage.textContent = 'New password and confirm password do not match.';
+                errorMessage.style.display = 'block';
+                alert("Error: New password and confirm password do not match.");
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+
+        // Prevent form resubmission on page refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === passwordModal) {
+                passwordModal.style.display = 'none';
+                passwordForm.reset();
+                errorMessage.style.display = 'none';
+            }
+        });
+
+        // Automatically open modal after submission to allow further attempts
+        if (serverError && serverError.classList.contains('active') ||
+            serverSuccess && serverSuccess.classList.contains('active')) {
+            passwordModal.style.display = 'block';
+        }
     });
 </script>
 <script src="hashtag.js"></script>
