@@ -122,7 +122,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row">
+                <a href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" class="nav-item f-row active">
                     <i class="fa-regular fa-briefcase"></i>
                     <span>fundraise management</span>
                 </a>
@@ -140,7 +140,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row active">
+                <a href="${pageContext.request.contextPath}/admin/CommentManagement/CommentManagementServlet" class="nav-item f-row">
                     <i class="fa-regular fa-comments"></i>
                     <span>Comment Management</span>
                 </a>
@@ -203,7 +203,6 @@
             <div class="fundraising-tab " onclick="openFundraisingTab(event, 'fundraising-request')"><a class="fundraising-tab active" href="${pageContext.request.contextPath}/admin/Fundraising/FundraisingManagementServlet" >
                 Fundraising Request</a></div>
             <div class="fundraising-tab" onclick="openFundraisingTab(event, 'approval-fundraisers')"><a class="fundraising-tab" href="${pageContext.request.contextPath}/admin/Fundraising/GetApprovalFundraisingServlet">
-
             Approval Fundraisers
             </a>   </div>
 
