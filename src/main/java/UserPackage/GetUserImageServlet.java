@@ -12,7 +12,6 @@ import java.sql.SQLException;
 @WebServlet("/GetUserImageServlet")
 public class GetUserImageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String DEFAULT_IMAGE_PATH = "images/default.jpg"; // Default image in webapp
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +24,8 @@ public class GetUserImageServlet extends HttpServlet {
             // Fetch the image path from the database
             String imagePath = getUserImagePath(userId);
             if (imagePath == null || imagePath.isEmpty()) {
-                imagePath = DEFAULT_IMAGE_PATH;
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Image not found.");
+                return;
             }
 
             // Resolve the full image path
@@ -34,7 +34,8 @@ public class GetUserImageServlet extends HttpServlet {
 
             // Check if file exists
             if (!imageFile.exists()) {
-                imageFile = new File(getServletContext().getRealPath("/" + DEFAULT_IMAGE_PATH));
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Image not found.");
+                return;
             }
 
             // Detect MIME type (e.g., image/jpeg, image/png)
@@ -61,10 +62,10 @@ public class GetUserImageServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             // Handle invalid userId
-            serveDefaultImage(response);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid user ID.");
         } catch (SQLException e) {
             e.printStackTrace();
-            serveDefaultImage(response);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Database error.");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to load image.");
@@ -100,29 +101,5 @@ public class GetUserImageServlet extends HttpServlet {
         }
 
         return imagePath;
-    }
-
-    private void serveDefaultImage(HttpServletResponse response) throws IOException {
-        String realPath = getServletContext().getRealPath("/" + DEFAULT_IMAGE_PATH);
-        File imageFile = new File(realPath);
-
-        String mime = getServletContext().getMimeType(imageFile.getName());
-        if (mime == null) {
-            mime = "application/octet-stream";
-        }
-
-        response.setContentType(mime);
-        response.setContentLength((int) imageFile.length());
-
-        try (FileInputStream in = new FileInputStream(imageFile);
-             OutputStream out = response.getOutputStream()) {
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-        }
     }
 }

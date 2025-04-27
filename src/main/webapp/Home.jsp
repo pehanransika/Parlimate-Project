@@ -414,7 +414,7 @@
     <div class="topContent">
       <div class="social-btns col">
         <div class="addPost-btn">
-          <div class="prof-img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%"/></div>
+          <div class="prof-img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'"/></div>
           <div class="content">
             <div class="greeting">
               Hello <span class="userName">${userProfile.name}</span>
@@ -484,8 +484,8 @@
          style="list-style-type: none; padding: 0; margin-right: 20px; display: flex; flex-direction: column; gap: 1.5rem;">
       <%--            post here--%>
 
-      <c:forEach var="post" items="${allposts}">
 
+      <c:forEach var="post" items="${allposts}">
         <!-- Post Details -->
         <div class="post f-col">
           <input type="hidden" name="userid" value="${user.userId}">
@@ -493,7 +493,12 @@
           <input type="hidden" name="username" value="${userProfile.name}">
           <div class="content f-col">
             <div class="profile f-row">
-              <div class="pro-img"></div>
+              <div class="pro-img">
+                <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${post.userId}"
+                     alt="User Profile Image"
+                     style="width: 100%; height: 100%; border-radius: 50%"
+                     onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />
+              </div>
               <div class="post-details f-col">
                 <div class="name capitalize">${post.name}</div>
                 <div class="posted-date formatDate f-row">
