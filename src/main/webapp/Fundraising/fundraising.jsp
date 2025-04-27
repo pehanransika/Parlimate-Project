@@ -334,6 +334,15 @@
                 </button>
             </div>
 
+            <a href="${pageContext.request.contextPath}/uploads/fund.pdf" target="_blank"
+               style="display:inline-block; background-color:#000000; color:#ffffff; padding:10px 20px; text-decoration:none; border-radius:5px; position:fixed; right:20px; top:100px; font-weight:bold; transition:background-color 0.3s;"
+               onmouseover="this.style.backgroundColor='#b2b2b2'; this.style.color='#000000';"
+               onmouseout="this.style.backgroundColor='#000000'; this.style.color='#ffffff';">
+                View Fund Guideline (PDF)
+            </a>
+
+
+            <br>
             <div class="fundraising-container">
 
                 <div class="filter-container">
