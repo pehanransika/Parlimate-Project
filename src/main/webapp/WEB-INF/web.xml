@@ -43,6 +43,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <servlet-class>UserPackage.ChangePasswordServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <url-pattern>/Profile/ChangePasswordServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>GetMyAnnouncements</servlet-name>
     <servlet-class>com.ann.GetMyAnnouncements</servlet-class>
   </servlet>

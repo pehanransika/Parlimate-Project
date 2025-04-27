@@ -145,6 +145,60 @@ public class UserController {
         return users;
     }
 
+    public static boolean changePassword(int userId, String currentPassword, String newPassword) throws SQLException {
+        System.out.println("changePassword called with userId: " + userId + ", currentPassword: [hidden], newPassword: [hidden]");
+
+        String selectSql = "SELECT password FROM users WHERE user_id = ?";
+        String updateSql = "UPDATE users SET password = ? WHERE user_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
+
+            System.out.println("Executing SELECT query for user_id: " + userId);
+            // Fetch stored hashed password
+            selectStmt.setInt(1, userId);
+            try (ResultSet rs = selectStmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedHash = rs.getString("password");
+                    System.out.println("Stored hash retrieved: " + (storedHash != null ? "[hash]" : "null"));
+
+                    // Verify current password using passwordHashing.checkPassword
+                    boolean passwordMatch = passwordHashing.checkPassword(currentPassword, storedHash);
+                    System.out.println("Current password verification result: " + passwordMatch);
+
+                    if (passwordMatch) {
+                        // Hash the new password
+                        String newPasswordHash = passwordHashing.hashPassword(newPassword);
+                        if (newPasswordHash == null) {
+                            System.out.println("Failed to hash new password");
+                            throw new SQLException("Failed to hash new password");
+                        }
+                        System.out.println("New password hashed: [hash]");
+
+                        // Update the password in the database
+                        try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                            updateStmt.setString(1, newPasswordHash);
+                            updateStmt.setInt(2, userId);
+                            System.out.println("Executing UPDATE query for user_id: " + userId);
+                            int rowsAffected = updateStmt.executeUpdate();
+                            System.out.println("Rows affected by UPDATE: " + rowsAffected);
+                            return rowsAffected > 0;
+                        }
+                    } else {
+                        System.out.println("Returning false: Current password does not match");
+                        return false;
+                    }
+                } else {
+                    System.out.println("Returning false: No user found for user_id: " + userId);
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error updating password: " + e.getMessage());
+            throw e;
+        }
+    }
+
     // Fetch User Profile
     public static List<UserModel> UserProfile(int id) {
         List<UserModel> users = new ArrayList<>();

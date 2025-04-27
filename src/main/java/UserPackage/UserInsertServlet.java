@@ -3,9 +3,7 @@ package UserPackage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/UserNewInsertServlet")
@@ -17,33 +15,47 @@ public class UserInsertServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("Password");
         String userType = req.getParameter("userType");
+        String enteredOtp = req.getParameter("otp");
 
-        // Hash the password
+        HttpSession session = req.getSession();
+        Object generatedOtpObj = session.getAttribute("otp");
+
+        // ✅ First check OTP
+        if (generatedOtpObj == null || !enteredOtp.equals(generatedOtpObj.toString())) {
+            String alertMessage = "Invalid or expired OTP. Please try again.";
+            resp.getWriter().println("<script>");
+            resp.getWriter().println("alert('" + alertMessage + "');");
+            resp.getWriter().println("history.back();"); // 👈 Go back without refreshing the page
+            resp.getWriter().println("</script>");
+            return;
+        }
+
+        // ✅ If OTP is correct, continue registration
         String hashedPassword = passwordHashing.hashPassword(password);
         if (hashedPassword == null) {
             String alertMessage = "Error while processing the password. Please try again.";
             resp.getWriter().println("<script>");
             resp.getWriter().println("alert('" + alertMessage + "');");
-            resp.getWriter().println("window.location.href='index.jsp';");
+            resp.getWriter().println("history.back();"); // 👈 Go back without refreshing the page
             resp.getWriter().println("</script>");
+
             return;
         }
 
         int userId;
         boolean isType = false;
 
-        // Insert user into the database
         userId = UserController.insertUser(email, hashedPassword, userType);
         if (userId == -2) { // Duplicate email
             String alertMessage = "Duplicate email entered. Please use a different email.";
             resp.getWriter().println("<script>");
             resp.getWriter().println("alert('" + alertMessage + "');");
-            resp.getWriter().println("window.location.href='index.jsp';");
+            resp.getWriter().println("history.back();"); // 👈 Go back without refreshing the page
             resp.getWriter().println("</script>");
+
             return;
         }
 
-        // Process user type-specific logic
         if (userId > 0) {
             if ("Citizen".equals(userType)) {
                 String name = req.getParameter("name");
@@ -51,15 +63,15 @@ public class UserInsertServlet extends HttpServlet {
                 String phoneNumber = req.getParameter("phoneNumber");
                 String district = req.getParameter("district");
 
+                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber, district);
 
-                isType = CitizenController.insertCitizen(userId, name, address, phoneNumber,district);
             } else if ("Politician".equals(userType)) {
                 String name = req.getParameter("name");
                 String address = req.getParameter("address");
                 String phoneNumber = req.getParameter("phoneNumber");
 
-
                 isType = PoliticianController.insertPolitician(userId, name, address, phoneNumber);
+
             } else if ("Political-Party".equals(userType)) {
                 String name = req.getParameter("partyName");
                 String address = req.getParameter("partyAddress");
@@ -71,7 +83,6 @@ public class UserInsertServlet extends HttpServlet {
             }
         }
 
-        // Handle success or failure
         if (isType) {
             String alertMessage = "Registered Successfully";
             resp.getWriter().println("<script>");
