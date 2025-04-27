@@ -81,7 +81,16 @@
             <div class="profile f-row">
                 <div class="p-img"></div>
                 <div class="surv-details f-col">
-                    <div class="name">${survey.user[0].name}</div>
+                    <div class="name">
+                        <c:choose>
+                            <c:when test="${survey.user[0].userType == 'Politician' || survey.user[0].userType == 'Citizen' || survey.user[0].userType == 'Political Party'}">
+                                ${survey.user[0].name}
+                            </c:when>
+                            <c:otherwise>
+                                Parlimate
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                     <div class="date" data-timestamp="${survey.createdAt}" id="date${status.index}"></div>
                 </div>
             </div>
@@ -225,62 +234,63 @@
 
 
 
-        <div id="deletepopup" class="popup">
-            <div  style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
-                  class="popup-content">
-                <span class="close-btn" onclick="closeDeletePopup()">&times;</span> <br>
+    <div id="deletepopup" class="popup">
+        <div  style="height:150px;width:345px;justify-content: center;display: flex; flex-direction: column; align-items: center;"
+              class="popup-content">
+            <span class="close-btn" onclick="closeDeletePopup()">&times;</span> <br>
 
-                <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
-                <button onclick="deleteSurvey()" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
+            <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
+            <button onclick="deleteSurvey(${survey.surveyId})" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
 
-            </div>
         </div>
+    </div>
 
-        <script>
-            function closeDeletePopup() {
+    <script>
+        function closeDeletePopup() {
+            requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        document.getElementById('deletepopup').classList.remove('show');
-                    });
+                    document.getElementById('deletepopup').classList.remove('show');
                 });
-                document.body.style.overflow = "hidden";
+            });
+            document.body.style.overflow = "hidden";
 
-            }
-            function deleteSurvey(){
+        }
+        function deleteSurvey(surveyId) {
+            const params = new URLSearchParams();
+            params.append('surveyId', surveyId); // Use the passed surveyId
 
-                const params = new URLSearchParams();
-                params.append('surveyId', ${survey.surveyId});
-
-                fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
-                    body: params
+            fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                },
+                body: params
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Server returned " + response.status);
+                    }
+                    return response.text();
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Server returned"+response.status);
-                        }
-                        return response.text();
-                    })
-                    .then(msg => {
-                        // on success, reload to reflect changes
-                        window.location.reload();
-                    })
-                    .catch(err => {
-                        console.error('Deletion error:', err);
-                        alert('Failed to delete survey: ' + err.message);
-                    });
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        document.getElementById('deletepopup').classList.remove('show');
-                        window.location.reload();
-                    });
+                .then(msg => {
+                    // On success, reload to reflect changes
+                    window.location.reload();
+                })
+                .catch(err => {
+                    console.error('Deletion error:', err);
+                    alert('Failed to delete survey: ' + err.message);
                 });
-                document.body.style.overflow = "hidden";
-            }
-        </script>
+
+            // Close popup and reload
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.getElementById('deletepopup').classList.remove('show');
+                    window.location.reload();
+                });
+            });
+            document.body.style.overflow = "hidden";
+        }
+    </script>
 
 
     <!-- Delete Popup HTML and Javascript End-->
@@ -300,7 +310,7 @@
                     {
                         answerId: "${answer.answerId}",
                         text: "${answer.answerText}",
-                        img: "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg"
+                        img: "${pageContext.request.contextPath}/images/user_${survey.user[0].userId}/user_surveys/${answer.imageUrl}"
                     }<c:if test="${!aStatus.last}">,</c:if>
                     </c:forEach>
                 ],
