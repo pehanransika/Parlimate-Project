@@ -78,27 +78,9 @@
     <div class="survey-container" id="surveyContainer${status.index}">
       <div class="top f-row">
         <div class="profile f-row">
-          <div class="p-img">
-            <c:choose>
-              <c:when test="${survey.user[0].userType == 'Politician' || survey.user[0].userType == 'Citizen' || survey.user[0].userType == 'Political Party'}">
-
-              </c:when>
-              <c:otherwise>
-
-              </c:otherwise>
-            </c:choose>
-          </div>
+          <div class="p-img"></div>
           <div class="surv-details f-col">
-            <div class="name">
-              <c:choose>
-                <c:when test="${survey.user[0].userType == 'Politician' || survey.user[0].userType == 'Citizen' || survey.user[0].userType == 'Political Party'}">
-                  ${survey.user[0].name}
-                </c:when>
-                <c:otherwise>
-                  Parlimate
-                </c:otherwise>
-              </c:choose>
-            </div>
+            <div class="name">${survey.user[0].name}</div>
             <div class="date" data-timestamp="${survey.createdAt}" id="date${status.index}"></div>
           </div>
         </div>
@@ -139,9 +121,6 @@
       </div> <br>
       <div class="survey-topic" style="justify-content: center;font-size: larger;">
         Survey Topic : ${survey.surveyTopic}
-      </div> <br>
-      <div class="survey-topic" style="justify-content: center;font-size: larger;">
-        Survey Description : ${survey.surveyDescription}
       </div> <br>
       <div class="question-slider" id="question-slider${status.index}"></div>
       <div class="nav-buttons">
@@ -252,7 +231,7 @@
         <span class="close-btn" onclick="closeDeletePopup()">&times;</span> <br>
 
         <p style="font-size: 17px;justify-content: center;">Are you sure to delete this survey?</p> <br>
-        <button onclick="deleteSurvey(${survey.surveyId})" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
+        <button onclick="deleteSurvey()" id="delete-ok-btn" style="justify-content: center;right:20px;">Delete</button>
 
       </div>
     </div>
@@ -267,33 +246,32 @@
         document.body.style.overflow = "hidden";
 
       }
-      function deleteSurvey(surveyId) {
-        const params = new URLSearchParams();
-        params.append('surveyId', surveyId); // Use the passed surveyId
+      function deleteSurvey(){
 
-        fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-          },
-          body: params
-        })
+                const params = new URLSearchParams();
+                params.append('surveyId', ${survey.surveyId});
+
+                fetch('<%= request.getContextPath() %>/DeleteSurveyServlet', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                  },
+                  body: params
+                })
                 .then(response => {
                   if (!response.ok) {
-                    throw new Error("Server returned " + response.status);
+                    throw new Error("Server returned"+response.status);
                   }
                   return response.text();
                 })
                 .then(msg => {
-                  // On success, reload to reflect changes
+                  // on success, reload to reflect changes
                   window.location.reload();
                 })
                 .catch(err => {
                   console.error('Deletion error:', err);
                   alert('Failed to delete survey: ' + err.message);
                 });
-
-                // Close popup and reload
                 requestAnimationFrame(() => {
                   requestAnimationFrame(() => {
                     document.getElementById('deletepopup').classList.remove('show');

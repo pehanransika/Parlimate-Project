@@ -1,5 +1,5 @@
 
-<%--         creat survey   pop up content             --%>
+                 <%--         creat survey   pop up content             --%>
 
 <div id="popup" class="popup">
     <div class="popup-content">
@@ -10,8 +10,6 @@
                 <h2>Create Survey</h2>
                 <label>Survey Topic:</label>
                 <input type="text" id="survey-topic" placeholder="Enter Topic" class="custom-input"/>
-                <label>Survey description:</label>
-                <input type="text" id="survey-description" placeholder="Enter Topic" class="custom-input"/>
                 <label>Number of Questions:</label>
                 <input type="number" id="question-count" min="1" max="30" class="custom-input"/> <br><br>
                 <button class="next-btn" onclick="goToStep()">Next
@@ -57,16 +55,15 @@
         </div>
     </div>
 </div>
-<%--             pop up content  ends                    --%>
+       <%--             pop up content  ends                    --%>
 
-<!--          JavaScript to handle the popup logic        -->
+       <!--          JavaScript to handle the popup logic        -->
 
 
 <script type="text/javascript">
     // State variables
     let surveyData = {
         topic: '',
-        description:'',
         questions: []
     };
     let totalQuestions = 0;
@@ -147,7 +144,6 @@
         // Append survey-level data
         formData.append('surveyTopic', surveyData.topic);
         formData.append('numberOfQuestions', totalQuestions);
-        formData.append('surveyDescription',surveyData.description);
         console.log("survey topic :",surveyData.topic);
         console.log("numberOfQuestions",totalQuestions);
         // Note: userId is fetched from the session in the servlet, so we don’t need to send it unless required
@@ -203,7 +199,6 @@
 
         if (currentStep.classList.contains('step-11')) {
             surveyData.topic = document.getElementById('survey-topic').value;
-            surveyData.description = document.getElementById('survey-description').value;
             totalQuestions = parseInt(document.getElementById('question-count').value, 10);
             if (!surveyData.topic || isNaN(totalQuestions) || totalQuestions < 1 || totalQuestions > 30) {
                 alert('Please enter a valid survey topic and number of questions (1-30).');
@@ -281,6 +276,6 @@
     });
 </script>
 
-<!--                 JavaScript to handle the popup logic ends               -->
+    <!--                 JavaScript to handle the popup logic ends               -->
 
 

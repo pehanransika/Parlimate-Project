@@ -163,10 +163,8 @@ public class surveyController {
                 int userId = surveyRs.getInt("user_id");
                 Timestamp timestamp = surveyRs.getTimestamp("created_at");
                 LocalDateTime createdAt = timestamp.toLocalDateTime();
-                String surveyDescription = surveyRs.getString("survey_description");
 
                 SurveyModel survey = new SurveyModel(surveyId, surveyTopic, numberOfQuestions, userId,createdAt);
-                survey.setSurveyDescription(surveyDescription);
                 SurveyUserProfileModel surveyowner = SurveyUserProfileController.getSurveyUserProfile(userId);
                 List<SurveyUserProfileModel> ownner = new ArrayList<>();
                 ownner.add(surveyowner);
@@ -490,7 +488,7 @@ public class surveyController {
     }
 
     public boolean createSurvey(SurveyModel survey) {
-        String insertSurvey = "INSERT INTO survey (survey_topic, number_of_questions, user_id,survey_description) VALUES (?, ?, ?,?) RETURNING survey_id";
+        String insertSurvey = "INSERT INTO survey (survey_topic, number_of_questions, user_id) VALUES (?, ?, ?) RETURNING survey_id";
         String insertQuestion = "INSERT INTO question (question, question_number, number_of_answers, survey_id) VALUES (?, ?, ?, ?) RETURNING question_id";
         String insertAnswer = "INSERT INTO answer (answer, answer_number, image_url, question_id) VALUES (?, ?, ?, ?)";
 
@@ -503,7 +501,6 @@ public class surveyController {
                 surveyStmt.setString(1, survey.getSurveyTopic());
                 surveyStmt.setInt(2, survey.getNumberOfQuestions());
                 surveyStmt.setInt(3, sessionUserId);
-                surveyStmt.setString(4, survey.getSurveyDescription());
 
                 ResultSet rs = surveyStmt.executeQuery();
                 if (rs.next()) {
