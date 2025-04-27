@@ -13,7 +13,7 @@ public class PercentageModel {
         this.percentage = percentage;
     }
 
-    // Getters and Setters
+
     public int getPercentageId() {
         return percentageId;
     }

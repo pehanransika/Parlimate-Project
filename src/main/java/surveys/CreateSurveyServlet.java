@@ -24,19 +24,19 @@ public class CreateSurveyServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Fetch user votes for this question and
+
         HttpSession session = request.getSession(false);
-        // Get the user object from session
+
         UserModel user = (UserModel) session.getAttribute("user");
 
-        // Extract the userId
+
         int userid = user.getUserId();
-        // Define the upload directory for the user
+
 
         surveyController controller = new surveyController(userid);
 
         try {
-            // Retrieve form data
+
             String surveyTopic = request.getParameter("surveyTopic");
             String numberOfQuestionsStr = request.getParameter("numberOfQuestions");
             String userIdStr = request.getParameter("userId");
@@ -49,16 +49,16 @@ public class CreateSurveyServlet extends HttpServlet {
                     ? Integer.parseInt(numberOfQuestionsStr)
                     : 0;
 
-            // Validate required fields
+
             if (surveyTopic == null || surveyTopic.isEmpty() || numberOfQuestions <= 0 || numberOfQuestions > 30) {
                 throw new IllegalArgumentException("Missing or invalid required parameters: survey topic or number of questions.");
             }
 
-            // Create SurveyModel
+
             SurveyModel survey = new SurveyModel(0, surveyTopic, numberOfQuestions, userId, LocalDateTime.now());
             List<QuestionModel> questions = new ArrayList<>();
 
-            // Process each question
+
             for (int qIndex = 0; qIndex < numberOfQuestions; qIndex++) {
                 String questionText = request.getParameter("questions[" + qIndex + "][text]");
                 String numAnswersStr = request.getParameter("questions[" + qIndex + "][numAnswers]");
@@ -71,7 +71,7 @@ public class CreateSurveyServlet extends HttpServlet {
                         ? Integer.parseInt(questionNumberStr)
                         : qIndex + 1;
 
-                // Validate question data
+
                 if (questionText == null || questionText.isEmpty() || numAnswers <= 0 || numAnswers > 5) {
                     throw new IllegalArgumentException("Invalid question data for question " + (qIndex + 1) + ".");
                 }
@@ -79,26 +79,25 @@ public class CreateSurveyServlet extends HttpServlet {
                 QuestionModel question = new QuestionModel(0, questionText, questionNumber, numAnswers);
                 List<AnswerModel> answers = new ArrayList<>();
 
-                // Process each answer for the question
+
                 for (int aIndex = 0; aIndex < numAnswers; aIndex++) {
                     String answerText = request.getParameter("questions[" + qIndex + "][answers][" + aIndex + "][text]");
                     Part imagePart = request.getPart("questions[" + qIndex + "][answers][" + aIndex + "][image]");
                     String imageUrl = null;
 
-                    // Validate answer text
+
                     if (answerText == null || answerText.isEmpty()) {
                         throw new IllegalArgumentException("Invalid answer text for answer " + (aIndex + 1) + " in question " + (qIndex + 1) + ".");
                     }
 
-                    // Handle image upload if present
                     if (imagePart != null && imagePart.getSize() > 0) {
                         String fileName  = extractFileName(imagePart);
                         String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "user_" + userid + File.separator+ "user_surveys";
 
-                        // Ensure the user-specific directory exists
+
                         File userSurveyDir = new File(uploadPath);
                         if (!userSurveyDir.exists()) {
-                            userSurveyDir.mkdirs(); // Create the directory (including parent directories if needed)
+                            userSurveyDir.mkdirs();
                         }
 
                         imageUrl =  fileName;
@@ -115,15 +114,15 @@ public class CreateSurveyServlet extends HttpServlet {
 
             survey.setQuestions(questions);
 
-            // Call the controller to create the survey
+
             boolean isTrue = controller.createSurvey(survey);
 
             if (isTrue) {
-                // If successful, show alert and redirect (adjust the redirect URL as needed)
+
                 String alertMessage = "Survey Created Successfully";
                 response.getWriter().println("<script>alert('" + alertMessage + "'); window.location.href='GetAllSurveysServlet';</script>");
             } else {
-                // If not successful, forward to the error page
+
                 String alertMessage = "Failed to create survey.";
                 request.setAttribute("error", alertMessage);
                 RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
@@ -131,24 +130,24 @@ public class CreateSurveyServlet extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
-            // Log the exception for debugging
+
             e.printStackTrace();
 
-            // Provide user-friendly error message
+
             String alertMessage = "Invalid input or database error. Please try again.";
             request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
 
         } catch (IllegalArgumentException e) {
-            // Catch missing or invalid parameter exceptions
+
             String alertMessage = e.getMessage();
             request.setAttribute("error", alertMessage);
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
             dis.forward(request, response);
 
         } catch (Exception e) {
-            // Catch unexpected errors
+
             e.printStackTrace();
             request.setAttribute("error", "An unexpected error occurred. Please try again later.");
             RequestDispatcher dis = request.getRequestDispatcher("error.jsp");
@@ -165,6 +164,6 @@ public class CreateSurveyServlet extends HttpServlet {
                 }
             }
         }
-        return null; // Return null if no filename is found
+        return null;
     }
 }

@@ -8,11 +8,11 @@ public class SurveyModel {
     private String surveyTopic;
     private int numberOfQuestions;
     private int userId;
-    private List<QuestionModel> questions;// List to hold questions
+    private List<QuestionModel> questions;
     private List<SurveyUserProfileModel> user;
-    private LocalDateTime createdAt;  // Field for created_at
+    private LocalDateTime createdAt;
     private int totalVotes;
-    // Constructor, including created_at
+
     public SurveyModel(int surveyId, String surveyTopic, int numberOfQuestions, int userId, LocalDateTime createdAt) {
         this.surveyId = surveyId;
         this.surveyTopic = surveyTopic;
@@ -21,7 +21,7 @@ public class SurveyModel {
         this.createdAt = createdAt;
     }
 
-    // Getters and setters for all fields
+
     public int getSurveyId() {
         return surveyId;
     }

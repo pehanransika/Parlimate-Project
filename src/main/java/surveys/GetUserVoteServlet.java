@@ -59,6 +59,6 @@ public class GetUserVoteServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch user vote: " + e.getMessage());
         }
-        return null; // No vote found
+        return null;
     }
 }

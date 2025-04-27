@@ -36,13 +36,13 @@ public class PercentageController {
             PreparedStatement totalStmt = conn.prepareStatement(totalResponsesQuery);
             ResultSet totalRs = totalStmt.executeQuery();
 
-            // Store total responses per question in a map
+
             java.util.Map<Integer, Integer> totalMap = new java.util.HashMap<>();
             while (totalRs.next()) {
                 totalMap.put(totalRs.getInt("question_id"), totalRs.getInt("total"));
             }
 
-            // Now count responses per answer
+
             PreparedStatement answerStmt = conn.prepareStatement(answerCountQuery);
             ResultSet answerRs = answerStmt.executeQuery();
 
@@ -56,7 +56,7 @@ public class PercentageController {
                 if (total > 0) {
                     double percentage = (answerCount * 100.0) / total;
 
-                    // Store or update in percentage table
+
                     PreparedStatement insertStmt = conn.prepareStatement(insertPercentageQuery);
                     insertStmt.setInt(1, answerId);
                     insertStmt.setDouble(2, percentage);

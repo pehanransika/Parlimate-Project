@@ -10,7 +10,7 @@ public class QuestionModel {
     private List<AnswerModel> answers;
     private List<UserVoteModel> userVotes;
 
-    // Updated constructor including numberOfAnswers
+
     public QuestionModel(int questionId, String questionText, int questionNumber, int numberOfAnswers) {
         this.questionId = questionId;
         this.questionText = questionText;
@@ -18,7 +18,7 @@ public class QuestionModel {
         this.numberOfAnswers = numberOfAnswers;
     }
 
-    // Getters and setters
+
     public int getQuestionId() {
         return questionId;
     }

@@ -7,7 +7,7 @@ public class AnswerModel {
     private String imageUrl;
     private int numberOfVotes;
 
-    // Constructor, getters, and setters
+
     public AnswerModel(int answerId, String answerText, int answerNumber, String imageUrl) {
         this.answerId = answerId;
         this.answerText = answerText;

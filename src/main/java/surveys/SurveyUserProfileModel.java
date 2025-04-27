@@ -23,7 +23,7 @@ public class SurveyUserProfileModel {
         this.District = district;
     }
 
-    // Getters and Setters
+
 
     public int getUserId() {
         return userId;

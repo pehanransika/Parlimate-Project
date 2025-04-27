@@ -5,14 +5,14 @@ public class UserVoteModel {
     private int answerId;
     private int answerNumber;
 
-    // Constructor
+
     public UserVoteModel(int userId, int answerId, int answerNumber) {
         this.userId = userId;
         this.answerId = answerId;
         this.answerNumber = answerNumber;
     }
 
-    // Getters and setters
+
     public int getUserId() {
         return userId;
     }

@@ -17,7 +17,7 @@ public class ResponseModel {
         this.userId = userId;
     }
 
-    // Getters and Setters
+
     public int getResponseId() {
         return responseId;
     }
