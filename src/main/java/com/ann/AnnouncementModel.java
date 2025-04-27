@@ -9,6 +9,8 @@ public class AnnouncementModel {
     private String content;
     private LocalDateTime datetime;
     private String politicianName;
+    private String imageUrl;
+    private int userId;
 
     public AnnouncementModel(int announcementid, int politicianid, String title, String content, LocalDateTime datetime,String politicianName) {
         this.announcementid = announcementid;
@@ -65,6 +67,12 @@ public class AnnouncementModel {
     public void setPoliticianName(String politicianName) {
         this.politicianName = politicianName;
     }
+
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
+
+    public int getUserId() {return userId;}
+    public void setUserId(int userId) {this.userId = userId;}
 }
 
 

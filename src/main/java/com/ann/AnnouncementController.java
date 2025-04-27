@@ -112,7 +112,7 @@ public class AnnouncementController {
         ArrayList<AnnouncementModel> announcements = new ArrayList<>();
 
         // SQL query to fetch all announcements with politician name
-        String query = "SELECT a.announcementid, a.politicianid, a.title, a.content, a.datetime, p.name AS politicianName "
+        String query = "SELECT a.announcementid, a.politicianid, a.title, a.content, a.datetime,p.profile_img_url,p.user_id,p.name AS politicianName "
                 + "FROM announcement a "
                 + "JOIN politician p ON a.politicianid = p.politician_id "
                 + "ORDER BY a.datetime DESC"; // Sort announcements by datetime in descending order
@@ -131,6 +131,8 @@ public class AnnouncementController {
                     String content = rs.getString("content");
                     LocalDateTime datetime = rs.getTimestamp("datetime").toLocalDateTime();
                     String politicianName = rs.getString("politicianName");
+                    String imageUrl = rs.getString("profile_img_url");
+                    int userId = rs.getInt("user_id");
 
                     // Log retrieved data for debugging
                     System.out.println("Retrieved: " + title + " by " + politicianName);
@@ -143,7 +145,10 @@ public class AnnouncementController {
                     }
 
                     AnnouncementModel announcement = new AnnouncementModel(announcementid, politicianid, title, content, datetime, politicianName);
+                    announcement.setImageUrl(imageUrl);
+                    announcement.setUserId(userId);
                     announcements.add(announcement);
+
                 }
             }
 

@@ -18,55 +18,58 @@ public class UpdateRequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         try {
             // Retrieve and validate request ID
             String requestIdParam = request.getParameter("requestId");
-            System.out.println("Request ID received: " + requestIdParam);
-
             if (requestIdParam == null || requestIdParam.trim().isEmpty()) {
-                throw new NumberFormatException("Request ID is missing.");
+                throw new IllegalArgumentException("Request ID is missing.");
             }
+            int requestId = Integer.parseInt(requestIdParam.trim());
+            System.out.println("Request ID received: " + requestId);
 
-            int requestId = Integer.parseInt(requestIdParam);
-
-            // Other parameters
+            // Retrieve other parameters
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String category = request.getParameter("category");
             String targetAmountParam = request.getParameter("targetAmount");
             String currency = request.getParameter("currency");
-            String contact_no=request.getParameter("contact_no");
-            String photos=request.getParameter("photos");
-            String attachment_url = request.getParameter("attachment_url");  // Fixed parameter name
-            String status=request.getParameter("status");
+            String contactNo = request.getParameter("contact_no");
+            String photos = request.getParameter("photos");
+            String attachmentUrl = request.getParameter("attachment_url");
+            String status = request.getParameter("status");
 
             // Validate target amount
             if (targetAmountParam == null || targetAmountParam.trim().isEmpty()) {
-                throw new NumberFormatException("Target amount is missing.");
+                throw new IllegalArgumentException("Target amount is missing.");
             }
-            BigDecimal targetAmount = new BigDecimal(targetAmountParam);
+            BigDecimal targetAmount = new BigDecimal(targetAmountParam.trim());
 
+            // Current date-time for update
             LocalDateTime datetime = LocalDateTime.now();
 
-            // Call the controller method
+            // Call the controller method to update the record
             boolean isUpdated = RequestController.updateFundraisingRequest(
-                    requestId, title, description, category, targetAmount, currency,contact_no,photos, datetime, attachment_url,status);
+                    requestId, title, description, category, targetAmount, currency,
+                    contactNo, photos, datetime, attachmentUrl, status
+            );
 
             if (isUpdated) {
-                response.setContentType("text/html");
                 response.getWriter().println("<script>alert('Request Updated Successfully'); window.history.back();</script>");
             } else {
                 request.setAttribute("error", "Failed to update the request.");
-                RequestDispatcher dis = request.getRequestDispatcher("wrong.jsp");
-                dis.forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("wrong.jsp");
+                dispatcher.forward(request, response);
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            response.setContentType("text/html");
+            response.getWriter().println("<script>alert('Invalid number format: " + e.getMessage() + "'); window.history.back();</script>");
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             response.getWriter().println("<script>alert('Invalid input: " + e.getMessage() + "'); window.history.back();</script>");
         } catch (Exception e) {
             e.printStackTrace();
-            response.setContentType("text/html");
             response.getWriter().println("<script>alert('Error processing request. Please try again later.'); window.location.href='error.jsp';</script>");
         }
     }

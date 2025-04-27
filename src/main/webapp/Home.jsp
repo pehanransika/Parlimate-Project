@@ -494,15 +494,14 @@
           <div class="content f-col">
             <div class="profile f-row">
               <div class="pro-img">
-
-                <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${post.userId}/${userProfile.profileImg}"
-                     alt="User Profile Image"
-                     style="width: 100%; height: 100%; border-radius: 50%"
-                     onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />
-<%--                <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${post.userId}"--%>
+<%--                <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${post.userId}/${post.imgUrl}"--%>
 <%--                     alt="User Profile Image"--%>
 <%--                     style="width: 100%; height: 100%; border-radius: 50%"--%>
 <%--                     onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />--%>
+                <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${post.userId}"
+                     alt="User Profile Image"
+                     style="width: 100%; height: 100%; border-radius: 50%"
+                     onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />
               </div>
               <div class="post-details f-col">
                 <div class="name capitalize">${post.name}</div>

@@ -111,8 +111,8 @@
                     <div class="profile-img-content">
                         <div class="pImage"
                              data-name="${announcement.politicianName != null ? announcement.politicianName : "Unknown"}">
-                            <img src="https://avatar.iran.liara.run/username?username=${fn:replace(fn:escapeXml(announcement.politicianName), ' ', '+')}"/>
-<%--                            <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${post.userId}/${userProfile.profileImg}"--%>
+<%--                            <img src="https://avatar.iran.liara.run/username?username=${fn:replace(fn:escapeXml(announcement.politicianName), ' ', '+')}"/>--%>
+                            <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${announcement.userId}/${announcement.imageUrl}"
                                  alt="User Profile Image"
                                  style="width: 100%; height: 100%; border-radius: 50%"
                                  onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />

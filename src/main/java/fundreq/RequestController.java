@@ -161,12 +161,12 @@ public class RequestController {
 
     // Method to update a fundraising request
     public static boolean updateFundraisingRequest(int requestId, String title, String description, String category,
-                                                   BigDecimal targetamount, String currency, String contact_no, String photos, LocalDateTime datetime, String attachment_url,String status) throws SQLException {
-        String query = "UPDATE fundraisingrequests SET title = ?, description = ?, category = ?, targetamount = ?, currency = ?, contact_no=?,photos=?,datetime = ?, attachment_url = ?,status=? WHERE requestId = ?";
+                                                   BigDecimal targetamount, String currency, String contact_no, String photos,
+                                                   LocalDateTime datetime, String attachment_url, String status) throws SQLException {
+        String query = "UPDATE fundraisingrequests SET title = ?, description = ?, category = ?, targetamount = ?, currency = ?, contact_no = ?, photos = ?, datetime = ?, attachment_url = ?, status = ? WHERE requestId = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Set parameters in the correct order
             stmt.setString(1, title);
             stmt.setString(2, description);
             stmt.setString(3, category);
@@ -174,10 +174,10 @@ public class RequestController {
             stmt.setString(5, currency);
             stmt.setString(6, contact_no);
             stmt.setString(7, photos);
-            stmt.setTimestamp(8, Timestamp.valueOf(datetime));  // Convert LocalDateTime to Timestamp
-            stmt.setString(9, attachment_url); // Correct position of attachment_url
-            stmt.setInt(10, requestId);  // Ensure requestId is the last parameter
-            stmt.setString(11,status);
+            stmt.setTimestamp(8, Timestamp.valueOf(datetime));
+            stmt.setString(9, attachment_url);
+            stmt.setString(10, status);        // <- Corrected: status is 10
+            stmt.setInt(11, requestId);         // <- Corrected: requestId is 11
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

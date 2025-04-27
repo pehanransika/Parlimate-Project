@@ -31,7 +31,6 @@
             overflow-y: auto; /* Allows scrolling if content is too long */
         }
 
-
         /* Popup box */
         .popup {
             background-color: #fff;
@@ -123,7 +122,6 @@
                 transform: scale(1);
             }
         }
-
     </style>
 </head>
 
@@ -150,17 +148,17 @@
         <c:forEach var="request" items="${allRequests}">
             <li class="request-item col">
                 <div class="request-header">
-                    <span class="title">${request.title}</span>
-                    <p class="date">${request.datetime}</p>
+                    <span class="title">${fn:escapeXml(request.title)}</span>
+                    <p class="date">${fn:escapeXml(request.datetime)}</p>
                 </div>
                 <div class="request-content col">
-                    <p>Description: <span>${request.description}</span></p>
-                    <p>Category: <span>${request.category}</span></p>
-                    <p>Contact Number: <span>${request.contact_no}</span></p>
-                    <p>Target Amount: <span class="cap">${request.currency} ${request.targetAmount}</span></p>
+                    <p>Description: <span>${fn:escapeXml(request.description)}</span></p>
+                    <p>Category: <span>${fn:escapeXml(request.category)}</span></p>
+                    <p>Contact Number: <span>${fn:escapeXml(request.contact_no)}</span></p>
+                    <p>Target Amount: <span class="cap">${fn:escapeXml(request.currency)} ${request.targetAmount}</span></p>
                     <p>Attachment:
                         <c:if test="${not empty request.attachmentUrl}">
-                            <a href="${pageContext.request.contextPath}/${request.attachmentUrl}" target="_blank">View Attachment</a>
+                            <a href="${pageContext.request.contextPath}/${fn:escapeXml(request.attachmentUrl)}" target="_blank">View Attachment</a>
                         </c:if>
                         <c:if test="${empty request.attachmentUrl}">
                             No attachment available
@@ -168,7 +166,7 @@
                     </p>
                     <p>Photos:
                         <c:if test="${not empty request.photos}">
-                            <a href="${pageContext.request.contextPath}/${request.photos}" target="_blank">View Photos</a>
+                            <a href="${pageContext.request.contextPath}/${fn:escapeXml(request.photos)}" target="_blank">View Photos</a>
                         </c:if>
                         <c:if test="${empty request.photos}">
                             No photos available
@@ -177,15 +175,21 @@
                 </div>
                 <div class="request-actions row">
                     <button class="button button-update" onclick="openEditPopup(
-                            '${request.requestId}', '${request.title}', '${fn:escapeXml(request.description)}',
-                            '${request.category}', '${request.contact_no}', '${request.targetAmount}',
-                            '${request.currency}', '${request.datetime}', '${request.photos}',
-                            '${request.attachmentUrl}')">
+                            '${fn:escapeXml(request.requestId)}',
+                            '${fn:escapeXml(request.title)}',
+                            '${fn:escapeXml(request.description)}',
+                            '${fn:escapeXml(request.category)}',
+                            '${fn:escapeXml(request.contact_no)}',
+                            '${request.targetAmount}',
+                            '${fn:escapeXml(request.currency)}',
+                            '${fn:escapeXml(request.datetime)}',
+                            '${fn:escapeXml(request.photos)}',
+                            '${fn:escapeXml(request.attachmentUrl)}')">
                         <i class="fa-solid fa-pen-to-square"></i> Edit
                     </button>
 
                     <form action="DeleteRequestServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');" style="display:inline;">
-                        <input type="hidden" name="requestId" value="${request.requestId}" />
+                        <input type="hidden" name="requestId" value="${fn:escapeXml(request.requestId)}" />
                         <button type="submit" class="button button-delete">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
@@ -207,7 +211,7 @@
         </div>
 
         <form action="UpdateRequestServlet" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="requestId" id="requestId" />
+            <input type="hidden" name="requestId" id="editRequestId" />
 
             <div class="formSection">
                 <label for="editTitle">Title</label>
@@ -229,9 +233,8 @@
                 <select id="editCategory" name="category" required>
                     <option value="" disabled selected>--Select a Category--</option>
                     <option value="Education">Education</option>
-                    <option value="Health">Health</option>
-                    <option value="Environment">Environment</option>
-                    <option value="Community">Community</option>
+                    <option value="Social">Social</option>
+                    <option value="Community">Community Service</option>
                 </select>
             </div>
 
@@ -244,11 +247,8 @@
                 <label for="editCurrency">Currency</label>
                 <select id="editCurrency" name="currency" required>
                     <option value="" disabled selected>--Select Currency--</option>
-                    <option value="USD">LKR</option>
+                    <option value="LKR">LKR</option>
                     <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="INR">INR</option>
-                    <option value="GBP">GBP</option>
                 </select>
             </div>
 
@@ -274,74 +274,103 @@
 <script>
     // Function to open the Edit Popup and pre-fill form fields
     function openEditPopup(requestId, title, description, category, contact_no, targetAmount, currency, datetime, photos, attachmentUrl) {
-        console.log("openEditPopup called with:", requestId, title, description);
+        console.log('openEditPopup called with:', { requestId, title, description, category, contact_no, targetAmount, currency, datetime, photos, attachmentUrl });
 
         const popup = document.getElementById('editPopup');
-
-        if (popup) {
-            popup.style.display = 'flex';
+        if (!popup) {
+            console.error('Popup modal element not found');
+            alert('Error: Popup modal not found. Check the DOM.');
+            return;
         }
 
-        document.getElementById('requestId').value = requestId || '';
-        document.getElementById('editTitle').value = title || '';
-        document.getElementById('editDescription').value = description || '';
-        document.getElementById('editContactNo').value = contact_no || '';
-        document.getElementById('editCategory').value = category || '';
-        document.getElementById('editTargetAmount').value = targetAmount || '';
-        document.getElementById('editCurrency').value = currency || '';
-        document.getElementById('editAttachmentUrl').value = attachmentUrl || '';
-        document.getElementById('editPhotoUrl').value = photos || '';
+        console.log('Setting popup display to flex');
+        popup.style.display = 'flex';
+
+        // Set form field values
+        const requestIdField = document.getElementById('editRequestId');
+        const titleField = document.getElementById('editTitle');
+        const descriptionField = document.getElementById('editDescription');
+        const contactNoField = document.getElementById('editContactNo');
+        const categoryField = document.getElementById('editCategory');
+        const targetAmountField = document.getElementById('editTargetAmount');
+        const currencyField = document.getElementById('editCurrency');
+        const attachmentUrlField = document.getElementById('editAttachmentUrl');
+        const photoUrlField = document.getElementById('editPhotoUrl');
+
+        if (!requestIdField || !titleField || !descriptionField || !contactNoField || !categoryField || !targetAmountField || !currencyField || !attachmentUrlField || !photoUrlField) {
+            console.error('One or more form fields not found');
+            alert('Error: One or more form fields not found. Check the form IDs.');
+            return;
+        }
+
+        requestIdField.value = requestId || '';
+        titleField.value = title || '';
+        descriptionField.value = description || '';
+        contactNoField.value = contact_no || '';
+        categoryField.value = category || '';
+        targetAmountField.value = targetAmount || '';
+        currencyField.value = currency || '';
+        attachmentUrlField.value = attachmentUrl || '';
+        photoUrlField.value = photos || '';
+
+        console.log('Form fields populated successfully');
     }
 
     // Function to close the Edit Popup
     function closeEditPopup() {
-        console.log('closeEditPopup called');  // Debugging line
-
+        console.log('closeEditPopup called');
         const popup = document.getElementById('editPopup');
-
         if (!popup) {
             console.error('Popup modal element not found');
+            alert('Error: Popup modal not found. Check the DOM.');
             return;
         }
-
         popup.style.display = 'none';
+        console.log('Popup closed');
     }
-    // Function to close the Edit Popup
 
     // Function to filter request cards/items by search input
     function filterRequests() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        const items = document.querySelectorAll('.request-item');
+        try {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.request-item');
 
-        items.forEach(item => {
-            const title = item.querySelector('.request-header .title')?.textContent.toLowerCase() || '';
-            const description = item.querySelector('.request-content')?.textContent.toLowerCase() || '';
-            const matches = title.includes(input) || description.includes(input);
-            item.style.display = matches ? 'block' : 'none';
-        });
+            items.forEach(item => {
+                const title = item.querySelector('.request-header .title')?.textContent.toLowerCase() || '';
+                const description = item.querySelector('.request-content')?.textContent.toLowerCase() || '';
+                const matches = title.includes(input) || description.includes(input);
+                item.style.display = matches ? 'block' : 'none';
+            });
+        } catch (error) {
+            console.error('Error in filterRequests:', error);
+        }
     }
 </script>
 
 <script src="../loadSidebar.js"></script>
 <script>
-    let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
-    const body = document.querySelector("body");
-    const navRadios = document.querySelectorAll('input[name="nav"]');
+    try {
+        let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
+        const body = document.querySelector("body");
+        const navRadios = document.querySelectorAll('input[name="nav"]');
 
-    sideMenuBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            body.classList.toggle("sidebar-deactive");
+        sideMenuBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                body.classList.toggle("sidebar-deactive");
+            });
         });
-    });
 
-    navRadios.forEach(radio => {
-        radio.addEventListener('change', (event) => {
-            const selectedValue = event.target.value;
-            if (selectedValue) {
-                window.location.href = selectedValue; // Redirect to the selected page
-            }
+        navRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                const selectedValue = event.target.value;
+                if (selectedValue) {
+                    window.location.href = selectedValue; // Redirect to the selected page
+                }
+            });
         });
-    });
+    } catch (error) {
+        console.error('Error in sidebar/nav script:', error);
+    }
 </script>
 
 </body>
