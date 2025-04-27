@@ -17,23 +17,23 @@ public class GetParlimateSurveysServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Check if session exists and user is logged in
+
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
 
-        // Get the user object from session
+
         UserModel user = (UserModel) session.getAttribute("user");
 
-        // Extract the userId
+
         int userId = user.getUserId();
 
-        // Create an instance of the controller
+
         surveyController controller = new surveyController(userId);
 
-        // Retrieve all surveys with questions and answers
+
         List<SurveyModel> surveys;
         if ("admin".equals(user.getUserType()) || "moderator".equals(user.getUserType())) {
             surveys = controller.getAllSurveysByModeratorsAndAdmins();
@@ -42,10 +42,10 @@ public class GetParlimateSurveysServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/SurveyManagement/ParlimateSurveys.jsp");
             dispatcher.forward(request, response);
         } else {
-            // For regular users, use a different method if needed or the same one
-            surveys = controller.getAllSurveysByModeratorsAndAdmins(); // Adjust if regular users need different data
+
+            surveys = controller.getAllSurveysByModeratorsAndAdmins();
             request.setAttribute("surveys", surveys);
-            // Forward to regular user JSP
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Surveys/surveys.jsp");
             dispatcher.forward(request, response);
         }

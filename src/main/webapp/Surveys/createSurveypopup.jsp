@@ -1,11 +1,11 @@
 
-                 <%--         creat survey   pop up content             --%>
+
 
 <div id="popup" class="popup">
     <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <div class="popup-multi-step">
-            <!-- Step 1: Survey Info -->
+
             <div class="step step-11 active">
                 <h2>Create Survey</h2>
                 <label>Survey Topic:</label>
@@ -17,7 +17,7 @@
                 </button>
             </div>
 
-            <!-- Step 2: Question Info -->
+
             <div class="step step-22">
                 <h2>Question 1 Details</h2>
                 <label>Question:</label>
@@ -29,7 +29,7 @@
                 </button>
             </div>
 
-            <!-- Step 3: Answers (Updated to show file name instead of image) -->
+
             <div class="step step-33">
                 <h2>Question 1 Answer 1 Details</h2>
                 <label>Answer:</label>
@@ -47,7 +47,7 @@
                 </button>
             </div>
 
-            <!-- Step 4: Success Message -->
+
             <div class="step step-44">
                 <h2 class="success-message">Survey Created Successfully!</h2> <br><br>
                 <button class="ok-btn" onclick="closePopup()">OK</button>
@@ -55,9 +55,9 @@
         </div>
     </div>
 </div>
-       <%--             pop up content  ends                    --%>
 
-       <!--          JavaScript to handle the popup logic        -->
+
+
 
 
 <script type="text/javascript">
@@ -70,12 +70,12 @@
     let currentQuestionIndex = 0;
     let currentAnswerIndex = 0;
 
-    // Show a specific step
+
     function showStep(stepClass) {
         document.querySelectorAll('.step').forEach(function(step) {
             step.classList.remove('active');
         });
-        // Adds the 'active' class to the targeted element
+
         var target = document.querySelector('.' + stepClass);
         if (target) {
             target.classList.add('active');
@@ -84,12 +84,12 @@
         }
     }
 
-    // Update the question title
+
     function updateQuestionTitle() {
         document.querySelector('.step-22 h2').textContent = "Question " + (currentQuestionIndex + 1) + " Details";
     }
 
-    // Update the answer title and button
+
     function updateAnswerTitle() {
         document.querySelector('.step-33 h2').textContent =
             "Question " + (currentQuestionIndex + 1) +
@@ -106,20 +106,20 @@
         }
     }
 
-    // Clear Step 2 inputs
+
     function clearQuestionInputs() {
         document.getElementById('question-text').value = '';
         document.getElementById('answer-count').value = '';
     }
 
-    // Clear Step 3 inputs and reset image label
+
     function clearAnswerInputs() {
         document.getElementById('answer-text').value = '';
         document.getElementById('answer-image').value = '';
         document.getElementById('answer-image-label').textContent = 'Image For Answer';
     }
 
-    // Close the popup and reset state
+
     function closePopup() {
         const popup = document.getElementById("popup");
         popup.classList.remove("show");
@@ -141,18 +141,18 @@
     function submitSurvey() {
         const formData = new FormData();
 
-        // Append survey-level data
+
         formData.append('surveyTopic', surveyData.topic);
         formData.append('numberOfQuestions', totalQuestions);
         console.log("survey topic :",surveyData.topic);
         console.log("numberOfQuestions",totalQuestions);
-        // Note: userId is fetched from the session in the servlet, so we don’t need to send it unless required
+
         const retrievedSurveyTopic = formData.get('surveyTopic');
         console.log('Retrieved surveyTopic from formData:', retrievedSurveyTopic);
         const numberOfQuestions = formData.get('numberOfQuestions');
         console.log('Retrieved numberofquestions',numberOfQuestions);
 
-        // Append questions and answers
+
         surveyData.questions.forEach((question, qIndex) => {
             formData.append("questions[" + qIndex + "][text]", question.text);
             formData.append("questions[" + qIndex + "][numAnswers]", question.numAnswers);
@@ -170,7 +170,7 @@
         });
         console.log("FormData has entries:", Array.from(formData.entries()).length > 0);
 
-        // Send the data to the servlet
+
         fetch('<%= request.getContextPath() %>/CreateSurveyServlet',{
             method: 'POST',
             body: formData
@@ -179,12 +179,11 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.text(); // The servlet returns a script with an alert and redirect
+                return response.text();
             })
             .then(data => {
-                // The servlet’s response is a script that the browser will execute automatically
-                // No need to handle redirection manually here unless the servlet is modified
-                showStep('step-44'); // Show success message after submission
+
+                showStep('step-44');
             })
             .catch(error => {
                 console.error('Error submitting survey:', error);
@@ -193,7 +192,7 @@
     }
 
 
-    // Handle navigation and data collection
+
     function goToStep() {
         const currentStep = document.querySelector('.step.active');
 
@@ -248,7 +247,7 @@
         }
     }
 
-    // Open the popup
+
     document.getElementById('open-popup-btn').addEventListener('click', () => {
         const popup = document.getElementById("popup");
         popup.style.display = "flex";
@@ -260,7 +259,7 @@
         document.body.style.overflow = "hidden";
     });
 
-    // Update label with file name when an image is selected
+
     document.getElementById('answer-image').addEventListener('change', function() {
         const file = this.files[0];
         const label = document.getElementById('answer-image-label');
@@ -276,6 +275,6 @@
     });
 </script>
 
-    <!--                 JavaScript to handle the popup logic ends               -->
+
 
 

@@ -27,7 +27,7 @@ public class SurveyUserProfileController {
                 String district = "";
                 String imageUrl = "";
 
-                // Determine table based on userType
+
                 switch (userType.toLowerCase()) {
                     case "citizen":
                         String citizenQuery = "SELECT * FROM citizen WHERE user_id = ?";

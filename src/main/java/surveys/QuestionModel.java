@@ -6,11 +6,11 @@ public class QuestionModel {
     private int questionId;
     private String questionText;
     private int questionNumber;
-    private int numberOfAnswers; // <-- New field
+    private int numberOfAnswers;
     private List<AnswerModel> answers;
     private List<UserVoteModel> userVotes;
 
-    // Updated constructor including numberOfAnswers
+
     public QuestionModel(int questionId, String questionText, int questionNumber, int numberOfAnswers) {
         this.questionId = questionId;
         this.questionText = questionText;
@@ -18,7 +18,7 @@ public class QuestionModel {
         this.numberOfAnswers = numberOfAnswers;
     }
 
-    // Getters and setters
+
     public int getQuestionId() {
         return questionId;
     }

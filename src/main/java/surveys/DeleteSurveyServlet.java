@@ -14,13 +14,13 @@ public class DeleteSurveyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Fetch user votes for this question and
+
             HttpSession session = request.getSession(false);
-            // Get the user object from session
+
             UserModel user = (UserModel) session.getAttribute("user");
-            // Extract the userId
+
             int userid = user.getUserId();
-            // Create an instance of your controller
+
             surveyController surveyController = new surveyController(userid);
             int surveyId = Integer.parseInt(request.getParameter("surveyId"));
             boolean success = surveyController.deleteSurvey(surveyId);

@@ -6,7 +6,7 @@ public class SurveyUserProfileModel {
     private String userType;
     private String created_at;
 
-    // Additional profile fields
+
     private String name;
     private String imageUrl;
     private String District;
@@ -23,7 +23,7 @@ public class SurveyUserProfileModel {
         this.District = district;
     }
 
-    // Getters and Setters
+
 
     public int getUserId() {
         return userId;

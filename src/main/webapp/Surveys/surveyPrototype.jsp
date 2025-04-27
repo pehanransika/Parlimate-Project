@@ -1,6 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
-                              /* Share Popup Styles */
+
   .share-popup {
     display: none;
     position: fixed;
@@ -68,9 +68,7 @@
     height: 20px;
   }
 </style>
-                      <%--  Share pop up styles end--%>
 
-                      <%-- Survey Prototype  --%>
 
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <!-- Inside the loop -->
@@ -138,16 +136,16 @@
     </div>
 
     <script>
-      // Wait until the DOM is fully loaded
+
       document.addEventListener("DOMContentLoaded", function() {
-        // Select the "OK" button and the popup container
+
         var okBtn = document.getElementById("ok-btn");
         var popup = document.getElementById("popup1");
 
-        // Check if the elements exist before adding event listener
+
         if (okBtn && popup) {
           okBtn.addEventListener("click", function() {
-            // Hide the popup by setting display to 'none'
+
             window.location.reload();
             popup.style.display = "none";
           });
@@ -155,7 +153,7 @@
       });
     </script>
 
-    <%--    share button pop up     --%>
+
 
 
     <div id="sharePopup${status.index}" class="share-popup">
@@ -214,14 +212,14 @@
         });
       };
 
-      // Add event listener to share button
+
       document.getElementById("share-btn${status.index}").addEventListener('click', () => {
         showSharePopup(${status.index});
       });
     </script>
 
 
-    <!-- Delete Popup HTML and Javascript -->
+
 
 
     <c:if test="${user.userId == survey.user[0].userId}">
@@ -284,14 +282,11 @@
 
     </c:if>
 
-    <!-- Delete Popup HTML and Javascript End-->
 
-
-    <%--      survey questions javascripts      --%>
 
 
     <script>
-      // Define questions for this specific survey
+
       const questions${status.index} = [
         <c:forEach items="${survey.questions}" var="question" varStatus="qStatus">
         {
@@ -326,7 +321,7 @@
         </c:forEach>
           ];
 
-      // Initialize the survey
+
       (function() {
         const questionSlider = document.getElementById('question-slider${status.index}');
         const prevBtn = document.getElementById('prev-btn${status.index}');
@@ -456,15 +451,15 @@
                     console.log("Vote response data:", data);
                     console.log("user vote:", q.userVote[0], ",", q.userVote[1])
                     if (data.success) {
-                      // Fetch the latest user vote for this question and update userVote
+
                       fetch('<%= request.getContextPath() %>/getUserVote?question_id=' + questionId + '&user_id=' + userId)
                               .then(response => response.json())
                               .then(latestAnswerId => {
-                                q.userVote = [${user.userId}, latestAnswerId]; // Update userVote with the latest vote from the server
+                                q.userVote = [${user.userId}, latestAnswerId];
                                 console.log("new user vote:", q.userVote[1]);
                                 console.log("latest answer id:", latestAnswerId)
                                 console.log("hello im manuja");
-                                // Fetch updated vote counts
+
                                 fetch('<%= request.getContextPath() %>/getVotes?question_id=' + questionId)
                                         .then(response => {
                                           console.log("GetVotes response status:", response.status);
@@ -483,18 +478,18 @@
                     } else {
                       console.log("Vote failed:", data);
                       alert('Failed to record vote');
-                      if (prev !== null) q.votes[prev]++; // Restore previous vote count
-                      q.votes[optIndex]--; // Remove the failed vote
-                      selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                      if (prev !== null) q.votes[prev]++;
+                      q.votes[optIndex]--;
+                      selectedAnswers[currentQuestion] = prev;
                       const slide = document.querySelector('#question-slider${status.index} .question-slide');
                       slide.innerHTML = renderQuestion(currentQuestion);
                     }
                   })
                   .catch(error => {
                     console.error('Error sending vote:', error);
-                    if (prev !== null) q.votes[prev]++; // Restore previous vote count
-                    q.votes[optIndex]--; // Remove the failed vote
-                    selectedAnswers[currentQuestion] = prev; // Revert selected answer
+                    if (prev !== null) q.votes[prev]++;
+                    q.votes[optIndex]--;
+                    selectedAnswers[currentQuestion] = prev;
                     const slide = document.querySelector('#question-slider${status.index} .question-slide');
                     slide.innerHTML = renderQuestion(currentQuestion);
                   });
@@ -530,18 +525,18 @@
 
         </c:if>
 
-        // Popup close functionality
+
         document.getElementById('ok-btn').addEventListener('click', () => {
           document.getElementById('popup').style.display = 'none';
         });
 
 
-        // Initial render
+
         showSlide(currentQuestion, 0);
       })();
     </script>
 
-    <!-- Analytics popup -->
+
 
     <div id="analyticsPopup${status.index}" class="analytics-popup">
       <div class="analytics-popup-content">
@@ -570,9 +565,9 @@
       </div>
     </div>
 
-    <!-- Analytics popup  end -->
+
     
-    <!-- Analytics pop up javascripts -->
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -623,7 +618,7 @@
           </c:forEach>}
         };
 
-        // Initialize Chart.js
+
         const ctx = document.getElementById('barGraph${status.index}').getContext('2d');
         let barChart = new Chart(ctx, {
           type: 'bar',
@@ -632,7 +627,7 @@
             datasets: [{
               label: 'Percentage',
               data: [],
-              backgroundColor: '#8952c5', // Purple
+              backgroundColor: '#8952c5',
               borderColor: '#000',
               borderWidth: 1
             }]
@@ -727,7 +722,7 @@
           barChart.data.labels = data.answers;
           barChart.data.datasets[0].data = data.percentages;
 
-          // Adjust bar thickness based on number of answers
+
           const numAnswers = data.answers.length;
           barChart.options.barPercentage = numAnswers === 1 ? 0.4 : numAnswers === 2 ? 0.45 : 0.9 / numAnswers;
           barChart.options.categoryPercentage = numAnswers === 1 ? 0.5 : numAnswers === 2 ? 0.8 : 0.95;
@@ -743,4 +738,3 @@
     </script>
 
   </c:forEach>
-                       <%-- Survey Prototype  End--%>

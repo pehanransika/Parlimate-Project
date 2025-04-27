@@ -42,7 +42,7 @@ public class surveyController {
                     int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
                     survey.setTotalVotes(totalVotes);
 
-                    // Fetch the questions for this survey
+
                     String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
                     try (PreparedStatement questionStmt = conn.prepareStatement(questionQuery)) {
                         questionStmt.setInt(1, surveyId);
@@ -59,7 +59,7 @@ public class surveyController {
                                     questionId, questionText, questionNumber, numberOfAnswers
                             );
 
-                            // Fetch answers for this question
+
                             String answerQuery = "SELECT * FROM answer WHERE question_id = ?";
                             try (PreparedStatement answerStmt = conn.prepareStatement(answerQuery)) {
                                 answerStmt.setInt(1, questionId);
@@ -81,7 +81,7 @@ public class surveyController {
                                 question.setAnswers(answers);
                             }
 
-                             // get user voting
+
                             String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
                             try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
                                 userVoteStmt.setInt(1, surveyId);
@@ -115,7 +115,7 @@ public class surveyController {
         }
 
 
-    // Helper method to get answerNumber by answerId
+
     private int getAnswerNumberById(int answerId) {
         String query = "SELECT answer_number FROM answer WHERE answer_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -129,23 +129,23 @@ public class surveyController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1; // Return -1 if not found
+        return -1;
     }
 
     public List<SurveyModel> getSurveysOfUser(int userId) {
-        // Get all surveys (including questions and answers)
+
         List<SurveyModel> allSurveys = getAllSurveysWithQuestionsAndAnswers();
 
-        // Filter surveys created by the given user
+
         List<SurveyModel> userSurveys = new ArrayList<>();
 
         for (SurveyModel survey : allSurveys) {
             if (survey.getUserId() == userId) {
-                userSurveys.add(survey);  // Add survey to userSurveys if created by this user
+                userSurveys.add(survey);
             }
         }
 
-        return sortSurveys(userSurveys);  // Return the filtered list
+        return sortSurveys(userSurveys);
     }
 
     public List<SurveyModel> getAllSurveysByModeratorsAndAdmins() {
@@ -173,7 +173,7 @@ public class surveyController {
                 int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
                 survey.setTotalVotes(totalVotes);
 
-                // Fetch the questions for this survey
+
                 String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
                 try (PreparedStatement questionStmt = conn.prepareStatement(questionQuery)) {
                     questionStmt.setInt(1, surveyId);
@@ -190,7 +190,7 @@ public class surveyController {
                                 questionId, questionText, questionNumber, numberOfAnswers
                         );
 
-                        // Fetch answers for this question
+
                         String answerQuery = "SELECT * FROM answer WHERE question_id = ?";
                         try (PreparedStatement answerStmt = conn.prepareStatement(answerQuery)) {
                             answerStmt.setInt(1, questionId);
@@ -212,7 +212,7 @@ public class surveyController {
                             question.setAnswers(answers);
                         }
 
-                        // get user voting
+
                         String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
                         try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
                             userVoteStmt.setInt(1, surveyId);
@@ -270,7 +270,7 @@ public class surveyController {
                 int totalVotes = responseController.getTotalVotesForSurvey(surveyId);
                 survey.setTotalVotes(totalVotes);
 
-                // Fetch the questions for this survey
+
                 String questionQuery = "SELECT * FROM question WHERE survey_id = ?";
                 try (PreparedStatement questionStmt = conn.prepareStatement(questionQuery)) {
                     questionStmt.setInt(1, surveyId);
@@ -287,7 +287,7 @@ public class surveyController {
                                 questionId, questionText, questionNumber, numberOfAnswers
                         );
 
-                        // Fetch answers for this question
+
                         String answerQuery = "SELECT * FROM answer WHERE question_id = ?";
                         try (PreparedStatement answerStmt = conn.prepareStatement(answerQuery)) {
                             answerStmt.setInt(1, questionId);
@@ -309,7 +309,7 @@ public class surveyController {
                             question.setAnswers(answers);
                         }
 
-                        // get user voting
+
                         String userVoteQuery = "SELECT answer_id FROM response WHERE survey_id = ? AND question_id = ? AND user_id = ?";
                         try (PreparedStatement userVoteStmt = conn.prepareStatement(userVoteQuery)) {
                             userVoteStmt.setInt(1, surveyId);
@@ -420,7 +420,7 @@ public class surveyController {
                 surveyIds.add(rs.getInt("survey_id"));
             }
 
-            // Fetch the full survey data using existing method
+
             List<SurveyModel> allSurveys = getAllSurveysWithQuestionsAndAnswers();
             for (SurveyModel survey : allSurveys) {
                 if (surveyIds.contains(survey.getSurveyId())) {
@@ -473,7 +473,7 @@ public class surveyController {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int surveyId = rs.getInt("survey_id");
-                // You already have this method to fetch full details:
+
                 SurveyModel survey = getSurveyWithQuestionsAndAnswersById(surveyId);
                 if (survey != null) {
                     surveys.add(survey);
@@ -495,7 +495,7 @@ public class surveyController {
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
 
-            // Insert survey
+
             int surveyId;
             try (PreparedStatement surveyStmt = conn.prepareStatement(insertSurvey)) {
                 surveyStmt.setString(1, survey.getSurveyTopic());
@@ -511,7 +511,7 @@ public class surveyController {
                 }
             }
 
-            // Insert questions
+
             for (QuestionModel q : survey.getQuestions()) {
                 int questionId;
                 try (PreparedStatement questionStmt = conn.prepareStatement(insertQuestion)) {
@@ -529,7 +529,7 @@ public class surveyController {
                     }
                 }
 
-                // Insert answers
+
                 for (AnswerModel a : q.getAnswers()) {
                     try (PreparedStatement answerStmt = conn.prepareStatement(insertAnswer)) {
                         answerStmt.setString(1, a.getAnswerText());
@@ -591,12 +591,12 @@ public class surveyController {
     }
 
     public List<SurveyModel> sortSurveys(List<SurveyModel> surveys) {
-        // Handle empty list case
+
         if (surveys.isEmpty()) {
             return new ArrayList<>();
         }
 
-        // Find min and max creation dates
+
         LocalDateTime minDate = surveys.stream()
                 .map(SurveyModel::getCreatedAt)
                 .min(LocalDateTime::compareTo)
@@ -606,7 +606,7 @@ public class surveyController {
                 .max(LocalDateTime::compareTo)
                 .orElseThrow(() -> new IllegalStateException("No surveys in list"));
 
-        // Find min and max total votes
+
         int minVotes = surveys.stream()
                 .mapToInt(SurveyModel::getTotalVotes)
                 .min()
@@ -616,30 +616,30 @@ public class surveyController {
                 .max()
                 .orElse(0);
 
-        // Calculate total time span in seconds
+
         long totalSpanSeconds = ChronoUnit.SECONDS.between(minDate, maxDate);
 
-        // Define comparator for sorting
+
         Comparator<SurveyModel> comparator = (s1, s2) -> {
-            // Calculate x for s1 (recency score)
+
             double x1 = (totalSpanSeconds > 0) ?
                     100.0 * ChronoUnit.SECONDS.between(minDate, s1.getCreatedAt()) / totalSpanSeconds : 0.0;
-            // Calculate y for s1 (votes score)
+
             double y1 = (maxVotes > minVotes) ?
                     100.0 * (s1.getTotalVotes() - minVotes) / (maxVotes - minVotes) : 0.0;
-            // Weighted score for s1: (3/5)*y + (2/5)*x
+
             double score1 = (3.0 / 5.0) * y1 + (2.0 / 5.0) * x1;
 
-            // Calculate x for s2 (recency score)
+
             double x2 = (totalSpanSeconds > 0) ?
                     100.0 * ChronoUnit.SECONDS.between(minDate, s2.getCreatedAt()) / totalSpanSeconds : 0.0;
-            // Calculate y for s2 (votes score)
+
             double y2 = (maxVotes > minVotes) ?
                     100.0 * (s2.getTotalVotes() - minVotes) / (maxVotes - minVotes) : 0.0;
-            // Weighted score for s2: (3/5)*y + (2/5)*x
+
             double score2 = (3.0 / 5.0) * y2 + (2.0 / 5.0) * x2;
 
-            // Sort in descending order (higher score first)
+
             return Double.compare(score2, score1);
         };
 

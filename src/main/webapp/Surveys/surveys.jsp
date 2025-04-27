@@ -1,13 +1,13 @@
 <%@ page import="java.util.UUID" %>
 <%
-	// Session check
+
 	HttpSession session1 = request.getSession(false);
 	if (session1 == null || session.getAttribute("user") == null) {
 		response.sendRedirect("../index.jsp");
 		return;
 	}
 
-	// Generate CSRF token
+
 	String csrfToken = UUID.randomUUID().toString();
 	session.setAttribute("csrfToken", csrfToken);
 %>
@@ -118,13 +118,13 @@
 				</div>
 			</div>
 			<div class="contents">
-				<%--	                 content loop begin                       --%>
+
 
 
                      <%@ include file="../Surveys/surveyPrototype.jsp" %>
 
 
-				<%--	                 content loop finish                        --%>
+
 			</div>
 		</div>
 
@@ -149,7 +149,7 @@
 			radio.addEventListener("change", (event) => {
 				const selectedValue = event.target.value;
 				if (selectedValue) {
-					window.location.href = selectedValue; // Redirect to the selected page
+					window.location.href = selectedValue;
 				}
 			});
 		});

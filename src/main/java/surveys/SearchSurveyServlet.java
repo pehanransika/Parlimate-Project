@@ -17,24 +17,24 @@ public class SearchSurveyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Check if session exists and user is logged in
+
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
 
-        // Get the user object from session
+
         UserModel user = (UserModel) session.getAttribute("user");
 
-        // Extract the userId
+
         int userId = user.getUserId();
 
-        // Get search parameters from request
+
         String searchQuery = request.getParameter("searchQuery");
         String platform = request.getParameter("platform");
 
-        // Create an instance of the controller
+
         surveyController controller = new surveyController(userId);
 
         List<SurveyModel> surveys;
