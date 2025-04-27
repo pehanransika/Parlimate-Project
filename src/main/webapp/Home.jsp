@@ -414,7 +414,7 @@
     <div class="topContent">
       <div class="social-btns col">
         <div class="addPost-btn">
-          <div class="prof-img"></div>
+          <div class="prof-img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%"/></div>
           <div class="content">
             <div class="greeting">
               Hello <span class="userName">${userProfile.name}</span>
