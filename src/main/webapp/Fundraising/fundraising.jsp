@@ -127,7 +127,6 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 2000;
         }
 
         .payment-popup .popup-content {
@@ -208,6 +207,78 @@
 <body>
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+<!-- Payment Popup -->
+<div id="paymentPopup" class="payment-popup" style="display: none;">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3>Select Payment Method</h3>
+            <span class="close-popup" onclick="closePaymentPopup()">×</span>
+        </div>
+        <div class="payment-options">
+            <div class="payment-method" onclick="selectPaymentMethod('card')">
+                <i class="fas fa-credit-card"></i>
+                <span>Credit/Debit Card</span>
+            </div>
+            <div class="payment-method" onclick="openTransferPopup()">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bank Transfer Form -->
+<form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
+    <input type="hidden" name="user_id" value="${user.userId}">
+    <input type="hidden" name="csrfToken" value="${csrfToken}">
+    <div id="banktransfer" class="transfer-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Bank Transfer Donation</h3>
+                <span class="close-btn" onclick="closeTransferPopup()">×</span>
+            </div>
+            <div class="transfer-details">
+                <h3>Bank Transfer Information</h3>
+                <div class="form-group">
+                    <label for="transfer-amount">Transfer Amount (LKR)*</label>
+                    <input
+                            type="number"
+                            id="transfer-amount"
+                            name="amount"
+                            min="100"
+                            step="100"
+                            required
+                            placeholder="Minimum 100 LKR"
+                            class="form-control"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="currency">Currency*</label>
+                    <select id="currency" name="currency" required>
+                        <option value="LKR">LKR</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="receipt">Upload Transfer Receipt*</label>
+                    <input type="file" name="receipt_image_path" id="receipt"
+                           accept="image/*,application/pdf" required>
+                    <small>Upload clear image or PDF of your bank transfer receipt</small>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
+                    <label for="confirm-terms">I confirm this transfer is from my own account</label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel
+                    </button>
+                    <button Redazione type="submit" class="submit-btn">Submit Transfer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <!-- Fundraise Request Form -->
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
@@ -409,7 +480,6 @@
                                 </div>
                             </div>
                             <div class="bottom">
-                                <div class="seperator top"></div>
                                 <div class="total-lkr">
                                     Total Raised:
                                     <fmt:formatNumber value="${approveModel.totalLkr}" type="number"
@@ -437,78 +507,9 @@
                     </c:forEach>
                 </div>
 
-                <!-- Payment Popup -->
-                <div id="paymentPopup" class="payment-popup" style="display: none;">
-                    <div class="popup-content">
-                        <div class="popup-header">
-                            <h3>Select Payment Method</h3>
-                            <span class="close-popup" onclick="closePaymentPopup()">×</span>
-                        </div>
-                        <div class="payment-options">
-                            <div class="payment-method" onclick="selectPaymentMethod('card')">
-                                <i class="fas fa-credit-card"></i>
-                                <span>Credit/Debit Card</span>
-                            </div>
-                            <div class="payment-method" onclick="openTransferPopup()">
-                                <i class="fas fa-university"></i>
-                                <span>Bank Transfer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Bank Transfer Form -->
-                <form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
-                    <input type="hidden" name="user_id" value="${user.userId}">
-                    <input type="hidden" name="csrfToken" value="${csrfToken}">
-                    <div id="banktransfer" class="transfer-popup">
-                        <div class="popup-content">
-                            <div class="popup-header">
-                                <h3>Bank Transfer Donation</h3>
-                                <span class="close-btn" onclick="closeTransferPopup()">×</span>
-                            </div>
-                            <div class="transfer-details">
-                                <h3>Bank Transfer Information</h3>
-                                <div class="form-group">
-                                    <label for="transfer-amount">Transfer Amount (LKR)*</label>
-                                    <input
-                                            type="number"
-                                            id="transfer-amount"
-                                            name="amount"
-                                            min="100"
-                                            step="100"
-                                            required
-                                            placeholder="Minimum 100 LKR"
-                                            class="form-control"
-                                    >
-                                </div>
-                                <div class="form-group">
-                                    <label for="currency">Currency*</label>
-                                    <select id="currency" name="currency" required>
-                                        <option value="LKR">LKR</option>
-                                        <option value="USD">USD</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="receipt">Upload Transfer Receipt*</label>
-                                    <input type="file" name="receipt_image_path" id="receipt"
-                                           accept="image/*,application/pdf" required>
-                                    <small>Upload clear image or PDF of your bank transfer receipt</small>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
-                                    <label for="confirm-terms">I confirm this transfer is from my own account</label>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel
-                                    </button>
-                                    <button Redazione type="submit" class="submit-btn">Submit Transfer</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
+
             </div>
         </div>
     </div>
