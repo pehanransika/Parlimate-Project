@@ -391,7 +391,6 @@
         </div>
     </div>
 </form>
-
 <div class="container">
     <div class="fundraisers-container">
         <div id="fundraisers" class="section">
@@ -449,6 +448,14 @@
                             </button>
                         </div>
                     </div>
+                </div>
+                <div>
+                <a href="${pageContext.request.contextPath}/uploads/fund.pdf" target="_blank"
+                   style="display:inline-block; background-color:#000000; color:#ffffff; padding:10px 20px; width: 15rem; text-decoration:none; border-radius:5px; position:fixed; right:20px; top:15px; font-weight:bold; transition:background-color 0.3s;"
+                   onmouseover="this.style.backgroundColor='#b2b2b2'; this.style.color='#000000';"
+                   onmouseout="this.style.backgroundColor='#000000'; this.style.color='#ffffff';">
+                    View Fund Guideline (PDF)
+                </a>
                 </div>
                 <div class="funds-container">
                     <c:forEach var="approveModel" items="${fundraisingRequests}">

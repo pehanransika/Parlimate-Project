@@ -79,7 +79,7 @@ public class PostController {
 
     public static List<PostModel> getListPosts() throws SQLException {
         List<PostModel> posts = new ArrayList<>();
-        String query = "SELECT postid, userid, content, datetime, name, images FROM post";
+        String query = "SELECT postid, userid, content, datetime, name, images FROM post ORDER BY datetime DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
