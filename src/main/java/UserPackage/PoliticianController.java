@@ -39,22 +39,19 @@ public class PoliticianController {
         PoliticianModel politician = null;
         try {
             Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM politician WHERE politician_id = ?";
+            String query = "SELECT * FROM Politicians WHERE userId = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 politician = new PoliticianModel(
-                        rs.getInt("user_id"),
-                        rs.getInt("politician_id"),
+                        rs.getInt("userId"),
+                        rs.getInt("politicianId"),
                         rs.getString("name"),
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
-                        rs.getInt("politicalPartyId"),
-                        rs.getString("district"),
-                        rs.getString("province"),
-                        rs.getString("political_view")
+                        rs.getInt("politicalPartyId")
                 );
             }
             conn.close();
@@ -62,24 +59,6 @@ public class PoliticianController {
             e.printStackTrace();
         }
         return politician;
-    }
-    public String getPoliticianNameById(int politicianId) {
-        String name = null;
-        try {
-            Connection conn = DBConnection.getConnection();
-            String query = "SELECT name FROM politician WHERE politician_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, politicianId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                name = rs.getString("name");
-            }
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return name != null ? name : "Unknown";
     }
     public static List<PoliticianModel> PoliticianProfile(int id) {
         List<PoliticianModel> politicians = new ArrayList<>();
@@ -99,11 +78,8 @@ public class PoliticianController {
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     int politicalPartyId = rs.getInt("political_party_id");
-                    String district = rs.getString("district");
-                    String province = rs.getString("province");
-                    String politicalView = rs.getString("political_view");
 
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId , district, province, politicalView);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId);
                     politicians.add(politician);
                     System.out.println("Fetched politician: " + name);
                 }
@@ -156,74 +132,6 @@ public class PoliticianController {
             System.err.println("Error deleting politician: " + e.getMessage());
         }
         return false;
-    }
-
-    public static List<PoliticianModel> getPoliticianList() {
-        List<PoliticianModel> politicians = new ArrayList<>();
-        String sql = "SELECT * FROM politician order by name ASC";
-
-        try(Connection conn = DBConnection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
-                int userId = rs.getInt("user_id");
-                int politicianId = rs.getInt("politician_id");
-                String name = rs.getString("name");
-                String address = rs.getString("address");
-                String phoneNumber = rs.getString("phone_number");
-                int politicalPartyId = rs.getInt("political_party_id");
-                String district = rs.getString("district");
-                String province = rs.getString("province");
-                String political_view = rs.getString("political_view");
-
-                PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province, political_view);
-                politicians.add(politician);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return politicians;
-    }
-
-    public static int getCount() {
-        String query = "SELECT COUNT(*) FROM politician";
-        try (Connection connection = meetings.DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public static String getPoliticianName(int politicianId) {
-        String query = "SELECT name FROM politician WHERE politician_id = ?";
-        try (Connection connection = meetings.DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
-
-            // Set the politician_id parameter
-            ps.setInt(1, politicianId);
-
-            // Execute the query and process the result
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("name");
-                }
-            }
-
-        } catch (SQLException e) {
-            // Log the exception for debugging
-            e.printStackTrace();
-        }
-
-        // Return null if no politician is found or an error occurs
-        return null;
     }
 
 }
