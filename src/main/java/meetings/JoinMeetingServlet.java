@@ -20,27 +20,27 @@ public class JoinMeetingServlet extends HttpServlet {
         // For testing purposes
         System.out.println("Received: " + meetingId + ", " + userId + ", " + email);
 
-        // Assuming you have a method to insert data into the meeting_users table
+        // Get the session
+        HttpSession session = request.getSession();
+
         try {
             // Call method to insert into DB (this will depend on your DB connection setup)
             boolean success = JoinMeetingController.addUserToMeeting(meetingId, userId, email);
 
             if (success) {
-                // If insertion is successful, send a success response
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write("{\"status\":\"success\"}");
+                // Set success notification in session
+                session.setAttribute("notification", "Successfully registered for the meeting!");
             } else {
-                // If insertion fails due to duplicate key, return a custom error message
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write("{\"status\":\"error\", \"message\":\"You have already registered for this meeting.\"}");
+                // Set error notification for duplicate registration
+                session.setAttribute("notification", "You have already registered for this meeting.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"status\":\"error\", \"message\":\"An error occurred while processing your request.\"}");
+            // Set error notification for database issues
+            session.setAttribute("notification", "An error occurred while processing your request.");
         }
+
+        // Redirect to GetAllMeetingUserServlet
+        response.sendRedirect(request.getContextPath() + "/DiscussionRoom/GetAllMeetingUserServlet");
     }
 }
