@@ -698,6 +698,7 @@
 
       // Open popup
       viewAnalyticsBtn.addEventListener('click', () => {
+        console.log("View analytics clicked");
         analyticsPopup.style.display = "flex";
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {

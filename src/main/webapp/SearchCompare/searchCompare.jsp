@@ -94,7 +94,7 @@
       <option value="politician">Politician</option>
       <option value="political-party">Political Party</option>
     </select>
-    <button hidden="hidden" name="view" class="btn btn-primary"><a  href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp">Edit My Profile</a></button>
+    <button name="view" class="btn btn-primary"><a  href="${pageContext.request.contextPath}/SearchCompare/editMyDetails.jsp">Edit My Profile</a></button>
 
     <div id="politicianSection">
     <table>

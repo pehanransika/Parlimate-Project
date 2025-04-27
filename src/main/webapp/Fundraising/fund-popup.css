@@ -108,7 +108,11 @@ body.fund-active .popup-f{
         margin: -1.5rem;
         margin-top: 1.5rem;
         padding: 1.5rem;
+        max-height: 40rem;
+        flex-wrap: nowrap;
         background: #f4f4f4;
+        overflow-y: auto
+    ;
         gap: 1.5rem;
 
         && .field {

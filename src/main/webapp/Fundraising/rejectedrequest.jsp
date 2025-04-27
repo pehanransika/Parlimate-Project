@@ -23,16 +23,12 @@
             margin: 0;
             padding: 0;
         }
-
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .container{
+            padding: 1rem 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            border: 1px solid #ededed;
         }
-
         h1 {
             font-size: 28px;
             margin-bottom: 30px;
@@ -40,7 +36,6 @@
             align-items: center;
             gap: 10px;
         }
-
         .badge {
             background-color: #dc3545;
             color: #fff;
@@ -116,10 +111,6 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
             .table thead {
                 display: none;
             }
@@ -157,6 +148,7 @@
 <body>
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
 <div class="container">
     <h1>
         <i class="fas fa-ban"></i> Rejected Requests

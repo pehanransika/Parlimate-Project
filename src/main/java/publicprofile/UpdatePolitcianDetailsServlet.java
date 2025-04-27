@@ -29,7 +29,12 @@ public class UpdatePolitcianDetailsServlet extends HttpServlet {
             }
         }
 
-        int politicianId = Integer.parseInt(request.getParameter("politician_id"));
+        String politicianIdStringParam = request.getParameter("politician_id");
+        int politicianId = 0;
+        if (politicianIdStringParam != null && !politicianIdStringParam.trim().isEmpty()) {
+            politicianId = Integer.parseInt(request.getParameter("politician_id"));
+
+        }
         String fullName = request.getParameter("full_name");
         int age = Integer.parseInt(request.getParameter("age"));
         String gender = request.getParameter("gender");

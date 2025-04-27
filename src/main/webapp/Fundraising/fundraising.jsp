@@ -2,7 +2,7 @@
 <%
     // Session check
     HttpSession session1 = request.getSession(false);
-    if (session1 == null || session.getAttribute("user") == null) {
+    if (session1 == null || session1.getAttribute("user") == null) {
         response.sendRedirect("../index.jsp");
         return;
     }
@@ -16,7 +16,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,23 +24,25 @@
     <title>Fundraisers</title>
 
     <!-- CSS Links -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+          rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="fundraising.css" rel="stylesheet">
-    <link rel="stylesheet" href="../index.css" />
-    <link rel="stylesheet" href="../index/sidebar1.css" />
-    <link rel="stylesheet" href="../index/header/header.css" />
-    <link rel="stylesheet" href="../container.css" />
-    <link rel="stylesheet" href="./fund-popup.css" />
-    <link rel="stylesheet" href="./payment.css" />
-    <link rel="stylesheet" href="./transfer.css" />
-    <link rel="stylesheet" href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d" data-purpose="Layout StyleSheet" title="Web Awesome" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css" />
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="../index/sidebar1.css"/>
+    <link rel="stylesheet" href="../index/header/header.css"/>
+    <link rel="stylesheet" href="../container.css"/>
+    <link rel="stylesheet" href="./fund-popup.css"/>
+    <link rel="stylesheet" href="./payment.css"/>
+    <link rel="stylesheet" href="./transfer.css"/>
+    <link rel="stylesheet" href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+          data-purpose="Layout StyleSheet" title="Web Awesome"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"/>
 
     <style>
         /* Transfer Popup Styles */
@@ -51,12 +52,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
+
         .transfer-popup .popup-content {
             background: #fff;
             padding: 20px;
@@ -65,7 +67,6 @@
             position: relative;
         }
 
-
         .transfer-popup .popup-header {
             display: flex;
             justify-content: space-between;
@@ -73,7 +74,7 @@
             margin-bottom: 20px;
         }
 
-        .transfer-popup  .close-btn {
+        .transfer-popup .close-btn {
             position: absolute;
             top: 10px;
             right: 15px;
@@ -81,20 +82,21 @@
             font-size: 20px;
         }
 
-        .transfer-details  .form-group {
+        .transfer-details .form-group {
             margin-bottom: 15px;
         }
-
 
         .transfer-details label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
         }
+
         .form-actions {
             display: flex;
             justify-content: space-between;
         }
+
         .transfer-details input,
         .transfer-details select,
         .transfer-details textarea {
@@ -122,10 +124,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 2000;
         }
 
         .payment-popup .popup-content {
@@ -134,7 +135,7 @@
             max-width: 400px;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         .payment-popup .popup-header {
@@ -176,11 +177,108 @@
         .payment-method i {
             font-size: 24px;
         }
+
+        /* Filter Dropdown Styles */
+        .filter-dropdown {
+            position: relative;
+            width: 200px;
+        }
+
+        .filter-dropdown select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .filter-dropdown select:focus {
+            outline: none;
+            border-color: #aaa;
+        }
     </style>
 </head>
 <body>
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+<!-- Payment Popup -->
+<div id="paymentPopup" class="payment-popup" style="display: none;">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3>Select Payment Method</h3>
+            <span class="close-popup" onclick="closePaymentPopup()">×</span>
+        </div>
+        <div class="payment-options">
+            <div class="payment-method" onclick="selectPaymentMethod('card')">
+                <i class="fas fa-credit-card"></i>
+                <span>Credit/Debit Card</span>
+            </div>
+            <div class="payment-method" onclick="openTransferPopup()">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bank Transfer Form -->
+<form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
+    <input type="hidden" name="user_id" value="${user.userId}">
+    <input type="hidden" name="csrfToken" value="${csrfToken}">
+    <div id="banktransfer" class="transfer-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Bank Transfer Donation</h3>
+                <span class="close-btn" onclick="closeTransferPopup()">×</span>
+            </div>
+            <div class="transfer-details">
+                <h3>Bank Transfer Information</h3>
+                <div class="form-group">
+                    <label for="transfer-amount">Transfer Amount (LKR)*</label>
+                    <input
+                            type="number"
+                            id="transfer-amount"
+                            name="amount"
+                            min="100"
+                            step="100"
+                            required
+                            placeholder="Minimum 100 LKR"
+                            class="form-control"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="currency">Currency*</label>
+                    <select id="currency" name="currency" required>
+                        <option value="LKR">LKR</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="receipt">Upload Transfer Receipt*</label>
+                    <input type="file" name="receipt_image_path" id="receipt"
+                           accept="image/*,application/pdf" required>
+                    <small>Upload clear image or PDF of your bank transfer receipt</small>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
+                    <label for="confirm-terms">I confirm this transfer is from my own account</label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel
+                    </button>
+                    <button Redazione type="submit" class="submit-btn">Submit Transfer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <!-- Fundraise Request Form -->
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
@@ -199,16 +297,20 @@
         <div class="body col">
             <div class="fund-title field">
                 <label for="fundtitle" class="title">Title</label>
-                <input type="text" required placeholder="Fundraise for the senior care house" name="title" id="fundtitle">
+                <input type="text" required placeholder="Fundraise for the senior care house" name="title"
+                       id="fundtitle">
             </div>
-            <input type="hidden" name="userid" id="useri" value="${user.userId}" />
-            <input type="hidden" name="username" id="usernam" value="${userProfile.name}" />
+            <input type="hidden" name="userid" id="useri" value="${user.userId}"/>
+            <input type="hidden" name="username" id="usernam" value="${userProfile.name}"/>
             <div class="fund-decs field">
                 <label for="fund-desc" class="title">Description</label>
-                <textarea required name="description" placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..." id="fund-desc"></textarea>
+                <textarea required name="description"
+                          placeholder="Every elderly person deserves a life filled with dignity, care, and comfort..."
+                          id="fund-desc"></textarea>
             </div>
             <div class="fund-contact" style="margin-bottom: 20px; font-family: Arial, sans-serif;">
-                <label class="title" style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">
+                <label class="title"
+                       style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; color: #333;">
                     Contact Number
                 </label>
                 <input
@@ -222,8 +324,6 @@
                         style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box;"
                 >
             </div>
-
-
             <div class="multi-fields row">
                 <div class="fund-cat field">
                     <label for="fund-categ" class="title">Category</label>
@@ -243,9 +343,9 @@
                             </select>
                         </div>
                         <div class="amount">
-                            <input required type="number" name="targetamount"  id="fund-amount" min="1" placeholder="1,000,000.00">
+                            <input required type="number" name="targetamount" id="fund-amount" min="1"
+                                   placeholder="1,000,000.00">
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -270,7 +370,7 @@
                 <div class="att-container-photo">
                     <div class="action row-photo">
                         <label for="fund-photo" class="photo-btn">Select Photo</label>
-                        <input type="file" name="photos" id="fund-photo" multiple >
+                        <input type="file" name="photos" id="fund-photo" multiple>
                         <div class="sep"></div>
                     </div>
                     <div class="photo-content">
@@ -301,65 +401,52 @@
                     Fueling Change Through Collective Action
                 </div>
             </div>
-            <div class="fund-btns row">
-                <a href="GetApprovedTransfersToUserServlet?userId=${userProfile.userId}">
-                    <button class="my-accept-trans">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span>My Approved Bank Transfers</span>
-                    </button>
-                </a>
 
-                <a href="GetAllRequestServlet?userId=${userProfile.userId}">
-                    <button class="my-funds row">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span>my fundraises</span>
-                    </button>
-                </a>
-
-                <a href="GetApprovedFundraisersByUser?userid=${userProfile.userId}">
-                    <button class="my-accept-fund">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span> Approved fundraises</span>
-                    </button>
-                </a>
-                <a href="GetAllRejectedRequestServlet?userId=${userProfile.userId}">
-                    <button class="my-funds row">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span>Rejected Fundraisers</span>
-                    </button>
-                </a>
-                <button class="req-funds row">
-                    <i class="fa-sharp fa-solid fa-plus"></i>
-                    <span>Request fundraise</span>
-                </button>
-            </div>
 
             <div class="fundraising-container">
-
-                <div class="filter-container">
-
+                <div class="filter-container f-row">
                     <div class="filter-dropdown">
-                        <button class="filter-toggle" aria-expanded="false" aria-controls="dropdownMenu">
-                            <span id="filter-label">All Categories</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="filter-label">
-                            <div class="filter-option">
-                                <input type="checkbox" id="all-categories" checked>
-                                <label for="all-categories">All Categories</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="education" class="category-checkbox" checked>
-                                <label for="education">Education</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="social" class="category-checkbox" checked>
-                                <label for="social">Social</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="community" class="category-checkbox" checked>
-                                <label for="community">Community Service</label>
-                            </div>
+                        <select id="category-filter" aria-labelledby="filter-label">
+                            <option value="all">All Categories</option>
+                            <option value="education">Education</option>
+                            <option value="social">Social</option>
+                            <option value="community">Community Service</option>
+                        </select>
+                    </div>
+                    <div class="fund-btns-container ">
+                        <div class="dropdown-head f-row">
+                            <span>Action</span>
+                            <i class="fa-regular fa-circle-chevron-down"></i>
+                        </div>
+                        <div class="fund-btns f-col">
+                            <a href="GetApprovedTransfersToUserServlet?userId=${userProfile.userId}">
+                                <button class="my-accept-trans">
+                                    <i class="fa-regular fa-circle-dollar"></i>
+                                    <span>my Approved Bank Transfers</span>
+                                </button>
+                            </a>
+                            <a href="GetAllRequestServlet?userId=${userProfile.userId}">
+                                <button class="my-funds row">
+                                    <i class="fa-regular fa-user"></i>
+                                    <span>my fundraises</span>
+                                </button>
+                            </a>
+                            <a href="GetApprovedFundraisersByUser?userid=${userProfile.userId}">
+                                <button class="my-accept-fund">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <span>Approved fundraises</span>
+                                </button>
+                            </a>
+                            <a href="GetAllRejectedRequestServlet?userId=${userProfile.userId}">
+                                <button class="my-funds row">
+                                    <i class="fa-regular fa-ban"></i>
+                                    <span>Rejected Fundraisers</span>
+                                </button>
+                            </a>
+                            <button class="req-funds row">
+                                <i class="fa-sharp fa-solid fa-plus"></i>
+                                <span>Request fundraise</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -371,11 +458,11 @@
                                     <div class="title">${approveModel.title}</div>
                                 </div>
                                 <div class="username">
-                                    Owner- <c:out value="${not empty approveModel.name ? approveModel.name : 'Anonymous'}" />
+                                    Owner- <c:out
+                                        value="${not empty approveModel.name ? approveModel.name : 'Anonymous'}"/>
                                 </div>
                                 <div class="category">${approveModel.category}</div>
                             </div>
-
                             <div class="content col">
                                 <div class="imgs row">
                                     <c:if test="${not empty approveModel.photos}">
@@ -384,35 +471,29 @@
                                         </div>
                                     </c:if>
                                 </div>
-
                                 <div class="desc">${approveModel.description}</div>
-
                                 <div class="donations row">
                                     <div class="target">
-                                        <fmt:formatNumber value="${approveModel.targetamount}" type="number" maxFractionDigits="0"/>
+                                        <fmt:formatNumber value="${approveModel.targetamount}" type="number"
+                                                          maxFractionDigits="0"/>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="bottom">
-
-                                <div class="seperator top"></div>
-
-                                <!-- Display total_lkr -->
                                 <div class="total-lkr">
                                     Total Raised:
-                                    <fmt:formatNumber value="${approveModel.totalLkr}" type="number" maxFractionDigits="0"/> LKR
+                                    <fmt:formatNumber value="${approveModel.totalLkr}" type="number"
+                                                      maxFractionDigits="0"/> LKR
                                 </div>
                                 <br>
-                                <!-- Calculate and display percentage -->
                                 <div class="progress-bar-container">
-                                    <div class="progress-bar" style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
+                                    <div class="progress-bar"
+                                         style="width: ${approveModel.targetamount > 0 ? (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%">
                                     </div>
-
-
                                     <div class="percentage">
                                             ${approveModel.targetamount > 0 ?
-                                                    (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}% Raised
+                                                    (approveModel.totalLkr / approveModel.targetamount) * 100 : 0}%
+                                        Raised
                                     </div>
                                 </div>
                                 <c:if test="${approveModel.status != 'HOLD'}">
@@ -421,100 +502,13 @@
                                         <span>Donate</span>
                                     </div>
                                 </c:if>
-
-
                             </div>
                         </div>
                     </c:forEach>
-
-                </div>
-
-                <!-- Payment Popup -->
-                <div id="paymentPopup" class="payment-popup" style="display: none;">
-                    <div class="popup-content">
-                        <div class="popup-header">
-                            <h3>Select Payment Method</h3>
-                            <span class="close-popup" onclick="closePaymentPopup()">&times;</span>
-                        </div>
-                        <div class="payment-options">
-                            <div class="payment-method" onclick="selectPaymentMethod('card')">
-                                <i class="fas fa-credit-card"></i>
-                                <span>Credit/Debit Card</span>
-                            </div>
-                            <div class="payment-method" onclick="openTransferPopup()">
-                                <i class="fas fa-university"></i>
-                                <span>Bank Transfer</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
 
-                <!-- Bank Transfer Form -->
-                <form id="transfer-form" action="CreateTransferServlet" method="post" enctype="multipart/form-data">
-                    <!-- Hidden fields -->
-                    <input type="hidden" id="fundraiser_id" name="fundraiser_id" value="">
 
-                    <input type="hidden" name="user_id" value="${user.userId}">
-                    <input type="hidden" name="csrfToken" value="${csrfToken}">
-
-                    <div id="banktransfer" class="transfer-popup">
-                        <div class="popup-content">
-                            <div class="popup-header">
-                                <h3>Bank Transfer Donation</h3>
-                                <span class="close-btn" onclick="closeTransferPopup()">&times;</span>
-                            </div>
-
-                            <div class="transfer-details">
-                                <h3>Bank Transfer Information</h3>
-
-                                <!-- Transfer Amount -->
-                                <div class="form-group">
-                                    <label for="transfer-amount">Transfer Amount (LKR)*</label>
-                                    <input
-                                            type="number"
-                                            id="transfer-amount"
-                                            name="amount"
-                                            min="100"
-                                            step="100"
-                                            required
-                                            placeholder="Minimum 100 LKR"
-                                            class="form-control"
-                                    >
-                                </div>
-
-
-                                <!-- Currency -->
-                                <div class="form-group">
-                                    <label for="currency">Currency*</label>
-                                    <select id="currency" name="currency" required>
-                                        <option value="LKR">LKR</option>
-                                        <option value="USD">USD</option>
-                                    </select>
-                                </div>
-
-                                <!-- Upload Receipt -->
-                                <div class="form-group">
-                                    <label for="receipt">Upload Transfer Receipt*</label>
-                                    <input type="file" name="receipt_image_path" id="receipt" accept="image/*,application/pdf" required>
-                                    <small>Upload clear image or PDF of your bank transfer receipt</small>
-                                </div>
-
-                                <!-- Confirmation Checkbox -->
-                                <div class="form-group">
-                                    <input type="checkbox" id="confirm-terms" name="confirm_terms" required>
-                                    <label for="confirm-terms">I confirm this transfer is from my own account</label>
-                                </div>
-
-                                <!-- Form Buttons -->
-                                <div class="form-actions">
-                                    <button type="button" class="cancel-btn" onclick="closeTransferPopup()">Cancel</button>
-                                    <button type="submit" class="submit-btn">Submit Transfer</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
 
             </div>
         </div>
@@ -524,13 +518,53 @@
 <!-- JavaScript Files -->
 <script src="../loadSidebar.js"></script>
 <script src="./fund-pop.js"></script>
-
-
-
-// Example: setting it from a JS variable (e.g., passed from server-side or another element)
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all necessary elements
+        const categoryFilter = document.getElementById('category-filter');
+        const projectItems = document.querySelectorAll('.fund');
 
+        // Handle category filter change
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function () {
+                filterProjects();
+            });
+        }
 
+        // Filter projects based on selected category
+        function filterProjects() {
+            const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+
+            projectItems.forEach(project => {
+                const categoryElement = project.querySelector('.category');
+                if (!categoryElement) return;
+
+                const category = categoryElement.textContent.trim().toLowerCase();
+
+                // Determine if project should be shown
+                const shouldShow = selectedCategory === 'all' ||
+                    (selectedCategory === 'education' && category.includes('education')) ||
+                    (selectedCategory === 'social' && (category.includes('social') || category === 'social')) ||
+                    (selectedCategory === 'community' && (category.includes('community') || category.includes('community-service')));
+
+                project.style.display = shouldShow ? 'flex' : 'none';
+            });
+
+            updateFilterLabel();
+        }
+
+        // Update the filter label (optional, as select option displays the selected value)
+        function updateFilterLabel() {
+            const filterLabel = document.getElementById('filter-label');
+            if (!filterLabel) return;
+
+            const selectedOption = categoryFilter.options[categoryFilter.selectedIndex].text;
+            filterLabel.textContent = selectedOption;
+        }
+
+        // Initial filter
+        filterProjects();
+    });
 
     const sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
@@ -550,7 +584,6 @@
             }
         });
     });
-
 
     let currentRequestId = '';
 
@@ -597,112 +630,6 @@
             }
         });
     }
-
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get all necessary elements
-        const filterToggle = document.querySelector('.filter-toggle');
-        const dropdownMenu = document.getElementById('dropdownMenu');
-        const allCategoriesCheckbox = document.getElementById('all-categories');
-        const educationCheckbox = document.getElementById('education');
-        const socialCheckbox = document.getElementById('social');
-        const communityCheckbox = document.getElementById('community');
-        const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
-        const projectItems = document.querySelectorAll('.fund');
-
-        // Toggle dropdown visibility
-        if (filterToggle && dropdownMenu) {
-            filterToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                dropdownMenu.classList.toggle('show', !isExpanded);
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function() {
-                filterToggle.setAttribute('aria-expanded', 'false');
-                dropdownMenu.classList.remove('show');
-            });
-
-            // Prevent dropdown from closing when clicking inside
-            dropdownMenu.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        }
-
-        // Handle "All Categories" checkbox
-        if (allCategoriesCheckbox) {
-            allCategoriesCheckbox.addEventListener('change', function() {
-                const isChecked = this.checked;
-                categoryCheckboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-                filterProjects();
-            });
-        }
-
-        // Handle individual category checkboxes
-        categoryCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (!this.checked) {
-                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = false;
-                } else if (Array.from(categoryCheckboxes).every(cb => cb.checked)) {
-                    if (allCategoriesCheckbox) allCategoriesCheckbox.checked = true;
-                }
-                filterProjects();
-            });
-        });
-
-        // Filter projects based on selected categories
-        function filterProjects() {
-            const showAll = allCategoriesCheckbox ? allCategoriesCheckbox.checked : false;
-            const showEducation = educationCheckbox ? educationCheckbox.checked : false;
-            const showSocial = socialCheckbox ? socialCheckbox.checked : false;
-            const showCommunity = communityCheckbox ? communityCheckbox.checked : false;
-
-            projectItems.forEach(project => {
-                const categoryElement = project.querySelector('.category');
-                if (!categoryElement) return;
-
-                const category = categoryElement.textContent.trim().toLowerCase();
-
-                // Determine if project should be shown
-                const shouldShow = showAll ||
-                    (showEducation && category.includes('education')) ||
-                    (showSocial && (category.includes('social') || category === 'social')) ||
-                    (showCommunity && (category.includes('community') || category.includes('community-service')));
-
-                project.style.display = shouldShow ? 'flex' : 'none';
-            });
-
-            updateFilterLabel();
-        }
-
-        // Update the filter label text
-        function updateFilterLabel() {
-            const filterLabel = document.getElementById('filter-label');
-            if (!filterLabel) return;
-
-            if (allCategoriesCheckbox && allCategoriesCheckbox.checked) {
-                filterLabel.textContent = 'All Categories';
-                return;
-            }
-
-            const selectedCategories = [];
-            if (educationCheckbox && educationCheckbox.checked) selectedCategories.push('Education');
-            if (socialCheckbox && socialCheckbox.checked) selectedCategories.push('Social');
-            if (communityCheckbox && communityCheckbox.checked) selectedCategories.push('Community Service');
-
-            filterLabel.textContent = selectedCategories.length > 0
-                ? selectedCategories.join(', ')
-                : 'Select Categories';
-        }
-
-        // Initial filter
-        filterProjects();
-    });
 </script>
 </body>
 </html>

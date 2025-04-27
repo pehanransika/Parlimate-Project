@@ -5,17 +5,17 @@
     row-gap: 1rem;
     color: #1e1e1e;
     height: 100%;
-    padding-top: 3rem;
+    padding-top: 1rem;
 
     && .fund {
         background: #fff;
         border-radius: 0.75rem;
         border: 1px solid #dddddd;
         padding: 1.5rem;
-        height: 100%;
+        height: max-content;
         min-height: 30rem;
         gap: 1rem;
-        width: 30rem;
+        width: 30.5rem;
         justify-content: space-between;
 
         && .top {
@@ -233,8 +233,6 @@
     background: #393939;
 }
 .fund-btns{
-    justify-self: flex-end;
-    margin-right: 4rem;
     gap: 1rem;
 
     && button {
@@ -266,12 +264,6 @@
         padding: 20px;
     }
 
-    .funds-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-        margin-top: 30px;
-    }
 
     .fund {
         background: white;
@@ -572,4 +564,121 @@
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
     }
+}
+.f-row{
+    display: flex;
+    align-items: center;
+}
+.f-col{
+    display: flex;
+    flex-direction: column;
+}
+.filter-container{
+    padding: 0.75rem;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    margin-top: 3rem;
+    justify-content: space-between;
+    border-radius: 2.75rem;
+}
+.filter-dropdown{
+    && select{
+        border-radius: 2rem;
+        transition: background 0.25s ease-out;
+
+        &&:hover{
+            background: #fafafa;
+        }
+    }
+}
+.fund-btns-container{
+    position: relative;
+    && .dropdown-head{
+        width: max-content;
+        user-select: none;
+        padding: 0.75rem 1.75rem;
+        font-size: 1.1rem;
+        background: #1e1e1e;
+        border-radius: 1.5rem;
+        color: white;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        transition: background-color 0.25s ease;
+        && i{
+            transition: transform 0.25s ease-in-out 0.1s;
+        }
+    }
+    && .fund-btns{
+        position: absolute;
+        top: 120%;
+        right: 0;
+        gap: 0;
+        border-radius: 1.5rem;
+        border: 1px solid transparent;
+        background: #fff;
+        height: 0rem;
+        overflow: hidden;
+        transition: all 0.25s ease-out;
+        && >*{
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            text-wrap: nowrap;
+            background: #fff;
+            color: #535353;
+            && button{
+                padding: 1rem 1.25rem;
+                color: #535353;
+                width: 100%;
+                display: flex;
+                gap: 0.75rem;
+                align-items: center;
+                background: #fff;
+                && i{
+                    font-size: 1.2rem;
+                }
+
+                &&:hover{
+                    background: #fcf8ff;
+                    border: 1px solid #e7e0ef;
+                    color: #301947;
+                }
+            }
+        }
+        && button{
+            border-radius: 1rem;
+            gap: 0.75rem;
+            display: flex;
+            color: #535353;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border: 1px solid #ffffff;
+            &&:hover{
+                background: #fcf8ff;
+                border: 1px solid #e7e0ef;
+                color: #301947;
+            }
+        }
+    }
+    &&:hover{
+        && .dropdown-head{
+            background: #373737;
+            && i{
+                transform: rotate(180deg);
+            }
+        }
+        && .fund-btns{
+            padding: 0.5rem;
+            height: 20rem;
+            border: 1px solid #e3e3e3;
+            opacity: 1;
+            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.09);
+        }
+    }
+}
+#transfer-form{
+    z-index: 2001;
 }
