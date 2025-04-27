@@ -582,6 +582,7 @@ partyRejectBtns.forEach(rejectBtn => {
                 userIdElement.textContent = selectedUserId;
 
                 document.body.classList.add("popup-active");
+                closeAllPopups();
                 deleteModal.classList.add("popup-show");
             });
         });
@@ -598,7 +599,6 @@ partyRejectBtns.forEach(rejectBtn => {
         document.querySelectorAll(".close-btn, .proceed").forEach(button => {
             button.addEventListener("click", function() {
                 document.body.classList.remove("popup-active");
-                // document.querySelector(".filter-user-popup").classList.remove("popup-show");
                 deleteModal.classList.remove("popup-show");
             });
         });
@@ -616,7 +616,6 @@ partyRejectBtns.forEach(rejectBtn => {
         deleteUserModal.classList.remove("popup-show");
     }
 
-    // Delete user function
     function removeUserServlet(userId) {
         const basePath = window.location.origin;
         fetch(basePath+"/Parlimate/DeleteUserFromUMServlet", {
