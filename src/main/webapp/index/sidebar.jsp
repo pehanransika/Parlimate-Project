@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/sidebar1.css">
 
 <style>
-    /* Optional: Add this inside your sidebar1.css */
     .sidebar label.selected {
         background-color: #e0e0e0;
         font-weight: bold;
@@ -14,11 +13,11 @@
     <div class="navs">
         <ul>
             <li>
-                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate/GetPostListServlet" checked/>
+                <input type="radio" name="nav" id="nav-Home" value="http://localhost:8080/Parlimate/GetPostListServlet" />
                 <label for="nav-Home" onclick="navigate(this)"><i class="fa-solid fa-house"></i>Home</label>
             </li>
             <li>
-                <input type="radio" name="nav" id="nav-announcements" value="http://localhost:8080/Parlimate/Announcements/GetListServlet?announcementId=123" />
+                <input type="radio" name="nav" id="nav-announcements" value="http://localhost:8080/Parlimate/Announcements/GetListServlet" />
                 <label for="nav-announcements" onclick="navigate(this)"><i class="fa-solid fa-bullhorn"></i>Announcements</label>
             </li>
             <li>
@@ -60,18 +59,46 @@
     function highlightCurrentPage() {
         const currentURL = normalizeUrl(window.location.href);
         const inputs = document.querySelectorAll('.sidebar input[type="radio"]');
+        let matchFound = false;
 
+        // First, clear all selections
+        inputs.forEach(input => {
+            input.checked = false;
+            const label = input.nextElementSibling;
+            if (label) label.classList.remove('selected');
+        });
+
+        // Then, find the best match
         inputs.forEach(input => {
             const inputURL = normalizeUrl(input.value);
             const label = input.nextElementSibling;
 
-            if (currentURL.startsWith(inputURL)) {
+            if (currentURL === inputURL) { // Exact match
                 input.checked = true;
                 if (label) label.classList.add('selected');
-            } else {
-                if (label) label.classList.remove('selected');
+                matchFound = true;
             }
         });
+
+        // If no exact match, try partial matching with longest path
+        if (!matchFound) {
+            let bestMatchInput = null;
+            let longestMatchLength = 0;
+
+            inputs.forEach(input => {
+                const inputURL = normalizeUrl(input.value);
+                if (currentURL.startsWith(inputURL) && inputURL.length > longestMatchLength) {
+                    bestMatchInput = input;
+                    longestMatchLength = inputURL.length;
+                }
+            });
+
+            if (bestMatchInput) {
+                bestMatchInput.checked = true;
+                const label = bestMatchInput.nextElementSibling;
+                if (label) label.classList.add('selected');
+            }
+        }
     }
 
     window.onload = highlightCurrentPage;
