@@ -37,7 +37,7 @@ public class SurveyUserProfileController {
                             if (rs.next()) {
                                 name = rs.getString("name");
                                 district = rs.getString("district");
-                                imageUrl = rs.getString("image_url");
+                                imageUrl = rs.getString("profile_img_url");
 
                             }
                         }

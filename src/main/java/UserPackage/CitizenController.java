@@ -44,7 +44,9 @@ public class CitizenController {
                         rs.getString("address"),
                         rs.getString("phoneNumber"),
                         rs.getString("name"),
-                        rs.getString("district")
+                        rs.getString("district"),
+                        rs.getString("province"),
+                        rs.getString("political_view")
                 );
             }
             conn.close();
@@ -71,9 +73,11 @@ public class CitizenController {
                     String phoneNumber = rs.getString("phone_number");
                     String name = rs.getString("name");
                     String district = rs.getString("district");
+                    String province = rs.getString("province");
+                    String political_view = rs.getString("political_view");
 
 
-                    CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district);
+                    CitizenModel citizen = new CitizenModel(citizenid,userid,address,phoneNumber,name,district,province,political_view);
                     citizens.add(citizen);
                 }
             }
@@ -131,6 +135,20 @@ public class CitizenController {
         }
 
         return false; // Default return if something goes wrong
+    }
+
+    public static int getCount() {
+        String query = "SELECT COUNT(*) FROM citizen";
+        try (Connection connection = meetings.DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
