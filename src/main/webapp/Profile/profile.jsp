@@ -2,8 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- Check for session and user --%>
-
 <%
     HttpSession session1 = (HttpSession) request.getSession(false);
     if (session1 == null || session.getAttribute("user") == null) {
@@ -12,9 +10,9 @@
     }
 %>
 <%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-    response.setDateHeader("Expires", 0); // Proxies
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
 %>
 <jsp:include page="/load-politicians" />
 <jsp:include page="/load-politicalParty" />
@@ -30,7 +28,6 @@
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../index.css"/>
     <link rel="stylesheet" href="./profile.css">
-    <!-- icons -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
     <link rel="stylesheet" href="hashtag.css">
     <script src="../formatDate.js" ></script>
@@ -59,7 +56,6 @@
         }
     </style>
 
-    <script src="./profile.js" defer></script>
 </head>
 <body>
 
@@ -219,15 +215,16 @@
                                     name="full-name"
                                     id="name-input"
                                     value="${userProfile.name}"
+                                    required
                             />
                         </div>
                         <div class="phone-number">
                             <label for="phoneNumber" class="input-head">phone number</label>
-                            <input type="text" name="phoneNumber" id="phoneNumber" value="${userProfile.phoneNumber}">
+                            <input type="text" name="phoneNumber" required id="phoneNumber" value="${userProfile.phoneNumber}">
                         </div>
                         <div class="address-input max-width">
                             <label for="address" class="input-head">address</label>
-                            <input type="text" name="address" id="address" value="${userProfile.address}">
+                            <input type="text" name="address" required id="address" value="${userProfile.address}">
                         </div>
                         <div class="city">
                             <label
@@ -237,6 +234,7 @@
                             >
                             <div class="dropdown f-row">
                                 <select
+                                        required
                                         name="province"
                                         id="province-drop"
                                         onchange="updateCities()"
@@ -270,7 +268,7 @@
                                         Sabaragamuwa Province
                                     </option>
                                 </select>
-                                <select id="city" name="district" ${empty userProfile.province ? 'disabled' : ''}>
+                                <select required id="city" name="district" ${empty userProfile.province ? 'disabled' : ''}>
                                     <c:choose>
                                         <c:when test="${not empty userProfile.district}">
                                             <option value="${userProfile.district}" selected>${userProfile.district}</option>
@@ -295,8 +293,8 @@
                     <div class="profile f-col">
                         <div class="image"></div>
                         <div class="btns f-row">
-                            <button id="change-pp">Change profile</button>
-                            <button id="change-banner">Change banner</button>
+                            <button type="button" id="change-pp">Change profile</button>
+                            <button type="button" id="change-banner">Change banner</button>
                         </div>
                     </div>
                 </div>
@@ -306,7 +304,7 @@
                     <a href="#" target="_blank">change password</a>
                 </div>
                 <div class="action f-row">
-                    <button id="cancel-btn">cancel
+                    <button type="button" id="cancel-btn">cancel
                     </button
                     >
                     <input type="submit" value="save changes" id="save-btn" class="caps"/>
@@ -371,69 +369,13 @@
             <span class="desc">recently added posts and insights.</span>
         </div>
         <div class="post-container" id="posts-container" data-user-id="${userProfile.userId}">
-            <%--            sample Recent post--%>
-            <div class="post-card">
-                <div class="post-header">
-                    <img
-                            src="https://i.pravatar.cc/50"
-                            alt="User Avatar"
-                            class="post-avatar"
-                    />
-                    <div class="post-user-info">
-                        <h4 class="username">${userProfile.name}</h4>
-                        <span class="post-time">2 hours ago</span>
-                    </div>
-                    <div class="post-actions">
-                        <button class="post-menu-btn">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                    </div>
-                </div>
 
-                <div class="post-content">
-                    <p>
-                        Just attended the parliamentary debate on the
-                        new education reforms. While the proposal has
-                        good intentions, we need stronger provisions for
-                        rural school infrastructure. What are your
-                        thoughts? #EducationReform #SriLanka
-                    </p>
-
-                    <div class="post-image">
-                        <img
-                                src="debate-photo.jpg"
-                                alt="Parliament debate"
-                        />
-                    </div>
-
-                    <div class="post-tags">
-                        <span class="tag">#EducationReform</span>
-                        <span class="tag">#RuralDevelopment</span>
-                        <span class="tag">#SriLanka</span>
-                    </div>
-                </div>
-
-                <div class="post-footer">
-                    <button class="action-btn like-btn">
-                        <i class="fa-regular fa-thumbs-up"></i>
-                        <span>124</span>
-                    </button>
-                    <button class="action-btn comment-btn">
-                        <i class="far fa-comment"></i> <span>28</span>
-                    </button>
-                    <button class="action-btn share-btn">
-                        <i class="fas fa-share"></i> <span>Share</span>
-                    </button>
-                </div>
-            </div>
-
-        </div
+        </div>
     </div>
 </div>
 
 </body>
-<script src="../script.js"></script>
-<script src="./popupModals.js"></script>
+
 <script>
     const dateField = document.querySelector(".joined-date .date");
     const formatedDate = formatDate(dateField.innerHTML)
@@ -447,13 +389,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize city dropdown if province is already selected
         const savedProvince = document.getElementById('province-drop').value;
         const savedDistrict = '${userProfile.district}'; // This comes from JSP
 
         if (savedProvince) {
             updateCities();
-            // Set the saved district after a small delay to ensure dropdown is populated
             setTimeout(() => {
                 const citySelect = document.getElementById("city");
                 if (savedDistrict) {
@@ -469,17 +409,27 @@
         const selectedProvince = provinceSelect.value;
         const savedDistrict = `${userProfile.district}`; // Get from JSP
 
-        // Clear previous options but keep the first empty option if province not selected
         citySelect.innerHTML = selectedProvince ? "" : "<option value='' disabled>-- First select a province --</option>";
+
+        const citiesByProvince = {
+            western: ["Colombo", "Negombo", "Moratuwa", "Panadura", "Kalutara", "Gampaha", "Horana"],
+            central: ["Kandy", "Matale", "Nuwara Eliya", "Gampola", "Dambulla", "Hatton"],
+            southern: ["Galle", "Matara", "Hambantota", "Weligama", "Tangalle", "Ambalangoda"],
+            northern: ["Jaffna", "Vavuniya", "Kilinochchi", "Mullaitivu", "Mannar"],
+            eastern: ["Batticaloa", "Trincomalee", "Kalmunai", "Ampara", "Akkaraipattu"],
+            "north-western": ["Kurunegala", "Puttalam", "Chilaw", "Narammala", "Wariyapola"],
+            "north-central": ["Anuradhapura", "Polonnaruwa", "Medawachchiya", "Habarana", "Kekirawa"],
+            uva: ["Badulla", "Monaragala", "Bandarawela", "Haputale", "Welimada"],
+            sabaragamuwa: ["Ratnapura", "Kegalle", "Balangoda", "Embilipitiya", "Kuruwita"]
+        };
+
 
         if (selectedProvince) {
             citySelect.disabled = false;
             citySelect.add(new Option("-- Select City --", ""));
 
-            // Add cities for selected province
             citiesByProvince[selectedProvince].forEach((city) => {
                 const option = new Option(city, city);
-                // Select the option if it matches the saved district
                 if (city === savedDistrict) {
                     option.selected = true;
                 }
@@ -492,11 +442,12 @@
     document.getElementById('save-btn').addEventListener('click', function(e) {
         const citySelect = document.getElementById("city");
         if (citySelect.value === "") {
-            // If no district selected, keep the original value
             citySelect.value = '${userProfile.district}';
         }
-        // Proceed with form submission
     });
 </script>
+<script src="../script.js"></script>
+<script src="./popupModals.js"></script>
+<script src="./profile.js" defer></script>
 <script src="hashtag.js"></script>
 </html>

@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// Main post loading functionality
 function initializePostLoading() {
-    // Safely get user ID from data attribute
     const container = document.getElementById('posts-container');
     const userId = container.dataset.userId || '${userProfile.userId}'; // Fallback to JSP var
 
@@ -17,10 +15,8 @@ function initializePostLoading() {
         return;
     }
 
-    // Show loading state
     container.innerHTML = '<div class="loading-spinner">Loading posts...</div>';
 
-    // Start loading posts
     fetchPosts(userId);
 }
 
@@ -29,8 +25,11 @@ async function fetchPosts(userId) {
         console.log(`Fetching posts for user ${userId}`);
         const startTime = Date.now();
 
-        // Use a more reliable way to construct the URL
+
+        console.log("windows.location.origin",window.location.origin);
+
         const url = new URL('/Parlimate/GetUserPostsServlet', window.location.origin);
+        console.log(url.toString());
         url.searchParams.append('userId', userId);
         url.searchParams.append('t', Date.now()); // Cache buster
 
@@ -43,14 +42,11 @@ async function fetchPosts(userId) {
             const errorText = await response.text();
             throw new Error(`Server responded with ${response.status}: ${errorText}`);
         }
-
         const posts = await response.json();
         console.log("Parsed posts:", posts);
-
         if (!Array.isArray(posts)) {
             throw new Error("Expected array of posts but got: " + typeof posts);
         }
-
         if (posts.length === 0) {
             showMessage("No posts found for this user");
         } else {
@@ -80,10 +76,9 @@ function renderPosts(posts) {
                 <div class="post-user-info">
                     <h4>${escapeHtml(post.name || 'Unknown User')}</h4>
                     <div class="f-row" style="gap: 0.5rem; color: grey">
-                    <i class="fa-regular fa-clock"></i>
-                    <span>${formatDateWithTime(post.datetime)}</span>
-                    
-</div>
+                        <i class="fa-regular fa-clock"></i>
+                        <span>${formatDateWithTime(post.datetime)}</span>
+                    </div>
                 </div>
             </div>
             <div class="post-content">
@@ -105,7 +100,6 @@ function renderPosts(posts) {
     `).join('');
 }
 
-// Modal handling functions
 function setupModalHandlers() {
     const editBtn = document.querySelector(".edit-btn");
     const modal = document.getElementById("editModal");
@@ -123,7 +117,6 @@ function setupModalHandlers() {
     });
 }
 
-// City dropdown functionality
 function initializeCityDropdown() {
     const citiesByProvince = {
         western: ["Colombo", "Negombo", "Moratuwa", "Panadura", "Kalutara", "Gampaha", "Horana"],
@@ -157,7 +150,6 @@ function initializeCityDropdown() {
     });
 }
 
-// Utility functions
 function escapeHtml(unsafe) {
     return unsafe ? unsafe.toString()
         .replace(/&/g, "&amp;")
@@ -193,6 +185,5 @@ function showError(message) {
     `;
 }
 
-// Make functions available for HTML onclick handlers
 window.fetchPosts = fetchPosts;
 window.initializePostLoading = initializePostLoading;
