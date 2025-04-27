@@ -1,39 +1,231 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "poppins", sans-serif;
+    position: relative;
+}
+
+.popup-modal {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+    text-transform: capitalize;
+    font-family: inherit;
+}
+
+body.overlay-active .popup-modal {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0000002f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.overlay-active .popup-modal .popup-content {
+    position: relative;
+    min-width: 20rem;
+    min-height: 10rem;
+    background: #fff;
+    border-radius: 1rem;
+    border: 1px solid #e3e3e3;
+}
+
+body.overlay-active .popup-modal .popup-content > div {
+    padding: 1rem 1.25rem;
+}
+
+body.overlay-active .popup-modal .popup-content .close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    cursor: pointer;
+    top: 2rem;
+    transform: translateY(-50%);
+    padding: 0;
+    border-radius: 50%;
+    right: 1.5rem;
+    font-size: 1.1rem;
+    width: 2rem;
+    height: 2rem;
+    background: #f0f0f0;
+    transition: all 0.25s ease-in-out;
+}
+
+body.overlay-active .popup-modal .popup-content .close-btn:hover {
+    background: #e0e0e0;
+}
+
+body.overlay-active .popup-modal .popup-content .top {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    gap: 0.75rem;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 1.2rem;
+    justify-content: left;
+}
+
+body.overlay-active .popup-modal .popup-content .top .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    background: #ffffff;
+    border-radius: 50%;
+    border: 1px solid rgb(215, 215, 215);
+    color: rgb(74, 74, 74);
+}
+
+body.overlay-active .popup-modal .popup-content .content {
+    border-bottom: 1px solid #e3e3e3;
+    background: #f4f4f4;
+    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
+    gap: 1.5rem;
+}
+
+body.overlay-active .popup-modal .popup-content .content .title {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+body.overlay-active .popup-modal .popup-content .content textarea {
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(215, 215, 215);
+    transition: border 0.25s ease-in-out;
+    scrollbar-width: none;
+    color: #505050;
+}
+
+body.overlay-active .popup-modal .popup-content .content textarea:focus {
+    border: 1px solid rgb(175, 175, 175);
+}
+
+body.overlay-active .popup-modal .popup-content .footer {
+    display: flex;
+    padding-block: 0.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+body.overlay-active .popup-modal .popup-content .footer button {
+    padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    outline: 0;
+    border: 1px solid #e3e3e3;
+    transition: background 0.25s ease-in-out, color 0.25s ease-in-out, scale 0.1s ease-in-out;
+}
+
+body.overlay-active .popup-modal .popup-content .footer button:active {
+    scale: 0.95;
+}
+
+body.overlay-active .popup-modal .popup-content .footer .prmry-btn {
+    background: #1e1e1e;
+    color: white;
+}
+
+body.overlay-active .popup-modal .popup-content .footer .prmry-btn:hover {
+    background: #3b3b3b;
+}
+
+body.overlay-active .popup-modal .popup-content .footer .scndry-btn:hover {
+    background: #e8e8e8;
+}
+
 .weeklySurvey {
     background: var(--main-color);
     flex: 2;
-
+    padding-bottom: 3rem !important;
+    position: relative;
 }
-.post-head {
+
+.weeklySurvey .reactions {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.weeklySurvey .reactions button {
+    width: 100%;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border: 0;
+    font-size: 0.9rem;
+}
+
+.f-row {
+    display: flex;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .post-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-weight: 600;
     text-transform: capitalize;
-}
-.post-title {
+} */
+
+/* .post-title {
     color: var(--black-3);
-}
+} */
+
 .topContent {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
 .topContent > div {
     background: var(--main-color);
     border-radius: 1.15rem;
 }
+
 .survTime {
     display: flex;
     align-items: center;
     gap: 0.35rem;
 }
+
 .survTime span {
     color: var(--grey-3);
 }
+
 .survey-title {
     font-weight: 600;
 }
+
 .surveyContent {
     padding: 0.75rem 0.25rem;
     display: flex;
@@ -41,6 +233,7 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
 .surveyContent span {
     display: flex;
     gap: 0.5rem;
@@ -49,18 +242,22 @@
     padding: 0.25rem 0.5rem;
     font-weight: 400;
 }
+
 .surveyContent span:hover {
     background: var(--grey-1);
     transition: color 0.2s ease;
 }
+
 .surveyContent span:has(input:checked) {
     background: #ecf2ff;
     color: #3c6ac0;
     font-weight: 500;
 }
+
 .surveyContent span label {
     flex: 1;
 }
+
 .btns,
 .last-surveys {
     flex: 1;
@@ -68,6 +265,7 @@
     min-width: 20rem;
     position: relative;
 }
+
 .past-surv-link {
     text-decoration: none;
     font-weight: 500;
@@ -81,20 +279,24 @@
     bottom: 0.5rem;
     transform: translate(-50%, -50%);
 }
+
 .past-surv-link:hover {
     background: var(--link-color-bg-dark);
 }
+
 .content {
     height: 100%;
 }
-.post {
+
+/* .post {
     background: var(--main-color);
     gap: 1rem;
     padding-bottom: 4rem;
     outline: 0px solid var(--grey-5);
     overflow: hidden;
     transition: filter 0.5s ease, outline 0.25s ease;
-}
+} */
+
 .top {
     display: flex;
     align-items: center;
@@ -104,54 +306,348 @@
 #postMenu:checked ~ .btn-2 {
     background: var(--grey-5);
 }
+
 #postMenu {
     display: none;
 }
-#postMenu:checked ~ .btn-2 {
-    background: var(--grey-5);
-}
-.post-details {
+
+.posts-container {
     display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.post {
+    background: #ffffff;
+    width: 100%;
+    padding: 1rem 1.5rem 0.75rem;
+    border-radius: 1rem;
+    border: 1px solid #efefef;
+    gap: 1rem;
+}
+
+.post .content {
+    gap: 0.5rem;
+}
+
+.post .content .profile {
+    position: relative;
     align-items: center;
     gap: 0.75rem;
+    padding-bottom: 0.75rem;
 }
-.post-details .img {
+
+.post .content .profile::after {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    right: -1.5rem;
+    top: 100%;
+    height: 2px;
+    background: #efefef;
+}
+
+.post .content .profile .pro-img {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
     background: grey;
 }
-.post-details .name {
+
+.post .content .profile .post-details {
+    gap: 0.25rem;
+}
+
+.post .content .profile .post-details .name {
+    font-weight: 500;
+}
+
+.post .content .profile .post-details .posted-date {
+    margin-top: -0.25rem;
+    font-size: 0.8rem;
+    color: grey;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post .content .text-content {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    color: #333333;
+}
+
+.post .content .post-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.post .content .post-images div {
+    width: 100%;
+    height: 15rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.post .content img {
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.post .footer {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post .footer .post-reactions button {
+    border: none;
+    padding: 0.5rem;
+    background: transparent;
+    font-size: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: background 0.3s ease-in-out;
+    cursor: pointer;
+    color: #333333;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+.post .footer .post-reactions button:hover {
+    background: #f2faff;
+}
+
+.post .footer .post-reactions button:hover i {
+    color: #2b3762;
+}
+
+.post .footer .post-reactions button i {
+    color: grey;
+    transition: 0.25s ease;
+}
+
+.post .footer .react-amount {
+    color: grey;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.dot {
+    width: 0.25rem;
+    height: 0.25rem;
+    background: grey;
+    border-radius: 50%;
+}
+
+.comment-section {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-section.popup-active {
+    display: flex;
+}
+
+.comment-section .popup-container {
+    background: #ffffff;
+    border-radius: 1rem;
+    min-width: 30rem;
+    max-width: 40rem;
+    min-height: 10rem;
+    max-height: 50rem;
+    border: 1px solid #efefef;
+    position: relative;
+}
+
+.comment-section .popup-container > div {
+    padding: 1rem 1.5rem 0.75rem;
+}
+
+.comment-section .popup-container .top {
+    border-bottom: 1px solid #dcdcdc;
+    font-weight: 600;
+    font-size: 1.1rem;
+    justify-content: left;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.comment-section .popup-container .top .icon {
+    border: 1px solid rgb(215, 215, 215);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: rgb(74, 74, 74);
+}
+
+.comment-section .popup-container .top .cls-btn {
+    position: absolute;
+    top: 1.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 1rem;
+    background: rgb(245, 245, 245);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333333;
+}
+
+.comment-section .popup-container .top .cls-btn:hover {
+    background: #ededed;
+}
+
+.comment-section .popup-container .top .cls-btn i {
+    font-size: 1rem;
+}
+
+.comment-section .popup-container .content {
+    background: #f4f4f4;
+    min-height: 5rem;
+    max-height: 30rem;
+    gap: 0.75rem;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.comment-section .popup-container .content .comment {
+    padding: 0.75rem 0.75rem;
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid #efefef;
+    gap: 0.5rem;
+}
+
+.comment-section .popup-container .content .comment:hover {
+    background: #f8fdff;
+    border: 1px solid #dfe7ed;
+}
+
+.comment-section .popup-container .content .comment .cmnt-head {
+    gap: 0.5rem;
+}
+
+.comment-section .popup-container .content .comment .cmnt-head .profile-img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: grey;
+}
+
+.comment-section .popup-container .content .comment .cmnt-head .cmnt-details {
+    text-transform: capitalize;
+}
+
+.comment-section .popup-container .content .comment .cmnt-head .cmnt-details .name {
     font-size: 0.9rem;
     font-weight: 500;
 }
-.posted-date {
-    display: flex;
+
+.comment-section .popup-container .content .comment .cmnt-head .cmnt-details .com-date {
+    font-size: 0.8rem;
     align-items: center;
-    font-size: 0.75rem;
-    color: var(--grey-3);
-    gap: 0.45rem;
+    gap: 0.25rem;
+    color: grey;
 }
-.post .content {
+
+.comment-section .popup-container .content .comment .cmnt-body {
+    font-size: 0.85rem;
+}
+
+.comment-section .popup-container .footer {
+    border-top: 1px solid #dcdcdc;
+    overflow: auto;
+}
+
+.comment-section .popup-container .footer .comment-input-field {
+    position: relative;
+}
+
+.comment-section .popup-container .footer .comment-input-field textarea {
+    width: 100%;
+    height: 4rem;
+    padding: 0.5rem 4.5rem 0.5rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid #efefef;
+    background: #f4f4f4;
+    resize: none;
     font-size: 0.9rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    font-family: inherit;
+    scrollbar-width: thin;
+    outline: 1px solid transparent;
+    transition: all 0.25s ease;
 }
-.hashtags {
-    color: var(--primary-color);
+
+.comment-section .popup-container .footer .comment-input-field textarea:focus {
+    outline: 1px solid #aaafc4;
+    padding-bottom: 3rem;
+    height: 7rem;
 }
+
+.comment-section .popup-container .footer .comment-input-field textarea:valid {
+    padding-bottom: 3rem;
+    height: 7rem;
+}
+
+.comment-section .popup-container .footer .comment-input-field .send-btn {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 1rem;
+    background: #4a92f1;
+    color: white;
+    border-radius: 0.75rem;
+    border: 0;
+    transition: all 0.25s ease;
+}
+
+.comment-section .popup-container .footer .comment-input-field .send-btn:hover {
+    background: #7c66e1;
+}
+
+button {
+    text-transform: capitalize;
+    font-family: inherit;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
 button .count {
     margin-right: -0.75rem;
     color: var(--grey-3);
 }
+
 .post:has(#postMenu:checked) {
     outline: 1px solid var(--grey-5);
     filter: contrast(0.96);
 }
+
 div:has(.post-dropDownMenu) {
     position: relative;
 }
+
 .post-dropDownMenu {
     display: none;
     position: absolute;
@@ -164,15 +660,18 @@ div:has(.post-dropDownMenu) {
     overflow: hidden;
     width: max-content;
 }
+
 .post-dropDownMenu ul {
     position: relative;
     z-index: 1;
 }
+
 .post-dropDownMenu li {
     list-style: none;
     text-transform: capitalize;
     font-size: 0.85rem;
 }
+
 .post-dropDownMenu li a {
     display: block;
     border-bottom: 1px solid var(--grey-1);
@@ -181,12 +680,15 @@ div:has(.post-dropDownMenu) {
     text-decoration: none;
     width: 100%;
 }
+
 .post-dropDownMenu li a:hover {
     background: var(--grey-5);
 }
+
 #postMenu:checked ~ .post-dropDownMenu {
     display: block;
 }
+
 .topContent .addPost-btn {
     display: flex;
     align-items: center;
@@ -197,22 +699,16 @@ div:has(.post-dropDownMenu) {
     color: var(--main-color);
     outline: 0px solid var(--border-color);
 }
+
 .greeting {
     font-size: 1.25rem;
 }
+
 .content div:not(.greeting) {
     font-size: 0.875rem;
 }
-.reactions {
-    width: 100%;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    left: 0;
-    bottom: 0;
-}
-.reactions > button {
+
+/* .reactions > button {
     color: rgb(83, 83, 83);
     border-radius: 0;
     border: 0px;
@@ -225,33 +721,25 @@ div:has(.post-dropDownMenu) {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-}
-.post {
-    border-radius: 1.15rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-}
-.post.reactable {
-    padding-bottom: 3rem !important;
-}
+} */
+
 .post.reacted .like,
 .post.reacted .like .count {
     color: var(--primary-color);
 }
+
 #vote-btn {
     background: var(--primary-color);
     color: white;
     font-weight: 600;
     letter-spacing: 0.25px;
 }
+
 .social-btns {
     background: transparent !important;
     gap: 1rem;
 }
+
 .social-btns > div {
     cursor: pointer;
     padding: 1.5rem 2rem;
@@ -260,12 +748,11 @@ div:has(.post-dropDownMenu) {
     transition: scale 0.25s ease;
     border-radius: 1.15rem;
 }
-.social-btns > div:hover {
-    scale: 0.98;
-}
+
 .social-btns > div:hover {
     scale: 0.96;
 }
+
 .req-fundraising {
     flex: 1;
     padding: 1.5rem 2rem;
@@ -275,68 +762,138 @@ div:has(.post-dropDownMenu) {
     justify-content: center;
     color: var(--main-color);
 }
+
 .req-fundraising .title {
     font-weight: 600;
     font-size: 1.45rem;
 }
+
 #vote-btn.submitted {
     background: #5490FF;
 }
+
 @media screen and (max-width: 1349px) {
-    .social-btns{
+    .social-btns {
         width: 100%;
     }
-    .addPost-btn{
+    .addPost-btn {
         width: 100%;
         flex: 1;
     }
-    .req-fundraising{
+    .req-fundraising {
         width: 50%;
         flex: 1;
     }
-    .weeklySurvey{
-        flex: 1;
-    }
-    .weeklySurvey{
+    .weeklySurvey {
         flex: 1;
     }
 }
+
 @media screen and (max-width: 1280px) {
-    .weeklySurvey{
+    .weeklySurvey {
         width: 100%;
     }
 }
-@media screen and (max-width: 1040px){
-    .weeklySurvey{
+
+@media screen and (max-width: 1040px) {
+    .weeklySurvey {
         width: 100%;
     }
 }
-@media screen and (max-width: 960px){
-    html{
+
+@media screen and (max-width: 960px) {
+    html {
         font-size: 1.25rem;
     }
-    .topContent{
+    .topContent {
         flex-direction: column;
     }
-    .addPost-btn{
+    .addPost-btn {
         width: 100%;
     }
 }
+
 .addPost-btn .content {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-form{
-    width: 100%;
-}
-.caption-box{
+
+.caption-box {
     width: 100%;
     padding-inline: 0 !important;
 }
-#post-desc{
+
+#post-desc {
     width: 100% !important;
     resize: none;
     height: 10rem;
     margin-top: 0.25rem;
+}
+
+.new-post-photo {
+    width: 100%;
+    min-width: 30rem;
+}
+
+.new-post-photo .action {
+    border: 1px solid rgb(215, 215, 215);
+    padding: 0.75rem 1rem 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    background: white;
+}
+
+.new-post-photo .action input[type="file"] {
+    display: none;
+}
+
+.new-post-photo .action .custom-photo-btn {
+    padding: 0.5rem 1.25rem;
+    background: #f8f8f8;
+    border: 1px solid #e4e4e4;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #4c4c4c;
+    cursor: pointer;
+    width: fit-content;
+    transition: all 0.25s ease;
+}
+
+.new-post-photo .action .custom-photo-btn:hover {
+    background: #f3f3f3;
+}
+
+.new-post-photo .action .custom-photo-btn:active {
+    scale: 0.95;
+}
+
+.new-post-photo .action #file-preview ul {
+    margin-top: 1rem;
+}
+
+.new-post-photo .action #file-preview ul li {
+    padding: 0.5rem 0 0;
+    border-radius: 1rem;
+    font-style: italic;
+}
+
+.new-post-photo .action .image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.new-post-photo .action .image-preview img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button,
+label {
+    user-select: none !important;
 }
