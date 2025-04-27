@@ -30,57 +30,57 @@
     </div>
     <div class="headerBtns">
         <div class="headerBtn">
-            <input type="checkbox" name="notifi" id="notificationBtn" />
-            <label for="notificationBtn" class="btn">
-                <i class="fa-solid fa-bell"></i>
-            </label>
-            <span class="tip">notifications</span>
-            <div class="dropDownMenu">
-                <ul>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span>Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span>Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification">
-                            <div class="noti-img"></div>
-                            <div class="noti-title">
-                                <div class="notification-from">
-                                    Ranil wickramasinghe
-                                </div>
-                                <span>Lorem, ipsum dolor sit amet
-											consectetur adipisicing elit. Qui,
-											ullam. Quos aperiam in re</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <a href="./Announcements/announcements.html" class="bottom-btn small-text capitalize">
-                    see all notifications
-                </a>
-            </div>
+<%--            <input type="checkbox" name="notifi" id="notificationBtn" />--%>
+<%--            <label for="notificationBtn" class="btn">--%>
+<%--                <i class="fa-solid fa-bell"></i>--%>
+<%--            </label>--%>
+<%--            <span class="tip">notifications</span>--%>
+<%--            <div class="dropDownMenu">--%>
+<%--                <ul>--%>
+<%--                    <li>--%>
+<%--                        <a href="#" class="notification">--%>
+<%--                            <div class="noti-img"></div>--%>
+<%--                            <div class="noti-title">--%>
+<%--                                <div class="notification-from">--%>
+<%--                                    Ranil wickramasinghe--%>
+<%--                                </div>--%>
+<%--                                <span>Lorem, ipsum dolor sit amet--%>
+<%--											consectetur adipisicing elit. Qui,--%>
+<%--											ullam. Quos aperiam in re</span>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="#" class="notification">--%>
+<%--                            <div class="noti-img"></div>--%>
+<%--                            <div class="noti-title">--%>
+<%--                                <div class="notification-from">--%>
+<%--                                    Ranil wickramasinghe--%>
+<%--                                </div>--%>
+<%--                                <span>Lorem, ipsum dolor sit amet--%>
+<%--											consectetur adipisicing elit. Qui,--%>
+<%--											ullam. Quos aperiam in re</span>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="#" class="notification">--%>
+<%--                            <div class="noti-img"></div>--%>
+<%--                            <div class="noti-title">--%>
+<%--                                <div class="notification-from">--%>
+<%--                                    Ranil wickramasinghe--%>
+<%--                                </div>--%>
+<%--                                <span>Lorem, ipsum dolor sit amet--%>
+<%--											consectetur adipisicing elit. Qui,--%>
+<%--											ullam. Quos aperiam in re</span>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--                <a href="./Announcements/announcements.html" class="bottom-btn small-text capitalize">--%>
+<%--                    see all notifications--%>
+<%--                </a>--%>
+<%--            </div>--%>
         </div>
         <div class="headerBtn">
             <input type="checkbox" name="profile" id="profileBtn" />
@@ -91,7 +91,8 @@
             <div class="dropDownMenu">
                 <div class="profile">
                     <a href="http://localhost:8080/Parlimate/Profile/profile.jsp">
-                        <div class="img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" /></div>
+                        <div class="img"><img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.profileImg}"
+                                              alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" /></div>
                         <div class="details">
                             <div class="name medium-text bold">
                                 ${userProfile.name}

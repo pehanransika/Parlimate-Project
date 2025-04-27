@@ -56,7 +56,6 @@
 </head>
 
 <body class>
-
 <form action="CreateRequestServlet" method="post" class="popup-f" id="popup-f" enctype="multipart/form-data">
   <div class="bg"></div>
   <div class="fund-popup col">
@@ -414,7 +413,8 @@
     <div class="topContent">
       <div class="social-btns col">
         <div class="addPost-btn">
-          <div class="prof-img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'"/></div>
+          <div class="prof-img"><img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.profileImg}"
+                                     alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'"/></div>
           <div class="content">
             <div class="greeting">
               Hello <span class="userName">${userProfile.name}</span>
@@ -428,56 +428,56 @@
           </div>
         </div>
       </div>
-      <div class="weeklySurvey post votelist reactable">
-        <div class="post-head small-title">
-          <div class="post-title">
-            weekly survey
-            <span class="btn round"><i class="fa-solid fa-info"></i></span>
-          </div>
-          <div class="survTime">
-            survey ends in :
-            <span class="time">
-							<span class="sur-end-day">5</span> days
-							<span class="sur-end-hour">12</span> hours
-						</span>
-          </div>
-        </div>
-        <div class="survey-title">
-          Who will be the next president of Sri Lanka?
-        </div>
-        <div class="surveyContent capitalize">
-					<span>
-						<input type="radio" name="week-survey" id="survey-1"/>
-						<label for="survey-1">mahinda rajapakse</label>
-					</span>
-          <span>
-						<input type="radio" name="week-survey" id="survey-2"/>
-						<label for="survey-2">ranil wickramasinghe</label>
-					</span>
-          <span>
-						<input type="radio" name="week-survey" id="survey-3"/>
-						<label for="survey-3">anura kumara dissanayake</label>
-					</span>
-          <span>
-						<input type="radio" name="week-survey" id="survey-4"/>
-						<label for="survey-4">sajith wickramasinghe</label>
-					</span>
-        </div>
-        <div class="reactions">
-          <button class="btn" id="vote-btn">
-            submit my vote
-          </button>
-        </div>
-      </div>
-      <div class="last-surveys">
-        <div class="post-head medium-title">
-          Last surevy results
-        </div>
-        <div class="content">
-          fill this content with the last survey results
-        </div>
-        <a href="#" class="past-surv-link small-text">See past surevys</a>
-      </div>
+<%--      <div class="weeklySurvey post votelist reactable">--%>
+<%--        <div class="post-head small-title">--%>
+<%--          <div class="post-title">--%>
+<%--            weekly survey--%>
+<%--            <span class="btn round"><i class="fa-solid fa-info"></i></span>--%>
+<%--          </div>--%>
+<%--          <div class="survTime">--%>
+<%--            survey ends in :--%>
+<%--            <span class="time">--%>
+<%--							<span class="sur-end-day">5</span> days--%>
+<%--							<span class="sur-end-hour">12</span> hours--%>
+<%--						</span>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="survey-title">--%>
+<%--          Who will be the next president of Sri Lanka?--%>
+<%--        </div>--%>
+<%--        <div class="surveyContent capitalize">--%>
+<%--					<span>--%>
+<%--						<input type="radio" name="week-survey" id="survey-1"/>--%>
+<%--						<label for="survey-1">mahinda rajapakse</label>--%>
+<%--					</span>--%>
+<%--          <span>--%>
+<%--						<input type="radio" name="week-survey" id="survey-2"/>--%>
+<%--						<label for="survey-2">ranil wickramasinghe</label>--%>
+<%--					</span>--%>
+<%--          <span>--%>
+<%--						<input type="radio" name="week-survey" id="survey-3"/>--%>
+<%--						<label for="survey-3">anura kumara dissanayake</label>--%>
+<%--					</span>--%>
+<%--          <span>--%>
+<%--						<input type="radio" name="week-survey" id="survey-4"/>--%>
+<%--						<label for="survey-4">sajith wickramasinghe</label>--%>
+<%--					</span>--%>
+<%--        </div>--%>
+<%--        <div class="reactions">--%>
+<%--          <button class="btn" id="vote-btn">--%>
+<%--            submit my vote--%>
+<%--          </button>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--      <div class="last-surveys">--%>
+<%--        <div class="post-head medium-title">--%>
+<%--          Last surevy results--%>
+<%--        </div>--%>
+<%--        <div class="content">--%>
+<%--          fill this content with the last survey results--%>
+<%--        </div>--%>
+<%--        <a href="#" class="past-surv-link small-text">See past surevys</a>--%>
+<%--      </div>--%>
     </div>
 
     <div class="posts-container f-col"
@@ -494,10 +494,15 @@
           <div class="content f-col">
             <div class="profile f-row">
               <div class="pro-img">
-                <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${post.userId}"
+
+                <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${post.userId}/${userProfile.profileImg}"
                      alt="User Profile Image"
                      style="width: 100%; height: 100%; border-radius: 50%"
                      onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />
+<%--                <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${post.userId}"--%>
+<%--                     alt="User Profile Image"--%>
+<%--                     style="width: 100%; height: 100%; border-radius: 50%"--%>
+<%--                     onerror="this.src='${pageContext.request.contextPath}/images/Users/user.png'" />--%>
               </div>
               <div class="post-details f-col">
                 <div class="name capitalize">${post.name}</div>
@@ -535,11 +540,11 @@
                 <i class="fa-regular fa-share"></i>
               </button>
             </div>
-            <div class="react-amount f-row">
-              234 reacts
-              <span class="dot"></span>
-              96 comments
-            </div>
+<%--            <div class="react-amount f-row">--%>
+<%--              234 reacts--%>
+<%--              <span class="dot"></span>--%>
+<%--              96 comments--%>
+<%--            </div>--%>
           </div>
         </div>
 

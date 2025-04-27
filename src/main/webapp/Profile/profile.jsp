@@ -216,7 +216,7 @@
             </div>
         </div>
     </div>
-    <form id="editModal" class="modal" action="${pageContext.request.contextPath}/UserDetailUpdateServlet" method="post">
+    <form id="editModal" class="modal" action="UserDetailUpdateServlet" method="post" enctype="multipart/form-data">
         <div class="modal-content f-col">
             <div class="top f-row caps">
                 <div class="title">Account settings</div>
@@ -286,14 +286,16 @@
                 </div>
                 <div class="profile-pic f-col">
                     <div class="banner">
-                        <img src="./bg.jpg" alt="banner"/>
+                        <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.bannerImg}" alt="bg" style="width: 100%; height: 100%;"/>
                     </div>
                     <div class="profile f-col">
-                        <div class="image"></div>
+                        <div class="image"> <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.profileImg}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" /></div>
                         <div class="btns f-row">
-                            <button id="change-pp">Change profile</button>
-                            <button id="change-banner">Change banner</button>
+                            <button id="change-pp"><input type="file" id="profile-img" name="profile-img">
+                                Change profile</button>
                         </div>
+                        <button id="change-banner"><input type="file" id="banner-img" name="banner-img">
+                            Change banner</button>
                     </div>
                 </div>
             </div>
@@ -358,10 +360,11 @@
     <div class="profile-container f-col" data-user-id="${user.userId}">
         <div class="profile-imgs">
             <div class="cover-photo">
-                <img src="bg.jpg" alt="bg"/>
+                <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.bannerImg}" alt="bg" style="width: 100%; height: 100%;"/>
             </div>
             <div class="profile-photo">
-            <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" />
+<%--            <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" />--%>
+                <img src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/images/user_${user.userId}/${userProfile.profileImg}" alt="User Profile Image" style="width: 100%; height: 100%; border-radius: 50%" />
         </div>
         </div>
         <div class="profile-details f-col">

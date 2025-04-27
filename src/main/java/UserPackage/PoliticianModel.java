@@ -10,6 +10,8 @@ public class PoliticianModel  {
     private String district;
     private String province;
     private String politicalView;
+    private String profileImg;
+    private String bannerImg;
 
 
     public PoliticianModel(int userId,int politicianId, String name, String address, String phoneNumber,
@@ -53,4 +55,9 @@ public class PoliticianModel  {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public String getProfileImg() { return profileImg; }
+    public void setProfileImg(String profileImg) { this.profileImg = profileImg; }
+    public String getBannerImg() { return bannerImg; }
+    public void setBannerImg(String bannerImg) { this.bannerImg = bannerImg; }
 }

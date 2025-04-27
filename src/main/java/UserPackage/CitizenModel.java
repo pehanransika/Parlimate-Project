@@ -9,6 +9,8 @@ public class CitizenModel  {
     private String district;
     private String province;
     private String politicalView;
+    private String profileImg;
+    private String bannerImg;
 
 
     public CitizenModel(int citizenId, int userId, String address, String phoneNumber, String name,  String district, String province, String political_view) {
@@ -50,4 +52,9 @@ public class CitizenModel  {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public String getProfileImg() { return profileImg; }
+    public void setProfileImg(String profileImg) { this.profileImg = profileImg; }
+    public String getBannerImg() { return bannerImg; }
+    public void setBannerImg(String bannerImg) { this.bannerImg = bannerImg; }
 }

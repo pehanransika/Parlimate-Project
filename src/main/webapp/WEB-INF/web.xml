@@ -52,6 +52,17 @@
     <url-pattern>/Profile/ChangePasswordServlet</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>UserDetailUpdateServlet</servlet-name>
+    <servlet-class>UserPackage.UserDetailUpdateServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UserDetailUpdateServlet</servlet-name>
+    <url-pattern>/Profile/UserDetailUpdateServlet</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>GetMyAnnouncements</servlet-name>
     <servlet-class>com.ann.GetMyAnnouncements</servlet-class>

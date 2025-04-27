@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PoliticianController {
 
-    // Method to insert a new politician record without political party ID
+
     public static boolean insertPolitician(int userId, String name, String address, String phoneNumber) {
         // SQL query to insert politician record
         String insertPoliticianSQL = "INSERT INTO politician (user_id, name, address, phone_number) VALUES (?, ?, ?, ?);";
@@ -89,7 +89,6 @@ public class PoliticianController {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
-            System.out.println("Executing query: " + stmt.toString());
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -101,11 +100,14 @@ public class PoliticianController {
                     int politicalPartyId = rs.getInt("political_party_id");
                     String district = rs.getString("district");
                     String province = rs.getString("province");
-                    String politicalView = rs.getString("political_view");
+                    String political_view = rs.getString("political_view");
+                    String profile_img = rs.getString("profile_img_url");
+                    String banner_img = rs.getString("banner_img_url");
 
-                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId , district, province, politicalView);
+                    PoliticianModel politician = new PoliticianModel(userId, politicianId, name, address, phoneNumber, politicalPartyId, district, province, political_view);
+                    politician.setProfileImg(profile_img);
+                    politician.setBannerImg(banner_img);
                     politicians.add(politician);
-                    System.out.println("Fetched politician: " + name);
                 }
             }
 
@@ -114,7 +116,6 @@ public class PoliticianController {
             e.printStackTrace();
         }
 
-        System.out.println("Total Politicians Found: " + politicians.size());
         return politicians;
     }
 
@@ -224,6 +225,26 @@ public class PoliticianController {
 
         // Return null if no politician is found or an error occurs
         return null;
+    }
+
+    public static boolean updatePoliticianProfile(int userId, String name, String address, String phoneNumber, String district, String province, String political_view,String profile_image_url,String banner_image_url){
+        String query = "UPDATE politician SET name='"+name+"', address='"+address+"', phone_number='"+phoneNumber+"', district='"+district+"', province='"+province+"', political_view='"+political_view+"' , profile_img_url='"+profile_image_url+"' , banner_img_url = '"+banner_image_url+"' WHERE user_id='"+userId+"'" ;
+
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            if(rowsUpdated > 0){
+                System.out.println("Updated Politician Profile");
+            }
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("not Updated Politician Profile");
+            return false;
+        }
+
     }
 
 }
