@@ -584,6 +584,11 @@
 .filter-dropdown{
     && select{
         border-radius: 2rem;
+        transition: background 0.25s ease-out;
+
+        &&:hover{
+            background: #fafafa;
+        }
     }
 }
 .fund-btns-container{
