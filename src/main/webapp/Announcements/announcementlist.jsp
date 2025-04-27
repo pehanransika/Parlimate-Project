@@ -4,19 +4,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     HttpSession session1 = request.getSession(false); // false to not create a new session if one doesn't exist
-    if (session1 == null || session.getAttribute("user") == null) {
-// User is not logged in, redirect to login page
+    if (session1 == null || session1.getAttribute("user") == null) {
+        // User is not logged in, redirect to login page
         response.sendRedirect("../index.jsp");
         return;
     }
 %>
-
 <html>
 <head>
     <title>Announcements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link rel="stylesheet" href="../hashtag.css">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Announcements | Parlimate</title>
@@ -24,57 +21,21 @@
     <link rel="stylesheet" href="../index/sidebar1.css"/>
     <link rel="stylesheet" href="../index/header/header.css"/>
     <link rel="stylesheet" href="../container.css"/>
-    <link rel="stylesheet" href="./ann.css">
-    <!-- <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css""
-/> -->
-    <!-- icons -->
-    <link
-            rel="stylesheet"
-            data-purpose="Layout StyleSheet"
-            title="Web Awesome"
-            href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
-    />
+    <link rel="stylesheet" href="./ann.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"/>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"/>
+    <link rel="stylesheet" href="../hashtag.css"/>
 </head>
-
 <body>
-
 <%@ include file="../index/sidebar.jsp" %>
-
 <%@ include file="../index/header/header.jsp" %>
-<%--<a href="announcements.jsp">--%>
-<%--    <button class="back-button">--%>
-<%--        BACK--%>
-<%--    </button>--%>
-<%--</a>--%>
 <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
     <div class="popup-modal">
         <form class="popup-content" action="PublishAnnouncementServlet" method="post">
-            <!-- Announcement Form -->
             <div class="close-btn" id="popup-close-btn">
                 <i class="fa-solid fa-xmark"></i>
             </div>
@@ -82,13 +43,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                 <div class="icon">
                     <i class="fa-regular fa-bullhorn"></i>
                 </div>
-                <div class="title">publish an announcement</div>
+                <div class="title">Publish an Announcement</div>
             </div>
             <div class="content f-col">
-                <!-- Politician ID (hidden field) -->
                 <input type="hidden" name="politicianid" id="politicianid" value="${userProfile.politicianId}"/>
-
-                <!-- Announcement Title -->
                 <div class="discussion-title f-col">
                     <label for="add-post-title" class="title capitalize">Title</label>
                     <input
@@ -100,8 +58,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                             required
                     />
                 </div>
-
-                <!-- Announcement Content -->
                 <div class="caption-box col content-pd">
                     <label for="add-post-caption" class="title capitalize">Content</label>
                     <textarea
@@ -112,13 +68,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                             required
                     ></textarea>
                 </div>
-
-                <!-- Form Buttons -->
             </div>
             <div class="popbtns footer f-row capitalize">
-                <button type="reset" class="clear-btn scndry-btn" id="popup-clear-btn">
-                    Clear
-                </button>
+                <button type="reset" class="clear-btn scndry-btn" id="popup-clear-btn">Clear</button>
                 <button type="submit" class="post-btn prmry-btn" id="popup-post-btn">
                     Post Announcement <i class="fa-solid fa-check"></i>
                 </button>
@@ -127,31 +79,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     </div>
 </c:if>
 <div class="container">
-
     <div class="announcement-list f-col">
         <div class="top f-row">
             <div class="pageTitles">
                 <h2 class="title">Announcements</h2>
-                <div class="subTitle">
-                    Politicians and political parties announcements
-                </div>
+                <div class="subTitle">Politicians and political parties announcements</div>
             </div>
             <c:if test="${user.userType == 'Politician' || user.userType == 'Political Party'}">
                 <div class="ann-btns-2 row">
                     <div class="dropdown">
-                        <div class="dropdown-toggle f-row">Actions<i class="fa-regular fa-circle-chevron-down"></i>
-                        </div>
+                        <div class="dropdown-toggle f-row">Actions<i class="fa-regular fa-circle-chevron-down"></i></div>
                         <div class="dropdown-menu f-col">
                             <button class="add-announcement" id="add-announcement">
                                 <i class="fa-solid fa-plus"></i>
-                                <span>add announcement</span>
+                                <span>Add Announcement</span>
                             </button>
                             <a href="GetMyAnnouncements?politicianId=${userProfile.politicianId}">
-                            <button class="add-announcement">
-                                <i class="fa-solid fa-eye"></i>
-                                <span>View My Announcements</span>
-                            </button>
-                        </a>
+                                <button class="add-announcement">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span>View My Announcements</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -171,14 +119,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                             <div class="announcement-info">
                                 <div class="author f-row">
                                     <div class="details">
-                                    <span class="postedby">By
-                                        <span class="pol-name">
-                                                ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}
-                                        </span>
+                                        <span class="postedby">By
+                                            <span class="pol-name">
+                                                    ${announcement.politicianName != null ? announcement.politicianName : "Unknown"}
+                                            </span>
                                         </span>
                                         <div class="ann-date f-row">
                                             <i class="fa-solid fa-clock-seven"></i>
-                                            <span class=" formatDate" data-date="${announcement.datetime}">
+                                            <span class="formatDate" data-date="${announcement.datetime}">
                                                     ${announcement.datetime}
                                             </span>
                                         </div>
@@ -191,19 +139,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
                             <span class="ann-content hashtags">${announcement.content}</span>
                         </div>
                     </div>
-
                 </li>
             </c:forEach>
         </ul>
     </div>
-
 </div>
-
 <script src="../hashtag.js"></script>
-<!-- Update Announcement Popup Modal -->
 <script>
-    console.log(document.getElementById("politicianid").value, typeof (document.getElementById("politicianid").value))
-
     let sideMenuBtns = document.querySelectorAll(".sideMenuBtn");
     const body = document.querySelector("body");
     const navRadios = document.querySelectorAll('input[name="nav"]');
@@ -225,7 +167,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         if (!body.classList.contains("popup-active")) {
             body.classList.add("popup-active");
         }
-        console.log("clicked")
     });
     popCloseBtn.addEventListener("click", () => {
         if (body.classList.contains("popup-active")) {
@@ -233,9 +174,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         }
     });
 
+    navRadios.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        });
+    });
 </script>
 <script>
-    // Format dates on page load
     document.addEventListener('DOMContentLoaded', function () {
         const dateElements = document.querySelectorAll('.formatDate');
         dateElements.forEach(element => {
@@ -254,10 +202,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         processHashtags();
     });
-
-
 </script>
 <script src="../script.js"></script>
 </body>
-
 </html>
