@@ -199,11 +199,22 @@
 
                                 <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
                             </div>
-                            <div class="tel">
-                                <input type="tel" class="general-user inp-field" placeholder="Contact number" name="phoneNumber" id="telNumber-signup" minlength="10" maxlength="10" required pattern="^0\d*$" />
+                            <div class="pswrd">
+                                <input
+                                        type="password"
+                                        class="inp-field"
+                                        placeholder="Confirm Password"
+                                        id="confirmpassword"
+                                        name="confirmPassword"
+                                        required
+                                        minlength="6"
+                                        pattern="^(?=.[A-Z])(?=.[!@#$%^&*()_+={}\[\]:;,.<>?/-]).{6,}$"
+                                />
+
+                                <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
                             </div>
                         </div>
-                        <input type="text" name="address" id="singup-address" class="inp-field general-user" placeholder="Address" required />
+                            <input type="tel" class="general-user inp-field" placeholder="Contact number" name="phoneNumber" id="telNumber-signup" minlength="10" maxlength="10" required pattern="^0\d*$" />
                         <select name="district" class="general-user" id="district" required>
                             <option value="invalid" disabled="disabled" selected>District</option>
                             <option value="colombo">Colombo</option>
@@ -232,8 +243,10 @@
                             <option value="batticaloa">Batticaloa</option>
                             <option value="ampara">Ampara</option>
                         </select>
-
-
+                        <div>
+                              <input type="text" class="general-user inp-field" placeholder="OTP" name="otp" id="otp" required/>
+                            <button type="button" class="btn" onclick="sendOTP()">Send OTP</button>
+                        </div>
                         <!-- Validation for Politician and Party -->
                         <div class="nic-field row-fields general-user politician-inputs">
                             <label for="nic-front">
@@ -288,6 +301,38 @@
     </form>
 </div>
 <script>
+    function sendOTP() {
+        // You can also get email value from a field if needed
+        const email = document.getElementById('singup-email').value;
+        console.log(email);// assuming you have an email input
+
+        fetch('SendOTPServlet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'email=' + encodeURIComponent(email)
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // show success or failure message from server
+            })
+            .catch(error => {
+                console.error('Error sending OTP:', error);
+                alert('Failed to send OTP. Please try again.');
+            });
+    }
+
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmpassword');
+
+    // When the user submits the form
+    password.form.addEventListener('submit', function(event) {
+        if (password.value !== confirmPassword.value) {
+            event.preventDefault(); // Stop form submitting
+            alert('Passwords do not match!');
+        }
+    });
     function validateForm() {
         // Get the form inputs
         const email = document.getElementById("singup-email");
