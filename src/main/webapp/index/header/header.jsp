@@ -91,7 +91,7 @@
             <div class="dropDownMenu">
                 <div class="profile">
                     <a href="http://localhost:8080/Parlimate/Profile/profile.jsp">
-                        <div class="img"></div>
+                        <div class="img"><img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" /></div>
                         <div class="details">
                             <div class="name medium-text bold">
                                 ${userProfile.name}

@@ -101,6 +101,8 @@
 <body>
 <%@ include file="../index/sidebar.jsp" %>
 <%@ include file="../index/header/header.jsp" %>
+
+
 <div class="container">
     <div id="interestsModal" class="modal">
         <div class="modal-content">
@@ -306,6 +308,7 @@
             </div>
         </div>
     </form>
+
     <!-- Password Change Modal -->
     <form id="passwordModal" class="modal" action="${pageContext.request.contextPath}/Profile/ChangePasswordServlet" method="post">
         <div class="modal-content f-col">
@@ -358,8 +361,8 @@
                 <img src="bg.jpg" alt="bg"/>
             </div>
             <div class="profile-photo">
-                <img src="https://i.pravatar.cc/200" alt="" srcset=""/>
-            </div>
+            <img src="${pageContext.request.contextPath}/GetUserImageServlet?userId=${userProfile.userId}" alt="User Profile Image" />
+        </div>
         </div>
         <div class="profile-details f-col">
             <div class="user-basic f-row">
@@ -385,6 +388,9 @@
                         <i class="fa-solid fa-pen-to-square"></i>edit
                     </button>
                 </div>
+                <button class="user-image-btn">
+                    <i class="fa-solid fa-pen-to-square"></i>Image Upload
+                </button>
             </div>
         </div>
     </div>
@@ -396,7 +402,7 @@
         <div class="post-container" id="posts-container" data-user-id="${userProfile.userId}">
             <div class="post-card">
                 <div class="post-header">
-                    <img src="https://i.pravatar.cc/50" alt="User Avatar" class="post-avatar"/>
+                    <img src="<%= request.getContextPath() %>/Profile/GetUserImageServlet?userId=${userProfile.userId}"/>
                     <div class="post-user-info">
                         <h4 class="username">${userProfile.name}</h4>
                         <span class="post-time">2 hours ago</span>
@@ -438,10 +444,112 @@
         </div>
     </div>
 </div>
+
+<!-- Image Upload Modal -->
+<form id="imageUploadModal" class="modal" action="${pageContext.request.contextPath}/Profile/ImageUploadServlet" method="post" enctype="multipart/form-data">
+    <div class="modal-content f-col">
+        <div class="top f-row caps">
+            <div class="title">Upload Profile Image</div>
+            <div class="close-btn f-row">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="center f-col">
+            <div class="info f-col">
+                <div class="title">Select an Image</div>
+                <div class="desc">
+                    Upload a new profile picture. Supported formats: JPG, PNG. Maximum size: 5MB.
+                </div>
+            </div>
+            <div class="error-message" id="image-error"></div>
+            <div class="image-input f-col">
+                <label for="profile-image">Choose Image</label>
+                <input type="file" id="profile-image" name="profileImage" accept="image/jpeg, image/png" required />
+            </div>
+            <input type="hidden" name="userId" value="${user.userId}" />
+        </div>
+        <div class="footer f-row caps">
+            <div class="action f-row">
+                <button type="button" class="cancel-image-btn">Cancel</button>
+                <input type="submit" value="Upload Image" id="upload-image-btn" class="save-btn" />
+            </div>
+        </div>
+    </div>
+</form>
+
 </body>
 <script src="../script.js"></script>
 <script src="./popupModals.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageUploadBtn = document.querySelector('.user-image-btn');
+        const imageUploadModal = document.getElementById('imageUploadModal');
+        const cancelImageBtn = document.querySelector('.cancel-image-btn');
+        const closeImageBtn = imageUploadModal.querySelector('.close-btn');
+        const imageForm = imageUploadModal.querySelector('form');
+        const imageError = document.getElementById('image-error');
+
+        // Open the image upload modal
+        imageUploadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            imageUploadModal.style.display = 'block';
+            imageError.style.display = 'none';
+        });
+
+        // Close the modal when cancel is clicked
+        cancelImageBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            imageUploadModal.style.display = 'none';
+            imageForm.reset();
+            imageError.style.display = 'none';
+        });
+
+        // Close the modal when the close button (x) is clicked
+        closeImageBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            imageUploadModal.style.display = 'none';
+            imageForm.reset();
+            imageError.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === imageUploadModal) {
+                imageUploadModal.style.display = 'none';
+                imageForm.reset();
+                imageError.style.display = 'none';
+            }
+        });
+
+        // Validate file input on form submission
+        imageForm.addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('profile-image');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const validTypes = ['image/jpeg', 'image/png'];
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+                if (!validTypes.includes(file.type)) {
+                    e.preventDefault();
+                    imageError.textContent = 'Please upload a valid image (JPG or PNG).';
+                    imageError.style.display = 'block';
+                    alert('Error: Please upload a valid image (JPG or PNG).');
+                } else if (file.size > maxSize) {
+                    e.preventDefault();
+                    imageError.textContent = 'Image size exceeds 5MB.';
+                    imageError.style.display = 'block';
+                    alert('Error: Image size exceeds 5MB.');
+                }
+            } else {
+                e.preventDefault();
+                imageError.textContent = 'Please select an image to upload.';
+                imageError.style.display = 'block';
+                alert('Error: Please select an image to upload.');
+            }
+        });
+    });
+
     const dateField = document.querySelector(".joined-date .date");
     const formatedDate = formatDate(dateField.innerHTML);
     dateField.innerHTML = formatedDate;
