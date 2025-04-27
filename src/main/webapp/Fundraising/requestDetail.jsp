@@ -229,9 +229,8 @@
                 <select id="editCategory" name="category" required>
                     <option value="" disabled selected>--Select a Category--</option>
                     <option value="Education">Education</option>
-                    <option value="Health">Health</option>
-                    <option value="Environment">Environment</option>
-                    <option value="Community">Community</option>
+                    <option value="Health">Social</option>
+                    <option value="Community">Community Service</option>
                 </select>
             </div>
 
@@ -246,9 +245,7 @@
                     <option value="" disabled selected>--Select Currency--</option>
                     <option value="USD">LKR</option>
                     <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="INR">INR</option>
-                    <option value="GBP">GBP</option>
+
                 </select>
             </div>
 
